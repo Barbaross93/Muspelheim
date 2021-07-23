@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# Feed script a url or file location.
+# If an image, it will view in sxiv,
+# if a video or gif, it will view in mpv
+# if a music file or pdf, it will download,
+# otherwise it opens link in browser.
+
+# If no url given. Opens browser. For using script as $BROWSER.
+BROWSER="/home/barbarossa/.local/bin/qutebrowser"
+[ -z "$1" ] && { exit; }
+
+case "$1" in
+*mov | *mkv | *webm | *mp4 | *youtube.com/watch* | *youtube.com/playlist* | *youtu.be* | *hooktube.com* | *bitchute.com* | *mp3 | *flac | *opus | *mp3?source*)
+	setsid mpv --autofit=1366x768 --input-ipc-server=/tmp/mpvsoc$(date +%s) -quiet "$1" >/dev/null 2>&1 &
+	;;
+*torrent)
+	setsid transadd "$1" >/dev/null 2>&1 &
+	;;
+*pdf | *cbz | *cbr)
+	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///;s/%20/ /g")" && zathura "/tmp/$(echo "$1" | sed "s/.*\///;s/%20/ /g")" >/dev/null 2>&1 &
+	;;
+*png | *png* | *jpg | *jpg* | *jpe | *jpe* | *jpeg | *jpeg* | *gif)
+	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv -a "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1 &
+	;;
+#*reddit*unix* | *apod* | *xkcd* | *smbc-comics*)
+#	images=$(lynx -image_links -dump "$1" | grep '\. https\?://.*\.\(gif\|jpg\|png\)$' | cut -d . -f 2- | cut -d ' ' -f 2- | grep -v redditstatic | grep -v 'images/mob' | ddmenu -p Images:)
+#	test -n "$images" && linkhandler "$images"
+#	;;
+*)
+	if [ -z "$*" ]; then
+		exit 1
+	else
+		setsid $BROWSER "$1" >/dev/null 2>&1 &
+	fi
+	;;
+esac

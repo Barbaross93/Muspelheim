@@ -1,0 +1,24 @@
+#!/bin/sh
+
+sleep 0.1
+status=$(playerctl status)
+
+if [ "$status" = Playing ]; then
+	albumart=$(playerctl metadata mpris:artUrl)
+	albumartfetch=$(curl -s --output /tmp/large_cover.png $albumart)
+	random_name=$(mktemp --suffix ".png")
+	cp /tmp/large_cover.png "$random_name"
+	# Needed for ueberzug album art script
+	size=420
+	convert /tmp/large_cover.png -resize "$size"x"$size" /tmp/cover.png
+	###
+	info=$(playerctl metadata --format " Now Playing\t {{ title }} ({{ duration(mpris:length) }})\t {{ artist }}\t {{ album }}")
+	printf "TAG:spotify\tSEC:5\tBRD:#458588\tIMG:$random_name\t$info\n" >$XNOTIFY_FIFO
+elif [ "$status" = Paused ]; then
+	position=$(playerctl position --format "{{ duration(position) }}")
+	duration=$(playerctl metadata --format "{{ duration(mpris:length) }}")
+	formatted=" Playback Paused\tCurrent Position: $position/$duration"
+	printf "TAG:spotify\tSEC:5\tBRD:#458588\t$formatted\n" >$XNOTIFY_FIFO
+	#else
+	#notify-send -t 3000 -a Spotify -u low $'Something else besides play/paused happened.\nUpdate this script fool.'
+fi

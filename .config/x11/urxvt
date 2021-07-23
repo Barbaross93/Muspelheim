@@ -1,0 +1,79 @@
+#define BTMP_FONT -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
+#define BTMP_BLD_FONT -xos4-terminus-bold-r-normal--14-140-72-72-c-80-iso10646-1
+#define FONT Terminus
+#define ICON CozetteVector
+#define EMOJI Twemoji
+#define CJK Kochi Gothic
+#define NERD_FONT Hack Nerd Font Mono
+#define FONT_SIZE 12
+#define ICON_SIZE 9
+#define EMOJI_SIZE 8
+#define NERD_SIZE 10
+URxvt.font: BTMP_FONT, xft:ICON:size=ICON_SIZE:antialias=false, xft:CJK:size=FONT_SIZE:antialias=true, xft:NERD_FONT:size=NERD_SIZE:antialias=true:minspace=false, xft:EMOJI:size=EMOJI_SIZE:antialias=true
+URxvt.boldFont: BTMP_BLD_FONT, xft:ICON:size=ICON_SIZE:antialias=false,xft:CJK:size=FONT_SIZE:antialias=true, xft:NERD_FONT:size=NERD_SIZE:antialias=true:minspace=false, xft:EMOJI:size=EMOJI_SIZE:antialias=true
+URxvt.italicFont: 
+URxvt.boldItalicFont: 
+
+URxvt.depth:                    24
+URxvt*lineSpace:                0
+URxvt*letterSpace:            	0
+URxvt.iso14755:                 false
+URxvt.iso14755_52:              false
+URxvt*geometry:                 80x24
+URxvt.scrollBar:                false
+URxvt*loginShell:               true
+URxvt.internalBorder:           32
+URxvt.skipBuiltinGlyphs:        false
+
+URxvt.perl-ext:         				default,matcher,selection-to-clipboard,newterm,keyboard-select,clipboard-osc,resize-font
+URxvt.url-launcher:             linkhandler
+URxvt.matcher.button:         	1
+URxvt.keysym.M-r:           		perl:matcher:last
+URxvt.keysym.S-C-U:           	perl:matcher:list
+URxvt.keysym.M-l:           		perl:matcher:select
+URxvt.saveLine:         				10000
+URxvt.cursorBlink:        			true
+URxvt.cursorUnderline:    			true
+
+URxvt*inheritPixmap:          	false
+URxvt*transparent:            	false
+URxvt.termName:                 rxvt-unicode-256color
+
+! do not scroll with output
+URxvt*scrollTtyOutput:          false
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer:         true
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress:        true
+
+! open new term in same directory
+URxvt.keysym.Control-Shift-T:   perl:newterm
+
+! Incremental scroll
+URxvt.keysym.Shift-Up:          command:\033]720;1\007
+URxvt.keysym.Shift-Down:        command:\033]721;1\007
+
+! Helps scrolling in alt screens
+URxvt.secondaryScreen:          1
+URxvt.secondaryScroll:          0
+URxvt.secondaryWheel:           1
+
+! Re-bind copy and paste shortcuts
+URxvt.keysym.Control-Meta-c:    builtin-string:
+URxvt.keysym.Control-Meta-v:    builtin-string:
+
+URxvt.keysym.Shift-Control-V:   eval:paste_clipboard
+URxvt.keysym.Shift-Control-C:   eval:selection_to_clipboard
+
+! Activate keyboard-select
+URxvt.keysym.M-Escape: 					perl:keyboard-select:activate
+URxvt.keyboard-select.clipboard: true
+
+! Font resize settings
+URxvt.keysym.C-minus:     resize-font:smaller
+URxvt.keysym.C-plus:      resize-font:bigger
+URxvt.keysym.C-equal:     resize-font:reset
+URxvt.keysym.C-question:  resize-font:show
+URxvt.resize-font.step: 2
+
+! vim:ft=xdefaults

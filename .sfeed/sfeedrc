@@ -1,0 +1,34 @@
+sfeedpath="$HOME/.sfeed/feeds"
+
+# list of feeds to fetch:
+feeds() {
+	# feed <name> <feedurl> [basesiteurl] [encoding]
+	feed 'Phoronix' 'https://www.phoronix.com/rss.php'
+	feed 'Arch Linux News' 'https://www.archlinux.org/feeds/news'
+	feed 'xkcd' 'https://xkcd.com/atom.xml'
+	feed 'Saturday Morning Breakfast Cereal' 'https://www.smbc-comics.com/comic/rss'
+	feed 'Cyanide & Happiness' 'https://feeds.feedburner.com/Explosm'
+	feed 'Penny Arcade' 'https://www.penny-arcade.com/feed'
+	feed 'APOD' 'https://apod.nasa.gov/apod.rss'
+	feed 'r/linux' 'https://www.reddit.com/r/linux.rss'
+	feed 'r/commandline' 'https://www.reddit.com/r/commandline.rss'
+	feed 'r/vimporn' 'https://www.reddit.com/r/vimporn.rss'
+	feed 'r/vim' 'https://www.reddit.com/r/vim.rss'
+	feed 'r/unixporn' 'https://www.reddit.com/r/unixporn.rss'
+	feed 'r/unixart' 'https://www.reddit.com/r/unixart.rss'
+	feed 'r/bspwm' 'https://www.reddit.com/r/bspwm.rss'
+	feed 'r/herbstluftwm' 'https://www.reddit.com/r/herbstluftwm.rss'
+	feed 'r/archlinux' 'https://www.reddit.com/r/archlinux.rss'
+	feed 'r/FirefoxCSS' 'https://www.reddit.com/r/FirefoxCSS.rss'
+	feed 'r/Python' 'https://www.reddit.com/r/Python.rss'
+	feed 'r/emacs' 'https://www.reddit.com/r/emacs.rss'
+	feed 'r/startpages' 'https://www.reddit.com/r/startpages.rss'
+	feed 'r/ProgrammerHumor' 'https://www.reddit.com/r/ProgrammerHumor.rss'
+	feed 'Starred Repos' 'https://bandito.re/3e13cf7a-c57a-4fc9-8ecb-d87f5d982e68.atom'
+	feed 'videogamedunkey' 'https://www.youtube.com/feeds/videos.xml?channel_id=UCsvn_Po0SmunchJYOWpOxMg'
+	feed 'michaelcthulu' 'https://www.youtube.com/feeds/videos.xml?channel_id=UCGca03sbLq7OUnXMdvRHyBQ'
+	feed 'Giant Bomb' 'https://www.youtube.com/feeds/videos.xml?channel_id=UCmeds0MLhjfkjD_5acPnFlQ'
+	feed 'BardicBroadcasts' 'https://www.youtube.com/feeds/videos.xml?channel_id=UCnv3-4xjza4xO9y6_rqKNQA'
+	feed 'Suckless' 'https://suckless.org/atom.xml'
+	feed 'Nixers' 'https://nixers.net/syndication.php?limit=25'
+}

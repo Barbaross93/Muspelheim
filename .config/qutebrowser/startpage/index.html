@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            var thehours = new Date().getHours();
+            var themessage;
+            var night = ('Good night Barbarossa');
+            var morning = ('Good morning Barbarossa');
+            var afternoon = ('Good afternoon Barbarossa');
+            var evening = ('Good evening Barbarossa');
+
+            if (thehours >= 0 && thehours < 6) {
+                themessage = night;
+
+            } else if (thehours >= 6 && thehours < 12) {
+                themessage = morning;
+
+            } else if (thehours >= 12 && thehours < 18) {
+                themessage = afternoon;
+
+            } else {
+                themessage = evening;
+
+            }
+
+            $('.greeting').append(themessage);
+        });
+    </script>
+    <style>
+        :root {
+            /* Special */
+            --background: #fbf1c7;
+            --foreground: #3c3836;
+            --cursor: #7c6f64;
+
+            /* Colors */
+            --color0: #3c3836;
+            --color1: #cc241d;
+            --color2: #98971a;
+            --color3: #d79921;
+            --color4: #458588;
+            --color5: #b16286;
+            --color6: #689d6a;
+            --color7: #7c6f64;
+            --color8: #928374;
+            --color9: #9d0006;
+            --color10: #79740e;
+            --color11: #b57614;
+            --color12: #076678;
+            --color13: #8f3f71;
+            --color14: #427b58;
+            --color15: #3c3836;
+        }
+
+        @font-face {
+            font-family: Terminus;
+            src: url('TerminusTTF.ttf');
+        }
+
+        html {
+            font-size: 14px;
+            font-family: Terminus;
+            /*font-weight: black;*/
+            background-color: var(--background);
+            color: var(--foreground);
+        }
+
+        .box {
+            width: 700px;
+            right: 50%;
+            bottom: 50%;
+            transform: translate(50%, 50%);
+            position: absolute;
+        }
+
+        .categories {
+            float: left;
+            margin 0;
+            width: 20%;
+            text-align: left;
+        }
+
+        .items {
+            float: left;
+            margin 0;
+            width: 80%;
+            text-align: left;
+        }
+
+        .lst {
+            /*padding: 5px;*/
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:link {
+            color: var(--foreground);
+        }
+
+        a:hover {
+            font-weight: 350;
+        }
+
+        a:visited {
+            color: var(--foreground);
+        }
+
+        .cat {
+            font-weight: 350;
+        }
+
+        .greeting {
+            font-weight: 350;
+            float: left;
+            margin 50;
+            width: 100%;
+            text-align: left;
+        }
+    </style>
+    <title>New Tab</title>
+</head>
+
+<body>
+    <!-- <main class="greeting">
+     <div id="col-1"></div>
+    </main>
+
+    <script>
+      var today = new Date();
+      var hourNow = today.getHours();
+      var greeting;
+
+      if (hourNow < 6){
+        greeting = "Good night Barbarossa";
+      }
+      else if (hourNow < 12){
+	greeting = 'Good morning Barbarossa';
+      }
+      else if (hourNow < 18){
+        greeting = 'Good afternoon Barbarossa';
+      }
+      else if (hourNow < 24){
+        greeting = 'Good evening Barbarossa';
+      }
+      else {
+        greeting = "Welcome";
+      }
+ 
+      document.getElementById("col-1").innerHTML = greeting;
+    </script> -->
+    <!-- <form action="http://www.google.com/search" method="get">
+    	<input type="text" name="q"/>
+    </form> -->
+</body>
+<div class=box>
+    <div class="greeting">
+    </div>
+    <div class=categories>
+        <p class="cat">Productive</p>
+        <p class="cat">Chill</p>
+        <p class="cat">Misc</p>
+    </div>
+    <div class=items>
+        <p class="lst">
+            <span style="color: var(--color1)">[</span><a href="https://blackboard.umaryland.edu">Blackboard</a><span
+                style="color: var(--color1)">]</span>
+            <span style="color: var(--color3)">[</span><a href="https://office.com">Office365</a><span
+                style="color: var(--color3)">]</span>
+            <span style="color: var(--color2)">[</span><a href="https://docs.google.com/document/u/0/">Google Docs</a><span
+                style="color: var(--color2)">]</span>
+            <span style="color: var(--color5)">[</span><a href="https://github.com">Github</a><span
+                style="color: var(--color5)">]</span>
+            <span style="color: var(--color6)">[</span><a href="https://gmail.com">Gmail</a><span
+                style="color: var(--color6)">]</span>
+        </p>
+        <p class="lst">
+            <span style="color: var(--color1)">[</span><a href="https://netflix.com">Netflix</a><span
+                style="color: var(--color1)">]</span>
+            <span style="color: var(--color5)">[</span><a href="https://hulu.com">Hulu</a><span
+                style="color: var(--color5)">]</span>
+            <span style="color: var(--color3)">[</span><a href="https://reddit.com">Reddit</a><span
+                style="color: var(--color3)">]</span>
+            <span style="color: var(--color2)">[</span><a href="https://discord.com/channels/@me">Discord</a><span
+                style="color: var(--color2)">]</span>
+            <span style="color: var(--color6)">[</span><a href="https://nixers.net">Nixers</a><span
+                style="color: var(--color6)">]</span>
+        </p>
+            <p class="lst">
+                <span style="color: var(--color5)">[</span><a href="https://wiki.archlinux.org/">Arch Wiki</a><span 
+                    style="color: var(--color5)">]</span>
+                <span style="color: var(--color2)">[</span><a href="https://youtube.com">Youtube</a><span 
+                    style="color: var(--color2)">]</span>
+                <span style="color: var(--color3)">[</span><a href="https://yahoo.com">Yahoo</a><span
+                    style="color: var(--color3)">]</span>
+                <span style="color: var(--color4)">[</span><a href="https://artstation.com">Artstation</a><span
+                    style="color: var(--color4)">]</span>
+            </p>
+    </div>
+</div>
+
+</html>

@@ -1,0 +1,125 @@
+#!/bin/sh
+color="#afb7d2'>"
+col="<span color='"
+end="</span>"
+FULL=""
+EMPTY=""
+value="${3:-5}"
+
+draw() {
+	perc=$1
+	size=$2
+	inc=$((perc * size / 100))
+	out=
+	for v in $(seq 0 $((size - 1))); do
+		test "$v" -le "$inc" &&
+			out="${out}${FULL}" ||
+			out="${out}${EMPTY}"
+	done
+	printf "%s" "$out"
+}
+
+case $1 in
+pulse)
+	case $2 in
+	up)
+		#currentVolume=$(pulsemixer --get-volume | awk '{print $1}')
+		#if [[ "$currentVolume" -ge "100" ]]; then
+		#pulsemixer --max-volume 100
+		#else
+		#pulsemixer --change-volume +"$value"
+		amixer set Master $value%+
+		#fi
+		label=""
+		;;
+	down)
+		#pulsemixer --change-volume -"$value"
+		amixer set Master $value%-
+		label=""
+		;;
+	mute)
+		muted=$(amixer get Master | grep "Mono" | awk '{print $6}' | sed -r '/^\s*$/d')
+		if [ "$muted" = "[on]" ]; then
+			#pulsemixer --toggle-mute
+			amixer set Master toggle
+			printf "SEC:1\tTAG:volume\t Audio muted" >$XNOTIFY_FIFO
+			exit 0
+		else
+			#pulsemixer --toggle-mute
+			amixer set Master toggle
+			label=""
+		fi
+		;;
+	esac
+	#vol=$(pulsemixer --get-volume | awk '{print $1}')
+	vol=$(amixer get Master | grep "Mono" | awk '{print $4}' | tr -d -c 0-9)
+	;;
+pulsemic)
+	case $2 in
+	up)
+		#currentVolume=$(pulsemixer --id source-1 --get-volume | awk '{print $1}')
+		#if [[ "$currentVolume" -ge "100" ]]; then
+		#pulsemixer --max-volume 100 --id source-1
+		#else
+		#pulsemixer --id source-1 --change-volume +"$value"
+		amixer set Capture $value%+
+		#fi
+		label=""
+		;;
+	down)
+		#pulsemixer --id source-1 --change-volume -"$value"
+		amixer set Capture $value%-
+		label=""
+		;;
+	mute)
+		#muted=$(pulsemixer --id source-1 --get-mute)
+		muted=$(amixer get Capture | grep "Front Left" | awk '{print $7}' | sed -r '/^\s*$/d')
+		if [ "$muted" = "[on]" ]; then
+			#pulsemixer --toggle-mute --id source-1
+			amixer set Capture toggle
+			printf " Mic muted\n" >$XNOTIFY_FIFO
+			exit 0
+		else
+			#pulsemixer --toggle-mute --id source-1
+			amixer set Capture toggle
+			label=""
+		fi
+		;;
+	esac
+	#vol=$(pulsemixer --id source-1 --get-volume | awk '{print $1}')
+	#vol=$(amixer get Capture | grep "Front Left" | awk '{print $5}' | tr -d -c 0-9)
+	#muted=$(amixer get Capture | grep "Front Left" | awk '{print $7}' | sed -r '/^\s*$/d')
+	#dunstify -r 2593 -t 3000 -u normal -h int:value:$vol "$label Mic Volume"
+	#if [ "$muted" = "[off]" ]; then
+	#	echo $vol! >>/tmp/xobvol
+	#else
+	#	echo $vol >>/tmp/xobvol
+	#fi
+	exit 0
+	;;
+
+mpc)
+	case $2 in
+	up)
+		mpc volume +"$value"
+		;;
+	down)
+		mpc volume -"$value"
+		;;
+	esac
+	vol=$(mpc volume | awk -F "\t|%|:" '{ print $2 }' | tr -d " ")
+	label="MPD"
+	;;
+esac
+
+bar=$(draw ${vol} 10)
+printf "SEC:1\tTAG:volume\t$label Volume\t \t$bar\n" >$XNOTIFY_FIFO
+
+#muted=$(amixer get Master | grep "Mono" | awk '{print $6}' | sed -r '/^\s*$/d')
+#if [ "$muted" = "[off]" ]; then
+#	#dunstify -t 3000 -r 2593 -u normal -a mutevol -h int:value:$vol "$label Volume"
+#	echo $vol! >>/tmp/xobvol
+#else
+#	#dunstify -t 3000 -r 2593 -u normal -a volume -h int:value:$vol "$label Volume"
+#	echo $vol >>/tmp/xobvol
+#fi

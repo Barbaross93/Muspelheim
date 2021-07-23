@@ -1,0 +1,54 @@
+
+# window frame configurations
+set window-height 3000
+set window-width 1000
+set statusbar-h-padding 0
+set statusbar-v-padding 0
+set page-padding 10
+set window-title-page true
+set guioptions vc
+
+# set scrolling options
+set scroll-step 40
+
+# font size
+set font "Fira Code 15"
+
+# clipboard configurations
+set selection-clipboard clipboard
+
+# mappings
+
+unmap f
+map f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen
+
+# ----- colour config ----- 
+set notification-error-bg "#fbf1c7"
+set notification-error-fg "#9d0006"
+set notification-warning-bg "#fbf1c7"
+set notification-warning-fg "#9d0006"
+set notification-bg "#fbf1c7"
+set notification-fg "#9d0006"
+set completion-group-bg "#fbf1c7"
+set completion-group-fg "#b57614"
+set completion-bg "#ebdbb2"
+set completion-fg "#3c3836"
+set completion-highlight-bg "#b57614"
+set completion-highlight-fg "#fbf1c7"
+set inputbar-bg "#fbf1c7"
+set inputbar-fg "#3c3836"
+set statusbar-bg "#fbf1c7"
+set statusbar-fg "#3c3836"
+set highlight-color "#b57614"
+set highlight-active-color "#79740e"
+set default-bg "#fbf1c7"
+set default-fg #3c3836
+set recolor-lightcolor "#ebdbb2"
+set recolor-darkcolor "#3c3836"
+set index-bg "#ebdbb2"
+set index-fg "#3c3836"
+set index-active-bg "#b57614"
+set index-active-fg "#fbf1c7"
+set recolor true
+set font 'Terminus 10'

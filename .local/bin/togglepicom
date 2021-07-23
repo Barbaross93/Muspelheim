@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#if pidof picom;
+#then
+#	killall picom;
+#	notify-send -u normal -t 3000 "Picom killed"
+#else
+#	picom &
+#	notify-send -u normal -t 3000 "Picom Started"
+#fi
+
+if pidof xcompmgr; then
+	killall xcompmgr
+	printf "SEC:3\tXcompmgr killed\n" >$XNOTIFY_FIFO
+else
+	xcompmgr &
+	printf "SEC:3\tXcompmgr Started\n" >$XNOTIFY_FIFO
+fi

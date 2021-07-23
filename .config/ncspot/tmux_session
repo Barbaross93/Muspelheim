@@ -1,0 +1,20 @@
+neww
+set status off
+#set-option default-terminal "xterm-24bit"
+send-keys 'spotify.sh' C-m
+split-window -h
+resize-pane -t 1 -x 174
+select-pane -t 2
+send-keys 'cover.sh' C-m
+select-pane -t 1
+split-window -v
+select-pane -t 2
+resize-pane -t 2 -y 16
+send-keys 'cava_check.sh' C-m
+select-pane -t 3
+split-window -v
+select-pane -t 4
+resize-pane -t 4 -y 36
+send-keys 'lyrics' C-m
+select-pane -t 1
+rename-session Spotify

@@ -1,0 +1,41 @@
+#!/bin/sh
+
+#trap 'kill -9 -$$ %1 %2' EXIT INT
+
+### Pre-lock
+# Clear gpg-cache and ssh keys prior to lock. pam-gnupg starts it up again after unlock
+gpg-connect-agent --no-autostart reloadagent /bye
+
+# Clear all clipboard & selections
+#xclip -selection clipboard /dev/null
+#xclip -selection primary /dev/null
+#xclip -selection secondary /dev/null
+xsel -cb
+
+#sunpape
+pkill -STOP xnotify
+status=$(playerctl status)
+playerctl pause
+
+pkill xcompmgr
+
+## If using locker w/o screen coverage (e.g. xtrlock, slock with unlockscreen patch)
+#sxiv -bf ~/.cache/i3lock/$currentWall &
+#unclutter -idle 0 -jitter 99999 & # hide cursor
+
+### Locker(s)
+#slock -m "$(lock_msg.sh)" || lock
+slock || lock
+#physlock -m -b "center_cursor" -a "setterm --blank 0 &>/dev/null; setterm --powerdown 0 &>/dev/null" || lock
+#physlock -d -p $'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n' || lock
+#i3lock -i ~/.cache/i3lock/$currentWall -e -t -u -n || lock
+
+setsid -f xcompmgr &
+
+### Post Lock
+if [ "$status" = "Playing" ]; then
+	playerctl play
+fi
+pkill -CONT xnotify
+
+#wait

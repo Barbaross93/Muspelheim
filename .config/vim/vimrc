@@ -1,0 +1,321 @@
+"""""""""""""""""""""""
+"
+" ░█░█░▀█▀░█▄█░█▀▄░█▀▀
+" ░▀▄▀░░█░░█░█░█▀▄░█░░
+" ░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀
+"
+"""""""""""""""""""""""
+
+" To prevent home dir littering
+set runtimepath^=$XDG_CONFIG_HOME/vim
+set runtimepath+=$XDG_DATA_HOME/vim
+set runtimepath+=$XDG_CONFIG_HOME/vim/after
+
+set packpath^=$XDG_DATA_HOME/vim,$XDG_CONFIG_HOME/vim
+set packpath+=$XDG_CONFIG_HOME/vim/after,$XDG_DATA_HOME/vim/after
+
+let g:netrw_home = $XDG_DATA_HOME."/vim"
+call mkdir($XDG_DATA_HOME."/vim/spell", 'p')
+set viewdir=$XDG_DATA_HOME/vim/view | call mkdir(&viewdir, 'p')
+
+set backupdir=$XDG_CACHE_HOME/vim/backup | call mkdir(&backupdir, 'p')
+set directory=$XDG_CACHE_HOME/vim/swap   | call mkdir(&directory, 'p')
+set undodir=$XDG_CACHE_HOME/vim/undo     | call mkdir(&undodir,   'p')
+
+if !has('nvim') | set viminfofile=$XDG_CACHE_HOME/vim/viminfo | endif
+
+" Install vim-plug if we don't already have it
+if empty(glob('~/.config/vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.config/vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source /home/barbarossa/.config/vim/vimrc
+endif
+
+call plug#begin('~/.config/vim/plugged')
+
+"Programming plugins
+Plug 'ackyshake/VimCompletesMe'
+Plug 'dense-analysis/ale'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'vim-autoformat/vim-autoformat'
+Plug 'preservim/nerdtree'
+Plug 'sheerun/vim-polyglot'
+Plug 'vim-syntastic/syntastic'
+Plug 'airblade/vim-gitgutter'
+Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
+" Notes/ task
+Plug 'vimwiki/vimwiki'
+Plug 'tools-life/taskwiki'
+" writing plugins
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'Shougo/unite.vim'
+Plug 'rafaqz/citation.vim'
+"Plug 'preservim/vim-pencil'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'preservim/vim-litecorrect'
+Plug 'kana/vim-textobj-user'
+Plug 'preservim/vim-textobj-sentence'
+Plug 'preservim/vim-textobj-quote'
+Plug 'preservim/vim-lexical'
+Plug 'tpope/vim-markdown'
+"Misc/useful plugins
+Plug 'mhinz/vim-startify'
+Plug 'vim-airline/vim-airline'
+Plug 'ryanoasis/vim-devicons'
+Plug 'morhetz/gruvbox'
+Plug 'Yggdroot/indentLine'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'semanser/vim-outdated-plugins'
+Plug 'easymotion/vim-easymotion'
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'farmergreg/vim-lastplace'
+"Plug 'psliwka/vim-smoothie'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Retired Plugins
+"Plug 'ycm-core/YouCompleteMe'
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+"Plug 'mbbill/undotree'
+"Plug 'preservim/nerdcommenter'
+"Plug 'tpope/vim-surround'
+"Plug 'vim-airline/vim-airline-themes'
+"Plug 'jiangmiao/auto-pairs'
+"Plug 'jalvesaq/zotcite'
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+
+call plug#end()
+
+let g:gruvbox_italic = 0
+
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
+
+set nocompatible
+set laststatus=2 " Always display the statusline in all windows
+set showtabline=2 " Always display the tabline, even if there is only one tab
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+syntax enable
+let g:gruvbox_contrast_dark = 'medium'
+let g:gruvbox_contrast_light = 'medium'
+colorscheme gruvbox
+set splitbelow
+set splitright
+set clipboard=unnamedplus
+set hlsearch
+set incsearch
+set hidden
+set ttyfast
+set lazyredraw
+set number
+set encoding=utf-8
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+let g:ascii = [
+        \ '                                ',
+        \ '            __                  ',
+        \ '    __  __ /\_\    ___ ___      ',
+        \ '   /\ \/\ \\/\ \ /'' __` __`\   ',
+        \ '   \ \ \_/ |\ \ \/\ \/\ \/\ \   ',
+        \ '    \ \___/  \ \_\ \_\ \_\ \_\  ',
+        \ '     \/__/    \/_/\/_/\/_/\/_/  ',
+      \]
+let g:startify_custom_header =
+    \ 'startify#center(g:ascii)'
+
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+
+" air-line fonts
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" airline symbols
+let g:airline_left_sep = ' ' "''
+let g:airline_left_alt_sep = ' ' "''
+let g:airline_right_sep = ' ' "''
+let g:airline_right_alt_sep = ' ' "''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.dirty=' '
+
+
+" setup for goyo & limelight
+let g:limelight_conceal_ctermfg = 'gray'
+let g:goyo_width = 100
+let g:goyo_height = 95
+let b:code = "no"
+
+"Toggle Goyo and Limelight on and off
+map <C-g> :Goyo<CR>
+
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+" enable mouse scroll
+set mouse=a
+
+" Nerdtree
+"autocmd vimenter * NERDTree
+map <C-d> :NERDTreeToggle<CR>
+
+" Yank whole line w/o newline
+nmap Y ^y$
+
+" aerc stuff
+augroup filetypedetect
+  " Mail
+    au BufRead *aerc-* set tw=72
+    au BufRead *aerc-* set wrap
+  autocmd BufRead,BufNewFile *aerc-*              setfiletype mail
+augroup END
+
+" airline theme
+let g:airline_theme='gruvbox'
+
+"Indent line settings
+let g:indentLine_char = '│'
+let g:indentLine_fileTypeExclude = ['startify']
+set list lcs=tab:\│\ 
+set list
+
+" Do not show any message if all plugins are up to date. 0 by default
+let g:outdated_plugins_silent_mode = 1
+
+" Set underline cursor
+"set guicursor=a:hor20-Cursor
+
+"Vimwiki settings
+let g:vimwiki_list = [{'path': '~/Documents/vimwiki/',
+            \ 'syntax': 'markdown', 'ext': '.md'}]
+
+" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" - https://github.com/Valloric/YouCompleteMe
+" - https://github.com/nvim-lua/completion-nvim
+let g:UltiSnipsExpandTrigger="<c-s>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" All possible highlighters
+let g:Hexokinase_highlighters = [
+            \   'background',
+            \   'backgroundfull',
+            \ ]
+
+" Highlight cursor location
+set cursorline
+"set cursorcolumn
+
+" Autoformat settings
+" disable formatting for fallback
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+
+" Format on save
+au BufWrite * :Autoformat
+
+" Change side symbols
+let g:ale_sign_error = '▍'
+let g:ale_sign_warning = '▍'
+
+let g:gitgutter_sign_added              = '▍'
+let g:gitgutter_sign_modified           = '▍'
+let g:gitgutter_sign_modified_removed   = '▍'
+let g:gitgutter_sign_removed            = '▍'
+let g:gitgutter_sign_removed_first_line = '▍'
+let g:gitgutter_sign_removed_above_and_below = '▍'
+
+" Indentline wants this later
+set background=light
+
+" Compatibility with vimwiki
+" let zotcite_filetypes = ['markdown', 'pandoc', 'rmd', 'vimwiki']
+
+" citation.vim settings
+let g:citation_vim_bibtex_file="/home/barbarossa/Documents/School/Bibliography/Library/Library.bib"
+let g:citation_vim_mode="bibtex"
+let g:citation_vim_cache_path='~/.local/share/cobib/'
+let g:citation_vim_outer_prefix="["
+let g:citation_vim_inner_prefix="@"
+let g:citation_vim_suffix="]"
+let g:citation_vim_et_al_limit=2
+let g:citation_vim_reverse_order=0
+
+"Unite leader for citation.vim
+nmap <leader>u [unite]
+nnoremap [unite] <nop>
+
+" citation bindings
+nnoremap <silent>[unite]c       :<C-u>Unite -buffer-name=citation-start-insert -default-action=append      citation/key<cr>
+nnoremap <silent>[unite]co :<C-u>Unite -input=<C-R><C-W> -default-action=start -force-immediately citation/file<cr>
+nnoremap <silent><leader>cu :<C-u>Unite -input=<C-R><C-W> -default-action=start -force-immediately citation/url<cr>
+nnoremap <silent>[unite]ci :<C-u>Unite -input=<C-R><C-W> -default-action=preview -force-immediately citation/combined<cr>
+nnoremap <silent>[unite]cx :<C-u>exec "Unite  -default-action=start citation/key:" . escape(input('Search Key : '),' ') <cr>
+
+"augroup Markdown
+"  autocmd!
+"  autocmd FileType markdown set tw=86
+"  autocmd FileType markdown set wrap
+"  autocmd FileType markdown set spell
+"augroup END
+
+" For undercurl spellchecker
+let &t_Cs = "\e[4:3m"
+let &t_Ce = "\e[4:0m"
+
+" kill popup dialogs in gvim
+set go+=c
+
+" fzf colors
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Tab bindings
+nnoremap tn  :tabnew<CR>
+nnoremap th  :tabfirst<CR>
+nnoremap tk  :tabnext<CR>
+nnoremap tj  :tabprev<CR>
+nnoremap tl  :tablast<CR>
+nnoremap tt  :tabedit<Space>
+nnoremap tx  :tabnext<Space>
+nnoremap tm  :tabm<Space>
+nnoremap td  :tabclose<CR>
+
+" vim-pencil settings
+filetype plugin on
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pandoc#init()
+                            \ | call lexical#init()
+                            \ | call litecorrect#init()
+                            \ | call textobj#sentence#init()
+                            \ | call textobj#quote#init()
+  augroup END

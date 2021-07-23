@@ -1,0 +1,18 @@
+Xcursor.theme: pixelfun3
+
+!Xft.dpi:                        96
+Xft.antialias:                  1
+Xft.autohint:                   0
+Xft.hinting:                    1
+Xft.hintstyle:                  hintfull
+Xft.rgba:                       rgb
+Xft.lcdfilter:                  lcddefault
+
+!Colors
+#include "/home/barbarossa/.config/x11/colorschemes/gruvbox-light"
+
+!URxvt configs
+! #include "/home/barbarossa/.config/x11/urxvt"
+
+!Xnotify configs
+#include "/home/barbarossa/.config/x11/xnotify"

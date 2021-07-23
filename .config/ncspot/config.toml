@@ -1,0 +1,5 @@
+backend = "alsa"
+backend_device = "default"
+use_nerdfont = false
+notify = false
+volnorm = false

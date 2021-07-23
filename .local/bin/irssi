@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+# Alias to change home/config dir
+/usr/bin/irssi --config="$XDG_CONFIG_HOME"/irssi/config --home="$XDG_CONFIG_HOME"/irssi

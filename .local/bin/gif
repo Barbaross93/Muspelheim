@@ -1,0 +1,24 @@
+#!/bin/sh
+
+#if pgrep -f giph &>/dev/null; then
+#	giph --stop &>/dev/null
+#	notify-send --app-name "giph" -u normal "Stopping gif recording..."
+#else
+#	notify-send --app-name "giph" -u normal "Select region to record"
+#	setsid -f giph -s -y ~/Pictures/Gifs/Recordings/$(date +%s).gif &>/dev/null
+#fi
+
+if pgrep -f "bash.+ffcast" >/dev/null 2>&1; then
+	kill $(pgrep -f "bash.+ffcast")
+	printf "Stopping gif recording...\n" >$XNOTIFY_FIFO
+else
+	printf "Select region to record\n" >$XNOTIFY_FIFO
+	# To make high quality gifs, create a bunch of pngs and then create the gif
+	mkdir -p /tmp/0
+	cd /tmp/0
+	ffcast -s rec -r 20 %04d.png
+	convert -loop 0 -delay 5 *.png -layers Optimize ~/Pictures/Gifs/Recordings/$(date '+%Y-%m-%d_%H-%M-%S').gif
+	rm -rf /tmp/0
+	printf "Recording finished!\n" >$XNOTIFY_FIFO
+	#scr -c -e $(date '+%Y-%m-%d_%H-%M-%S').gif &>/dev/null
+fi

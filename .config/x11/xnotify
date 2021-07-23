@@ -1,0 +1,13 @@
+xnotify*font: 				Terminus, SijiPlus
+xnotify.border:				#d79921
+xnotify.geometry:			288x0-24-60
+xnotify.gravity:			SE
+xnotify.borderWidth:	2
+xnotify.imageWidth:		80
+xnotify.leading:			0
+xnotify.padding:			18
+xnotify.gap: 					6
+xnotify.shrink:				false
+xnotify.alignment:		center
+xnotify.wrap:					true
+! vim:ft=xdefaults

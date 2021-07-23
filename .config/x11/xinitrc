@@ -1,0 +1,28 @@
+#!/bin/sh
+
+userresources=$HOME/.config/x11/Xresources
+
+if [ -f "$userresources" ]; then
+    xrdb -merge "$userresources"
+fi
+
+# start some nice programs
+
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+    for f in /etc/X11/xinit/xinitrc.d/?*.sh; do
+        [ -x "$f" ] && . "$f"
+    done
+    unset f
+fi
+
+# Setup environment vars
+[ -f ~/.config/x11/xprofile ] && . ~/.config/x11/xprofile
+
+xwallpaper --tile ~/Pictures/colors/282828.png
+theme_switcher.sh -m -c -s &
+xcompmgr &
+xinput set-prop "Elan Touchpad" "Device Enabled" 0 & # Disable touchpad
+xmousepasteblock &                                   #Disable middle click paste
+lock &
+sleep 0.3
+exec bspwm

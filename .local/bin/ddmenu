@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#Default dmenu options
+dmenu -h 24 -Y 12 -W 1912 -nb "#fbf1c7" -nf "#3c3836" -sb "#d79921" -sf "#fbf1c7" -nhb "#458588" -nhf "#fbf1c7" -shb "#b16286" -shf "#fbf1c7" -bw 6 "$@"

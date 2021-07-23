@@ -1,0 +1,23 @@
+[calendars]
+
+[[personal]]
+path = ~/.config/vdirsyncer/calendars/Personal/*
+type = discover
+color = dark cyan
+
+[locale]
+timeformat = %H:%M
+dateformat = %m/%d/%Y
+longdateformat = %m/%d/%Y
+datetimeformat = %m/%d/%Y %I:%M %p
+longdatetimeformat = %m/%d/%Y %I:%M %p
+
+[default]
+default_calendar = cullen.ross.som@gmail.com
+
+[highlight_days]
+color = dark green
+
+[view]
+frame = top
+

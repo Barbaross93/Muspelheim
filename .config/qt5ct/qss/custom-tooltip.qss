@@ -1,0 +1,7 @@
+QToolTip{
+	background: #fbf1c7;
+	border-radius: 0px;
+	border: 0px solid #000000;
+	padding: 2px;
+	color: #3c3836;
+}

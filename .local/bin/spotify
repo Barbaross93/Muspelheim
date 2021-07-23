@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sterm -n "Spotify" -e dash -ic "tmux new-session -s Spotify 'tmux source-file ~/.config/ncspot/tmux_session'"
