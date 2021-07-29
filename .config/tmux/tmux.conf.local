@@ -388,9 +388,10 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 #set -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
 #set -g default-terminal "xterm-24bit"
 #set -g terminal-overrides ',xterm-24bit:Tc'
+set -sa terminal-features ",rxvt-unicode*:RGB"
 
 # Stop changing my cursor tmux!
-set -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[3 q'
+# set -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[3 q'
 
 # to define a custom #{foo} variable, define a POSIX shell function between the
 # '# EOF' and the '# "$@"' lines. Please note that the opening brace { character

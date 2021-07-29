@@ -1,18 +1,17 @@
-#define BTMP_FONT -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
-#define BTMP_BLD_FONT -xos4-terminus-bold-r-normal--14-140-72-72-c-80-iso10646-1
-#define FONT Terminus
+#define BTMP_FONT -misc-termsynu-medium-r-normal-*-14-*-*-*-*-*-iso10646-*
+#define BTMP_ITL_FONT -misc-termsynu-medium-i-normal-*-14-*-*-*-*-*-iso10646-*
+#define BTMP_BLD_FONT -misc-termsynu-bold-r-normal-*-14-*-*-*-*-*-iso10646-*
+#define BTMP_BLD_ITL_FONT -misc-termsynu-bold-i-normal-*-14-*-*-*-*-*-iso10646-*
 #define ICON CozetteVector
-#define EMOJI Twemoji
+#define EMOJI Symbola
 #define CJK Kochi Gothic
-#define NERD_FONT Hack Nerd Font Mono
 #define FONT_SIZE 12
-#define ICON_SIZE 9
+#define ICON_SIZE 10
 #define EMOJI_SIZE 8
-#define NERD_SIZE 10
-URxvt.font: BTMP_FONT, xft:ICON:size=ICON_SIZE:antialias=false, xft:CJK:size=FONT_SIZE:antialias=true, xft:NERD_FONT:size=NERD_SIZE:antialias=true:minspace=false, xft:EMOJI:size=EMOJI_SIZE:antialias=true
-URxvt.boldFont: BTMP_BLD_FONT, xft:ICON:size=ICON_SIZE:antialias=false,xft:CJK:size=FONT_SIZE:antialias=true, xft:NERD_FONT:size=NERD_SIZE:antialias=true:minspace=false, xft:EMOJI:size=EMOJI_SIZE:antialias=true
-URxvt.italicFont: 
-URxvt.boldItalicFont: 
+URxvt.font: BTMP_FONT, xft:ICON:size=ICON_SIZE:antialias=false, xft:CJK:size=FONT_SIZE:antialias=true, xft:EMOJI:size=EMOJI_SIZE:antialias=true
+URxvt.boldFont: BTMP_BLD_FONT, xft:ICON:size=ICON_SIZE:antialias=false,xft:CJK:size=FONT_SIZE:antialias=true, xft:EMOJI:size=EMOJI_SIZE:antialias=true
+URxvt.italicFont: BTMP_ITL_FONT, xft:ICON:size=ICON_SIZE:antialias=false, xft:CJK:size=FONT_SIZE:antialias=true, xft:EMOJI:size=EMOJI_SIZE:antialias=true
+URxvt.boldItalicFont: BTMP_BLD_ITL_FONT, xft:ICON:size=ICON_SIZE:antialias=false, xft:CJK:size=FONT_SIZE:antialias=true, xft:EMOJI:size=EMOJI_SIZE:antialias=true
 
 URxvt.depth:                    24
 URxvt*lineSpace:                0
@@ -25,6 +24,7 @@ URxvt*loginShell:               true
 URxvt.internalBorder:           32
 URxvt.skipBuiltinGlyphs:        false
 
+URxvt.perl-lib: 								/home/barbarossa/.config/x11/urxvt-ext/
 URxvt.perl-ext:         				default,matcher,selection-to-clipboard,newterm,keyboard-select,clipboard-osc,resize-font
 URxvt.url-launcher:             linkhandler
 URxvt.matcher.button:         	1
@@ -33,7 +33,7 @@ URxvt.keysym.S-C-U:           	perl:matcher:list
 URxvt.keysym.M-l:           		perl:matcher:select
 URxvt.saveLine:         				10000
 URxvt.cursorBlink:        			true
-URxvt.cursorUnderline:    			true
+URxvt.cursorUnderline:    			false
 
 URxvt*inheritPixmap:          	false
 URxvt*transparent:            	false

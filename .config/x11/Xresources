@@ -1,4 +1,4 @@
-Xcursor.theme: pixelfun3
+Xcursor.theme: pixelfun3-eclipse
 
 !Xft.dpi:                        96
 Xft.antialias:                  1
@@ -9,10 +9,13 @@ Xft.rgba:                       rgb
 Xft.lcdfilter:                  lcddefault
 
 !Colors
-#include "/home/barbarossa/.config/x11/colorschemes/gruvbox-light"
+#include "/home/barbarossa/.config/x11/colorschemes/alduin"
 
 !URxvt configs
 ! #include "/home/barbarossa/.config/x11/urxvt"
 
 !Xnotify configs
 #include "/home/barbarossa/.config/x11/xnotify"
+
+!Xprompt configs
+! #include "/home/barbarossa/.config/x11/xprompt"

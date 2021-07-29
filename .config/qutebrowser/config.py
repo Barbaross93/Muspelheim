@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-import gruvbox.draw
+import alduin.draw
 
 # Load existing settings made via :set
 config.load_autoconfig()
 
 # everforest.draw.konda(c, {"spacing": {"vertical": 5, "horizontal": 8}})
-gruvbox.draw.konda(c)
+alduin.draw.konda(c)
 
 c.fonts.hints = "10pt monospace"
 c.fonts.keyhint = "10pt monospace"
@@ -19,15 +19,15 @@ c.fonts.completion.entry = "10pt monospace"
 c.fonts.completion.category = "10pt monospace"
 c.url.start_pages = "~/.config/qutebrowser/startpage/index.html"
 c.url.default_page = "~/.config/qutebrowser/startpage/index.html"
-c.editor.command = ["/usr/bin/urxvt", "-e", "/usr/bin/nvim {}"]
+c.editor.command = ["/usr/bin/st", "-e", "/usr/bin/vim {}"]
 
 c.colors.webpage.darkmode.enabled = False
 
-# config.set("colors.webpage.darkmode.enabled", True)
+# config.set("colors.webpage.darkmode.enabled", False)
 # Toggle darkmode css
 config.bind(
     ",t",
-    'config-cycle content.user_stylesheets ~/.config/qutebrowser/gruvbox/gruvbox-all-sites.css ""',
+    'config-cycle content.user_stylesheets ~/.config/qutebrowser/alduin/alduin-all-sites.css ""',
 )
 
 # Qute-pass keubindings

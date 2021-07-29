@@ -102,7 +102,7 @@ alias pacclean="sudo pacman -Rns $(pacman -Qtdq)"
 alias ls="exa"
 alias ncdu="ncdu --color dark"
 #alias backupssh="rsync -a --delete --quiet -e ssh / pi@192.168.0.18:/media/RaspberryPi/Genome"
-alias sfeedc="SFEED_URL_FILE=~/.sfeed/read_sfeed SFEED_PIPER='w3m -T text/html -cols $(tput cols) -dump | urlscan -d' SFEED_PLUMBER_INTERACTIVE=1 SFEED_PLUMBER='feed_plumb.sh' sfeed_curses ~/.sfeed/feeds/*"
+alias sfeedc="SFEED_URL_FILE=~/.config/sfeed/read_sfeed SFEED_PIPER='w3m -T text/html -cols $(tput cols) -dump | urlscan -d' SFEED_PLUMBER_INTERACTIVE=1 SFEED_PLUMBER='feed_plumb.sh' sfeed_curses ~/.config/sfeed/feeds/*"
 alias scan="scanimage --device 'hpaio:/net/OfficeJet_3830_series?ip=192.168.0.13' --progress --format=png --output-file"
 
 # colorscheme for fzf
@@ -113,16 +113,16 @@ export BAT_THEME="base16"
 
 # Apparently you can't have just one server, every instance has to be a server
 # if I want to be able to hot reload colorscheme for all running instances of vim
-vim() {
-  current=$(/usr/bin/vim --serverlist | tail -n1)
-
-  if [ -z "$current" ]; then
-	  /usr/bin/vim --servername 1 "$@"
-  else
-	  new=$(($current + 1))
-	  /usr/bin/vim --servername "$new" "$@"
-  fi
-}
+#vim() {
+#  current=$(/usr/bin/vim --serverlist | tail -n1)
+#
+#  if [ -z "$current" ]; then
+#	  /usr/bin/vim --servername 1 "$@"
+#  else
+#	  new=$(($current + 1))
+#	  /usr/bin/vim --servername "$new" "$@"
+#  fi
+#}
 
 #lf settings
 #exit to w/e dir I traveled to
@@ -150,7 +150,7 @@ zstyle ':completion:*:descriptions' format $'\e[01;33m %d\e[0m'
 zstyle ':completion:*:messages' format $'\e[01;31m %d\e[0m'
 
 # Pkgfile to help figure out unknown commands
-#source /usr/share/doc/pkgfile/command-not-found.zsh
+source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # Pfetch configuration
 export PF_INFO="ascii title os kernel wm pkgs shell term editor palette"
@@ -160,5 +160,5 @@ export TERM_PROGRAM="st"
 #fet.sh configuration
 export info="n user os sh wm kern pkgs term col n"
 export accent=3
-export separator=" ■ "
+export separator=" ⏹ "
 #export colourblocks="■"

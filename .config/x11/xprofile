@@ -18,7 +18,10 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 
 # Enable trucolor in lf (needed for proper image previews w/ chafa)
 export TCELL_TRUECOLOR=on
-	
+
+# For pam-gnupg support w/ ssh
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
 # Set notification fifo
 export XNOTIFY_FIFO="/tmp/xnotify.fifo"
 export XNOTIFY_HIST_FIFO="/tmp/xnotify_hist.fifo"
@@ -81,6 +84,9 @@ export TIMEWARRIORDB="${HOME}/.config/timewarrior"
 
 #Move gnupg home
 #export GNUPGHOME="$HOME/.config/gnupg"
+
+#Move urxvt socket
+export RXVT_SOCKET="/tmp/urxvtd"
 
 #Move java home
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$HOME/.config/java"

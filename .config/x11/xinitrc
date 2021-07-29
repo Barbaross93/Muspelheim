@@ -18,9 +18,11 @@ fi
 # Setup environment vars
 [ -f ~/.config/x11/xprofile ] && . ~/.config/x11/xprofile
 
-xwallpaper --tile ~/Pictures/colors/282828.png
-theme_switcher.sh -m -c -s &
-xcompmgr &
+ssh-agent
+
+xset +fp ~/.local/share/fonts/misc
+xwallpaper --tile ~/Pictures/colors/1c1c1c.png
+#theme_switcher.sh -m -c -s &
 xinput set-prop "Elan Touchpad" "Device Enabled" 0 & # Disable touchpad
 xmousepasteblock &                                   #Disable middle click paste
 lock &

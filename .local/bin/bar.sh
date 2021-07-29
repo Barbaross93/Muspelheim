@@ -11,24 +11,25 @@
 trap "jobs -p | xargs kill" SIGINT SIGTERM QUIT EXIT
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 
-. "$HOME/.config/bspwm/colorschemes/gruvbox-dark.sh"
+. "$HOME/.config/bspwm/colorschemes/alduin.sh"
 
 #Brought the color here b/c my theme switching script kept fucking it up
-theme=$(cat /tmp/theme_state)
-if [[ "$theme" == "dark" ]]; then
-	color18="#3c3836"
-elif [[ "$theme" == "light" ]]; then
-	color18="#ebdbb2"
-fi
+#theme=$(cat /tmp/theme_state)
+#if [[ "$theme" == "dark" ]]; then
+#	color18="#3c3836"
+#elif [[ "$theme" == "light" ]]; then
+#	color18="#ebdbb2"
+#fi
 
-FONTS="-f -xos4-terminus-medium-*-normal-*-14-*-*-*-*-*-iso10646-* -f -wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1 -f -slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1"
+#-xos4-terminus-medium-*-normal-*-14-*-*-*-*-*-iso10646-*
+FONTS="-f -misc-termsynu-medium-r-normal-*-14-*-*-*-*-*-iso10646-* -f -wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1 -f -slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1"
 WIDTH=1920        # bar width
 HEIGHT=36         # bar height
 XOFF=0            # x offset
 YOFF=0            # y offset
 BBG=${background} # bar background color
 BFG=${foreground}
-BDR=${color7}
+BDR=${color16}
 
 # Status constants
 # Change these to modify bar behavior
@@ -229,7 +230,7 @@ workspaces() {
 							;;
 						o*)
 							# occupied desktop
-							FG=${GREY}
+							FG=${WHITE}
 							BG=${LGTBG}
 							wsicons
 							;;
@@ -590,7 +591,7 @@ tray() {
 			elif [ "$temp" -ge 5000 ]; then
 				redshift="${CYAN}${GLYRDSHFT}"
 			elif [ "$temp" -ge 4000 ]; then
-				redshift="${ORANGE}${GLYRDSHFT}"
+				redshift="${RED}${GLYRDSHFT}"
 			else
 				redshift="${YELLOW}${GLYRDSHFT}"
 			fi

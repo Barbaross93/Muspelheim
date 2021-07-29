@@ -61,10 +61,11 @@ Plug 'preservim/vim-textobj-quote'
 Plug 'preservim/vim-lexical'
 Plug 'tpope/vim-markdown'
 "Misc/useful plugins
+Plug 'AlessandroYorba/Alduin'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
 Plug 'ryanoasis/vim-devicons'
-Plug 'morhetz/gruvbox'
 Plug 'Yggdroot/indentLine'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -72,12 +73,13 @@ Plug 'semanser/vim-outdated-plugins'
 Plug 'easymotion/vim-easymotion'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'farmergreg/vim-lastplace'
-"Plug 'psliwka/vim-smoothie'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " Retired Plugins
 "Plug 'ycm-core/YouCompleteMe'
+"Plug 'morhetz/gruvbox'
+"Plug 'psliwka/vim-smoothie'
 "Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 "Plug 'mbbill/undotree'
 "Plug 'preservim/nerdcommenter'
@@ -90,7 +92,15 @@ Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
-let g:gruvbox_italic = 0
+" Colorscheme settings
+"gruvbox
+"let g:gruvbox_italic = 1
+"let g:gruvbox_contrast_dark = 'medium'
+"let g:gruvbox_contrast_light = 'medium'
+
+"alduin
+let g:alduin_Shout_Fire_Breath = 0
+let g:alduin_Shout_Aura_Whisper = 1
 
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -103,9 +113,7 @@ set laststatus=2 " Always display the statusline in all windows
 set showtabline=2 " Always display the tabline, even if there is only one tab
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 syntax enable
-let g:gruvbox_contrast_dark = 'medium'
-let g:gruvbox_contrast_light = 'medium'
-colorscheme gruvbox
+colorscheme alduin
 set splitbelow
 set splitright
 set clipboard=unnamedplus
@@ -186,7 +194,7 @@ augroup filetypedetect
 augroup END
 
 " airline theme
-let g:airline_theme='gruvbox'
+let g:airline_theme='alduin'
 
 "Indent line settings
 let g:indentLine_char = '│'
@@ -242,7 +250,7 @@ let g:gitgutter_sign_removed_first_line = '▍'
 let g:gitgutter_sign_removed_above_and_below = '▍'
 
 " Indentline wants this later
-set background=light
+set background=dark
 
 " Compatibility with vimwiki
 " let zotcite_filetypes = ['markdown', 'pandoc', 'rmd', 'vimwiki']
@@ -268,16 +276,12 @@ nnoremap <silent><leader>cu :<C-u>Unite -input=<C-R><C-W> -default-action=start 
 nnoremap <silent>[unite]ci :<C-u>Unite -input=<C-R><C-W> -default-action=preview -force-immediately citation/combined<cr>
 nnoremap <silent>[unite]cx :<C-u>exec "Unite  -default-action=start citation/key:" . escape(input('Search Key : '),' ') <cr>
 
-"augroup Markdown
-"  autocmd!
-"  autocmd FileType markdown set tw=86
-"  autocmd FileType markdown set wrap
-"  autocmd FileType markdown set spell
-"augroup END
-
 " For undercurl spellchecker
 let &t_Cs = "\e[4:3m"
 let &t_Ce = "\e[4:0m"
+
+" To disable cursor color change in tmux after entering/exiting vim
+"set t_Cs=
 
 " kill popup dialogs in gvim
 set go+=c
@@ -319,3 +323,4 @@ augroup pencil
                             \ | call textobj#sentence#init()
                             \ | call textobj#quote#init()
   augroup END
+

@@ -33,7 +33,7 @@ super + w
 
 # get window title
 super + alt + w
-	notify-send -u normal "$(xdotool getactivewindow getwindowname)"
+	printf "$(xdotool getactivewindow getwindowname)\n" >$XNOTIFY_FIFO
 
 # Rofi notes/todo
 super + space
@@ -41,7 +41,7 @@ super + space
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd && notify-send -u normal "Sxhkd config reloaded"
+	pkill -USR1 -x sxhkd && printf  "Sxhkd config reloaded\n" >$XNOTIFY_FIFO
 
 # Toggle bar
 super + b
@@ -103,16 +103,16 @@ XF86AudioMicMute
 	vol pulsemic mute
 
 # Start or resume pomodoro
-super + F1
-	pomo-info -s
+#super + F1
+#	pomo-info -s
 
 # Reset Pomodoro
-super + F2
-	pomod kill && notify-send -u normal "Pomodoro restarted"
+#super + F2
+#	pomod kill && printf "Pomodoro restarted\n" >$XNOTIFY_FIFO
 
 # Pause pomodoro
-super + F3
-	pomo-info -p
+#super + F3
+#	pomo-info -p
 
 # toggle vpn status
 super + F4
@@ -154,9 +154,13 @@ super + a
 super + shift + a
 	sterm -e vim ~/.config/sxhkd/sxhkdrc
 
-# record selected part of screen in mp4/gif
+# record selected screen in mp4/gif
 super + r; {m,g}
 	{mp4,gif}
+
+# record part of screen in mp4/gif
+super + shift + r; {m,g}
+	{mp4 -s,gif -s}
 
 # toggle picom
 super + shift + p
@@ -164,7 +168,7 @@ super + shift + p
 
 # Greenclip
 super + x		
-	CM_LAUNCHER=ddmenu clipmenu -p 'Clipboard:' -l 0
+	CM_DIR="$XDG_CACHE_DIR/clipmenu" CM_LAUNCHER=ddmenu clipmenu -p 'Clipboard:' -l 0
 	#greenclip.sh
 
 # Whats playing?
@@ -216,12 +220,12 @@ super + shift + l
 	toggle_redshift.sh
 
 #Enable light mode
-XF86Tools
-	theme_switcher.sh -l
+#XF86Tools
+#	theme_switcher.sh -l
 
 #Enable Dark mode
-XF86Favorites
-	theme_switcher.sh -d 
+#XF86Favorites
+#	theme_switcher.sh -d 
 
 #
 #  bspwm hotkeys
