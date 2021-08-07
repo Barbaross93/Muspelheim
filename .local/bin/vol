@@ -6,19 +6,6 @@ FULL=""
 EMPTY=""
 value="${3:-5}"
 
-draw() {
-	perc=$1
-	size=$2
-	inc=$((perc * size / 100))
-	out=
-	for v in $(seq 0 $((size - 1))); do
-		test "$v" -le "$inc" &&
-			out="${out}${FULL}" ||
-			out="${out}${EMPTY}"
-	done
-	printf "%s" "$out"
-}
-
 case $1 in
 pulse)
 	case $2 in
@@ -42,7 +29,8 @@ pulse)
 		if [ "$muted" = "[on]" ]; then
 			#pulsemixer --toggle-mute
 			amixer set Master toggle
-			printf "SEC:1\tTAG:volume\t Audio muted" >$XNOTIFY_FIFO
+			dunstify -r 112 "Audio" " Muted"
+			#printf "SEC:1\tTAG:volume\t Audio muted" >$XNOTIFY_FIFO
 			exit 0
 		else
 			#pulsemixer --toggle-mute
@@ -77,7 +65,8 @@ pulsemic)
 		if [ "$muted" = "[on]" ]; then
 			#pulsemixer --toggle-mute --id source-1
 			amixer set Capture toggle
-			printf " Mic muted\n" >$XNOTIFY_FIFO
+			notify-send "Audio" " Mic muted"
+			#printf " Mic muted\n" >$XNOTIFY_FIFO
 			exit 0
 		else
 			#pulsemixer --toggle-mute --id source-1
@@ -112,14 +101,14 @@ mpc)
 	;;
 esac
 
-bar=$(draw ${vol} 10)
-printf "SEC:1\tTAG:volume\t$label Volume\t \t$bar\n" >$XNOTIFY_FIFO
+#bar=$(draw ${vol} 10)
+#printf "BAR:$vol\tSEC:1\tTAG:volume\t$label Volume\t \n" >$XNOTIFY_FIFO
 
-#muted=$(amixer get Master | grep "Mono" | awk '{print $6}' | sed -r '/^\s*$/d')
-#if [ "$muted" = "[off]" ]; then
-#	#dunstify -t 3000 -r 2593 -u normal -a mutevol -h int:value:$vol "$label Volume"
-#	echo $vol! >>/tmp/xobvol
-#else
-#	#dunstify -t 3000 -r 2593 -u normal -a volume -h int:value:$vol "$label Volume"
-#	echo $vol >>/tmp/xobvol
-#fi
+muted=$(amixer get Master | grep "Mono" | awk '{print $6}' | sed -r '/^\s*$/d')
+if [ "$muted" = "[off]" ]; then
+	dunstify -t 3000 -r 2593 -u normal -a mutevol -h int:value:$vol "Audio" "$label Volume: $vol%"
+	#echo $vol! >>/tmp/xobvol
+else
+	dunstify -t 3000 -r 2593 -u normal -a volume -h int:value:$vol "Audio" "$label Volume: $vol%"
+	#echo $vol >>/tmp/xobvol
+fi

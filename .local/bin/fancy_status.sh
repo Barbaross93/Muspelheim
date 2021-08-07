@@ -4,6 +4,9 @@
 # make rampable icons for audio, brightness, battery, wifi (might be a pita to implement this)
 #fix bspwm node flags; they dont appear for some reason
 
+# Clone of orig status_notif script but with fancy option. Had to change output of all functions b/c of my lack
+# of foresight
+
 sep='<span foreground="#878787">⏹</span>'
 
 bspwm() {
@@ -56,13 +59,13 @@ bspwm() {
 
 	case "$1" in
 	-s | --simple)
-		echo "<span foreground='#af5f5f'></span> $sep $desktop_name"
+		echo "$desktop_name"
 		;;
 	-f | --full)
 		if [ -n "$sani_list" ]; then
-			echo "<span foreground='#af5f5f'></span> $sep $desktop_name: $layout,$sani_list"
+			echo "$desktop_name: $layout,$sani_list"
 		else
-			echo "<span foreground='#af5f5f'></span> $sep $desktop_name: $layout"
+			echo "$desktop_name: $layout"
 		fi
 		;;
 	esac
@@ -93,15 +96,15 @@ hlwm() {
 }
 
 calendar() {
-	time=$(date +"%I:%M %p")
+	time=$(date +"%I:%M_%p")
 	date=$(date +"%A, %B %d")
 
 	case "$1" in
 	-s | --simple)
-		echo "<span foreground='#87875f'></span> $sep $time"
+		echo "$time"
 		;;
 	-f | --full)
-		env printf "<span foreground='#87875f'></span> $sep $time\n<span foreground='#af875f'></span> $sep $date"
+		env printf "$date"
 		;;
 	esac
 }
@@ -121,9 +124,9 @@ audio() {
 		fi
 
 		if [ "$vol" = "Muted" ]; then
-			echo "<span foreground='#57875f></span> $sep $vol"
+			echo "$vol"
 		else
-			echo "<span foreground='#57875f'></span> $sep $vol"
+			echo "$vol"
 		fi
 		;;
 	-f | --full)
@@ -143,12 +146,12 @@ audio() {
 		fi
 
 		if [ "$vol" = "Muted" ]; then
-			echo "<span foreground='#57875f'></span> $sep $vol"
+			echo "$vol"
 		else
 			barFull=$(seq -s "$FULL" $((vol / 10)) | sed 's/[0-9]//g')
 			barEmpty=$(seq -s "$EMPTY" $((11 - vol / 10)) | sed 's/[0-9]//g')
 
-			printf "%b" "<span foreground='#57875f'></span> $sep $barFull$barEmpty $vol%%"
+			printf "%b" "$barFull$barEmpty $vol%%"
 		fi
 		;;
 	esac
@@ -160,7 +163,7 @@ brightness() {
 		#brightness=$(busctl call org.clightd.clightd /org/clightd/clightd/Backlight org.clightd.clightd.Backlight Get "s" "" | awk '{print $3*100}')
 		#brightness=$(echo "($brightness+0.5)/1" | bc)
 		brightness=$(echo "$(xbacklight)/1" | bc)
-		echo "<span foreground='#af875f'></span> $sep $brightness%%"
+		echo "$brightness%%"
 		;;
 	-f | --full)
 		FULL=""  #"•"
@@ -171,7 +174,7 @@ brightness() {
 		brightness=$(echo "$(xbacklight)/1" | bc)
 		barFull=$(seq -s "$FULL" $((brightness / 10)) | sed 's/[0-9]//g')
 		barEmpty=$(seq -s "$EMPTY" $((11 - brightness / 10)) | sed 's/[0-9]//g')
-		printf "%b" "<span foreground='#af875f'></span> $sep $barFull$barEmpty $brightness%%"
+		printf "%b" "$barFull$barEmpty $brightness%%"
 		;;
 	esac
 }
@@ -181,19 +184,19 @@ battery() {
 	-s | --simple)
 		if [ "$(acpi | wc -l)" = "1" ]; then
 			if [ "$(acpi | awk '{print $3}')" = "Charging," ]; then
-				echo "<span foreground='#87875f'></span> $sep $(acpi | awk '{print $4}' | cut -d',' -f1)%"
+				echo "$(acpi | awk '{print $4}' | cut -d',' -f1)%"
 			elif [ "$(acpi | awk '{print $3}')" = "Full," ]; then
-				echo "<span foreground='#87875f'></span> $sep Full"
+				echo "Full"
 			else
-				echo "<span foreground='#87875f'></span> $sep $(acpi | awk '{print $4}' | cut -d',' -f1)%"
+				echo "$(acpi | awk '{print $4}' | cut -d',' -f1)%"
 			fi
 		else
 			if [ "$(acpi | awk 'NR=2 {print $3}')" = "Charging," ]; then
-				echo "<span foreground='#87875f'></span> $sep $(acpi | awk 'NR=2 {print $4}' | cut -d',' -f1)"
+				echo "$(acpi | awk 'NR=2 {print $4}' | cut -d',' -f1)"
 			elif [ "$(acpi | awk 'NR=2 {print $3}')" = "Full," ]; then
-				echo "<span foreground='#87875f'></span> $sep Full"
+				echo "Full"
 			else
-				echo "<span foreground='#87875f'></span> $sep $(acpi | awk 'NR=2 {print $4}' | cut -d',' -f1)%"
+				echo "$(acpi | awk 'NR=2 {print $4}' | cut -d',' -f1)%"
 			fi
 		fi
 		;;
@@ -203,26 +206,26 @@ battery() {
 			if [ "$state" = "Charging," ]; then
 				percent=$(acpi | awk '{print $4}' | cut -d',' -f1)
 				time=$(acpi | awk NR=1 | awk '{print $5, $6, $7}')
-				echo "<span foreground='#87875f'></span> $sep $percent%, $time"
+				echo "$percent%, $time"
 			elif [ "$state" = "Full," ]; then
-				echo "<span foreground='#87875f'></span> $sep Full"
+				echo "Full"
 			else
 				percent=$(acpi | awk '{print $4}' | cut -d',' -f1)
 				time=$(acpi | awk NR=1 | awk '{print $5, $6}')
-				echo "<span foreground='#87875f'></span> $sep $percent%, $time"
+				echo "$percent%, $time"
 			fi
 		else
 			state=$(acpi | awk 'NR=2 {print $3}')
 			if [ "$state" = "Charging," ]; then
 				percent=$(acpi | awk 'NR=2 {print $4}' | cut -d',' -f1)
 				time=$(acpi | awk 'NR=2 {print $5, $6, $7}')
-				echo "<span foreground='#87875f'></span> $sep $percent%, $time"
+				echo "$percent%, $time"
 			elif [ "$state" = "Full," ]; then
 				echo " $sep Full"
 			else
 				percent=$(acpi | awk 'NR=2 {print $4}' | cut -d',' -f1)
 				time=$(acpi | awk 'NR=2 {print $5, $6}')
-				echo "<span foreground='#87875f'></span> $sep $percent%, $time"
+				echo "$percent%, $time"
 			fi
 		fi
 		;;
@@ -242,14 +245,14 @@ internet() {
 	connection_type=$(nmcli d | grep connected | head -1 | awk '{print $1}')
 
 	if [ "$connection_type" = "enp4s0" ]; then
-		echo "<span foreground='#af8787'></span> $sep $(nmcli d | grep connected | awk '{print $4}')"
+		echo "$(nmcli d | grep connected | awk '{print $4}')"
 	elif [ "$connection_type" = "wlp5s0" ]; then
 		signal=$(nmcli -g IN-USE,SIGNAL d wifi list | grep "*" | cut -d':' -f2)
 		ssid=$(nmcli -g IN-USE,SSID d wifi list | grep "*" | cut -d':' -f2)
 		if $simple; then
-			echo "<span foreground='#af8787'></span> $sep $signal%%"
+			echo "$signal%%"
 		else
-			echo "<span foreground='#af8787'></span> $sep $signal%%, $ssid"
+			echo "$signal%%, $ssid"
 		fi
 	else
 		echo "<span foreground='#af8787'>Net</span> $sep: Disconnected"
@@ -260,9 +263,9 @@ taskwarrior() {
 	num=$(task active | wc -l)
 	if [ "$num" -gt 1 ]; then
 		active_task=$(task rc.gc=no rc.indent.report=4 rc.verbose= rc.report.next.columns=description.desc rc.report.next.labels= rc.defaultwidth=1000 next +ACTIVE 2>/dev/null </dev/null | sed -n '4 p' | awk '$1=$1')
-		echo "<span foreground='#af8787'></span> $sep $active_task"
+		echo "$active_task"
 	else
-		echo "<span foreground='#af8787'></span> $sep No active task"
+		echo "No active task"
 	fi
 }
 
@@ -272,9 +275,9 @@ rdshift() {
 
 		temp=$(redshift -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//') -p 2>/dev/null | grep "Color" | awk '{print $3}')
 		#temp=$(redshift -p 2>/dev/null | grep "Color" | awk '{print $3}')
-		echo "<span foreground='#af5f5f'></span> $sep $temp"
+		echo "$temp"
 	else
-		echo "<span foreground='#af5f5f'></span> $sep Disabled"
+		echo "Disabled"
 	fi
 }
 
@@ -290,9 +293,9 @@ vpn() {
 				state="$name $status"
 			fi
 		done
-		echo "<span foreground='#87afaf'></span> $sep $state"
+		echo "$state"
 	else
-		echo "<span foreground='#87afaf'></span> $sep No connections"
+		echo "No connections"
 	fi
 }
 case "$1" in
@@ -359,8 +362,18 @@ case "$1" in
 	#bt=$(bluetooth)
 	rs=$(rdshift)
 	fulll=$(env printf "$wm\n$cal\n$sound\n$light\n$power\n$interweb\n$vvpn\n$rs\n$task")
-	notify-send -t 15000 "Greetings, $USER" "$fulll"
+	notify-send -t 15000 "Information Overload:" "$fulll"
 	#printf "SEC:10\t$wm\t$cal\t$sound\t$light\t$power\t$interweb\t$bt\t$rs\t$vvpn\t$task\n" >$XNOTIFY_FIFO
+	;;
+--fancy)
+	wm=$(env printf "%-58.58s %44.44s\n" "You_are_on_workspace<span_foreground='#878787'>_" "_</span><span_foreground='#57875f'>$(bspwm --simple)</span>")
+	cal=$(env printf "%-51.51s %51.51s\n" "It_is_currently<span_foreground='#878787'>_" "_</span><span_foreground='#af5f5f'>$(calendar --simple)</span>")
+	sound=$(env printf "%-55.55s %48.48s\n" "Volume_is_at<span_foreground='#878787'>_" "_</span><span_foreground='#87afaf'>$(audio --simple)</span>")
+	light=$(env printf "%-56.56s %47.47s\n" "Backlight_is_set_to<span_foreground='#878787'>_" "_</span><span_foreground='#af875f'>$(brightness --simple)</span>")
+	power=$(env printf "%-56.56s %47.47s\n" "Battery_is_at<span_foreground='#878787'>_" "_</span><span_foreground='#87875f'>$(battery --simple)</span>")
+	#interweb=$(env printf "%-56.56s %47.47s\n" "Wifi_signal_strength_is_at<span_foreground='#878787'>_" "_</span><span_foreground='#af8787'>$(internet --simple)</span>")
+	fanc=$(env printf "$wm\n$cal\n$sound\n$light\n$power" | tr " " "." | tr "_" " ")
+	notify-send -t 10000 "Greetings, $USER" "$fanc"
 	;;
 --simple | *)
 	wm=$(bspwm --simple)
@@ -370,7 +383,7 @@ case "$1" in
 	power=$(battery --simple)
 	interweb=$(internet --simple)
 	simple=$(env printf "$wm\n$cal\n$sound\n$light\n$power\n$interweb")
-	notify-send -t 10000 "Greetings, $USER" "$simple"
+	notify-send -t 10000 "Information Underload:" "$simple"
 	#printf "SEC:15\t$simple\n" >$XNOTIFY_FIFO
 	;;
 esac

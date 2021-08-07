@@ -1,9 +1,11 @@
 #!/bin/sh
 
-printf "SEC:3\t' Select a region to screenshot\n" >$XNOTIFY_FIFO
+notify-send "Screenshot" "Select a region to screenshot"
+#printf "SEC:3\t' Select a region to screenshot\n" >$XNOTIFY_FIFO
 sleep 0.3 &&
 	ffcast -s png ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #scrot -s ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #shotgun -g $(hacksaw -n) ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #maim -s ~/Pictures/Screenshots/$(date +%s).png
-printf "SEC:3 ' Screenshot of region taken\n" >$XNOTIFY_FIFO
+notify-send "Screenshot" "Screenshot of region taken"
+#printf "SEC:3 ' Screenshot of region taken\n" >$XNOTIFY_FIFO

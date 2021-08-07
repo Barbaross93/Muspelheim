@@ -8,17 +8,51 @@
 #	setsid -f giph -s -y ~/Pictures/Gifs/Recordings/$(date +%s).gif &>/dev/null
 #fi
 
-if pgrep -f "bash.+ffcast" >/dev/null 2>&1; then
-	kill $(pgrep -f "bash.+ffcast")
-	printf "Stopping gif recording...\n" >$XNOTIFY_FIFO
-else
-	printf "Select region to record\n" >$XNOTIFY_FIFO
-	# To make high quality gifs, create a bunch of pngs and then create the gif
-	mkdir -p /tmp/0
-	cd /tmp/0
-	ffcast -s rec -r 20 %04d.png
-	convert -loop 0 -delay 5 *.png -layers Optimize ~/Pictures/Gifs/Recordings/$(date '+%Y-%m-%d_%H-%M-%S').gif
-	rm -rf /tmp/0
-	printf "Recording finished!\n" >$XNOTIFY_FIFO
-	#scr -c -e $(date '+%Y-%m-%d_%H-%M-%S').gif &>/dev/null
-fi
+selection() {
+	if pgrep -f "bash.+ffcast" >/dev/null 2>&1; then
+		pkill ffmpeg
+		notify-send "Record" "Stopping gif recording..."
+		#printf "Stopping gif recording...\n" >$XNOTIFY_FIFO
+	else
+		notify-send i"Record" "Select region to record"
+		#printf "Select region to record\n" >$XNOTIFY_FIFO
+		# To make high quality gifs, create a bunch of pngs and then create the gif
+		mkdir -p /tmp/0
+		cd /tmp/0
+		ffcast -s rec -r 20 %04d.png
+		convert -loop 0 -delay 5 *.png -layers Optimize ~/Pictures/Gifs/Recordings/$(date '+%Y-%m-%d_%H-%M-%S').gif
+		rm -rf /tmp/0
+		notify-send "Record" "Recording finished!"
+		#printf "Recording finished!\n" >$XNOTIFY_FIFO
+		#scr -c -e $(date '+%Y-%m-%d_%H-%M-%S').gif &>/dev/null
+	fi
+}
+
+full() {
+	if pgrep -f "bash.+ffcast" >/dev/null 2>&1; then
+		kill $(pgrep -f "bash.+ffcast")
+		notify-send "Record" "Stopping gif Recording..."
+		#printf "Stopping gif recording...\n" >$XNOTIFY_FIFO
+	else
+		notify-send "Record" "Select region to record"
+		#printf "Select region to record\n" >$XNOTIFY_FIFO
+		# To make high quality gifs, create a bunch of pngs and then create the gif
+		mkdir -p /tmp/0
+		cd /tmp/0
+		ffcast rec -r 20 %04d.png
+		convert -loop 0 -delay 5 *.png -layers Optimize ~/Pictures/Gifs/Recordings/$(date '+%Y-%m-%d_%H-%M-%S').gif
+		rm -rf /tmp/0
+		notify-send "Record" "Recording finished!"
+		#printf "Recording finished!\n" >$XNOTIFY_FIFO
+		#scr -c -e $(date '+%Y-%m-%d_%H-%M-%S').gif &>/dev/null
+	fi
+}
+
+case "$1" in
+-s | --selection)
+	selection
+	;;
+-f | --full | *)
+	full
+	;;
+esac

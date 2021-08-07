@@ -69,7 +69,13 @@ cmd fzf_jump ${{
 
 # Archive bindings
 cmd extract ${{
-  aunpack "$f"
+  case "$f" in
+      *.zip) unzip "$f" ;;
+      *.tar.gz) tar -xzvf "$f" ;;
+      *.tar.bz2) tar -xjvf "$f" ;;
+      *.tar) tar -xvf "$f" ;;
+      *) echo "Unsupported format" ;;
+  esac
 }}
 
 cmd zip %zip -r "$f" "$f"
@@ -128,7 +134,7 @@ map az zip
 map at tar
 map ag targz
 map ab targz
-map au unarchive
+map au extract
 
 # Trash Mappings
 map dd trash

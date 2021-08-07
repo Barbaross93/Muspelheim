@@ -7,6 +7,7 @@ khal list now 12h | tail -n +2 | while read -r line; do # make sure to use a kha
 	apt=$(echo $line | cut -d'-' -f1 | sed 's/://g' | bc)
 	# Check if each event will occur within the next hour
 	if [ $apt -le $hr ] && [ $apt -ge $now ]; then
-		printf "BRD:#458588\tEvent Reminder\t$line\n" >$XNOTIFY_FIFO
+		notify-send -u low "Khal Event Reminder" "$line"
+		#printf "BRD:#87afaf\tEvent Reminder\t$line\n" >$XNOTIFY_FIFO
 	fi
 done

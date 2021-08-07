@@ -2,4 +2,5 @@
 
 # Since I dont like searching for "st" in my autostart or other scripts
 
+#urxvtdc "$@"
 st "$@"

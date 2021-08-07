@@ -2,11 +2,11 @@
 # dmenu_run improved
 # if a command ends with "!", it is started in term.
 
-termcmd="sterm -e"
+termcmd="$HOME/.local/bin/sterm"
 
 cmd="$(dmenu_path | ddmenu $@)"
 case $cmd in
-*\!) ${termcmd} "$(printf "%s" "${cmd}" | cut -d'!' -f1)" ;;
+*\!) ${termcmd} -e "$(printf "%s" "${cmd}" | cut -d'!' -f1)" ;;
 *) ${cmd} ;;
 esac
 exit

@@ -150,7 +150,7 @@ zstyle ':completion:*:descriptions' format $'\e[01;33m %d\e[0m'
 zstyle ':completion:*:messages' format $'\e[01;31m %d\e[0m'
 
 # Pkgfile to help figure out unknown commands
-source /usr/share/doc/pkgfile/command-not-found.zsh
+#source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # Pfetch configuration
 export PF_INFO="ascii title os kernel wm pkgs shell term editor palette"

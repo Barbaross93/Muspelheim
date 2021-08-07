@@ -1,13 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
-selector=$(bspc query -N -n)
-windows="$(bspc query -N -n .window | grep -v "$selector")"
-count=$(echo "$windows" | wc -l)
-index="$(for i in $(seq 1 "$count"); do printf "%s %s\n" $i "$(xdotool getwindowname $(echo "${windows}" | head -n "${i}" | tail -1))"; done | ddmenu -b -p 'Select window:')" &&
-	if [ "$index" = "" ]; then
-		exit 0
-	else
-		num="${index%% *}"
-		win=$(echo "${windows}" | head -n "$num" | tail -1)
-		bspc node -f "$win"
-	fi
+windows=($(bspc query -N -n .window))
+for w in ${windows[@]}; do
+	list+="$(bspc query -D -n $w --names) $(xdotool getwindowname $w)\n"
+done
+selection=$(echo -ne $list | ddmenu -ix -p 'Select window:')
+
+if [ -n "$selection" ]; then
+	bspc node -f "${windows[$selection]}"
+fi

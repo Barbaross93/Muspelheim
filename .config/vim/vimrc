@@ -49,9 +49,6 @@ Plug 'tools-life/taskwiki'
 " writing plugins
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'Shougo/unite.vim'
-Plug 'rafaqz/citation.vim'
-"Plug 'preservim/vim-pencil'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'preservim/vim-litecorrect'
@@ -255,26 +252,14 @@ set background=dark
 " Compatibility with vimwiki
 " let zotcite_filetypes = ['markdown', 'pandoc', 'rmd', 'vimwiki']
 
-" citation.vim settings
-let g:citation_vim_bibtex_file="/home/barbarossa/Documents/School/Bibliography/Library/Library.bib"
-let g:citation_vim_mode="bibtex"
-let g:citation_vim_cache_path='~/.local/share/cobib/'
-let g:citation_vim_outer_prefix="["
-let g:citation_vim_inner_prefix="@"
-let g:citation_vim_suffix="]"
-let g:citation_vim_et_al_limit=2
-let g:citation_vim_reverse_order=0
-
-"Unite leader for citation.vim
-nmap <leader>u [unite]
-nnoremap [unite] <nop>
-
-" citation bindings
-nnoremap <silent>[unite]c       :<C-u>Unite -buffer-name=citation-start-insert -default-action=append      citation/key<cr>
-nnoremap <silent>[unite]co :<C-u>Unite -input=<C-R><C-W> -default-action=start -force-immediately citation/file<cr>
-nnoremap <silent><leader>cu :<C-u>Unite -input=<C-R><C-W> -default-action=start -force-immediately citation/url<cr>
-nnoremap <silent>[unite]ci :<C-u>Unite -input=<C-R><C-W> -default-action=preview -force-immediately citation/combined<cr>
-nnoremap <silent>[unite]cx :<C-u>exec "Unite  -default-action=start citation/key:" . escape(input('Search Key : '),' ') <cr>
+" vim-pandoc settings
+"let g:pandoc#biblio#sources = "g"
+let g:pandoc#biblio#bibs = ['/home/barbarossa/Documents/School/Bibliography/Library/Library.bib']
+augroup VimCompletesMePandoc
+  autocmd!
+  autocmd FileType pandoc
+    \ let b:vcm_omni_pattern = '@'
+augroup END
 
 " For undercurl spellchecker
 let &t_Cs = "\e[4:3m"

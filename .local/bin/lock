@@ -21,7 +21,8 @@ xlock() {
 }
 
 #sunpape
-pkill -STOP xnotify
+#pkill -STOP xnotify
+dunstctl set-paused true
 status=$(playerctl status)
 playerctl pause
 
@@ -45,6 +46,7 @@ setsid -f xcompmgr &
 if [ "$status" = "Playing" ]; then
 	playerctl play
 fi
-pkill -CONT xnotify
+dunstctl set-paused false
+#pkill -CONT xnotify
 
 #wait

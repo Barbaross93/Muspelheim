@@ -12,5 +12,6 @@ updates=$(($updates_arch + $updates_aur))
 
 if [ "$updates" -gt 0 ]; then
     #echo " $updates"
-    printf "SEC:3\t Updates: $updates\n" >$XNOTIFY_FIFO
+    notify-send "Pacman" " Updates: $updates"
+    #printf "SEC:3\t Updates: $updates\n" >$XNOTIFY_FIFO
 fi

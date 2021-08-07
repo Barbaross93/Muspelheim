@@ -7,10 +7,37 @@
 #	setsid -f giph -s -y -a ~/Videos/$(date +%s).mp4 &>/dev/null
 #fi
 
-if pgrep -f "bash.+ffcast" >/dev/null 2>&1; then
-	kill "$(pgrep -f "bash.+ffcast")" >/dev/null 2>&1
-else
-	printf "Select region to record\n" >$XNOTIFY_FIFO
-	ffcast -s rec ~/Videos/$(date +%s).mp4 &>/dev/null
-	#scr -c -e &>/dev/null
-fi
+selection() {
+	if pgrep -f "bash.+ffcast" >/dev/null 2>&1; then
+		pkill ffmpeg >/dev/null 2>&1
+		notify-send "Record" "Recording ended"
+		#printf "Recording ended\n" >$XNOTIFY_FIFO
+	else
+		notify-send "Record" "Select region to record"
+		#printf "Select region to record\n" >$XNOTIFY_FIFO
+		ffcast -s rec $HOME/Videos/$(date +%Y-%m-%d_%H:%M).mp4 &>/dev/null
+		#scr -c -e &>/dev/null
+	fi
+}
+
+full() {
+	if pgrep -f "bash.+ffcast" >/dev/null 2>&1; then
+		pkill ffmpeg >/dev/null 2>&1
+		notify-send "Record" "Recording ended"
+		#printf "Recording ended\n" >$XNOTIFY_FIFO
+	else
+		notify-send "Record" "Recording started"
+		#printf "Recording started\n" >$XNOTIFY_FIFO
+		ffcast rec $HOME/Videos/$(date +%Y-%m-%d_%H:%M).mp4 &>/dev/null
+		#scr -c -e &>/dev/null
+	fi
+}
+
+case "$1" in
+-s | --selection)
+	selection
+	;;
+-f | --full | *)
+	full
+	;;
+esac

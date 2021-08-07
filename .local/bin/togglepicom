@@ -11,8 +11,10 @@
 
 if pidof xcompmgr; then
 	killall xcompmgr
-	printf "SEC:3\tXcompmgr killed\n" >$XNOTIFY_FIFO
+	notify-send "Compositor" "Xcompmgr killed"
+	#printf "SEC:3\tXcompmgr killed\n" >$XNOTIFY_FIFO
 else
 	xcompmgr &
-	printf "SEC:3\tXcompmgr Started\n" >$XNOTIFY_FIFO
+	notify-send "Compositor" "Xcompmgr started"
+	#printf "SEC:3\tXcompmgr Started\n" >$XNOTIFY_FIFO
 fi

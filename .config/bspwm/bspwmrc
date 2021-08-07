@@ -8,6 +8,9 @@
 #
 ###############################
 
+# Do nothing if interrupted
+trap '' INT TSTP
+
 pgrep -x sxhkd >/dev/null || sxhkd &
 
 ###Config
@@ -15,16 +18,12 @@ pgrep -x sxhkd >/dev/null || sxhkd &
 bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9 10
 #bspc monitor eDP1 -d          
 
-bspc config border_width 2
-bspc config top_padding 2
-bspc config right_padding 2
-bspc config left_padding 2
-bspc config bottom_padding 38
-bspc config window_gap -2
-bspc config top_monocle_padding 0
-bspc config right_monocle_padding 0
-bspc config left_monocle_padding 0
-bspc config bottom_monocle_padding 2
+bspc config border_width 3
+bspc config top_padding 0
+bspc config right_padding 8
+bspc config left_padding 8
+bspc config bottom_padding 8
+bspc config window_gap 16
 
 . "${HOME}/.config/bspwm/colorschemes/alduin.sh"
 bspc config focused_border_color "$color3"
@@ -32,12 +31,12 @@ bspc config normal_border_color "$color16"
 bspc config active_border_color "$color6"
 bspc config presel_feedback_color "$color3"
 bspc config split_ratio 0.50
-bspc config borderless_monocle true
+bspc config borderless_monocle false
 bspc config gapless_monocle false
 bspc config focus_follows_pointer true
 #bspc config external_rules_command "$HOME/.config/bspwm/external_rules.sh"
 bspc config pointer_follows_focus false
-bspc config single_monocle true
+bspc config single_monocle false
 bspc config ignore_ewmh_focus false
 
 ###Rules
@@ -46,7 +45,6 @@ bspc rule -r '*'
 
 # State rules
 #bspc rule -a "Emacs" state=tiled
-#bspc rule -a URxvt:cmatrixterm state=fullscreen
 bspc rule -a St:dropdown state=floating #sticky=on
 bspc rule -a "Sxiv" state=fullscreen
 bspc rule -a "mpv" state=floating
@@ -67,21 +65,19 @@ bspc rule -a *:*:Spotify desktop=^7 follow=on
 xset s 180 120
 xset dpms 305
 xset r rate 440 50
-#xset -b
+xset -b
 xsetroot -cursor_name left_ptr
 
 ###Application startup
 startup_lock_file=/tmp/bspwm-startup.lock
 if [ ! -f $startup_lock_file ]; then
-    touch /tmp/bspwm-startup.lock
-    #xwallpaper --tile ~/Pictures/colors/3a3a3a.png
-    xwallpaper --zoom ~/Pictures/darktown.png
-    bar.sh &
+    touch $startup_lock_file
+    xwallpaper --tile ~/Pictures/antigen.png
+    #xwallpaper --zoom ~/Pictures/upscaleddarksouls.png
+    #hashwall -b "#121212" -f "#262626" -s 8 -r 64
     /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
-    notif.sh
     unclutter &
-    CM_DIR="$XDG_CACHE_DIR/clipmenu" clipmenud &
-    #greenclip daemon &
+    clipmenud &
     xss-lock -n dim-screen.sh -l -- lock &
     idle.sh 10 "systemctl suspend-then-hibernate" &
 
@@ -98,10 +94,7 @@ if [ ! -f $startup_lock_file ]; then
 
     distraction_mode_check.sh &
     weather.sh &
-    #gitwatch -r pi@192.168.0.18:/mnt/fd1/repos/thonkpad-dotfiles /home/barbarossa/Public/thonkpad-dotfiles &
+    gitwatch -r pi@192.168.0.18:/mnt/fd1/repos/thonkpad-dotfiles /home/barbarossa/Public/thonkpad-dotfiles &
     syncthing -no-browser &
     redshift -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//') &
-
-    ## Default layout
-    #bspdefaultlayout.sh
 fi

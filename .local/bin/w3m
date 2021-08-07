@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # Gets rid of .w3m in ~/
-HOME="${HOME}/.local/share/w3m" /usr/bin/w3m -o auto_image=FALSE -o display_link_number=true -o confirm_qq=false -o extbrowser=/home/barbarossa/.local/bin/linkhandler "$@"
+HOME="${HOME}/.local/share/w3m" /usr/bin/w3m -o auto_image=TRUE -o display_link_number=true -o confirm_qq=false -o extbrowser=/home/barbarossa/.local/bin/linkhandler "$@"

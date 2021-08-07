@@ -8,8 +8,8 @@ while inotifywait -q -q -e close_write "$COBIB_DATABASE"; do
 	cobib export --bibtex ~/Documents/School/Bibliography/Library/Library.bib
 	# Unfortunately, to get citations to work in vim, I need to "fix"
 	# the bib file with pybtex and then replace the old bib file
-	pybtex-convert ~/Documents/School/Bibliography/Library/Library.bib Library2.bib
-	mv ~/Documents/School/Bibliography/Library/Library2.bib ~/Documents/School/Bibliography/Library/Library.bib
+	#pybtex-convert ~/Documents/School/Bibliography/Library/Library.bib Library2.bib
+	#mv ~/Documents/School/Bibliography/Library/Library2.bib ~/Documents/School/Bibliography/Library/Library.bib
 done &
 
 cobib

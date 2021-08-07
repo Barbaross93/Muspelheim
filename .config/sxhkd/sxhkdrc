@@ -33,19 +33,19 @@ super + w
 
 # get window title
 super + alt + w
-	printf "$(xdotool getactivewindow getwindowname)\n" >$XNOTIFY_FIFO
+	notify-send "Window title" "$(xdotool getactivewindow getwindowname)"
 
 # Rofi notes/todo
 super + space
-	notes
+	dmenu-task
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd && printf  "Sxhkd config reloaded\n" >$XNOTIFY_FIFO
+	pkill -USR1 -x sxhkd && notify-send "Sxhkd" "Config reloaded"
 
 # Toggle bar
-super + b
-	togglebar.sh
+#super + b
+#	togglebar.sh
 
 # teleport cursor
 super + alt + c
@@ -54,10 +54,6 @@ super + alt + c
 # Dmenu usb controls
 super + u; {m, u}
 	{dmenumount,dmenuumount}
-
-# Stop middle click from pasting
-~button2
-	echo -n | xclip -i
 
 # Print screen
 Print
@@ -91,32 +87,24 @@ XF86AudioMute
 	vol pulse mute
 
 # mic volume up
-super + XF86AudioRaiseVolume
-	vol pulsemic up
+#super + XF86AudioRaiseVolume
+#	vol pulsemic up
 
 # mic volume down
-super + XF86AudioLowerVolume
-	vol pulsemic down
+#super + XF86AudioLowerVolume
+#	vol pulsemic down
 
 # mic toggle mute
 XF86AudioMicMute
 	vol pulsemic mute
 
-# Start or resume pomodoro
-#super + F1
-#	pomo-info -s
+# Start/resume or pause pomodoro
+super + l; {i,s,p} 
+	pomo-info {-i,-s,-p}
 
 # Reset Pomodoro
-#super + F2
-#	pomod kill && printf "Pomodoro restarted\n" >$XNOTIFY_FIFO
-
-# Pause pomodoro
-#super + F3
-#	pomo-info -p
-
-# toggle vpn status
-super + F4
-	vpn_toggle.sh
+super + l; r
+	pomod kill && notify-send "pomod" "Pomodoro restarted"
 
 # Bluetooth
 XF86Bluetooth
@@ -168,7 +156,7 @@ super + shift + p
 
 # Greenclip
 super + x		
-	CM_DIR="$XDG_CACHE_DIR/clipmenu" CM_LAUNCHER=ddmenu clipmenu -p 'Clipboard:' -l 0
+	CM_LAUNCHER=ddmenu clipmenu -p 'Clipboard:' -l 15
 	#greenclip.sh
 
 # Whats playing?
@@ -197,7 +185,7 @@ super + BackSpace
 	bspc config -d focused right_padding 0; \
 	bspc config -d focused left_padding 0; \
 	bspc config -d focused bottom_padding 0; \
-	bspc config -d focused window_gap -2
+	bspc config -d focused window_gap -3
 
 # Color picker
 super + shift + c
@@ -205,11 +193,17 @@ super + shift + c
 
 # Query last notification
 control + grave
-	notif_hist.sh -q
+	dunstctl history-pop
+	#notif_hist.sh -q
 
 # Close current notification
 control + space
-	notif_hist.sh -c
+	dunstctl close
+	#notif_hist.sh -c
+
+# Close all notifications
+control + shift + space
+	dunstctl close-all
 
 # Toggle notifications
 super + shift + n
@@ -463,49 +457,49 @@ super + t; s
 #
 
 # bspwm status
-super + alt + F1
+super + XF86AudioMute
 	status_notif.sh --bspwm
 
 # calendar (date/time)
-super + alt + F2
+super + XF86AudioLowerVolume
 	status_notif.sh --calendar
 
 # audio status
-super + alt + F3
+super + XF86AudioRaiseVolume
 	status_notif.sh --audio
 
 # brightness status
-super + alt + F4
+super + XF86AudioMicMute
 	status_notif.sh --brightness
 
 # battery status
-super + alt + F5
+super + XF86MonBrightnessDown
 	status_notif.sh --battery
 
 # internet status
-super + alt + F6
+super + Xf86MonBrightnessUp
 	status_notif.sh --internet
 
 # Bluetooth status
-super + alt + F7
-	status_notif.sh --bluetooth
+super + XF86Display
+	status_notif.sh --vpn
 
 # Redshift status
-super + alt + F8
+super + XF86Tools
 	status_notif.sh --redshift
 
 # VPN status
-super + alt + F9
-	status_notif.sh --vpn
+super + XF86Tools
+	status_notif.sh --taskwarrior
 
 # Misc status
-super + alt + F10
+XF86Tools
 	status_notif.sh --extra
 
-# full simplified status
-super + F11
-	status_notif.sh --simple
+# full/simplified status
+super + {,shift} + XF86Launch1
+	status_notif.sh {--simple,--full}
 
-# Full status
-super + F12
-	status_notif.sh --full
+# Fany status
+XF86Favorites
+	fancy_status.sh --fancy

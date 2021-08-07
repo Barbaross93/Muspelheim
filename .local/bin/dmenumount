@@ -20,7 +20,7 @@ mountusb() {
 	chosen="$(echo "$usbdrives" | ddmenu -p "Mount which drive?")" || exit 1
 	chosen="$(echo "$chosen" | awk '{print $1}')"
 	isencrypted "$chosen"
-	sudo -A mount "$chosen" 2>/dev/null && printf "💻 USB mounting\t$chosen mounted.\n" >$XNOTIFY_FIFO && exit 0
+	sudo -A mount "$chosen" 2>/dev/null && notify-send "💻 USB mounting" "$chosen mounted." && exit 0
 	alreadymounted=$(lsblk -nrpo "name,type,mountpoint" | awk '$3!~/\/boot|\/home$|SWAP/&&length($3)>1{printf "-not ( -path *%s -prune ) ",$3}')
 	getmount "/mnt /media /mount /home -maxdepth 5 -type d $alreadymounted"
 	partitiontype="$(lsblk -no "fstype" "$chosen")"
@@ -34,7 +34,7 @@ mountusb() {
 		sudo -A chown "$user":"$ug" "$mp"
 		;;
 	esac
-	printf "💻 USB mounting\t$chosen mounted to $mp.\n" >$XNOTIFY_FIFO
+	notify-send "💻 USB mounting" "$chosen mounted to $mp."
 }
 
 mountandroid() {
@@ -44,7 +44,7 @@ mountandroid() {
 	simple-mtpfs --device "$chosen" "$mp"
 	echo "OK" | ddmenu -p "Tap Allow on your phone if it asks for permission and then press enter" || exit 1
 	simple-mtpfs --device "$chosen" "$mp"
-	printf "🤖 Android Mounting\tAndroid device mounted to $mp.\n" >$XNOTIFY_FIFO
+	notify-send "🤖 Android Mounting" "Android device mounted to $mp."
 }
 
 isencrypted() {

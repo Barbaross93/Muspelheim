@@ -8,5 +8,6 @@ if [ -n "$color" ]; then
 	temp=$(mktemp --suffix ".png")
 	convert -size 100x100 xc:$color $temp
 	echo $color | xsel -ib
-	printf "IMG:$temp\t$color\n" >$XNOTIFY_FIFO
+	notify-send -i $temp "Colorpicker" "$color"
+	#printf "IMG:$temp\t$color\n" >$XNOTIFY_FIFO
 fi

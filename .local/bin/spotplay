@@ -12,13 +12,17 @@ if [ "$status" = Playing ]; then
 	size=420
 	convert /tmp/large_cover.png -resize "$size"x"$size" /tmp/cover.png
 	###
-	info=$(playerctl metadata --format " Now Playing\t {{ title }} ({{ duration(mpris:length) }})\t {{ artist }}\t {{ album }}")
-	printf "TAG:spotify\tSEC:5\tBRD:#458588\tIMG:$random_name\t$info\n" >$XNOTIFY_FIFO
+	info=$(playerctl metadata --format " Now Playing\n {{ title }} ({{ duration(mpris:length) }})\n {{ artist }}\n {{ album }}")
+	info=$(env printf "$info")
+	dunstify -r 859 -u low -i $random_name "Spotify" "$info"
+	#printf "TAG:spotify\tSEC:5\tBRD:#87afaf\tIMG:$random_name\t$info\n" >$XNOTIFY_FIFO
 elif [ "$status" = Paused ]; then
 	position=$(playerctl position --format "{{ duration(position) }}")
 	duration=$(playerctl metadata --format "{{ duration(mpris:length) }}")
-	formatted=" Playback Paused\tCurrent Position: $position/$duration"
-	printf "TAG:spotify\tSEC:5\tBRD:#458588\t$formatted\n" >$XNOTIFY_FIFO
+	formatted=" Playback Paused\nCurrent Position: $position/$duration"
+	formatted=$(env printf "$formatted")
+	dunstify -r 859 -u low "Spotify" "$formatted"
+	#printf "TAG:spotify\tSEC:5\tBRD:#87afaf\t$formatted\n" >$XNOTIFY_FIFO
 	#else
 	#notify-send -t 3000 -a Spotify -u low $'Something else besides play/paused happened.\nUpdate this script fool.'
 fi

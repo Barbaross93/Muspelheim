@@ -1,9 +1,11 @@
 #!/bin/sh
 
-printf "SEC:3\t Screenshot will be taken in 5 seconds\n" >$XNOTIFY_FIFO
+notify-send -t 3000 "Screenshot" "Screenshot in 5 seconds"
+#printf "SEC:3\t Screenshot will be taken in 5 seconds\n" >$XNOTIFY_FIFO
 sleep 5 &&
 	ffcast png ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #scrot ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #shotgun ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #maim -q -d 5 ~/Pictures/Screenshots/$(date +%s).png
-printf "SEC:3\t ' Screenshot taken" >$XNOTIFY_FIFO
+notify-send "Screenshot" "Screenshot taken"
+#printf "SEC:3\t ' Screenshot taken" >$XNOTIFY_FIFO

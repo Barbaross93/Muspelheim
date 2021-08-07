@@ -1,0 +1,119 @@
+##############################
+#
+# ░█▀▄░█░█░█▀█░█▀▀░▀█▀░█▀▄░█▀▀
+# ░█░█░█░█░█░█░▀▀█░░█░░█▀▄░█░░
+# ░▀▀░░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀
+#
+##############################
+
+[colors]
+	background = "#1c1c1c"
+  frame = "#af875f"
+	foreground = "#dfdfaf"
+
+[global]
+    ### Display ###
+
+    monitor = 0
+    follow = keyboard
+
+    #geometry = "262x5-829-46"
+    #geometry = "262x3-14+46"
+    geometry = "288x5-36-48"    
+    indicate_hidden = yes
+    shrink = false
+    transparency = 0
+    notification_height = 5
+    separator_height = 3
+    padding = 18
+    horizontal_padding = 18
+    frame_width = 3
+    corner_radius = 0
+
+    #frame_color = 
+    separator_color = auto
+    sort = false
+    idle_threshold = 120
+
+    ### Text ###
+    font = Termsyn, SijiPlus 12
+    line_height = 0
+
+    markup = full
+
+    # The format of the message.  Possible variables are:
+    #   %a  appname
+    #   %s  summary
+    #   %b  body
+    #   %i  iconname (including its path)
+    #   %I  iconname (without its path)
+    #   %p  progress value if set ([  0%] to [100%]) or nothing
+    #   %n  progress value if set without any extra characters
+    #   %%  Literal %
+    # Markup is allowed
+    format = "<span weight='Bold'>%s</span>\n%b"
+    alignment = left
+    show_age_threshold = -1
+    word_wrap = false
+    ellipsize = middle
+    ignore_newline = false
+    stack_duplicates = true
+    hide_duplicate_count = true
+    show_indicators = true
+
+    ### Icons ###
+    icon_position = right
+    max_icon_size = 80
+    icon_path = /dev/null
+
+    ### History ###
+    sticky_history = yes
+    history_length = 50
+
+    ### Progress ###
+    progress_bar = true
+    progress_bar_height = 16
+    progress_bar_min_width = 125
+    progress_bar_max_width = 250
+    progress_bar_frame_width = 0
+    
+    ### Misc/Advanced ###
+    dmenu = /home/barbarossa/.local/bin/ddmenu -p 'Action:':
+    browser = /home/barbarossa/.local/bin/linkhandler
+    always_run_script = false
+    title = Dunst
+    class = Dunst
+    startup_notification = false
+    force_xinerama = false
+
+[experimental]
+    per_monitor_dpi = false
+
+[mutevol]
+    appname = mutevol
+    highlight = "#878787"
+
+[vol]
+    appname = volume
+    highlight = "#57875f"
+
+[bright]
+    appname = brightness
+    highlight = "#af875f"
+
+[urgency_low]
+    background = colors.background
+    frame_color = "#87afaf"
+    timeout = 5
+
+[urgency_normal]
+    background = colors.background
+    frame_color = "#af875f"
+    timeout = 5
+
+[urgency_critical]
+    background = colors.background
+    frame_color = "#af5f5f"
+    timeout = 0
+
+# vim: ft=conf

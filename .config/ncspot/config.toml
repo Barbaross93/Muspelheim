@@ -3,3 +3,21 @@ backend_device = "default"
 use_nerdfont = false
 notify = false
 volnorm = false
+
+[theme]
+background = "#1C1C1C"
+primary = "#DFDFAF"
+secondary = "#AF5F5F"
+title = "#AF5F5F"
+playing = "#AF875F"
+playing_selected = "#AF5F5F"
+playing_bg = "#262626"
+highlight = "#AF875F"
+highlight_bg = "#303030"
+error = "#DFDFAF"
+error_bg = "#AF875F"
+statusbar = "#af875f"
+statusbar_progress = "#AF8787"
+statusbar_bg = "#262626"
+cmdline = "#DFDFAF"
+cmdline_bg = "#262626"

@@ -11,20 +11,20 @@ unmountusb() {
 	[ -z "$chosen" ] && exit
 	isunencrypted "$chosen"
 	name=$(lsblk -nrpo "name,type,mountpoint" | grep "$chosen" | awk '{print $1}')
-	sudo -A umount "$name" && printf "💻 USB unmounting\t$chosen unmounted.\n" >$XNOTIFY_FIFO
+	sudo -A umount "$name" && notify-send "💻 USB unmounting" "$chosen unmounted."
 }
 
 unmountandroid() {
 	chosen="$(awk '/simple-mtpfs/ {print $2}' /etc/mtab | ddmenu -p "Unmount which device?")" || exit 1
 	[ -z "$chosen" ] && exit
-	sudo -A umount "$chosen" && printf "🤖 Android unmounting\t$chosen unmounted.\n" >$XNOTIFY_FIFO
+	sudo -A umount "$chosen" && notify-send "🤖 Android unmounting" "$chosen unmounted."
 }
 
 isunencrypted() {
 	name=$(lsblk -nrpo "name,type,mountpoint" | grep crypt | grep "$1" | awk '{print $1}')
 	if [ -n "$name" ]; then
 		device=$(lsblk -nrpo "name,type,mountpoint,pkname" | grep crypt | grep "$1" | awk '{print $4}')
-		sudo -A umount "$name" && sudo -A cryptsetup close "$name" && printf "USB unmounting\t$chosen unmounted.\n" >$XNOTIFY_FIFO
+		sudo -A umount "$name" && sudo -A cryptsetup close "$name" && notify-send "USB unmounting" "$chosen unmounted."
 		exit
 	fi
 }
