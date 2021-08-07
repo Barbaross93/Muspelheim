@@ -1,8 +1,6 @@
 # Myrmidon
 
-Here you can find the dotfiles for my thinkpad setup. Feel free to open an issue with questions/ notify me if I forgot to include something.
-
-Please keep in mind that these are dotfiles for my setup, so as such, you won't be able to just copy and paste. Expect to make modifications if you intend to use these (and of course, feel free to use these!).
+<img src="https://raw.githubusercontent.com/Barbarossa93/Myrmidon/master/screenshots/2021-08-07_07-48-38.png" alt="img" align="center">
 
 ## Info
 - OS: Arch Linux
@@ -26,6 +24,3 @@ Please keep in mind that these are dotfiles for my setup, so as such, you won't 
 - Compositor: [xcompmgr](https://github.com/freedesktop/xcompmgr)
 - Display manager/Lock screen: xinit with [slock-flexipatch](https://github.com/bakkeby/slock-flexipatch) (my [build](https://github.com/Barbarossa93/slock-flexipatch))
 - Color scheme: [alduin](https://github.com/AlessandroYorba/Alduin)
-
-## Screenshots
-<img src="https://raw.githubusercontent.com/Barbarossa93/Myrmidon/master/screenshots/2021-08-07_07-48-38.png" alt="img" align="center">
