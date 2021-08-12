@@ -17,6 +17,18 @@ GRY="\e[90;1m"
 RST="\e[0m"
 BLD="\033[1m"
 
+PBLK=$(printf "%b" "\x1b[38;2;58;58;58m")
+PRED=$(printf "%b" "\e[31m")
+PGRN=$(printf "%b" "\e[32m")
+PYLW=$(printf "%b" "\e[33m")
+PBLU=$(printf "%b" "\e[34m")
+PPUR=$(printf "%b" "\e[35m")
+PCYN=$(printf "%b" "\e[36m")
+PWHT=$(printf "%b" "\e[37m")
+PGRY=$(printf "%b" "\e[90;1m")
+PRST=$(printf "%b" "\e[0m")
+PBLD=$(printf "%b" "\033[1m")
+
 # vars
 #FULL=▓
 #EMPTY=░
@@ -36,7 +48,7 @@ colors='alduin'
 font='termsyn'
 wm="bspwm"
 shell=$(basename $(printenv SHELL))
-term="st"
+term=$(echo "$TERM")
 uptm=$(uptime -p | sed -e 's/hour/hr/' -e 's/hours/hrs/' -e 's/minutes/mins/' -e 's/minute/min/' -e 's/up //')
 
 #Cleanup first
@@ -45,7 +57,7 @@ clear
 # find the center of the screen
 COL=$(tput cols)
 ROW=$(tput lines)
-((PADY = ROW / 2 - 1 - 22 / 2))
+((PADY = ROW / 2 - 18 - 22 / 2))
 ((PADX = COL / 2 - 32 / 2))
 
 for ((i = 0; i < PADX; ++i)); do
@@ -60,26 +72,62 @@ done
 printf "%b" "$PADR"
 printf "\n"
 
-# Print Tree
+NEWX=$((PADX - 20))
+for ((i = 0; i < NEWX; ++i)); do
+	PADCC="$PADCC "
+done
+# Ascii art dragon
+cat <<EOF
+$PADCC$PBLD                            $PGRY==$PWHT(W{$PGRY==========-      $PRED/===-                        
+$PADCC                              $PWHT||  $PWHT($PGRY.--.$PWHT)         $PRED/===-_---~~~~~~~~~------____  
+$PADCC                              $PWHT| \_,$PGRY|$PPUR**$PGRY|$PWHT,__      $PRED|===-~___               $PGRY _,-' \`
+$PADCC                 $PRED-==\\\        $PWHT\`\ ' $PGRY\`--'$PWHT   ),    $PRED\`//~\\\   ~~~~\`---.___.$PGRY-~~      
+$PADCC             ${PRED}______-==|        $PBLU/$PWHT\`\_. .__/\ \    $PRED| |  \\\           ${PGRY}_-~\`         
+$PADCC       ${PRED}__--~~~  ,-/-==\\\      $PBLU(   $PWHT| .  $PGRY|~~~~|   $PRED| |   \`\        $PGRY,'             
+$PADCC    ${PRED}_-~       /'    |  \\\     $PBLU)__$PYLW/==0==-$PGRY\\$PCYN<>$PGRY/   $PRED/ /      \      $PGRY/               
+$PADCC  $PRED.'        /       |   \\\      $PWHT/~$PYLW\___/$PWHT~~$PGRY\/  $PRED/' /        \   $PGRY/'                
+$PADCC $PRED/ $PGRY ____$PRED  /         |    \`\.__/- $PWHT~~   \  |${PRED}_/'  /          \\$PGRY/'                  
+$PADCC$PRED/$PGRY-'~    ~~~~~---__$PRED  |     ~-/~         $PWHT( )$PRED   /'        ${PGRY}_--~\`                   
+$PADCC                  \_$PRED|      /        ${PGRY}_) $PWHT| ;  $PRED),   ${PGRY}__--~~                        
+$PADCC                    '~~--_$PRED/      ${PGRY}_-~/- $PWHT|/$PGRY \   $PGRY'-~$PRED \                            
+$PADCC                   $PGRY{\\${PRED}__--${PGRY}_/}    $PRED/ \\$PRED${PGRY}\_>-$PWHT|)$PGRY<__\      $PRED\                           
+$PADCC                   /'   $PGRY(_/$PRED  _-~  | $PGRY|__>--<__|      $PRED|                          
+$PADCC                  |   _${PPUR}/) $PRED)-~     | $PGRY|__>--<__|      $PRED|                          
+$PADCC                  / /~ ,_/       / $PGRY/__>---<__/      $PRED|                          
+$PADCC                 o-o _//        /$PGRY-~_>---<__-~      $PRED/                           
+$PADCC                 (^(~          $PGRY/~_>---<__-      ${PRED}_-~                            
+$PADCC                $PYLW,/|           $PGRY/__>--<__/     ${PRED}_-~                               
+$PADCC             $PYLW,//('(          $PGRY|__>--<__|     $PRED/                  .----_          
+$PADCC            $PRED($PYLW ( ')$PRED)          $PGRY|__>--<__|    $PRED|                 /' _---_~\        
+$PADCC         $PRED\`-$PYLW)) ))$PRED (           $PGRY|__>--<__|    $PRED|               /'  /     ~\`\      
+$PADCC        $PRED,/$PYLW,'//( $PRED(             $PGRY\__>--<__\    $PRED\            /'  $PGRY//        $PRED||      
+$PADCC      $PRED,( $PYLW( ((, $PRED))              $PGRY~-__>--<_~-_  $PRED~--____---~' ${PGRY}_/'/        $PRED/'       
+$PADCC    $PRED\`~/  $PYLW)\` ) $PRED,/|                 $PGRY~-_~>--<_/-__       __-~ _/                  
+$PADCC  $PRED._-~$PYLW//( )/ $PRED)) \`                    $PGRY~~-'_/_/ /~~~~~~~__--~                    
+$PADCC   $PRED;'$PYLW( ')/ $PRED,)(                              $PGRY~~~~~~~~~~                         
+$PADCC  $PRED' ') $PYLW'( $PRED(/                                                                   
+$PADCC    '   '  \`
+EOF
+
 BAR="████"
 OUTT="$BLK$BAR$RED$BAR$GRN$BAR$YLW$BAR$BLU$BAR$PUR$BAR$CYN$BAR$WHT$BAR$RST"
 printf "%s%b" "$PADC" "$OUTT"
 printf "\n\n"
 
 # greetings
-printf "%s%b" "$PADC" "        hello $RED$BLD$name$RST\n"
-printf "%s%b" "$PADC" "       welcome to $GRN$BLD$host$RST\n"
+printf "%s%b" "$PADC" " hello $RED$BLD$name$RST, i'm $GRN$BLD$host$RST\n"
+#printf "%s%b" "$PADC" "          \n"
 printf "%s%b" "$PADC" "i've been awake for $CYN$BLD$uptm$RST\n\n"
 
 # environment
-printf "%s%b" "$PADC" "$YLW        distro $BLU⏹ $RST$distro\n"
-printf "%s%b" "$PADC" "$YLW        kernel $BLU⏹ $RST$kernel\n"
-printf "%s%b" "$PADC" "$YLW      packages $BLU⏹ $RST$pkgs\n"
-printf "%s%b" "$PADC" "$YLW         shell $BLU⏹ $RST$shell\n"
-printf "%s%b" "$PADC" "$YLW          term $BLU⏹ $RST$term\n"
-printf "%s%b" "$PADC" "$YLW            wm $BLU⏹ $RST$wm\n"
-printf "%s%b" "$PADC" "$YLW          font $BLU⏹ $RST$font\n"
-printf "%s%b" "$PADC" "$YLW         theme $BLU⏹ $RST$colors\n"
+printf "%s%b" "$PADC" "$YLW        distro $GRY⏹ $RST$distro\n"
+printf "%s%b" "$PADC" "$YLW        kernel $GRY⏹ $RST$kernel\n"
+printf "%s%b" "$PADC" "$YLW      packages $GRY⏹ $RST$pkgs\n"
+printf "%s%b" "$PADC" "$YLW         shell $GRY⏹ $RST$shell\n"
+printf "%s%b" "$PADC" "$YLW          term $GRY⏹ $RST$term\n"
+printf "%s%b" "$PADC" "$YLW            wm $GRY⏹ $RST$wm\n"
+printf "%s%b" "$PADC" "$YLW          font $GRY⏹ $RST$font\n"
+printf "%s%b" "$PADC" "$YLW        colors $GRY⏹ $RST$colors\n"
 printf " $RST\n"
 
 # progress bar

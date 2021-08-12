@@ -8,7 +8,8 @@
 
 [colors]
 	background = "#1c1c1c"
-  frame = "#af875f"
+  #frame_color = "#4e4e4e"
+  #outer_frame_color = "#af875f"
 	foreground = "#dfdfaf"
 
 [global]
@@ -19,7 +20,7 @@
 
     #geometry = "262x5-829-46"
     #geometry = "262x3-14+46"
-    geometry = "288x5-36-48"    
+    geometry = "292x5-36-48"    
     indicate_hidden = yes
     shrink = false
     transparency = 0
@@ -28,10 +29,11 @@
     padding = 18
     horizontal_padding = 18
     frame_width = 3
+    outer_frame_width = 2
     corner_radius = 0
 
     #frame_color = 
-    separator_color = auto
+    separator_color = frame
     sort = false
     idle_threshold = 120
 
@@ -95,25 +97,28 @@
 
 [vol]
     appname = volume
-    highlight = "#57875f"
+    highlight = "#87afaf"
 
 [bright]
     appname = brightness
     highlight = "#af875f"
 
 [urgency_low]
-    background = colors.background
-    frame_color = "#87afaf"
+    background = "#1c1c1c"
+    frame_color = "#4e4e4e"
+    outer_frame_color = "#87afaf"
     timeout = 5
 
 [urgency_normal]
-    background = colors.background
-    frame_color = "#af875f"
+    background = "#1c1c1c"
+    frame_color = "#4e4e4e"
+    outer_frame_color = "#af875f"
     timeout = 5
 
 [urgency_critical]
-    background = colors.background
-    frame_color = "#af5f5f"
+    background = "1c1c1c"
+    frame_color = "#4e4e4e"
+    outer_frame_color = "#af5f5f"
     timeout = 0
 
 # vim: ft=conf

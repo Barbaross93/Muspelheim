@@ -9,13 +9,13 @@ Xft.rgba:                       rgb
 Xft.lcdfilter:                  lcddefault
 
 !Colors
-#include "/home/barbarossa/.config/x11/colorschemes/alduin"
+#include "/home/barbarossa/.config/x11/colorschemes/alduin.Xresources"
 
 !URxvt configs
 ! #include "/home/barbarossa/.config/x11/urxvt"
 
 !Xnotify configs
-#include "/home/barbarossa/.config/x11/xnotify"
+!#include "/home/barbarossa/.config/x11/xnotify"
 
 !Xprompt configs
 ! #include "/home/barbarossa/.config/x11/xprompt"

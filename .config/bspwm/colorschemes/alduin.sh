@@ -5,7 +5,7 @@ background="#1c1c1c"
 cursorColor="#dfdfaf"
 
 color0="#262626"
-color8="#878787"
+color8="#626262"
 
 color1="#af5f5f"
 color9="#af5f5f"
@@ -16,18 +16,18 @@ color10="#87875f"
 color3="#af875f"
 color11="#af875f"
 
-color4="#87afaf"
-color12="#87afaf"
+color4="#878787"
+color12="#878787"
 
 color5="#af8787"
 color13="#af8787"
 
-color6="#57875f"
-color14="#57875f"
+color6="#87afaf"
+color14="#87afaf"
 
 color7="#dfdfaf"
 color15="#dfdfaf"
 
-color16="#626262"
+color16="#424242"
 color17="#3a3a3a"
 color18="#262626"
