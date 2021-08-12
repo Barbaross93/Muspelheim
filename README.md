@@ -1,6 +1,6 @@
 # Myrmidon
 
-<img src="https://raw.githubusercontent.com/Barbarossa93/Myrmidon/master/screenshots/2021-08-07_07-48-38.png" alt="img" align="center">
+<img src="https://raw.githubusercontent.com/Barbarossa93/Myrmidon/master/screenshots/2021-08-11_22-16-15.png" alt="img" align="center">
 
 ## Info
 - OS: Arch Linux
