@@ -4,7 +4,7 @@
 *.cursorColor:  #dfdfaf
 
 ! black
-*.color0:       #1c1c1c
+*.color0:       #262626
 *.color8:       #626262
 
 ! red
@@ -35,7 +35,7 @@
 *.color7:       #dfdfaf
 *.color15:      #dfdfaf
 
-*.color16: 			#4e4e4e
+*.color16: 			#424242
 *.color17: 			#3a3a3a
 *.color18: 			#626262
 

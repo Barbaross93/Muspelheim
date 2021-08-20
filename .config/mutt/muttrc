@@ -1,0 +1,192 @@
+# vim: filetype=neomuttrc
+source /home/barbarossa/.config/mutt/accounts/1-cullen.ross.som@gmail.com.muttrc
+
+set from="Cullen Ross <cullen.ross@som.umaryland.edu>"
+#set query_command = "abook --config "$HOME"/.config/abook/abookrc --datafile "$HOME"/.local/share/abook/addressbook --mutt-query '%s'"
+set signature=~/.config/mutt/signature
+set mailcap_path =~/.config/mutt/mailcap
+set sort = "reverse-date"
+set crypt_autosign = no
+set crypt_opportunistic_encrypt = no
+set pgp_self_encrypt = no
+set editor="/usr/bin/vim"
+macro pager \cb <pipe-entry>'urlscan -s -r "linkhandler {}"'<enter> 'Follow links with urlscan'
+
+auto_view text/html
+alternative_order text/html text/plain text/enriched
+
+set timeout=300
+# --------------------------------------------------------------------------
+# COMMANDS – shown with an example argument
+# --------------------------------------------------------------------------
+# After $timeout seconds of inactivity, run this NeoMutt command
+#timeout-hook 'exec sync-mailbox'
+# When NeoMutt first loads, run this NeoMutt command
+#startup-hook 'exec sync-mailbox'
+# When NeoMutt quits, run this NeoMutt command
+#shutdown-hook 'exec sync-mailbox'
+
+# Use khard, not abook
+set query_command= "khard email --parsable --search-in-source-files --remove-first-line %s"
+bind editor <Tab> complete-query
+bind editor ^T    complete
+macro index,pager a "<enter-command>set my_pipe_decode=\$pipe_decode pipe_decode<return><pipe-message>khard add-email<return><enter-command>set pipe_decode=\$my_pipe_decode; unset my_pipe_decode<return>" "add the sender address to abook"
+
+set smtp_authenticators = 'gssapi:login'
+set rfc2047_parameters = yes
+set sleep_time = 0		# Pause 0 seconds for informational messages
+set markers = no		# Disables the `+` displayed at line wraps
+set mark_old = no		# Unread mail stay unread until read
+set mime_forward = yes		# attachments are forwarded with mail
+set wait_key = no		# mutt won't ask "press key to continue"
+set fast_reply			# skip to compose when replying
+set fcc_attach			# save attachments with the body
+set forward_format = "Fwd: %s"	# format of subject when forwarding
+set forward_quote		# include message in forwards
+set reverse_name		# reply as whomever it was to
+set include			# include message in replies
+set mail_check=60 # to avoid lags using IMAP with some email providers (yahoo for example)
+auto_view application/pgp-encrypted
+set display_filter = "tac | sed '/\\\[-- Autoview/,+1d' | tac" # Suppress autoview messages.
+bind index,pager i noop
+bind index,pager g noop
+bind index \Cf noop
+
+# General rebindings
+bind index j next-entry
+bind index k previous-entry
+bind attach <return> view-mailcap
+bind attach l view-mailcap
+bind editor <space> noop
+bind index G last-entry
+bind index gg first-entry
+bind pager,attach h exit
+bind pager j next-line
+bind pager k previous-line
+bind pager l view-attachments
+bind index D delete-message
+bind index <delete> delete-message
+bind index U undelete-message
+bind index L limit
+bind index h noop
+macro index l '<display-message><sync-mailbox>' "Open and sync mailbox"
+bind index,query <space> tag-entry
+#bind browser h goto-parent
+macro browser h '<change-dir><kill-line>..<enter>' "Go to parent folder"
+#bind index,pager H view-raw-message
+bind browser l select-entry
+#bind pager,browser gg top-page
+#bind pager,browser G bottom-page
+bind index,pager,browser d half-down
+bind index,pager,browser u half-up
+bind index,pager S sync-mailbox
+bind index,pager R group-reply
+bind index \031 previous-undeleted	# Mouse wheel
+bind index \005 next-undeleted		# Mouse wheel
+bind pager \031 previous-line		# Mouse wheel
+bind pager \005 next-line		# Mouse wheel
+bind editor <Tab> complete-query
+macro index N "<toggle-new><sync-mailbox>" "Toggle un/read status, then sync"
+macro index,pager <Return> "<display-message><sync-mailbox>" "Display message and then sync"
+bind    index   <up>    previous-entry
+bind    index   <down>  next-entry
+macro    index   <right> "<display-message><sync-mailbox>"
+macro browser <left> '<change-dir><kill-line>..<enter>' "Go to parent folder"
+
+#set crypt_autosign = yes
+#set crypt_opportunistic_encrypt = yes
+#set pgp_self_encrypt = yes
+#set pgp_default_key  = 'your@gpgemailaddre.ss'
+
+macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+macro index O "<shell-escape>mailsync<enter>" "run mailsync to sync all mail"
+macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>printf 'Enter a search term to find with notmuch: '; read x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern"
+macro index A "<limit>all\n" "show all messages (undo limit)"
+
+# Sidebar mappings
+set sidebar_visible = yes
+set sidebar_width = 20
+set sidebar_short_path = yes
+set sidebar_next_new_wrap = yes
+set mail_check_stats
+#set sidebar_format = '%D%?F? [%F]?%* %?N?%N/? %?S?%S?'
+bind index,pager \Ck sidebar-prev
+bind index,pager \Cj sidebar-next
+bind index,pager \Co sidebar-open
+bind index,pager \Cp sidebar-prev-new
+bind index,pager \Cn sidebar-next-new
+bind index,pager B sidebar-toggle-visible
+
+# Default index colors:
+set index_format = "%4C %Z %[%b %d] %-15.15F %s"
+color index blue default '.*'
+#color index_author blue default '.*'
+#color index_number blue default
+#color index_subject blue default '.*'
+
+# New mail is boldened:
+color index brightyellow black "~N"
+#color index_author brightred black "~N"
+#color index_subject brightwhite black "~N"
+
+# Tagged mail is highlighted:
+color index brightyellow blue "~T"
+#color index_author brightred blue "~T"
+#color index_subject brightcyan blue "~T"
+
+# Other colors and aesthetic settings:
+mono bold bold
+mono underline underline
+mono indicator reverse
+mono error bold
+color normal default default
+color indicator brightblack white
+color sidebar_highlight red default
+color sidebar_divider brightblack black
+color sidebar_flagged red black
+color sidebar_new green black
+color normal brightyellow default
+color error red default
+color tilde black default
+color message cyan default
+color markers red white
+color attachment white default
+color search brightmagenta default
+color status brightmagenta black
+color hdrdefault brightgreen default
+color quoted green default
+color quoted1 blue default
+color quoted2 cyan default
+color quoted3 yellow default
+color quoted4 red default
+color quoted5 brightred default
+color signature brightgreen default
+color bold black default
+color underline black default
+color normal default default
+
+# Regex highlighting:
+color header blue default ".*"
+color header brightmagenta default "^(From)"
+color header brightcyan default "^(Subject)"
+color header brightwhite default "^(CC|BCC)"
+color body brightred default "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+" # Email addresses
+color body brightblue default "(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+" # URL
+color body green default "\`[^\`]*\`" # Green text between ` and `
+color body brightblue default "^# \.*" # Headings as bold blue
+color body brightcyan default "^## \.*" # Subheadings as bold cyan
+color body brightgreen default "^### \.*" # Subsubheadings as bold green
+color body yellow default "^(\t| )*(-|\\*) \.*" # List items as yellow
+color body brightcyan default "[;:][-o][)/(|]" # emoticons
+color body brightcyan default "[;:][)(|]" # emoticons
+color body brightcyan default "[ ][*][^*]*[*][ ]?" # more emoticon?
+color body brightcyan default "[ ]?[*][^*]*[*][ ]" # more emoticon?
+color body red default "(BAD signature)"
+color body cyan default "(Good signature)"
+color body brightblack default "^gpg: Good signature .*"
+color body brightyellow default "^gpg: "
+color body brightyellow red "^gpg: BAD signature from.*"
+mono body bold "^gpg: Good signature"
+mono body bold "^gpg: BAD signature from.*"
+color body red default "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
+

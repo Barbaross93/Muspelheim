@@ -25,17 +25,9 @@ cmd open ${{
     esac
 }}
 
-cmd mkdir ${{
-  printf "Directory Name: "
-  read ans
-  mkdir $ans
-}}
+cmd mkdir %mkdir "$@"
 
-cmd mkfile ${{
-  printf "File Name: "
-  read ans
-  $EDITOR $ans
-}}
+cmd mkfile %touch "$@"
 
 cmd chmod ${{
   printf "Mode Bits: "
@@ -55,7 +47,7 @@ cmd sudomkfile ${{
   sudo $EDITOR $ans
 }}
 
-cmd setwallpaper %cp "$f" ~/.config/wall.png && xwallpaper --zoom "$f"
+cmd setwallpaper %xwallpaper --zoom "$f"
 
 cmd fzf_jump ${{
   res="$(find . -maxdepth 3 | fzf --reverse --header='Jump to location')"
@@ -84,24 +76,7 @@ cmd targz %tar cvzf "$f.tar.gz" "$f"
 cmd tarbz2 %tar cjvf "$f.tar.bz2" "$f"
 
 # Trash cli bindings
-cmd trash ${{
-  files=$(printf "$fx" | tr '\n' ';')
-  while [ "$files" ]; do
-    # extract the substring from start of string up to delimiter.
-    # this is the first "element" of the string.
-    file=${files%%;*}
-
-    trash-put "$(basename "$file")"
-    # if there's only one element left, set `files` to an empty string.
-    # this causes us to exit this `while` loop.
-    # else, we delete the first "element" of the string from files, and move onto the next.
-    if [ "$files" = "$file" ]; then
-      files=''
-    else
-      files="${files#*;}"
-    fi
-  done
-}}
+cmd trash %trash-put $fx
 
 cmd clear_trash %trash-empty
 
@@ -124,6 +99,18 @@ map d
 map c
 map e
 map f
+
+#w3m preview
+map - $~/.config/lf/draw_img.sh "$f"
+cmd video_preview ${{
+    cache="$(mktemp "${TMPDIR:-/tmp}/thumb_cache.XXXXX")"
+    ffmpegthumbnailer -i "$f" -o "$cache" -s 0
+    ~/.config/lf/draw_img.sh "$cache"
+}}
+map + :video_preview
+
+# bat as pager
+map i $~/.config/lf/preview $f | less -R
 
 # File Openers
 map ee $$EDITOR "$f"
@@ -152,7 +139,7 @@ map y copy
 map <enter> open
 map mf mkfile
 map mr sudomkfile
-map md mkdir
+map md push %mkdir<space>
 map ms $mkscript
 map ch chmod
 map bg setwallpaper

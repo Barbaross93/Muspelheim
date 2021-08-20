@@ -20,12 +20,12 @@
 
     #geometry = "262x5-829-46"
     #geometry = "262x3-14+46"
-    geometry = "292x5-36-48"    
+    geometry = "292x5-48-48"    
     indicate_hidden = yes
     shrink = false
     transparency = 0
     notification_height = 5
-    separator_height = 3
+    separator_height = 2
     padding = 18
     horizontal_padding = 18
     frame_width = 3
@@ -38,7 +38,7 @@
     idle_threshold = 120
 
     ### Text ###
-    font = Termsyn, SijiPlus 12
+    font = Termsyn, SijiPlus, CozetteVector 12
     line_height = 0
 
     markup = full
@@ -56,7 +56,7 @@
     format = "<span weight='Bold'>%s</span>\n%b"
     alignment = left
     show_age_threshold = -1
-    word_wrap = false
+    word_wrap = true
     ellipsize = middle
     ignore_newline = false
     stack_duplicates = true
@@ -65,7 +65,7 @@
 
     ### Icons ###
     icon_position = right
-    max_icon_size = 80
+    max_icon_size = 100
     icon_path = /dev/null
 
     ### History ###

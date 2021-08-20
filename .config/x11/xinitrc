@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Do nothing if interrupted
+trap '' INT TSTP
+
 userresources=$HOME/.config/x11/Xresources
 
 if [ -f "$userresources" ]; then
@@ -27,4 +30,5 @@ xinput set-prop "Elan Touchpad" "Device Enabled" 0 & # Disable touchpad
 xmousepasteblock &                                   #Disable middle click paste
 lock &
 sleep 0.3
+#exec herbstluftwm --locked
 exec bspwm

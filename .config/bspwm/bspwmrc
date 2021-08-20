@@ -40,7 +40,7 @@ bspc config borderless_monocle false
 bspc config gapless_monocle false
 bspc config focus_follows_pointer true
 #bspc config external_rules_command "$HOME/.config/bspwm/external_rules.sh"
-bspc config pointer_follows_focus false
+bspc config pointer_follows_focus true
 bspc config single_monocle false
 bspc config ignore_ewmh_focus false
 
@@ -49,10 +49,9 @@ bspc config ignore_ewmh_focus false
 bspc rule -r '*'
 
 # State rules
-#bspc rule -a "Emacs" state=tiled
 bspc rule -a "dmenu" state=floating
 bspc rule -a St:dropdown state=floating #sticky=on
-bspc rule -a "Sxiv" state=fullscreen
+bspc rule -a "Sxiv" state=floating rectangle=1824x1026+40+19
 bspc rule -a "mpv" state=floating
 bspc rule -a "Zathura" state=tiled
 
@@ -60,10 +59,10 @@ bspc rule -a "Zathura" state=tiled
 bspc rule -a "qutebrowser" desktop=^1 follow=on
 bspc rule -a *:*:aerc desktop=^2 follow=on
 bspc rule -a *:*:ikhal desktop=^2 follow=on
-bspc rule -a *:*:vit desktop=^2 follow=on
+bspc rule -a *:*:Tasks desktop=^2 follow=on
 #bspc rule -a libreoffice-* desktop=^3 follow=on #Fix me
 bspc rule -a "Zathura" desktop=^3 follow=on
-bspc rule -a *:*:irssi desktop=^6 follow=on
+bspc rule -a *:*:weechat desktop=^6 follow=on
 bspc rule -a *:*:slack-term desktop=^6 follow=on
 bspc rule -a *:*:Spotify desktop=^7 follow=on
 
@@ -83,6 +82,7 @@ if [ ! -f $startup_lock_file ]; then
     #hashwall -b "#452f2f" -f "#121212" -s 8 -r 64
     noisewall "#452f2f"
     dborders.sh &
+    #sbar.sh &
     /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
     xbanish &
     clipmenud &

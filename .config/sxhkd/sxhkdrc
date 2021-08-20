@@ -44,8 +44,8 @@ super + Escape
 	pkill -USR1 -x sxhkd && notify-send "Sxhkd" "Config reloaded"
 
 # Toggle bar
-#super + b
-#	togglebar.sh
+super + b
+	togglebar.sh
 
 # teleport cursor
 super + alt + c
@@ -147,7 +147,7 @@ super + r; {m,g}
 	{mp4,gif}
 
 # record part of screen in mp4/gif
-super + shift + r; {m,g}
+super + alt + r; {m,g}
 	{mp4 -s,gif -s}
 
 # toggle picom
@@ -160,8 +160,8 @@ super + x
 	#greenclip.sh
 
 # Whats playing?
-super + j
-	spotplay
+super + j; {n,a}
+	{spotplay,cover_popup.sh}
 
 # How's the weather Ollie?
 super + ctrl + w
@@ -185,7 +185,7 @@ super + BackSpace
 	bspc config -d focused right_padding 0; \
 	bspc config -d focused left_padding 0; \
 	bspc config -d focused bottom_padding 0; \
-	bspc config -d focused window_gap -3
+	bspc config -d focused window_gap 16
 
 # Color picker
 super + shift + c
@@ -337,7 +337,7 @@ super + {_,shift + }{Left,Down,Up,Right}
 #	bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous node in the current desktop
-super + {j,k}
+super + { ,shift} + k
 	bspc node -f {next,prev}.local.!hidden.window.!locked
 
 # focus the next/previous desktop in the current monitor
@@ -456,50 +456,10 @@ super + t; s
 # Status notifications
 #
 
-# bspwm status
-super + XF86AudioMute
-	status_notif.sh --bspwm
-
-# calendar (date/time)
-super + XF86AudioLowerVolume
-	status_notif.sh --calendar
-
-# audio status
-super + XF86AudioRaiseVolume
-	status_notif.sh --audio
-
-# brightness status
-super + XF86AudioMicMute
-	status_notif.sh --brightness
-
-# battery status
-super + XF86MonBrightnessDown
-	status_notif.sh --battery
-
-# internet status
-super + Xf86MonBrightnessUp
-	status_notif.sh --internet
-
-# Bluetooth status
-super + XF86Display
-	status_notif.sh --vpn
-
-# Redshift status
-super + XF86Tools
-	status_notif.sh --redshift
-
-# VPN status
-super + XF86Tools
-	status_notif.sh --taskwarrior
-
 # Misc status
 XF86Tools
 	status_notif.sh --extra
 
-# full/simplified status
-super + {,shift} + XF86Launch1
-	status_notif.sh {--simple,--full}
-
 # Fany status
 XF86Favorites
-	fancy_status.sh --fancy
+	status_notif.sh --simple

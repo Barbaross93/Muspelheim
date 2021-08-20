@@ -129,14 +129,18 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 let g:ascii = [
-        \ '                                ',
-        \ '            __                  ',
-        \ '    __  __ /\_\    ___ ___      ',
-        \ '   /\ \/\ \\/\ \ /'' __` __`\   ',
-        \ '   \ \ \_/ |\ \ \/\ \/\ \/\ \   ',
-        \ '    \ \___/  \ \_\ \_\ \_\ \_\  ',
-        \ '     \/__/    \/_/\/_/\/_/\/_/  ',
+            \ ' ██▒   █▓ ██▓ ███▄ ▄███▓',
+            \ '▓██░   █▒▓██▒▓██▒▀█▀ ██▒',
+            \ ' ▓██  █▒░▒██▒▓██    ▓██░',
+            \ '  ▒██ █░░░██░▒██    ▒██ ',
+            \ '   ▒▀█░  ░██░▒██▒   ░██▒',
+            \ '   ░ ▐░  ░▓  ░ ▒░   ░  ░',
+            \ '   ░ ░░   ▒ ░░  ░      ░',
+            \ '     ░░   ▒ ░░      ░   ',
+            \ '      ░   ░         ░   ',
+            \ '     ░                  ',
       \]
+
 let g:startify_custom_header =
     \ 'startify#center(g:ascii)'
 
@@ -182,12 +186,12 @@ map <C-d> :NERDTreeToggle<CR>
 " Yank whole line w/o newline
 nmap Y ^y$
 
-" aerc stuff
+" neomutt stuff
 augroup filetypedetect
   " Mail
-    au BufRead *aerc-* set tw=72
-    au BufRead *aerc-* set wrap
-  autocmd BufRead,BufNewFile *aerc-*              setfiletype mail
+    au BufRead *neomutt-* set tw=72
+    au BufRead *neomutt-* set wrap
+  autocmd BufRead,BufNewFile *neomutt-*              setfiletype mail
 augroup END
 
 " airline theme

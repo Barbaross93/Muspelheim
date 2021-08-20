@@ -2,7 +2,7 @@
 export PATH="/home/barbarossa/.local/bin:$PATH"
 
 #Default editor
-export EDITOR="$HOME/.local/bin/vim"
+export EDITOR="/usr/bin/vim"
 
 #Default browser
 export BROWSER="linkhandler"
@@ -22,6 +22,13 @@ export TCELL_TRUECOLOR=on
 # For pam-gnupg support w/ ssh
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
+# Sfeed settings
+export SFEED_URL_FILE=~/.config/sfeed/read_sfeed
+export SFEED_PIPER="w3m -T text/html -cols $(tput cols)" #-dump | urlscan -d"
+export SFEED_PLUMBER_INTERACTIVE=1
+export SFEED_PLUMBER='feed_plumb.sh'
+export SFEED_YANKER="xsel -ib"
+
 # Set notification fifo
 export XNOTIFY_FIFO="/tmp/xnotify.fifo"
 export XNOTIFY_HIST_FIFO="/tmp/xnotify_hist.fifo"
@@ -40,53 +47,53 @@ export MYVIMRC="${XDG_CONFIG_HOME}/vim/vimrc"
 export VIMINIT="source ${MYVIMRC}"
 
 # Change zoom dir
-export SSB_HOME="${HOME}/.local/share/zoom"
+export SSB_HOME="${XDG_DATA_HOME}/zoom"
 
 # Change password store
-export PASSWORD_STORE_DIR="${HOME}/.local/share/pass"
+export PASSWORD_STORE_DIR="${XDG_DATA_HOME}/pass"
 
 # Move cargo dir
-export CARGO_HOME="${HOME}/.local/share/cargo"
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"
 
 # Move pylint dir
-export PYLINTHOME="$HOME/.cache/pylint"
+export PYLINTHOME="${XDG_CACHE_HOME}/pylint"
 
 # Move notmuch 
-export NOTMUCH_CONFIG="$HOME/.config/notmuch/notmuchrc"
+export NOTMUCH_CONFIG="${XDG_CONFIG_HOME}/notmuch/notmuchrc"
 
 # Move gtk2 config
-export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc"
+export GTK2_RC_FILES="${XDG_CONFIG_HOME}/gtk-2.0/gtkrc"
 
 # Disable less histfile
 export LESSHISTFILE=-
 
 # Move z data
-export _Z_DATA="${HOME}/.local/share/z"
+export _Z_DATA="${XDG_DATA_HOME}/z"
 
 # Move weechat home
-export WEECHAT_HOME="${HOME}/.config/weechat"
+export WEECHAT_HOME="${XDG_CONFIG_HOME}/weechat"
 
 #Move isync's mbsync config (I think mutt-wizzard is the only one to recognize this)
-export MBSYNCRC="${HOME}/.config/isync/mbsyncrc"
+export MBSYNCRC="${XDG_CONFIG_HOME}/isync/mbsyncrc"
 
 # Move go directory
-export GOPATH="${HOME}/.local/share/go"
+export GOPATH="${XDG_DATA_HOME}/go"
 
 # Move vit dir
-export VIT_DIR="${HOME}/.config/vit"
+export VIT_DIR="${XDG_CONFIG_HOME}/vit"
 
 # Move taskwarrior data and rc file
-export TASKDATA="${HOME}/.config/task"
-export TASKRC="${HOME}/.config/task/taskrc"
+export TASKDATA="${XDG_CONFIG_HOME}/task"
+export TASKRC="${XDG_CONFIG_HOME}/task/taskrc"
 
 # Move timewarrior dir
-export TIMEWARRIORDB="${HOME}/.config/timewarrior"
+export TIMEWARRIORDB="${XDG_CONFIG_HOME}/timewarrior"
 
 #Move gnupg home
-#export GNUPGHOME="$HOME/.config/gnupg"
+#export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
 
 #Move urxvt socket
 export RXVT_SOCKET="/tmp/urxvtd"
 
 #Move java home
-export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$HOME/.config/java"
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="${XDG_CONFIG_HOME}/java"

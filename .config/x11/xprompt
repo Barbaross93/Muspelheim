@@ -1,0 +1,16 @@
+xprompt.font: 						Termsynu, Kochi Gothic, Symbola, Unifont
+xprompt.description: 			#af875f
+xprompt.hoverbackground: 	#57875f
+xprompt.hoverforeground: 	#1c1c1c
+xprompt.hoverdescription: #1c1c1c
+xprompt.selbackground: 		#af5f5f
+xprompt.selforeground: 		#1c1c1c
+xprompt.seldescription: 	#1c1c1c
+xprompt.border: 					#1c1c1c
+xprompt.separator: 				#3a3a3a
+xprompt.borderWidth: 			6
+xprompt.separatorWidth: 	2
+xprompt.geometry: 				1920x24+0+0
+xprompt.gravity: 					S
+xprompt.items: 						15
+! vim:ft=xdefaults
