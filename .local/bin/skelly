@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+##
+## You pissed off skelly!
+##
+
+RED=$(printf "%b" "\e[31m")
+WHT=$(printf "%b" "\e[37m")
+BLD=$(printf "%b" "\033[1m")
+
+# Update me when you add more insults!
+MAX=11
+RAND=$(shuf -i 1-$MAX -n 1)
+
+case $RAND in
+1) Q="Blabbering bonehead! Come on, fight me!" ;;
+2) Q="You rancid cur! Give me back my femur right this instant!" ;;
+3) Q="You call that shambling? Pah!" ;;
+4) Q="You're nothing in life and you'll be nothing in death!" ;;
+5) Q="When will you ever get it through your thick skull?!" ;;
+6) Q="At least I'm not as spineless as you!" ;;
+7) Q="I've got a bone to pick with you!" ;;
+8) Q="I've met zombies with more intelligence than you!" ;;
+9) Q="At least I can't be an oxygen thief!" ;;
+10) Q="How is it that I have more guts than you?!" ;;
+11) Q="No, I do not find that \"Humerous\"!" ;;
+esac
+
+cat <<EOF
+
+
+$BLD,-\__ 		
+|${WHT}f-"Y\ 		$WHT${Q}
+\\$WHT()7L$/ 		
+$WHT cgD                            __ _
+ |\\(                          .'  Y '>,
+  \ \                        / ${RED}_   _   $WHT\\
+   \\\\\                       )$RED(_) (_)$WHT(|}
+    \\\\\                      {  4A   } /
+     \\\\\                      \uLuJJ/\l
+      \\\\\                     |3    p)/
+       \\\\\___ __________      /nnm_n//
+       c7___-__,__-)\,__)(".  \_>-<_/D
+                  //V     \_"-._.__G G_c__.-__<"/ ( \\
+                         <"-._>__-,G_.___)\   \\7\\
+                        ("-.__.| \\"<.__.-" )   \\ \\
+                        |"-.__"\  |"-.__.-".\   \\ \\
+                        ("-.__"". \\"-.__.-".|    \\_\\
+                        \\"-.__""|!|"-.__.-".)     \\ \\
+                         "-.__""\_|"-.__.-"./      \\ l
+                          ".__""">G>-.__.-">       .--,_
+                              ""  G
+
+
+EOF
