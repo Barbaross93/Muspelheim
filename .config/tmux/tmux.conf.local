@@ -388,7 +388,8 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 #set -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
 #set -g default-terminal "xterm-24bit"
 #set -g terminal-overrides ',xterm-24bit:Tc'
-set -sa terminal-features ",rxvt-unicode*:RGB"
+#set -sa terminal-features ",rxvt-unicode*:RGB"
+set -g default-command "${SHELL}"
 
 # Stop changing my cursor tmux!
 # set -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[3 q'

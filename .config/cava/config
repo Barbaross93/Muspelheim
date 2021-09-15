@@ -60,7 +60,7 @@ method = alsa
 source = hw:Loopback,1
 
 ; method = fifo
-; source = /home/barbarossa/test.fifo
+; source = /home/barbaross/test.fifo
 ; sample_rate = 44100
 ; sample_bits = 32
 

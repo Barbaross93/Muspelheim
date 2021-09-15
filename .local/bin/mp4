@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #if pgrep -f giph &>/dev/null; then
 #	giph --stop &>/dev/null
@@ -8,27 +8,35 @@
 #fi
 
 selection() {
-	if pgrep -f "bash.+ffcast" >/dev/null 2>&1; then
+	if pgrep ffmpeg >/dev/null 2>&1; then
 		pkill ffmpeg >/dev/null 2>&1
 		notify-send "Record" "Recording ended"
 		#printf "Recording ended\n" >$XNOTIFY_FIFO
 	else
 		notify-send "Record" "Select region to record"
 		#printf "Select region to record\n" >$XNOTIFY_FIFO
-		ffcast -s rec $HOME/Videos/$(date +%Y-%m-%d_%H:%M).mp4 &>/dev/null
+
+		coord=($(xrectsel "%w %h %x %y"))
+		input=$(date '+%Y-%m-%d_%H-%M-%S')
+		output=~/Videos/${input}.mp4
+		ffmpeg -f x11grab -video_size ${coord[0]}x${coord[1]} -framerate 20 -i $DISPLAY+${coord[2]},${coord[3]} -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
 		#scr -c -e &>/dev/null
 	fi
 }
 
 full() {
-	if pgrep -f "bash.+ffcast" >/dev/null 2>&1; then
+	if pgrep ffmpeg >/dev/null 2>&1; then
 		pkill ffmpeg >/dev/null 2>&1
 		notify-send "Record" "Recording ended"
 		#printf "Recording ended\n" >$XNOTIFY_FIFO
 	else
 		notify-send "Record" "Recording started"
 		#printf "Recording started\n" >$XNOTIFY_FIFO
-		ffcast rec $HOME/Videos/$(date +%Y-%m-%d_%H:%M).mp4 &>/dev/null
+
+		input=$(date '+%Y-%m-%d_%H-%M-%S')
+		output=~/Videos/${input}.mp4
+		mrect=($(herbstclient monitor_rect ""))
+		ffmpeg -f x11grab -video_size ${mrect[2]}x${mrect[3]} -framerate 20 -i $DISPLAY -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
 		#scr -c -e &>/dev/null
 	fi
 }

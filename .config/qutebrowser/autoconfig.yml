@@ -32,7 +32,7 @@ settings:
     global: dark
   content.blocking.hosts.lists:
     global:
-    - file://home/barbarossa/.config/qutebrowser/host_block
+    - file://home/barbaross/.config/qutebrowser/host_block
   content.blocking.method:
     global: auto
   content.geolocation:

@@ -4,26 +4,26 @@ if [ "$(acpi | wc -l)" = "1" ]; then
 	if [ "$(acpi | awk NR==1 | awk '{print $3}')" = "Charging," ]; then
 		time=$(acpi | awk NR==1 | awk '{print $5, $6, $7}')
 		#printf "SEC:3\t $time\n" >$XNOTIFY_FIFO
-		dunstify -r 8712 "Battery" " $time"
+		notify-send "Battery" " $time"
 	elif [ "$(acpi | awk NR==1 | awk '{print $3}')" = "Full," ]; then
 		#printf "SEC:3\t Full\n" >$XNOTIFY_FIFO
-		dunstify -r 8712 "Battery" " Full"
+		notify-send "Battery" " Full"
 	else
 		discharge_time=$(acpi | awk NR==1 | awk '{print $5, $6}')
 		#printf "SEC:3\t $discharge_time\n" >$XNOTIFY_FIFO
-		dunstify -r 8712 "Battery" " $discharge_time"
+		notify-send "Battery" " $discharge_time"
 	fi
 else
 	if [ "$(acpi | awk NR==2 | awk '{print $3}')" = "Charging," ]; then
 		time=$(acpi | awk NR==2 | awk '{print $5, $6, $7}')
 		#printf "SEC:3\t $time\n" >$XNOTIFY_FIFO
-		dunstify -r 8712 "Battery" " $time"
+		notify-send "Battery" " $time"
 	elif [ "$(acpi | awk NR==2 | awk '{print $3}')" = "Full," ]; then
 		#printf "SEC:3\t Full\n" >$XNOTIFY_FIFO
-		dunstify -r 8712 "Battery" " Full"
+		notify-send "Battery" " Full"
 	else
 		discharge_time=$(acpi | awk NR==2 | awk '{print $5, $6}')
 		#printf "SEC:3\t $discharge_time\n" >$XNOTIFY_FIFO
-		dunstify -r 8712 "Battery" " $discharge_time"
+		notify-send "Battery" " $discharge_time"
 	fi
 fi

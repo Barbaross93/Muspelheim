@@ -29,7 +29,7 @@ pulse)
 		if [ "$muted" = "[on]" ]; then
 			#pulsemixer --toggle-mute
 			amixer set Master toggle
-			dunstify -r 112 "Audio" " Muted"
+			#dunstify -r 112 "Audio" " Muted"
 			#printf "SEC:1\tTAG:volume\t Audio muted" >$XNOTIFY_FIFO
 			exit 0
 		else
@@ -102,13 +102,13 @@ mpc)
 esac
 
 #bar=$(draw ${vol} 10)
-#printf "BAR:$vol\tSEC:1\tTAG:volume\t$label Volume\t \n" >$XNOTIFY_FIFO
+#printf "SEC:1\tTAG:volume\t$label Volume: $vol%%\n" >$XNOTIFY_FIFO
 
-muted=$(amixer get Master | grep "Mono" | awk '{print $6}' | sed -r '/^\s*$/d')
-if [ "$muted" = "[off]" ]; then
-	dunstify -t 3000 -r 2593 -u normal -a mutevol -h int:value:$vol "Audio" "$label Volume: $vol%"
-	#echo $vol! >>/tmp/xobvol
-else
-	dunstify -t 3000 -r 2593 -u normal -a volume -h int:value:$vol "Audio" "$label Volume: $vol%"
-	#echo $vol >>/tmp/xobvol
-fi
+#muted=$(amixer get Master | grep "Mono" | awk '{print $6}' | sed -r '/^\s*$/d')
+#if [ "$muted" = "[off]" ]; then
+#dunstify -t 3000 -r 2593 -u normal -a mutevol -h int:value:$vol "Audio" "$label Volume: $vol%"
+#echo $vol! >>/tmp/xobvol
+#else
+#dunstify -t 3000 -r 2593 -u normal -a volume -h int:value:$vol "Audio" "$label Volume: $vol%"
+#echo $vol >>/tmp/xobvol
+#fi

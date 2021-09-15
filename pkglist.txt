@@ -1,178 +1,158 @@
-acpi 1.7-3
-acpi_call 1.2.1-81
-alsa-plugins 1:1.2.5-2
-alsa-utils 1.2.5.1-1
-auto-cpufreq 1.6.4-1
-autoconf 2.71-1
-automake 1.16.4-1
-autopep8 1:1.5.7-2
-autorandr 1.11-2
-base 2-2
-bat 0.18.2-1
-binutils 2.36.1-3
-bison 3.7.6-1
-bluez 5.60-1
-bluez-utils 5.60-1
-bspwm 0.9.10-1
-btrfs-progs 5.13.1-1
-cava 0.7.4-1
-chafa 1.6.1-1
-chromium-widevine 1:4.10.2209.0-2
-clipmenu 6.2.0-2
-cobib 3.2.1-1
-cozette-ttf 1.11.3-1
-cpufreqctl 8-1
-cronie 1.5.7-2
-cups 1:2.3.3op2-3
-dante 1.4.3-1
-dash 0.5.11.4-1
-devour 12-2
-dijo 0.2.7-1
-dmenu-flexipatch-git r87.624ac5f-1
-dunst-barbarossa93-git 1.5.0.r196.g5d3eb57-1
-duperemove 0.11.2-1
-efibootmgr 17-2
-ethtool 1:5.13-1
-exa 0.10.1-1
-exfat-utils 1.3.0-2
-expect 5.45.4-2
-fakeroot 1.25.3-2
-fd 8.2.1-1
-ffcast 1:2.5.0-1
-figlet-fonts-extra 1.0-1
-file 5.40-5
-findutils 4.8.0-1
-flex 2.6.4-3
-fzf 0.27.2-1
-gawk 5.1.0-1
-gcc 11.1.0-1
-gettext 0.21-1
-git 2.33.0-1
-gitwatch-git r193.9339ff6-1
-grep 3.6-1
-groff 1.22.4-6
-grub 2:2.06-1
-grub-btrfs 4.9-1
-gvim 8.2.2891-1
-gzip 1.10-3
-hplip 1:3.21.6-1
-htop 3.0.5-1
-intel-media-driver 21.2.3-1
-intel-ucode 20210608-1
-isync 1.4.3-1
-jq 1.6-4
-khal 0.10.4-1
-khard 0.17.0-5
-languagetool 5.4-1
-lf 24-1
-libnotify 0.7.9-1
-libtool 2.4.6+42+gb88cebd5-16
-libxft 2.3.4-1
-linux 5.13.12.arch1-1
-linux-firmware 20210716.b7c134f-1
-lyrics-in-terminal 1.4.2-1
-m4 1.4.19-1
-make 4.3-3
-man-db 2.9.4-2
-mate-polkit 1.26.0-1
-mkinitcpio-colors-git 18.53cccd2-1
-mpv 1:0.33.1-2
-mpv-mpris 0.5-4
-msmtp 1.8.15-1
-mutt-git 8081.c9fa0414-1
-ncdu 1.16-1
-ncspot 0.8.1-1
-networkmanager 1.32.10-1
-networkmanager-openconnect 1.2.7dev+65+gca4187c-1
-newsboat 2.24-2
-notmuch 0.32.3-1
-ntfs-3g 2017.3.23-5
-openconnect 1:8.10-1
-os-prober 1.79-1
-paclabel-git r47.e36e2ff-1
-pacman 6.0.0-5
-pacman-contrib 1.4.0-4
-pam-gnupg-git r50.e510da0-1
-pandoc-bin 2.14.1-1
-paru 1.8.2-1
-pass 1.7.4-1
-patch 2.7.6-8
-perl-image-exiftool 12.30-1
-pkgconf 1.7.3-1
-playerctl 2.3.1-1
-pomod-git r15.1d7998e-1
-python-adblock 0.5.0-1
-python-pylint 2.8.2-1
-python-requests-oauthlib 1.3.0-4
-python-tasklib 2.3.0-1
-python-tldextract 3.1.0-1
-qt5ct 1.3-1
-qutebrowser 2.3.1-1
-redshift-minimal 1.12-3
-reflector 2021.7.8-1
-ripgrep 13.0.0-2
-rpcbind 1.2.6-1
-sane 1.0.32-3
-sbsigntools 0.9.4-1
-sed 4.8-1
-shellcheck-bin 0.7.2-1
-shfmt 3.3.1-1
-slock-flexipatch-git r144.fa820c5-1
-snap-pac 3.0.1-1
-snap-sync 0.7-1
-snapper 0.9.0-2
-socat 1.7.4.1-1
-splatmoji-git r92.b8d14b4-1
-sshfs 3.7.2-1
-st-flexipatch-git r.-1
-stow 2.3.1-3
-sudo 1.9.7.p2-1
-sxhkd 0.6.2-1
-sxiv 26-1
-syncthing 1.18.1-1
-synergy 1.10.3-2
-systemd-resolvconf 249.3-1
-tabbed-flexipatch-git r12.6fc7a08-1
-task 2.5.3-1
-tealdeer 1.4.1-6
-texinfo 6.8-2
-thermald 2.4.6-1
-tig 2.5.4-1
-tlp 1.3.1-2
-tlp-rdw 1.3.1-2
-tmux 3.2_a-1
-tpm2-tss 3.1.0-1
-trash-cli 0.21.6.30-1
-ttf-kochi-substitute 20030809-6
-ttf-ms-fonts 2.0-12
-ttf-symbola 13.00-8
-ttf-unifont 13.0.06-1
-ufw 0.36-5
-urlscan 0.9.6-1
-vdirsyncer 0.18.0-1
-vint 0.3.20-3
-vit-git r657.38dfc87-1
-w3m 0.5.3.git20210102_6-1
-wee-slack 2.8.0-2
-weechat 3.2-1
-wget 1.21.1-1
-which 2.21-5
-wmutils-git 1.5.r7.gd71d5b2-1
-xbanish 1.7-1
-xcolor 0.4.0-1
-xcompmgr 1.1.8-2
-xf86-video-intel 1:2.99.917+916+g31486f40-1
-xmousepasteblock-git 1.2.r1.gec5cc5c-1
-xorg-server 1.20.13-2
-xorg-xbacklight 1.2.3-2
-xorg-xinit 1.4.1-3
-xorg-xinput 1.6.3-2
-xorg-xrandr 1.5.1-2
-xorg-xsetroot 1.1.2-2
-xorg-xwininfo 1.1.5-2
-xss-lock 0.3.0.g1e158fb20108-4
-xssstate 1.1-4
-xwallpaper 0.7.3-1
-youtube-dl 2021.06.06-1
-zathura-pdf-mupdf 0.3.7-1
-zsh 5.8-1
+LanguageTool-4.8_2
+acpi-1.7_4
+acpi_call-dkms-1.2.1_1
+acpid-2.0.32_1
+acpilight-1.2_2
+alsa-plugins-1.2.5_1
+alsa-utils-1.2.5.1_1
+apparmor-3.0.1_7
+atool-0.39.0_6
+autojump-22.5.3_3
+autopep8-1.5.4_2
+autorandr-1.11_1
+base-minimal-0.3_1
+bash-completion-2.11_2
+bat-0.18.3_1
+bspwm-0.9.10_1
+btrfs-progs-5.13.1_1
+cava-0.7.4_1
+clipmenu-6.2.0_1
+cobib-3.2.1_1
+compsize-1.5_1
+connman-1.40_1
+cronie-1.5.7_1
+cryptsetup-2.3.6_1
+cups-2.3.3op2_1
+dbus-1.12.20_1
+dbus-libs-1.12.20_1
+dbus-x11-1.12.20_1
+dijo-0.2.7_1
+dmenu-barbaross-5.0_1
+dracut-053_2
+duperemove-0.11.2_1
+eudev-3.2.10_1
+exa-0.10.1_1
+exfat-utils-1.3.0_1
+exiftool-12.30_1
+fd-8.2.1_1
+ffmpeg-4.3.2_3
+figlet-2.2.5_6
+file-5.40_3
+font-cozette-1.11.3_1
+font-unifont-bdf-13.0.06_1
+freefont-ttf-20120503_8
+fuzzypkg-1.0.4_2
+fzf-0.27.2_1
+gcc-10.2.1pre1_3
+gummiboot-48.1_8
+hplip-3.20.9_5
+hsetroot-1.0.5_1
+htop-3.0.5_2
+inotify-tools-3.20.11.0_1
+intel-media-driver-21.2.3_1
+intel-ucode-20210608_1
+intel-undervolt-1.7_1
+iputils-20210722_1
+irssi-perl-1.2.3_2
+isync-1.4.3_1
+iwd-1.17_1
+jq-1.6_1
+kbd-2.4.0_1
+khal-0.10.4_1
+khard-0.17.0_3
+ldm-0.7_1
+lemonbar-1.4_1
+linux-5.13_1
+linux-firmware-intel-20210818_1
+linux-firmware-network-20210818_1
+lynx-2.9.0dev.9_1
+lyrics-in-terminal-1.4.2_1
+man-pages-5.12_1
+mdocml-1.14.5_7
+mesa-dri-21.2.1_1
+mpv-0.33.1_1
+mpv-mpris-0.5_2
+msmtp-1.8.16_1
+mutt-2.1.2_1
+ncspot-0.8.2_2
+newsboat-2.24_1
+notmuch-0.32.2_2
+openconnect-8.10_2
+openssh-8.7p1_1
+openssl-1.1.1l_1
+pam-gnupg-0.3_2
+pandoc-2.14.0.3_1
+pass-1.7.4_1
+playerctl-2.3.1_1
+pv-1.6.20_1
+python3-adblock-0.5.0_1
+python3-pylatexenc-2.10_1
+python3-pylint-2.10.2_1
+python3-requests-oauthlib-1.3.0_4
+python3-tasklib-2.3.0_1
+python3-tldextract-2.2.2_2
+python3-vint-0.3.19_5
+qt5ct-1.3_2
+qutebrowser-2.3.1_1
+ranger-1.9.3_2
+redshift-1.12_4
+ripgrep-13.0.0_1
+rpcbind-1.2.6_1
+rsync-3.2.3_3
+rxvt-unicode-9.26_13
+sane-1.0.31_3
+sbctl-0.6_1
+shellcheck-0.7.2_2
+shfmt-3.3.1_1
+slack-term-0.5.0_1
+slock-barbaross-1.4_1
+smartmontools-7.2_1
+snap-sync-0.7_3
+snapper-0.9.0_1
+socklog-void-20200115_2
+stow-2.3.1_3
+sudo-1.9.7_1
+sxhkd-0.6.2_1
+sxiv-26_1
+syncthing-1.18.2_1
+synergy-1.13.0_2
+tabbed-barbaross-0.6_4
+task-2.5.3_1
+tealdeer-1.4.1_2
+thinkfan-1.2.2_1
+tig-2.5.4_1
+tiramisu-2.0alpha_1
+tlp-1.3.1_3
+tmux-3.2a_1
+trash-cli-0.20.12.26_1
+twemoji-13.0.1_2
+ufw-0.36_4
+ufw-extras-0.6.0_1
+urlscan-0.9.5_2
+urxvt-perls-2.3_2
+usbutils-013_1
+vdirsyncer-0.18.0_1
+vim-huge-8.2.2874_4
+vit-2.1.0_1
+void-repo-nonfree-9_5
+wmutils-opt-git-1.1_1
+xbanish-1.7_1
+xcolor-0.5.0_1
+xcompmgr-1.1.8_2
+xdotool-3.20210903.1_1
+xf86-video-intel-2.99.917.20210115_1
+xinit-1.4.1_2
+xinput-1.6.3_1
+xlsfonts-1.0.6_1
+xob-0.2_1
+xorg-minimal-1.2_2
+xprintidle-0.2.4_2
+xprop-1.2.5_1
+xrdb-1.2.0_2
+xrectsel-0.3.2_1
+xsetroot-1.1.2_1
+xss-lock-0.3.0_2
+xtools-0.63_1
+xwininfo-1.1.5_1
+youtube-dl-2021.06.06_1
+zathura-pdf-mupdf-0.3.7_2

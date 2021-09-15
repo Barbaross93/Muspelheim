@@ -4,7 +4,7 @@ windows=($(bspc query -N -n .window))
 for w in ${windows[@]}; do
 	list+="$(bspc query -D -n $w --names) $(xdotool getwindowname $w)\n"
 done
-selection=$(echo -ne $list | ddmenu -ix -p 'Select window:')
+selection=$(echo -ne $list | dmenu -ix -p 'Select window:')
 
 if [ -n "$selection" ]; then
 	bspc node -f "${windows[$selection]}"

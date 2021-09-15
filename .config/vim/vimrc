@@ -28,7 +28,7 @@ if !has('nvim') | set viminfofile=$XDG_CACHE_HOME/vim/viminfo | endif
 if empty(glob('~/.config/vim/autoload/plug.vim'))
     silent !curl -fLo ~/.config/vim/autoload/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source /home/barbarossa/.config/vim/vimrc
+    autocmd VimEnter * PlugInstall --sync | source /home/barbaross/.config/vim/vimrc
 endif
 
 call plug#begin('~/.config/vim/plugged')
@@ -99,11 +99,11 @@ call plug#end()
 let g:alduin_Shout_Fire_Breath = 0
 let g:alduin_Shout_Aura_Whisper = 1
 
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-endif
+"if exists('+termguicolors')
+"    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"    set termguicolors
+"endif
 
 set nocompatible
 set laststatus=2 " Always display the statusline in all windows
@@ -186,12 +186,13 @@ map <C-d> :NERDTreeToggle<CR>
 " Yank whole line w/o newline
 nmap Y ^y$
 
-" neomutt stuff
+" mutt stuff
 augroup filetypedetect
   " Mail
-    au BufRead *neomutt-* set tw=72
-    au BufRead *neomutt-* set wrap
-  autocmd BufRead,BufNewFile *neomutt-*              setfiletype mail
+    au BufRead *mutt-* set tw=72
+    au BufRead *mutt-* set wrap
+    au BufRead *mutt-* set spell
+  autocmd BufRead,BufNewFile *mutt-*              setfiletype mail
 augroup END
 
 " airline theme
@@ -251,26 +252,23 @@ let g:gitgutter_sign_removed_first_line = '▍'
 let g:gitgutter_sign_removed_above_and_below = '▍'
 
 " Indentline wants this later
-set background=dark
+" set background=dark
 
 " Compatibility with vimwiki
 " let zotcite_filetypes = ['markdown', 'pandoc', 'rmd', 'vimwiki']
 
 " vim-pandoc settings
 "let g:pandoc#biblio#sources = "g"
-let g:pandoc#biblio#bibs = ['/home/barbarossa/Documents/School/Bibliography/Library/Library.bib']
+let g:pandoc#biblio#bibs = ['/home/barbaross/Documents/School/Bibliography/Library/Library.bib']
 augroup VimCompletesMePandoc
   autocmd!
   autocmd FileType pandoc
     \ let b:vcm_omni_pattern = '@'
 augroup END
 
-" For undercurl spellchecker
-let &t_Cs = "\e[4:3m"
-let &t_Ce = "\e[4:0m"
-
-" To disable cursor color change in tmux after entering/exiting vim
-"set t_Cs=
+" For undercurl spellchecker (st only)
+" let &t_Cs = "\e[4:3m"
+" let &t_Ce = "\e[4:0m"
 
 " kill popup dialogs in gvim
 set go+=c
@@ -301,15 +299,3 @@ nnoremap tt  :tabedit<Space>
 nnoremap tx  :tabnext<Space>
 nnoremap tm  :tabm<Space>
 nnoremap td  :tabclose<CR>
-
-" vim-pencil settings
-filetype plugin on
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd call pandoc#init()
-                            \ | call lexical#init()
-                            \ | call litecorrect#init()
-                            \ | call textobj#sentence#init()
-                            \ | call textobj#quote#init()
-  augroup END
-

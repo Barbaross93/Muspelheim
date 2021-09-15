@@ -1,5 +1,5 @@
 # vim: filetype=neomuttrc
-source /home/barbarossa/.config/mutt/accounts/1-cullen.ross.som@gmail.com.muttrc
+source /home/barbaross/.config/mutt/accounts/1-cullen.ross.som@gmail.com.muttrc
 
 set from="Cullen Ross <cullen.ross@som.umaryland.edu>"
 #set query_command = "abook --config "$HOME"/.config/abook/abookrc --datafile "$HOME"/.local/share/abook/addressbook --mutt-query '%s'"

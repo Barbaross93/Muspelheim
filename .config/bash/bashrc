@@ -1,0 +1,251 @@
+# If not running interactively, don't do anything
+case $- in
+*i*) ;;
+*) return ;;
+esac
+
+# Add this lines at the top of .bashrc:
+source ~/.config/bash/ble.sh/out/ble.sh --noattach --rcfile ~/.config/bash/blerc
+
+### Bash specific configs
+## Nifty third party tools
+#import nifty gitstatus tool
+source ~/.config/bash/gitstatus/gitstatus.plugin.sh
+# Automagically allow completion for aliases
+source ~/.config/bash/complete-alias/complete_alias
+# Needed for autojump
+source /etc/profile.d/autojump.sh
+
+## Helper functions for prompt
+# Determine cursor position
+getCPos() {
+	local v=() t=$(stty -g)
+	stty -echo
+	printf "\033[6n"
+	IFS='[;' read -ra v -d R
+	stty $t
+	CPos=(${v[@]:1})
+}
+
+# Adjust window title based on command
+trap 'echo -ne "\033]0;${BASH_COMMAND%% *}\007"' DEBUG
+window_title() {
+	if [[ -n "$BASH_COMMAND" ]]; then
+		pwd=$(echo ${PWD} | sed 's|/home/barbaross|~|g')
+		echo -ne "\033]0;${USER}@${HOSTNAME}: ${pwd}\007"
+	else
+		echo -en "\033]0;$BASH_COMMAND\007"
+	fi
+}
+
+# Classy touch inspired prompt
+custom_prompt() {
+	cmd_cde=$?
+	window_title
+	getCPos
+	if [ $CPos -eq 1 ]; then
+		PS1=""
+	else
+		PS1="\n"
+	fi
+	PS1+="\[$(tput setaf 1)\]┏━"
+	[ "$(id -u)" -eq 0 ] && PS1+="[\[$(tput setaf 7)\]root\[$(tput setaf 1)\]]━"
+	PS1+="[\[$(tput setaf 7)\]\w\[$(tput setaf 1)\]]"
+
+	if gitstatus_query && [[ "$VCS_STATUS_RESULT" == ok-sync ]]; then
+		if [[ -n "$VCS_STATUS_LOCAL_BRANCH" ]]; then
+			PS1+="━[\[$(tput setaf 7)\]${VCS_STATUS_LOCAL_BRANCH//\\/\\\\}" # escape backslash
+		else
+			PS1+="━\[\[$(tput setaf 7)\]@${VCS_STATUS_COMMIT//\\/\\\\}" # escape backslash
+		fi
+		(("VCS_STATUS_HAS_STAGED")) && PS1+=' +'
+		(("VCS_STATUS_HAS_UNSTAGED")) && PS1+=' !'
+		(("VCS_STATUS_HAS_UNTRACKED")) && PS1+=' ?'
+		PS1+="\[$(tput setaf 1)\]]"
+	fi
+
+	if [[ $cmd_cde == 0 ]]; then
+		PS1+="\n\[$(tput setaf 1)\]┗━━ \[$(tput setaf 8)\]■ \[$(tput setaf 7)\]"
+	else
+		PS1+="\n\[$(tput setaf 1)\]┗━━ \[$(tput setaf 7)\]■ "
+	fi
+
+	shopt -u promptvars # disable expansion of '$(...)' and the like
+}
+
+gitstatus_stop && gitstatus_start
+PROMPT_COMMAND=custom_prompt
+# Need to append the last bit for autojump
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
+#export PS0="\n"
+export PS2="\[$(tput setaf 1)\] ■\[$(tput setaf 7)\]"
+
+# dedup history
+export HISTCONTROL=ignoreboth
+
+# Add to history instead of overriding it
+shopt -s histappend
+
+# autocd when given a path
+shopt -s autocd
+
+# Update window sizes every command
+#shopt -s checkwinsize
+
+### General configs
+# Colorized man pages
+man() {
+	env \
+		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+		LESS_TERMCAP_md=$(printf "\e[1;31m") \
+		LESS_TERMCAP_me=$(printf "\e[0m") \
+		LESS_TERMCAP_se=$(printf "\e[0m") \
+		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+		LESS_TERMCAP_ue=$(printf "\e[0m") \
+		LESS_TERMCAP_us=$(printf "\e[1;32m") \
+		man "$@"
+}
+
+# Setup fzf
+# ---------
+_ble_contrib_fzf_base=/usr/share/doc/fzf
+
+# Auto-completion
+# ---------------
+if [[ ${BLE_VERSION-} ]]; then
+	ble-import -d contrib/fzf-completion
+else
+	[[ $- == *i* ]] && source "$_ble_contrib_fzf_base/completion.bash" 2>/dev/null
+fi
+
+# Key bindings
+# ------------
+if [[ ${BLE_VERSION-} ]]; then
+	ble-import -d contrib/fzf-key-bindings
+else
+	source "$_ble_contrib_fzf_base/key-bindings.bash"
+fi
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+	export EDITOR='vim'
+fi
+
+# Color support for ls, fd, etc
+eval $(dircolors -p | perl -pe 's/^((CAP|S[ET]|O[TR]|M|E)\w+).*/$1 00/' | dircolors -)
+
+# Aliases
+alias sudo='sudo'
+alias weather="curl 'wttr.in/?T'"
+alias svim="sudoedit"
+alias li="exa --icons"
+alias l="exa -la"
+alias ip="ip --color=auto"
+alias diff='diff --color=auto'
+#alias clip="xclip -sel clip"
+alias clip="xsel -ib"
+alias startvpn="pass sshthanos | sudo openconnect vpn.som.umaryland.edu -b -q --user=cullen.ross --authgroup SOM-Multifactor --passwd-on-stdin --servercert pin-sha256:zWuWUmGaQEWraG+Xvv6uF58rrupSRmqCzeNioSDEaaI="
+alias stopvpn="sudo pkill openconnect"
+alias sshthanos="ssh cullen.ross@thanos.igs.umaryland.edu"
+alias cat="bat"
+alias pfetch="curl -s https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch | sh"
+#alias vim="nvim"
+alias sshpi="ssh pi@192.168.0.26"
+alias piunmount="ssh pi@192.168.0.18 sudo /mnt/fd1/unmount.sh"
+alias ls="exa"
+alias ncdu="compsize"
+#alias backupssh="rsync -a --delete --quiet -e ssh / pi@192.168.0.18:/media/RaspberryPi/Genome"
+alias scan="scanimage --device 'hpaio:/net/OfficeJet_3830_series?ip=192.168.0.13' --progress --format=png --output-file"
+#alias cp="cp --reflink" #to make lightweight copies w/ btrfs
+# avoid typing the whole thing
+alias halt="sudo halt"
+alias poweroff="sudo poweroff"
+alias reboot="sudo reboot"
+alias shutdown="sudo shutdown"
+alias zzz="sudo zzz"
+alias ZZZ="sudo ZZZ"
+alias xr="sudo xbps-remove -Rcon"
+alias xc="sudo xbps-remove -Oo"
+alias xu='sudo xbps-install -Suv'
+alias xl='xbps-query -l'
+alias xf='xbps-query -f'
+alias xd='xbps-query -x'
+alias xm='xbps-query -m'
+alias xs='fuzzypkg'
+alias clk='sudo vkpurge rm all'
+alias cml='connmanctl'
+alias tksv='tmux kill-server'
+alias hc='herbstclient'
+alias pyratehole="lynx gopher://g.nixers.net/1/~pyratebeard/music/this_week.txt"
+alias dotlink="stow -R --target=/home/barbaross -d /home/barbaross/Public/thonkpad-dotfiles ."
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....="cd ../../../.."
+alias _="sudo"
+complete -F _complete_alias "${!BASH_ALIASES[@]}"
+
+# Completion for some xtools, since bash_completions haven't been done for it
+__load_completion xbps
+
+_xi() {
+	shift
+	_xbps_complete xbps-install "$@"
+}
+
+_xls() {
+	shift
+	_xbps_complete xbps-query "$@"
+}
+
+_xq() {
+	shift
+	_xbps_complete xbps-query "$@"
+}
+
+complete -F _xi xi
+complete -F _xls xls
+complete -F _xq xq
+
+# Hit Q in order to get out of ranger in the directory you're in
+function r {
+	local IFS=$'\t\n'
+	local tempfile="$(mktemp -t tmp.XXXXXX)"
+	local ranger_cmd=(
+		command
+		ranger
+		--cmd="map Q chain shell echo %d > $tempfile; quitall"
+	)
+
+	${ranger_cmd[@]} "$@"
+	if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n $(pwd))" ]]; then
+		cd -- "$(cat "$tempfile")" || return
+	fi
+	command rm -f -- "$tempfile" 2>/dev/null
+}
+
+# ls after a cd
+cl() {
+	local dir="$1"
+	local dir="${dir:=$HOME}"
+	if [[ -d "$dir" ]]; then
+		cd "$dir" >/dev/null
+		ls
+	else
+		echo "bash: cl: $dir: Directory not found"
+	fi
+}
+
+# one off calculator
+calc() {
+	echo "scale=3;$@" | bc -l
+}
+
+cht() {
+	curl -s "cheat.sh/$(echo -n "$*" | jq -sRr @uri)"
+}
+# Pfetch configuration
+export PF_INFO="ascii title os host kernel wm pkgs shell editor palette"
+
+# Add this line at the end of .bashrc:
+[[ ${BLE_VERSION-} ]] && ble-attach

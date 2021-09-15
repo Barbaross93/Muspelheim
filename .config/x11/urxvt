@@ -1,18 +1,16 @@
-#define BTMP_FONT -misc-termsynu-medium-r-normal-*-14-*-*-*-*-*-iso10646-*
-#define BTMP_ITL_FONT -misc-termsynu-medium-i-normal-*-14-*-*-*-*-*-iso10646-*
-#define BTMP_BLD_FONT -misc-termsynu-bold-r-normal-*-14-*-*-*-*-*-iso10646-*
-#define BTMP_BLD_ITL_FONT -misc-termsynu-bold-i-normal-*-14-*-*-*-*-*-iso10646-*
-#define ICON CozetteVector
-#define EMOJI Symbola
-#define CJK Kochi Gothic
-#define FONT_SIZE 12
-#define ICON_SIZE 10
-#define EMOJI_SIZE 8
-URxvt.font: BTMP_FONT, xft:ICON:size=ICON_SIZE:antialias=false, xft:CJK:size=FONT_SIZE:antialias=true, xft:EMOJI:size=EMOJI_SIZE:antialias=true
-URxvt.boldFont: BTMP_BLD_FONT, xft:ICON:size=ICON_SIZE:antialias=false,xft:CJK:size=FONT_SIZE:antialias=true, xft:EMOJI:size=EMOJI_SIZE:antialias=true
-URxvt.italicFont: BTMP_ITL_FONT, xft:ICON:size=ICON_SIZE:antialias=false, xft:CJK:size=FONT_SIZE:antialias=true, xft:EMOJI:size=EMOJI_SIZE:antialias=true
-URxvt.boldItalicFont: BTMP_BLD_ITL_FONT, xft:ICON:size=ICON_SIZE:antialias=false, xft:CJK:size=FONT_SIZE:antialias=true, xft:EMOJI:size=EMOJI_SIZE:antialias=true
+! Fonts
+URxvt.font: -barbaross-creeper-medium-r-normal--13-101-100-100-c-70-iso8859-1,\
+						-slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1,\
+						-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
+						-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1
+URxvt.boldFont: -barbaross-creeper-bold-r-normal--13-101-100-100-c-70-iso8859-1,\
+								-slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1,,\
+								-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
+								-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1
+URxvt.italicfont:
+URxvt.boldItalicFont:
 
+! Settings
 URxvt.depth:                    24
 URxvt*lineSpace:                0
 URxvt*letterSpace:            	0
@@ -20,43 +18,30 @@ URxvt.iso14755:                 false
 URxvt.iso14755_52:              false
 URxvt*geometry:                 80x24
 URxvt.scrollBar:                false
-URxvt*loginShell:               true
+URxvt*loginShell:               false
 URxvt.internalBorder:           32
 URxvt.skipBuiltinGlyphs:        false
-
-URxvt.perl-lib: 								/home/barbarossa/.config/x11/urxvt-ext/
-URxvt.perl-ext:         				default,matcher,selection-to-clipboard,newterm,keyboard-select,clipboard-osc,resize-font
-URxvt.url-launcher:             linkhandler
-URxvt.matcher.button:         	1
-URxvt.keysym.M-r:           		perl:matcher:last
-URxvt.keysym.S-C-U:           	perl:matcher:list
-URxvt.keysym.M-l:           		perl:matcher:select
+URxvt.urgentOnBell: 						true
+URxvt.print-pipe: 							cat > /dev/null
 URxvt.saveLine:         				10000
 URxvt.cursorBlink:        			true
 URxvt.cursorUnderline:    			false
-
 URxvt*inheritPixmap:          	false
 URxvt*transparent:            	false
 URxvt.termName:                 rxvt-unicode-256color
-
-! do not scroll with output
 URxvt*scrollTtyOutput:          false
-! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
 URxvt*scrollWithBuffer:         true
-! scroll back to the bottom on keypress
 URxvt*scrollTtyKeypress:        true
-
-! open new term in same directory
-URxvt.keysym.Control-Shift-T:   perl:newterm
-
-! Incremental scroll
-URxvt.keysym.Shift-Up:          command:\033]720;1\007
-URxvt.keysym.Shift-Down:        command:\033]721;1\007
-
-! Helps scrolling in alt screens
 URxvt.secondaryScreen:          1
 URxvt.secondaryScroll:          0
-URxvt.secondaryWheel:           1
+
+! Navigation keybinds
+URxvt.keysym.Shift-Up:          command:\033]720;1\007
+URxvt.keysym.Shift-Down:        command:\033]721;1\007
+URxvt.keysym.Control-Up: 				\033[1;5A
+URxvt.keysym.Control-Down: 			\033[1;5B
+URxvt.keysym.Control-Right: 		\033[1;5C
+URxvt.keysym.Control-Left: 			\033[1;5D
 
 ! Re-bind copy and paste shortcuts
 URxvt.keysym.Control-Meta-c:    builtin-string:
@@ -65,15 +50,33 @@ URxvt.keysym.Control-Meta-v:    builtin-string:
 URxvt.keysym.Shift-Control-V:   eval:paste_clipboard
 URxvt.keysym.Shift-Control-C:   eval:selection_to_clipboard
 
+! Perl stuff from here on out
+URxvt.perl-lib: 								/home/barbaross/.config/x11/urxvt-ext/
+URxvt.perl-ext-common:         	default,matcher,selection-to-clipboard,newterm,keyboard-select,clipboard-osc,vtwheel,eval,overlay-osc
+
+! Matcher extension settings
+URxvt.url-launcher:             linkhandler
+URxvt.matcher.button:         	1
+URxvt.keysym.M-r:           		perl:matcher:last
+URxvt.keysym.S-C-U:           	perl:matcher:list
+URxvt.keysym.M-l:           		perl:matcher:select
+URxvt.underlineURLs: 						true
+
+! open new term in same directory
+URxvt.keysym.Control-Shift-T:   perl:newterm
+
 ! Activate keyboard-select
 URxvt.keysym.M-Escape: 					perl:keyboard-select:activate
 URxvt.keyboard-select.clipboard: true
 
 ! Font resize settings
-URxvt.keysym.C-minus:     resize-font:smaller
-URxvt.keysym.C-plus:      resize-font:bigger
-URxvt.keysym.C-equal:     resize-font:reset
-URxvt.keysym.C-question:  resize-font:show
-URxvt.resize-font.step: 2
+!URxvt.keysym.C-minus:     resize-font:smaller
+!URxvt.keysym.C-plus:      resize-font:bigger
+!URxvt.keysym.C-equal:     resize-font:reset
+!URxvt.keysym.C-question:  resize-font:show
+!URxvt.resize-font.step: 2
+
+! change color0 for slack term
+slack*color0: 									#1c1c1c
 
 ! vim:ft=xdefaults

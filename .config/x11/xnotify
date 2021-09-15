@@ -1,4 +1,4 @@
-xnotify*font: 				Misc Termsyn, SijiPlus
+xnotify*font: 				Termsyn, SijiPlus
 xnotify.border:				#af875f
 xnotify.geometry:			288x0-36-60
 xnotify.gravity:			SE

@@ -11,7 +11,7 @@ cmd="$@"
 triggered=false
 
 while true; do
-    tosleep=$(((timeout - $(xssstate -i)) / 1000))
+    tosleep=$(((timeout - $(xprintidle)) / 1000))
     if [ $tosleep -le 0 ]; then
         $triggered || $cmd
         triggered=true

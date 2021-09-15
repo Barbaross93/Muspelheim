@@ -52,7 +52,7 @@ remove)
 	wid=$1
 	shift
 	xdotool windowreparent $wid $(get_root_wid)
-	bspc config -n $wid border_width 2
+	bspc config -n $wid border_width 8
 	;;
 list)
 	get_clients $tabbed

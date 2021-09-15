@@ -1,20 +1,11 @@
 #!/bin/sh
 
-#if pidof picom;
-#then
-#	killall picom;
-#	notify-send -u normal -t 3000 "Picom killed"
-#else
-#	picom &
-#	notify-send -u normal -t 3000 "Picom Started"
-#fi
-
 if pidof xcompmgr; then
-	killall xcompmgr
-	notify-send "Compositor" "Xcompmgr killed"
+	notify-send "Compositor" "Compositor killed"
+	pkill xcompmgr
 	#printf "SEC:3\tXcompmgr killed\n" >$XNOTIFY_FIFO
 else
-	xcompmgr &
-	notify-send "Compositor" "Xcompmgr started"
+	setsid -f xcompmgr &
+	notify-send "Compositor" "Compositor started"
 	#printf "SEC:3\tXcompmgr Started\n" >$XNOTIFY_FIFO
 fi

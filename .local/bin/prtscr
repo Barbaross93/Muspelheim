@@ -1,9 +1,15 @@
-#!/bin/sh
+#!/bin/bash
+
+#mrect=($(herbstclient monitor_rect ""))
+
+#width=${mrect[2]}
+#height=${mrect[3]}
 
 notify-send -t 3000 "Screenshot" "Screenshot in 5 seconds"
 #printf "SEC:3\t Screenshot will be taken in 5 seconds\n" >$XNOTIFY_FIFO
 sleep 5 &&
-	ffcast png ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
+	#ffcast png ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
+	ffmpeg -f x11grab -video_size 1920x1080 -i $DISPLAY -vframes 1 ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #scrot ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #shotgun ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #maim -q -d 5 ~/Pictures/Screenshots/$(date +%s).png

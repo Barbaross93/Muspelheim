@@ -11,7 +11,9 @@
 # Do nothing if interrupted
 trap '' INT TSTP
 
-pgrep -x sxhkd >/dev/null || sxhkd &
+# Always wanted for refresh
+#noisewall "#452f2f"
+hsetroot -tile ~/Pictures/noise_tile.png
 
 ###Config
 extmon=$(xrandr | grep "HDMI2 connected")
@@ -24,49 +26,52 @@ fi
 #bspc monitor eDP1 -d          
 
 bspc config border_width 8
-bspc config top_padding 0
-bspc config right_padding 8
-bspc config left_padding 8
-bspc config bottom_padding 0
-bspc config window_gap 16
+bspc config top_padding 3
+bspc config right_padding 3
+bspc config left_padding 3
+bspc config top_padding 39
+#bspc config bottom_monocle_padding 3
+bspc config window_gap 12
 
 . "${HOME}/.config/bspwm/colorschemes/alduin.sh"
-bspc config focused_border_color "$color16"
+bspc config focused_border_color "$color3"
 bspc config normal_border_color "$color16"
-bspc config active_border_color "$color16"
+bspc config active_border_color "$color6"
 bspc config presel_feedback_color "$color3"
 bspc config split_ratio 0.50
 bspc config borderless_monocle false
 bspc config gapless_monocle false
 bspc config focus_follows_pointer true
 #bspc config external_rules_command "$HOME/.config/bspwm/external_rules.sh"
-bspc config pointer_follows_focus true
-bspc config single_monocle false
-bspc config ignore_ewmh_focus false
+bspc config pointer_follows_focus false
+bspc config single_monocle true
+bspc config ignore_ewmh_focus true
 
 ###Rules
 # Cleanup
 bspc rule -r '*'
 
 # State rules
-bspc rule -a "dmenu" state=floating
-bspc rule -a St:dropdown state=floating #sticky=on
+#bspc rule -a "dmenu" state=floating
+bspc rule -a URxvt:dropdown state=floating #sticky=on
 bspc rule -a "Sxiv" state=floating rectangle=1824x1026+40+19
 bspc rule -a "mpv" state=floating
 bspc rule -a "Zathura" state=tiled
 
 # Assignment rules
-bspc rule -a "qutebrowser" desktop=^1 follow=on
-bspc rule -a *:*:aerc desktop=^2 follow=on
+bspc rule -a "qutebrowser" desktop=^1 follow=on focus=off
+bspc rule -a *:*:mutt desktop=^2 follow=on
 bspc rule -a *:*:ikhal desktop=^2 follow=on
 bspc rule -a *:*:Tasks desktop=^2 follow=on
 #bspc rule -a libreoffice-* desktop=^3 follow=on #Fix me
 bspc rule -a "Zathura" desktop=^3 follow=on
-bspc rule -a *:*:weechat desktop=^6 follow=on
+bspc rule -a *:*:irssi desktop=^6 follow=on
 bspc rule -a *:*:slack-term desktop=^6 follow=on
 bspc rule -a *:*:Spotify desktop=^7 follow=on
 
-### Non-bspwm specific settings
+### Xorg specific settings
+xset +fp ~/.local/share/fonts/misc
+xset +fp /usr/share/fonts/misc
 xset s 180 120
 xset dpms 305
 xset r rate 440 50
@@ -77,32 +82,32 @@ xsetroot -cursor_name left_ptr
 startup_lock_file=/tmp/bspwm-startup.lock
 if [ ! -f $startup_lock_file ]; then
     touch $startup_lock_file
-    #xwallpaper --tile ~/Pictures/anti-anti-antigen.png
-    #xwallpaper --zoom ~/Pictures/darktown.png
-    #hashwall -b "#452f2f" -f "#121212" -s 8 -r 64
-    noisewall "#452f2f"
-    dborders.sh &
-    #sbar.sh &
-    /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
-    xbanish &
-    clipmenud &
-    xss-lock -n dim-screen.sh -l -- lock &
-    idle.sh 10 "systemctl suspend-then-hibernate" &
+
+    # update DBUS session address in cron
+    crontab -l | sed '/^DBUS/d' | tac >/tmp/cronold
+    echo "DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS" >>/tmp/cronold
+    tac /tmp/cronold >>/tmp/cronnew
+    crontab /tmp/cronnew && rm /tmp/cronold /tmp/cronnew
+
+    # Run these programs as user services
+    runsvdir -P ~/.local/service &
+
+    # generic programs
+    setsid -f sbar.sh &
+    xob_startup.sh &
 
     # Things that require an internet connection
-    nm-online -q
-    network=$(nmcli -g IN-USE,SSID d wifi list | grep "*" | cut -d':' -f2)
+    connmand-wait-online
+    network=$(connmanctl services | grep --fixed-strings "*AO" | awk '{print $2}')
     matches=$(echo "$network" | grep 'Ollies_Network\|Ollies_5ghz_Network')
-    #if [[ "$(nmcli -g IN-USE,SSID d wifi list | grep "*" | cut -d':' -f2)" =~ ^(Ollies_Network|Ollies_5ghz_Network)$ ]]; then
     if [ "$matches" = "Ollies_Network" ] || [ "$matches" = "Ollies_5ghz_Network" ]; then
         synergyc 192.168.0.16 &
     else
-        nmcli c u acer
+        connmanctl connect vpn_crabdance_com
     fi
 
-    distraction_mode_check.sh &
-    weather.sh &
-    gitwatch -r pi@192.168.0.18:/mnt/fd1/repos/thonkpad-dotfiles /home/barbarossa/Public/thonkpad-dotfiles &
     syncthing -no-browser &
     redshift -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//') &
+    distraction_mode_check.sh &
+    weather.sh &
 fi

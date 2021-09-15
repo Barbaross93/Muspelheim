@@ -1,0 +1,12 @@
+!!! font
+!tabbed.font: 					xft:custom:pixelsize=13
+
+!!! colors
+tabbed.normfgcolor: 		#dfdfaf
+tabbed.normbgcolor: 		#424242
+tabbed.selfgcolor: 		#dfdfaf
+tabbed.selbgcolor: 		#1c1c1c
+tabbed.urgbgcolor: 		#af5f5f
+tabbed.urgfgcolor: 		#262626
+
+! vim:ft=xdefaults

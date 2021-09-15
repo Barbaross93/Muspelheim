@@ -1,0 +1,33 @@
+!!! font
+dmenu.font: 					custom
+
+!!! Geometry
+dmenu.dmx: 						7
+dmenu.dmy: 						6
+dmenu.dmw: 						1906
+
+!!! colors!
+dmenu.normfgcolor: 		#dfdfaf
+dmenu.normbgcolor: 		#1c1c1c
+dmenu.selfgcolor: 		#1c1c1c
+dmenu.selbgcolor: 		#af875f
+dmenu.normhlfgcolor:  #1c1c1c
+dmenu.normhlbgcolor:  #57875f
+dmenu.selhlfgcolor:   #1c1c1c
+dmenu.selhlbgcolor:   #af5f5f
+dmenu.midfgcolor: 	  #dfdfaf
+dmenu.midbgcolor:     #262626
+dmenu.outfgcolor: 	  #dfdfaf
+dmenu.outbgcolor:     #1c1c1c
+
+!!! Misc settings
+!dmenu.symbol_1: 		
+!dmenu.symbol_2:    
+dmenu.instant: 				1
+dmenu.topbar: 				1
+dmenu.fuzzy: 					1
+dmenu.lines: 					0
+dmenu.lineheight: 		24
+!dmenu.worddelimiters:
+
+! vim:ft=xdefaults

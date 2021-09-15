@@ -9,19 +9,19 @@ value="${2:-5}"
 case $1 in
 up)
 	#busctl call org.clightd.clightd /org/clightd/clightd/Backlight org.clightd.clightd.Backlight RaiseAll "d(bdu)s" 0.05 0 0 0 ""
-	xbacklight -inc 5
+	xbacklight -time 200 -steps 5 -inc 5
 	label=""
 	;;
 down)
 	#busctl call org.clightd.clightd /org/clightd/clightd/Backlight org.clightd.clightd.Backlight LowerAll "d(bdu)s" 0.05 0 0 0 ""
-	xbacklight -dec 5
+	xbacklight -time 200 -steps 5 -dec 5
 	label=""
 	;;
 esac
 
 #brightness="$(busctl call org.clightd.clightd /org/clightd/clightd/Backlight org.clightd.clightd.Backlight Get "s" "" | awk '{print $3*100}')"
-brightness=$(xbacklight -get)
-fullbrightness=${brightness%.*}
+#brightness=$(xbacklight -get)
+#fullbrightness=${brightness%.*}
 #printf "BAR:$fullbrightness\tSEC:1\tTAG:bright\t$label Brightness\t \n" >$XNOTIFY_FIFO
-dunstify -t 3000 -r 2593 -u normal -a brightness -h int:value:$brightness "Backlight" "$label Brightness: $fullbrightness%"
+#dunstify -t 3000 -r 2593 -u normal -a brightness -h int:value:$brightness "Backlight" "$label Brightness: $fullbrightness%"
 #echo "$brightness" >>/tmp/xoblight

@@ -1,31 +1,27 @@
-#!/usr/bin/env python3
+#!/bin/sh
 
-import os
-import subprocess as sp
+options="⭤ Lock
+↵ Logout
+⏼ Hibernate
+ Reboot
+⏻ Shutdown"
 
-if __name__ == "__main__":
+choice=$(echo "$options" | dmenu -p "Power:")
 
-    commands = {
-        "⭤ Lock": "xset s activate",
-        "↵ Logout": "logout",
-        "⏼ Hibernate": "systemctl hibernate",
-        " Reboot": "systemctl reboot",
-        "⏻ Shutdown": "systemctl poweroff",
-    }
-
-    if "LOCKPRG" in os.environ:
-        commands["Lock"] = os.environ["LOCKPRG"]
-
-    if "EXITPRG" in os.environ:
-        commands["Exit"] = os.environ["EXITPRG"]
-
-    options = commands.keys()
-    title = "Power:"
-    rofi = f"/home/barbarossa/.local/bin/ddmenu -p {title}".split()
-    rofi_input = "\n".join(x for x in options)
-
-    cp = sp.run(rofi, input=rofi_input, encoding="utf-8", capture_output=True)
-    if cp.returncode == 0:
-        selection = cp.stdout.strip()
-        if selection in commands:
-            sp.run(commands[selection].split())
+case "$choice" in
+*Lock*)
+	xset s activate
+	;;
+*Logout*)
+	logout
+	;;
+*Hibernate*)
+	sudo ZZZ
+	;;
+*Reboot*)
+	sudo reboot
+	;;
+*Shutdown*)
+	sudo poweroff
+	;;
+esac

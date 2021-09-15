@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #if pgrep -f giph &>/dev/null; then
 #	giph --stop &>/dev/null
@@ -9,19 +9,20 @@
 #fi
 
 selection() {
-	if pgrep -f "bash.+ffcast" >/dev/null 2>&1; then
+	if pgrep ffmpeg >/dev/null 2>&1; then
 		pkill ffmpeg
 		notify-send "Record" "Stopping gif recording..."
 		#printf "Stopping gif recording...\n" >$XNOTIFY_FIFO
 	else
-		notify-send i"Record" "Select region to record"
+		notify-send "Record" "Select region to record"
 		#printf "Select region to record\n" >$XNOTIFY_FIFO
-		# To make high quality gifs, create a bunch of pngs and then create the gif
-		mkdir -p /tmp/0
-		cd /tmp/0
-		ffcast -s rec -r 20 %04d.png
-		convert -loop 0 -delay 5 *.png -layers Optimize ~/Pictures/Gifs/Recordings/$(date '+%Y-%m-%d_%H-%M-%S').gif
-		rm -rf /tmp/0
+		coord=($(xrectsel "%w %h %x %y"))
+		input=$(date '+%Y-%m-%d_%H-%M-%S')
+		output=~/Pictures/Gifs/Recordings/${input}.gif
+		ffmpeg -f x11grab -video_size ${coord[0]}x${coord[1]} -framerate 20 -i $DISPLAY+${coord[2]},${coord[3]} /tmp/$input.mkv
+		ffmpeg -i /tmp/${input}.mkv -vf "fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop -1 ${output}
+
+		rm -rf /tmp/${input}.mkv
 		notify-send "Record" "Recording finished!"
 		#printf "Recording finished!\n" >$XNOTIFY_FIFO
 		#scr -c -e $(date '+%Y-%m-%d_%H-%M-%S').gif &>/dev/null
@@ -29,19 +30,23 @@ selection() {
 }
 
 full() {
-	if pgrep -f "bash.+ffcast" >/dev/null 2>&1; then
-		kill $(pgrep -f "bash.+ffcast")
+	if pgrep ffmpeg >/dev/null 2>&1; then
+		pkill ffmpeg
 		notify-send "Record" "Stopping gif Recording..."
 		#printf "Stopping gif recording...\n" >$XNOTIFY_FIFO
 	else
-		notify-send "Record" "Select region to record"
+		notify-send "Record" "Recording started"
 		#printf "Select region to record\n" >$XNOTIFY_FIFO
 		# To make high quality gifs, create a bunch of pngs and then create the gif
-		mkdir -p /tmp/0
-		cd /tmp/0
-		ffcast rec -r 20 %04d.png
-		convert -loop 0 -delay 5 *.png -layers Optimize ~/Pictures/Gifs/Recordings/$(date '+%Y-%m-%d_%H-%M-%S').gif
-		rm -rf /tmp/0
+
+		input=$(date '+%Y-%m-%d_%H-%M-%S')
+		output=~/Pictures/Gifs/Recordings/${input}.gif
+
+		mrect=($(herbstclient monitor_rect ""))
+		ffmpeg -f x11grab -video_size ${mrect[2]}x${mrect[3]} -framerate 20 -i $DISPLAY /tmp/$input.mkv
+		ffmpeg -i /tmp/${input}.mkv -vf "fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop -1 ${output}
+
+		rm -rf /tmp/${input}.ogv
 		notify-send "Record" "Recording finished!"
 		#printf "Recording finished!\n" >$XNOTIFY_FIFO
 		#scr -c -e $(date '+%Y-%m-%d_%H-%M-%S').gif &>/dev/null

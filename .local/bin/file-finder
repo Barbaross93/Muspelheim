@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cmd="$(fd --hidden -E 'Public/neat-things/*' | ddmenu -p 'Open:' | tee /tmp/fzf-dir)"
+cmd="$(fd --hidden -E 'Public/neat-things/*' | dmenu -p 'Open:' | tee /tmp/fzf-dir)"
 wait < <(jobs -p)
 dir=$(cat /tmp/fzf-dir)
 if [ -n "$dir" ]; then

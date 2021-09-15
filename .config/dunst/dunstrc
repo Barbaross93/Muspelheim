@@ -80,8 +80,8 @@
     progress_bar_frame_width = 0
     
     ### Misc/Advanced ###
-    dmenu = /home/barbarossa/.local/bin/ddmenu -p 'Action:':
-    browser = /home/barbarossa/.local/bin/linkhandler
+    dmenu = /home/barbaross/.local/bin/ddmenu -p 'Action:':
+    browser = /home/barbaross/.local/bin/linkhandler
     always_run_script = false
     title = Dunst
     class = Dunst

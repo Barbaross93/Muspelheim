@@ -39,3 +39,5 @@
 *.color17: 			#3a3a3a
 *.color18: 			#626262
 
+! vim:ft=xdefaults
+

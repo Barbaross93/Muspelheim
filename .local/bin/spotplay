@@ -5,23 +5,25 @@ status=$(playerctl status)
 
 if [ "$status" = Playing ]; then
 	albumart=$(playerctl metadata mpris:artUrl)
-	albumartfetch=$(curl -s --output /tmp/large_cover.png $albumart)
-	random_name=$(mktemp --suffix ".png")
-	cp /tmp/large_cover.png "$random_name"
+	albumartfetch=$(curl -s --output /tmp/cover.png $albumart)
+	#random_name=$(mktemp --suffix ".png")
+	#cp /tmp/large_cover.png "$random_name"
 	# Needed for ueberzug album art script
-	size=420
-	convert /tmp/large_cover.png -resize "$size"x"$size" /tmp/cover.png
+	#size=420
+	#convert /tmp/large_cover.png -resize "$size"x"$size" /tmp/cover.png
 	###
-	info=$(playerctl metadata --format " Now Playing\n {{ title }} ({{ duration(mpris:length) }})\n {{ artist }}\n {{ album }}")
+	info=$(playerctl metadata --format " Now Playing  {{ title }} ({{ duration(mpris:length) }})  {{ artist }}  {{ album }}")
 	info=$(env printf "$info")
-	dunstify -r 859 -u low -i $random_name "Spotify" "$info"
+	#dunstify -r 859 -u low -i $random_name "Spotify" "$info"
+	notify-send -u low "Spotify" "$info"
 	#printf "TAG:spotify\tSEC:5\tBRD:#87afaf\tIMG:$random_name\t$info\n" >$XNOTIFY_FIFO
 elif [ "$status" = Paused ]; then
 	position=$(playerctl position --format "{{ duration(position) }}")
 	duration=$(playerctl metadata --format "{{ duration(mpris:length) }}")
-	formatted=" Playback Paused\nCurrent Position: $position/$duration"
+	formatted=" Playback Paused Current Position: $position/$duration"
 	formatted=$(env printf "$formatted")
-	dunstify -r 859 -u low "Spotify" "$formatted"
+	#dunstify -r 859 -u low "Spotify" "$formatted"
+	notify-send -u low "Spotify" "$formatted"
 	#printf "TAG:spotify\tSEC:5\tBRD:#87afaf\t$formatted\n" >$XNOTIFY_FIFO
 	#else
 	#notify-send -t 3000 -a Spotify -u low $'Something else besides play/paused happened.\nUpdate this script fool.'

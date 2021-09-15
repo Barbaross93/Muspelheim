@@ -1,11 +1,14 @@
-
-###############################
-#
-# ░█▀▀░█░█░█░█░█░█░█▀▄░█▀▄░█▀▀
-# ░▀▀█░▄▀▄░█▀█░█▀▄░█░█░█▀▄░█░░
-# ░▀▀▀░▀░▀░▀░▀░▀░▀░▀▀░░▀░▀░▀▀▀
-#
-###############################
+## 
+##   ██████ ▒██   ██▒ ██░ ██  ██ ▄█▀▓█████▄  ██▀███   ▄████▄  
+## ▒██    ▒ ▒▒ █ █ ▒░▓██░ ██▒ ██▄█▒ ▒██▀ ██▌▓██ ▒ ██▒▒██▀ ▀█  
+## ░ ▓██▄   ░░  █   ░▒██▀▀██░▓███▄░ ░██   █▌▓██ ░▄█ ▒▒▓█    ▄ 
+##   ▒   ██▒ ░ █ █ ▒ ░▓█ ░██ ▓██ █▄ ░▓█▄   ▌▒██▀▀█▄  ▒▓▓▄ ▄██▒
+## ▒██████▒▒▒██▒ ▒██▒░▓█▒░██▓▒██▒ █▄░▒████▓ ░██▓ ▒██▒▒ ▓███▀ ░
+## ▒ ▒▓▒ ▒ ░▒▒ ░ ░▓ ░ ▒ ░░▒░▒▒ ▒▒ ▓▒ ▒▒▓  ▒ ░ ▒▓ ░▒▓░░ ░▒ ▒  ░
+## ░ ░▒  ░ ░░░   ░▒ ░ ▒ ░▒░ ░░ ░▒ ▒░ ░ ▒  ▒   ░▒ ░ ▒░  ░  ▒   
+## ░  ░  ░   ░    ░   ░  ░░ ░░ ░░ ░  ░ ░  ░   ░░   ░ ░        
+##       ░   ░    ░   ░  ░  ░░  ░      ░       ░     ░ ░      
+##                                   ░               ░        
 
 #
 # wm independent hotkeys
@@ -13,11 +16,11 @@
 
 # terminal emulator
 super + Return
-	sterm
+	urxvtdc
 
 # Open FM
 super + backslash
-	sterm -e lf
+	urxvtdc -e ranger
 
 # program launcher
 super + e
@@ -39,6 +42,10 @@ super + alt + w
 super + space
 	dmenu-task
 
+# Disable mouse middle click paste
+~button2
+    echo -n | xsel -n -i
+
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd && notify-send "Sxhkd" "Config reloaded"
@@ -47,20 +54,21 @@ super + Escape
 super + b
 	togglebar.sh
 
-# teleport cursor
-super + alt + c
-	xdotool mousemove --window $(bspc query -N -n) --polar 0 0
-
 # Dmenu usb controls
-super + u; {m, u}
-	{dmenumount,dmenuumount}
+super + u
+	unmount.sh
 
 # Print screen
 Print
 	prtscr
 
+# print region of screen
 super + Print
 	prtregion
+
+# zoom
+super + shift + z
+	xcolor -c ""
 
 # Toggle Touchpad
 XF86Launch1
@@ -98,14 +106,6 @@ XF86AudioMute
 XF86AudioMicMute
 	vol pulsemic mute
 
-# Start/resume or pause pomodoro
-super + l; {i,s,p} 
-	pomo-info {-i,-s,-p}
-
-# Reset Pomodoro
-super + l; r
-	pomod kill && notify-send "pomod" "Pomodoro restarted"
-
 # Bluetooth
 XF86Bluetooth
 	fzf-bluetooth
@@ -140,7 +140,7 @@ super + a
 
 # edit sxhkd bindings
 super + shift + a
-	sterm -e vim ~/.config/sxhkd/sxhkdrc
+	urxvtdc -e vim ~/.config/sxhkd/sxhkdrc
 
 # record selected screen in mp4/gif
 super + r; {m,g}
@@ -156,7 +156,7 @@ super + shift + p
 
 # Greenclip
 super + x		
-	CM_LAUNCHER=ddmenu clipmenu -p 'Clipboard:' -l 15
+	clipmenu -p 'Clipboard:' -l 0
 	#greenclip.sh
 
 # Whats playing?
@@ -185,7 +185,7 @@ super + BackSpace
 	bspc config -d focused right_padding 0; \
 	bspc config -d focused left_padding 0; \
 	bspc config -d focused bottom_padding 0; \
-	bspc config -d focused window_gap 16
+	bspc config -d focused window_gap 12
 
 # Color picker
 super + shift + c
@@ -193,17 +193,17 @@ super + shift + c
 
 # Query last notification
 control + grave
-	dunstctl history-pop
-	#notif_hist.sh -q
+	notif_hist.sh -q
+	#dunstctl history-pop
 
 # Close current notification
 control + space
-	dunstctl close
-	#notif_hist.sh -c
+	notif_hist.sh -c
+	#dunstctl close
 
 # Close all notifications
-control + shift + space
-	dunstctl close-all
+#control + shift + space
+#	dunstctl close-all
 
 # Toggle notifications
 super + shift + n
@@ -232,6 +232,10 @@ super + shift + e
 # restart bspwm
 super + shift + r
 	bspc wm -r
+
+# close
+super + q
+	bspc node -c
 
 # close
 super + shift + q
@@ -315,22 +319,7 @@ super + p;{m,x,y,z}
 
 # focus the node in the given direction (multimonitor)
 super + {_,shift + }{Left,Down,Up,Right}
-    mode={f,s}; \
-    direction={west,south,north,east}; \
-    monitor=$(bspc query -M --names -m $direction); \
-    if bspc query -N -n $direction -m focused > /dev/null; then \
-        bspc node -$mode $direction; \
-    else; \
-        if [ $mode = "f" ]; then \
-            if bspc query -N -d ${monitor}:focused > /dev/null; then \
-                bspc node -$mode $direction; \
-            else; \
-                bspc monitor -f $direction; \
-            fi; \
-        else; \
-            bspc node -m $direction --follow; \
-        fi; \
-    fi
+	bsp_focus_mm.sh {f,s} {west,south,north,east}
 
 # focus the node for the given path jump
 #super + {p,b,comma,period}
@@ -452,14 +441,3 @@ super + t; {_,shift + }n
 super + t; s
 	bsptab stop-add-new
 
-#
-# Status notifications
-#
-
-# Misc status
-XF86Tools
-	status_notif.sh --extra
-
-# Fany status
-XF86Favorites
-	status_notif.sh --simple

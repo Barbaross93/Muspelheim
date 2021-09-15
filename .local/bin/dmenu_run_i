@@ -2,11 +2,36 @@
 # dmenu_run improved
 # if a command ends with "!", it is started in term.
 
-termcmd="$HOME/.local/bin/sterm"
+hc() {
+	herbstclient "$@"
+}
 
-cmd="$(dmenu_path | ddmenu $@)"
-case $cmd in
-*\!) ${termcmd} -e "$(printf "%s" "${cmd}" | cut -d'!' -f1)" ;;
-*) ${cmd} ;;
-esac
-exit
+termcmd="$HOME/.local/bin/urxvtdc"
+
+launch() {
+	cmd="$(dmenu_path | dmenu $@)"
+	[ -z "$cmd" ] && exit 1
+	case $cmd in
+	*\!) setsid -f ${termcmd} -e "$(printf "%s" "${cmd}" | cut -d'!' -f1)" ;;
+	*) setsid -f ${cmd} ;;
+	esac
+}
+
+launch2() {
+	cmd="$(dmenu_path | dmenu $@)"
+	[ -z "$cmd" ] && exit 1
+	case $cmd in
+	*\!) hc split auto && hc cycle_frame && setsid -f ${termcmd} -e "$(printf "%s" "${cmd}" | cut -d'!' -f1)" ;;
+	*) hc split auto && hc cycle_frame && setsid -f ${cmd} ;;
+	esac
+}
+
+launch "$@"
+
+#if hc compare tags.focus.frame_count = 1 && hc compare tags.focus.curframe_wcount = 0; then
+#	launch "$@"
+#elif hc compare tags.focus.curframe_wcount = 0; then
+#	launch "$@"
+#else
+#	launch2 "$@"
+#fi
