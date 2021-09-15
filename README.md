@@ -1,6 +1,6 @@
 # Muspelheim
 
-<img src="https://raw.githubusercontent.com/Barbarossa93/Myrmidon/master/screenshots/2021-08-19_15-23-51.png" alt="img" align="center">
+<img src="https://raw.githubusercontent.com/Barbarossa93/Muspelheim/master/screenshots/2021-09-15_17-33-37.png" alt="img" align="center">
 
 ## Info
 - OS: Void Linux
