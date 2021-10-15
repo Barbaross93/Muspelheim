@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Gets rid of .w3m in ~/
+#HOME="${HOME}/.local/share/w3m"
+/usr/bin/w3m -o mailcap="~/.w3m/mailcap" -o auto_image=FALSE -o display_link_number=true -o confirm_qq=false -o ext_image_viewer=TRUE -o extbrowser=/home/barbaross/.local/bin/linkhandler "$@"

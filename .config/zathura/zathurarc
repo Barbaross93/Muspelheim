@@ -6,6 +6,7 @@ set statusbar-h-padding 0
 set statusbar-v-padding 0
 set page-padding 10
 set window-title-page true
+set window-title-home-tilde true
 set guioptions vc
 
 # set scrolling options

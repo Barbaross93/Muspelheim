@@ -15,6 +15,9 @@ export TERMINAL=/usr/bin/urxvt
 # timezone
 export TZ=America/New_York
 
+# bemenu options
+export BEMENU_OPTS="-w -i --fn 'custom 13px' -H 36 --tf '#1c1c1c' --tb '#a87f5f' --nb '#1c1c1c' --nf '#dfdfaf' --hb '#a87f5f' --hf '#1c1c1c' --fb '#1c1c1c' --ff '#dfdfaf'"
+
 # Limit syncthing
 export GOMAXPROCS=4
 
@@ -29,6 +32,7 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 # clipmenu settings
 export CM_DIR="${HOME}/.cache/clipmenu"
+export CM_LAUNCHER=dmenu
 
 # colorscheme for fzf
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'  --color fg:7,bg:-1,hl:6,fg+:6,bg+:-1,hl+:6 --color info:2,prompt:1,spinner:5,pointer:5,marker:3,header:8'
@@ -45,6 +49,7 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+#export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
 export XDG_STATE_HOME="${HOME}/.local/state"
 
 # Move bash history file
@@ -121,7 +126,7 @@ export TCELL_TRUECOLOR=on
 
 # Sfeed settings
 export SFEED_URL_FILE=~/.config/sfeed/read_sfeed
-export SFEED_PIPER="w3m -T text/html -cols $(tput cols)" #-dump | urlscan -d"
+#export SFEED_PIPER="w3m -T text/html -cols $(tput cols)" #-dump | urlscan -d"
 export SFEED_PLUMBER_INTERACTIVE=1
 export SFEED_PLUMBER='feed_plumb.sh'
 export SFEED_YANKER="xsel -ib"

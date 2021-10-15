@@ -14,13 +14,13 @@
 # wm independent hotkeys
 #
 
-# terminal emulator
+# terminal emulator started in bsp-like manner
 super + Return
-	urxvtdc
+	herbstclient or ',' and '.' compare tags.focus.frame_count = 1 '.' compare tags.focus.curframe_wcount = 0 '.' spawn urxvtdc ',' and '_' compare tags.focus.curframe_wcount = 0 '_' spawn urxvtdc ',' chain '-' split auto '-' cycle_frame '-' spawn urxvtdc
 
-# Open FM
-super + backslash
-	urxvtdc -e ranger
+# terminal emulator in same focused frame
+super + shift + Return
+	urxvtdc
 
 # program launcher
 super + e
@@ -32,15 +32,31 @@ super + shift + m
 
 # switch windows
 super + w
-	window-select
+	~/.config/herbstluftwm/scripts/wselect.sh
 
-# get window title
-super + alt + w
-	notify-send "Window title" "$(xdotool getactivewindow getwindowname)"
+# Bring window
+super + shift + w
+	~/.config/herbstluftwm/scripts/bringwselect.sh
 
-# Rofi notes/todo
+# toggle window titles
+super + control + w
+	~/.config/herbstluftwm/toggle_titles.sh
+
+# Notes/todo
 super + space
 	dmenu-task
+
+# Move window with mouse
+super + button1
+	herbstclient move
+
+# zoom?
+super + button2
+	herbstclient zoom
+
+# Resize with mouse
+super + button3
+	herbstclient resize
 
 # Disable mouse middle click paste
 ~button2
@@ -95,12 +111,12 @@ XF86AudioMute
 	vol pulse mute
 
 # mic volume up
-#super + XF86AudioRaiseVolume
-#	vol pulsemic up
+super + XF86AudioRaiseVolume
+	vol pulsemic up
 
 # mic volume down
-#super + XF86AudioLowerVolume
-#	vol pulsemic down
+super + XF86AudioLowerVolume
+	vol pulsemic down
 
 # mic toggle mute
 XF86AudioMicMute
@@ -163,30 +179,10 @@ super + x
 super + j; {n,a}
 	{spotplay,cover_popup.sh}
 
-# How's the weather Ollie?
-super + ctrl + w
-	weather_status.sh
-
 # toggle scratchpad terminal
 super + d
-	scrthpd.sh
+	hlscrthpd.sh
  
-# Outer padding script
-super + {minus, equal}
-	padding.sh {-,+}
-
-# adjust gap size
-super + shift + {minus,equal}
-	bspc config -d focused window_gap $(( $(bspc config -d focused window_gap) {-,+} 8 ))
-
-# reset gaps/outer padding
-super + BackSpace
-	bspc config -d focused top_padding 0; \
-	bspc config -d focused right_padding 0; \
-	bspc config -d focused left_padding 0; \
-	bspc config -d focused bottom_padding 0; \
-	bspc config -d focused window_gap 12
-
 # Color picker
 super + shift + c
 	colorpicker.sh
@@ -194,84 +190,58 @@ super + shift + c
 # Query last notification
 control + grave
 	notif_hist.sh -q
-	#dunstctl history-pop
 
 # Close current notification
 control + space
 	notif_hist.sh -c
-	#dunstctl close
-
-# Close all notifications
-#control + shift + space
-#	dunstctl close-all
 
 # Toggle notifications
 super + shift + n
 	toggledunst
 
 # Toggle redshift
-super + shift + l	
+XF86Tools
 	toggle_redshift.sh
 
-#Enable light mode
-#XF86Tools
-#	theme_switcher.sh -l
-
-#Enable Dark mode
-#XF86Favorites
-#	theme_switcher.sh -d 
-
 #
-#  bspwm hotkeys
+#  hlwm hotkeys
 #
 
 # Powermenu
 super + shift + e
 	power
 
-# restart bspwm
+# restart
 super + shift + r
-	bspc wm -r
+	herbstclient reload
 
 # close
 super + q
-	bspc node -c
+	herbstclient remove
 
 # close
 super + shift + q
-	bspc node -c
-
-# kill
-super + alt + q
-	bspc node -k
+	herbstclient close_and_remove
 
 # alternate between the tiled and monocle layout
 super + m
-	bspc desktop -l next
+	~/.config/herbstluftwm/scripts/maximize.sh
 
-# send the newest marked node to the newest preselected node
-super + y
-	bspc node newest.marked.local -n newest.!automatic.local
+# Jump to urgent
+super + i
+	herbstclient jumpto urgent
 
-# swap the current node and the biggest node
-super + g
-	bspc node -s biggest.window
+# circulate window focus in frame
+super + c
+	herbstclient cycle
 
-# circulate windows forward or backwards
-super + c; {f,b}
-	bspc node @/ -C {forward,backward}
-
-# flip windows vertically or horizontally
-super + f;{v,h}
-	bspc node @/ -F {vertical,horizontal}
+# Toggle various window states
+super + p; {p,f,a}
+	herbstclient {pseudotile,attr clients.focus.floating,fullscreen} toggle
 
 # rotate windows by certain amounts
-super + r;{s,m,l}
-	bspc node @/ -R {90,180,270}
-
-# Equalize/balance windows
-super + n; {e,b}
-	bspc node @/ {-E,-B}
+super + r;{f,b}
+	herbstclient cycle_all {+1,-1}
 
 #
 # Hide/ unhide windows
@@ -279,103 +249,56 @@ super + n; {e,b}
 
 # hide window
 super + h; h
-	bspc node -g hidden
+	herbstclient set_attr clients.focus.minimized toggle
 
 # list and unhide selected window
 super + h; u
-	bsphidwins
+	~/.config/herbstluftwm/scripts/hidden_list.sh
 
-# Hide all windows on current desktop
-super + h; a
-	hideall
+# Unminimize selected window and bring to current tag
+super + h; b
+	~/.config/herbstluftwm/scripts/bring_hidden.sh
 
-# unhide all hidden windows
-super + h; shift + a
-	unhideall
-
-#
-# state/flags
-#
-
-# set the window state
-super + s;{t,p,f,a}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-
-# set the node flags
-super + p;{m,x,y,z}
-	bspc node -g {marked,locked,sticky,private}
+# save the current session
+super + shift + s
+	~/.config/herbstluftwm/scripts/savestate.sh
 
 #
 # focus/swap
 #
 
 # focus the node in the given direction
-#super + {Left,Down,Up,Right}
-#	bspc node -f {west,south,north,east}
+super + {Left,Down,Up,Right}
+	herbstclient focus {left,down,up,right}
 
 # Smart move script; should rotate windows?
-#super + shift + {Left,Down,Up,Right}
-#	bspwm_smart_move {west,south,north,east}
-
-# focus the node in the given direction (multimonitor)
-super + {_,shift + }{Left,Down,Up,Right}
-	bsp_focus_mm.sh {f,s} {west,south,north,east}
-
-# focus the node for the given path jump
-#super + {p,b,comma,period}
-#	bspc node -f @{parent,brother,first,second}
-
-# focus the next/previous node in the current desktop
-super + { ,shift} + k
-	bspc node -f {next,prev}.local.!hidden.window.!locked
+super + shift + {Left,Down,Up,Right}
+	herbstclient shift {left,down,up,right}
 
 # focus the next/previous desktop in the current monitor
 super + bracket{left,right}
-	bspc desktop -f {prev,next}.local
+	herbstclient use_index {-1,+1} --skip-visible
 
-# focus the last node
+# cycle through layouts in frame
 super + Tab
-	bspc node -f last
+		herbstclient or , and . compare tags.focus.curframe_wcount = 2 . cycle_layout +1 vertical horizontal max vertical grid , cycle_layout +1
 
-# focus the last desktop
-super + shift + Tab
-	bspc desktop -f last
-
-# focus the older or newer node in the focus history
-super + {o,i}
-	bspc wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h on
-
-# focus or send to the given desktop
-#super + {_,shift + }{1-9,0}
-#	bspc {desktop -f,node -d} focused:'^{1-9,10}'
+# Switch between max and vertical; useful for "tabbing"
+super + s
+	herbstclient cycle_layout +1 max vertical
 
 # Focus or bounce between desktops
 super + {1-9,0}
-	target='^{1-9,10}'; \
-	[ "$(bspc query -D -d "$target")" != "$(bspc query -D -d)" ] \
-		&& bspc desktop -f "$target" || bspc desktop -f last.local
-
-# Send to the given desktop (multimonitor)
-#super + shift + {1-9,0}
-#    monitor=$(bspc query -M --names -m focused); \
-#    bspc node -d $monitor:'^'{1-9,10}
+	target='{0,1-9}'; \
+	herbstclient substitute PRE tags.focus.index chain + use_index "$target" + or , compare tags.focus.index != PRE , use_previous
 
 # Send to the given desktop (multimonitor)
 super + shift + {1-9,0}
-    bspc node -d {1-9,10}
+  herbstclient move_index {0,1-9}
 
-# Swap the contents of two desktops
-super + alt + {0-9}
-	target={10,1-9}; \
-	bspc node "@focused:/" -s "@^$target:/" \
-	    || bspc node "@focused:/" -d "^$target" \
-	    || bspc node "@^$two:/" -d focused
-
-# Swap monitors
-super + {less,greater}
-	bspc monitor --focus {prev,next}
+# Cycle monitors
+super + grave
+	herbstclient cycle_monitor
 
 #
 # preselect
@@ -383,19 +306,11 @@ super + {less,greater}
 
 # preselect the direction
 super + ctrl + {Left,Down,Up,Right}
-	bspc node -p {west,south,north,east}
-
-# preselect the ratio
-super + ctrl + {1-9}
-	bspc node -o 0.{1-9}
+	herbstclient split {left,bottom,top,right} 0.5
 
 # cancel the preselection for the focused node
 super + ctrl + space
-	bspc node -p cancel
-
-# cancel the preselection for the focused desktop
-super + ctrl + shift + space
-	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+	herbstclient split explode
 
 #
 # move/resize
@@ -403,41 +318,24 @@ super + ctrl + shift + space
 
 #resize
 super + alt + {Left,Down,Up,Right}
-	resize.sh {west,south,north,east}
+	herbstclient resize {left,down,up,right} +0.02
 
-# move a floating window
-super + alt + {h,j,k,l}
-	bspc node -v {-60 0,0 60,0 -60,60 0}
+# Toggle frame visibility
+super + f
+	herbstclient set always_show_frame toggle
 
-#
-# Tabbing
-#
+# Adjust window gaps
+super + {minus,equal}
+	WG=$(herbstclient get window_gap); \
+	let "WG=WG{-,+}4"; \
+	herbstclient set window_gap $WG
 
-# Tab focused window
-super + t; t
-	bsptab tab focused
+# Adjust frame gaps
+super + shift + {minus,equal}
+	WG=$(herbstclient get frame_gap); \
+	let "WG=WG{-,+}4"; \
+	herbstclient set frame_gap $WG
 
-# Add windows to tabbed
-super + t; {Left,Down,Up,Right}
-	bsptab add {west,south,north,east}.local focused
-
-# Add all windows to tabbed
-super + t; a
-	bsptab add-all focused
-
-# Remove windows from tabbed
-super + t; {_,shift + }r
-	bsptab remove{_,-all} focused
-
-# Move tab to desktop
-super + t; {1-9,0}
-	bsptab remove-desktop focused {1-9,0}
-
-# Add next new window to tabbed
-super + t; {_,shift + }n
-	bsptab add-{next,new} focused
-
-# Stop auto-tabbing windows
-super + t; s
-	bsptab stop-add-new
-
+# Reset gaps
+super + BackSpace
+	herbstclient set window_gap -3 && herbstclient set frame_gap 12

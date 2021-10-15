@@ -1,17 +1,6 @@
 #!/usr/bin/env bash
 #set -euo pipefail
 
-volpipe=/tmp/xobvol
-lightpipe=/tmp/xoblight
-
-if [ ! -p "$volpipe" ]; then
-	mkfifo "$volpipe"
-fi
-
-if [ ! -p "$lightpipe" ]; then
-	mkfifo "$lightpipe"
-fi
-
 volu() {
 	stdbuf -o0 -i0 -e0 alsactl monitor |
 		while read -r line; do
@@ -39,3 +28,5 @@ light() {
 }
 volu | xob -s volume &
 light | xob -s backlight &
+
+wait

@@ -11,10 +11,10 @@ dmenu.normfgcolor: 		#dfdfaf
 dmenu.normbgcolor: 		#1c1c1c
 dmenu.selfgcolor: 		#1c1c1c
 dmenu.selbgcolor: 		#af875f
-dmenu.normhlfgcolor:  #1c1c1c
-dmenu.normhlbgcolor:  #57875f
-dmenu.selhlfgcolor:   #1c1c1c
-dmenu.selhlbgcolor:   #af5f5f
+dmenu.normhlfgcolor:  #af875f
+dmenu.normhlbgcolor:  #262626
+dmenu.selhlfgcolor:   #af875f
+dmenu.selhlbgcolor:   #262626
 dmenu.midfgcolor: 	  #dfdfaf
 dmenu.midbgcolor:     #262626
 dmenu.outfgcolor: 	  #dfdfaf

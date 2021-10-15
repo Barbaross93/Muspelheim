@@ -1,0 +1,150 @@
+#!/usr/bin/env bash
+########################################################
+#
+#    ▄█    █▄     ▄█        ▄█     █▄    ▄▄▄▄███▄▄▄▄
+#   ███    ███   ███       ███     ███ ▄██▀▀▀███▀▀▀██▄
+#   ███    ███   ███       ███     ███ ███   ███   ███
+#  ▄███▄▄▄▄███▄▄ ███       ███     ███ ███   ███   ███
+# ▀▀███▀▀▀▀███▀  ███       ███     ███ ███   ███   ███
+#   ███    ███   ███       ███     ███ ███   ███   ███
+#   ███    ███   ███▌    ▄ ███ ▄█▄ ███ ███   ███   ███
+#   ███    █▀    █████▄▄██  ▀███▀███▀   ▀█   ███   █▀
+#                ▀
+#
+#######################################################
+# Make interrupt signals do nothing.
+trap '' INT TSTP
+
+hc() {
+    herbstclient "$@"
+}
+
+hc emit_hook reload
+
+# Always wanted for refresh
+#noisewall "#452f2f"
+hsetroot -tile ~/Pictures/noise_tile.png
+#xsetroot -bitmap ~/Pictures/bitmap-walls/patterns/dots_rand2.xbm -bg "#402929" -fg "#452f2f"
+
+# remove all existing keybindings
+hc keyunbind --all
+# tags
+tag_names=({1..9} 0)
+# Need this before tag creation
+hc set default_frame_layout 'max'
+hc rename default "${tag_names[0]}" || true
+for i in "${!tag_names[@]}"; do
+    hc add "${tag_names[$i]}"
+done
+
+# theme
+hc set hide_covered_windows false
+hc attr theme.tiling.reset 1
+hc attr theme.floating.reset 1
+hc set frame_border_active_color '#af875f'
+hc set frame_border_normal_color '#00000000'
+#hc set frame_bg_normal_color '#00000000'
+#hc set frame_bg_active_color '#00000000'
+hc set frame_border_width 3
+hc set always_show_frame 0
+hc set frame_bg_transparent 1
+hc set frame_transparent_width 0
+hc set frame_gap 12
+hc set frame_padding 0
+hc set focus_follows_mouse 1
+hc set snap_gap 12
+
+hc attr theme.border_width 8
+hc attr theme.inner_width 5
+hc attr theme.outer_width 3
+hc attr theme.inner_color '#424242'
+hc attr theme.active.outer_color '#af875f'
+hc attr theme.normal.outer_color '#1c1c1c'
+hc attr theme.urgent.outer_color '#af5f5f'
+#hc attr theme.title_height 17
+hc attr theme.title_font 'custom'
+hc attr theme.title_color '#dfdfaf'
+hc attr theme.color '#424242'
+#To hide frame at startup
+hc set frame_active_opacity 0
+
+hc set window_gap -3
+hc set smart_window_surroundings 0
+hc set smart_frame_surroundings 0
+hc set focus_stealing_prevention true
+hc set mouse_recenter_gap 0
+hc set focus_crosses_monitor_boundaries 1
+hc set swap_monitors_to_get_tag 0
+hc set raise_on_focus 1
+hc pad 0 0 0 0 0
+
+# rules
+hc unrule -F
+hc rule focus=on # normally focus new clients and if floating, place in the center
+hc rule instance=dropdown floating=on focus=on
+#hc rule class=dmenu floating=on floatplacement=center focus=on
+hc rule class=Nsxiv floating=on floatplacement=none floating_geometry=1824x1026+40+19 focus=on
+hc rule class=mpv floating=on floatplacement=center focus=on
+# give focus to most common terminals
+#hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
+hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on floatplacement=center
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
+hc rule class=qutebrowser tag=1
+hc rule title=mutt tag=2
+hc rule title=vit tag=2
+hc rule title=ikhal tag=2
+hc rule class=Zathura tag=3
+hc rule instance=bib.sh tag=5
+hc rule title=slack-term tag=6
+hc rule title=irssi tag=6
+hc rule instance=Spotify tag=7
+
+# unlock, just to be sure
+hc unlock
+
+herbstclient set tree_style '■┃ ┣┗■━┓'
+
+# Default layout states
+#~/.config/herbstluftwm/scripts/loadstate.sh < ~/.config/herbstluftwm/default.layout &
+
+if hc silent new_attr bool my_not_first_autostart; then
+    # Autostart
+    # Load previously saved session (if one was created)
+    if [ -f ~/.config/herbstluftwm/sessions/saved_session ]; then
+        ~/.config/herbstluftwm/scripts/loadstate.sh &
+    fi
+
+    # Run these programs as user services
+    runsvdir -P ~/.local/service &
+
+    # generic programs
+    setsid -f sbar.sh &
+    xob_startup.sh &
+    ~/.config/herbstluftwm/thorsten_tag_empty.sh &
+
+    # Things that require an internet connection
+    while :; do
+        [ "$(cat /sys/class/net/wlp5s0/carrier)" -eq 1 ] && break
+    done
+    matches=$(iwctl station wlp5s0 show | grep 'Ollies_Network\|Ollies_5ghz_Network')
+    case "$matches" in
+    *Ollies*Network*)
+        synergyc 192.168.0.16 &
+        #syncthing -no-browser &
+        ;;
+    *)
+        ssh -NTD 1080 -p 51820 pi@barbarossavpn.crabdance.com &
+        #all_proxy=socks5://localhost:1080 syncthing -no-browser &
+        ;;
+    esac
+
+    distraction_mode_check.sh &
+    redshift -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//') &
+fi
+
+# do multi monitor setup here, e.g.:
+# Auto start only once
+#hc set_monitors 1366x768+0+0 1280x800+1366+0
+# or simply:
+hc detect_monitors

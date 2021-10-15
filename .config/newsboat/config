@@ -1,6 +1,6 @@
-auto-reload yes
+auto-reload no
 external-url-viewer "urlscan"
-notify-always yes
+#notify-always yes
 notify-program notify-send
 ignore-mode "display"
 
@@ -24,26 +24,27 @@ bind-key U show-urls
 bind-key x pb-delete
 
 color listnormal blue default
-color listfocus black yellow standout bold
+color listfocus yellow black bold
 color listnormal_unread white default bold
-color listfocus_unread yellow default bold
+color listfocus_unread yellow black bold
 color info yellow black bold
 color article white default bold
 
 browser "linkhandler %u"
-macro w set browser "w3m %u"; open-in-browser ; set browser "linkhandler %u"
+macro w set browser "lynx %u"; open-in-browser ; set browser "linkhandler %u"
 macro f set browser "qutebrowser %u"; open-in-browser ; set browser "linkhandler %u"
 macro v set browser "setsid -f mpv" ; open-in-browser ; set browser linkhandler
 macro c set browser "xsel -b <<<" ; open-in-browser ; set browser linkhandler
 
 # feedlist format and colours
 #feedlist-format "%?l?├──╼ %t &├───%t?"
-feedlist-format "%?l?│%4i %n %8u %t &├───────── %t?"
+feedlist-format "%?l?┃%4i %n %8u %t &┣━━━━━━━━━ ■ %t?"
 
 #highlight feedlist ".*─────.*" green
 
-highlight feedlist "[││]" red default bold
-highlight feedlist "├─.*" red default bold
+highlight feedlist "[┃┃]" red default bold
+highlight feedlist "┣━.*" red default bold
+highlight feedlist "■" color8 default
 # article format and colours
 #articlelist-format "%?T? │ %2i %f  %t?"
 articlelist-format " %2i  %t"

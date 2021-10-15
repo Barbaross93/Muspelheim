@@ -16,7 +16,7 @@
 
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 
-# Signal fifo; not sure how to make this more optimal
+# Signal fifo; not sure how to optimize this
 [[ -e /tmp/signal_bar ]] && rm /tmp/signal_bar
 mkfifo /tmp/signal_bar
 tail -f /tmp/signal_bar |
@@ -28,7 +28,7 @@ tail -f /tmp/signal_bar |
 	done &
 
 # Colors!
-. "$HOME/.config/bspwm/colorschemes/alduin.sh"
+. "$HOME/.config/herbstluftwm/colorschemes/alduin.sh"
 
 #-xos4-terminus-medium-*-normal-*-14-*-*-*-*-*-iso10646-*
 #-misc-termsynu-medium-r-normal-*-14-*-*-*-*-*-iso10646-*
@@ -59,6 +59,7 @@ BATTERY_1=10
 # Sleep constants
 BATTERY_SLEEP=30
 VPN_SLEEP=5
+WIRELESS_SLEEP=5
 TIME_SLEEP=5
 DATE_SLEEP=300
 
@@ -85,7 +86,6 @@ DRKBG="%{B$color18}"
 UNDLN="%{U$BBG}"
 
 # Formatting Strings
-# I would reccomend not touching these :D
 SEP=" ${BACKGROUND} ${CLR}"
 SEP2="${DRKBG} ${CLR}"
 
@@ -146,196 +146,126 @@ mkfifo "${PANEL_FIFO}"
 [ -e "${EXT_PANEL_FIFO}" ] && rm "${EXT_PANEL_FIFO}"
 mkfifo "${EXT_PANEL_FIFO}"
 
-##
-## Helper functions
-##
-
-wsicons() {
-	if [ "$name" = "1" ]; then
-		name="${GLYWS1}"
-	elif [ "$name" = "2" ]; then
-		name="${GLYWS2}"
-	elif [ "$name" = "3" ]; then
-		name="${GLYWS3}"
-	elif [ "$name" = "4" ]; then
-		name="${GLYWS4}"
-	elif [ "$name" = "5" ]; then
-		name="${GLYWS5}"
-	elif [ "$name" = "6" ]; then
-		name="${GLYWS6}"
-	elif [ "$name" = "7" ]; then
-		name="${GLYWS7}"
-	elif [ "$name" = "8" ]; then
-		name="${GLYWS8}"
-	elif [ "$name" = "9" ]; then
-		name="${GLYWS9}"
-	elif [ "$name" = "10" ]; then
-		name="${GLYWS10}"
-	fi
-}
-
-##
-## Main functions
-##
-
 workspaces() {
-	bspc subscribe report |
-		while read -r line; do
-			case $line in
-			W*)
-				# bspwm's state
-				wm=
-				state=
-				flags=
-				IFS=':'
-				set -- ${line#?}
-				c=0
-				while [ $# -gt 0 ]; do
-					item=$1
-					name=${item#?}
-					case $item in
-					[mM]*)
-						case $item in
-						m*)
-							# monitor
-							FG=${CYAN}
-							on_focused_monitor=
-							;;
-						M*)
-							# focused monitor
-							FG=${YELLOW}
-							on_focused_monitor=1
-							;;
-						esac
-						shift && continue
-						#wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc monitor -f ${name}:} ${name} %{A}%{B-}%{F-}"
+	herbstclient --idle "tag_*" 2>/dev/null | {
+
+		while true; do
+			# Read tags into $tags as array
+			IFS=$'\t' read -ra tags <<<"$(herbstclient tag_status)"
+			{
+				for f in "${tags[@]}"; do
+					status+=(${f:0:1})
+				done
+
+				for i in "${!tags[@]}"; do
+					if [[ ${tags[$i]} == *"1"* ]]; then
+						tags[$i]=${status[$i]}"${GLYWS1}"
+					elif [[ ${tags[$i]} == *"2"* ]]; then
+						tags[$i]=${status[$i]}"${GLYWS2}"
+					elif [[ ${tags[$i]} == *"3"* ]]; then
+						tags[$i]=${status[$i]}"${GLYWS3}"
+					elif [[ ${tags[$i]} == *"4"* ]]; then
+						tags[$i]=${status[$i]}"${GLYWS4}"
+					elif [[ ${tags[$i]} == *"5"* ]]; then
+						tags[$i]=${status[$i]}"${GLYWS5}"
+					elif [[ ${tags[$i]} == *"6"* ]]; then
+						tags[$i]=${status[$i]}"${GLYWS6}"
+					elif [[ ${tags[$i]} == *"7"* ]]; then
+						tags[$i]=${status[$i]}"${GLYWS7}"
+					elif [[ ${tags[$i]} == *"8"* ]]; then
+						tags[$i]=${status[$i]}"${GLYWS8}"
+					elif [[ ${tags[$i]} == *"9"* ]]; then
+						tags[$i]=${status[$i]}"${GLYWS9}"
+					elif [[ ${tags[$i]} == *"0"* ]]; then
+						tags[$i]=${status[$i]}"${GLYWS10}"
+					else
+						break && notify-send "Hlwm status broke"
+					fi
+				done
+				count=1
+				for i in "${tags[@]}"; do
+					# Read the prefix from each tag and render them according to that prefix
+					if [ "$count" -eq 1 ]; then
+						echo "WORKSPACES ${LGTBG}"
+					fi
+					case ${i:0:1} in
+					'#')
+						# the tag is viewed on the focused monitor
+						# TODO Add your formatting tags for focused workspaces
+						echo "${YELLOW}${DRKBG}"
 						;;
-					[fFoOuU]*)
-						c=$((c + 1))
-						case $item in
-						f*)
-							# free desktop
-							FG=${DRKFG}
-							BG=${LGTBG}
-							wsicons
-							;;
-						F*)
-							if [ "$on_focused_monitor" ]; then
-								# focused free desktop
-								FG=${YELLOW}
-								BG=${DRKBG}
-								wsicons
-							else
-								# active free desktop
-								FG=${CYAN}
-								BG=${LGTBG}
-								wsicons
-							fi
-							;;
-						o*)
-							# occupied desktop
-							FG=${WHITE}
-							BG=${LGTBG}
-							wsicons
-							;;
-						O*)
-							if [ "$on_focused_monitor" ]; then
-								# focused occupied desktop
-								FG=${YELLOW}
-								BG=${DRKBG}
-								UL=${BBG}
-								wsicons
-							else
-								# active occupied desktop
-								FG=${CYAN}
-								BG=${LGTBG}
-								wsicons
-							fi
-							;;
-						u*)
-							# urgent desktop
-							FG=${RED}
-							BG=${LGTBG}
-							wsicons
-							;;
-						U*)
-							if [ "$on_focused_monitor" ]; then
-								# focused urgent desktop
-								FG=${YELLOW}
-								BG=${DRKBG}
-								UL=${BBG}
-								wsicons
-							else
-								# active urgent desktop
-								FG=${RED}
-								BG=${LGTBG}
-								wsicons
-							fi
-							;;
-						esac
-						wm="${wm}${FG}${BG}%{A:bspc desktop -f ${c}:} ${name} %{A}%{B-}%{F-}"
+					':')
+						# : the tag is not empty
+						# TODO Add your formatting tags for occupied workspaces
+						echo "${WHITE}${LGTBG}"
 						;;
-					L*)
-						# layout
-						if [[ "${name}" == "T" ]]; then
-							# tiled
-							name=""
-						elif [[ "${name}" == "M" ]]; then
-							# Monocle
-							name=""
-						fi
-						if [ -n "${name}" ]; then
-							layout=" ${RED}${LGTBG} ${name} ${CLR}"
-						fi
+					'!')
+						# ! the tag contains an urgent window
+						# TODO Add your formatting tags for workspaces with the urgent hint
+						echo "${RED}${LGTBG}"
 						;;
-					T*)
-						# state
-						if [[ "${name}" == "T" ]]; then
-							#tiled
-							name=
-						elif [[ "${name}" == "F" ]]; then
-							#Floating
-							name=""
-						elif [[ "${name}" == "P" ]]; then
-							#Pseudo-tiled
-							name=""
-						elif [[ "${name}" == "=" ]]; then
-							#Fullscreen
-							name=""
-						fi
-						if [ -n "${name}" ]; then
-							state=" ${RED}${LGTBG} ${name} ${CLR}"
-						fi
+					'-')
+						# - the tag is viewed on a monitor that is not focused
+						# TODO Add your formatting tags for visible but not focused workspaces
+						echo "${CYAN}${LGTBG}"
 						;;
-					G*)
-						#flags
-						if [[ "${name}" == "S" ]]; then
-							#sticky
-							name=""
-						elif [[ "${name}" == "P" ]]; then
-							#private
-							name=""
-						elif [[ "${name}" == "L" ]]; then
-							#locked
-							name=""
-						elif [[ "${name}" == "M" ]]; then
-							#marked
-							name=""
-						fi
-						if [ -n "${name}" ]; then
-							flags=" ${RED}${LGTBG} ${name} ${CLR}"
-						fi
+					*)
+						# . the tag is empty
+						# There are also other possible prefixes but they won't appear here
+						echo "${DRKFG}${LGTBG}" # Add your formatting tags for empty workspaces
 						;;
 					esac
-					shift
+
+					if [ $count -eq 10 ]; then
+						count=0
+					fi
+
+					echo "%{A1:herbstclient use $count:} ${i:1} %{A}${CLR}"
+					count=$((count + 1))
 				done
-				;;
-			esac
-			echo "WORKSPACES ${wm}${layout}${state}${flags}${CLR}"
+
+			} | tr -d "\n"
+
+			echo
+
+			# wait for next event from herbstclient --idle
+			read -r || break
 		done
+	} 2>/dev/null
 }
 
 workspaces | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
+
+layout() {
+	layouticon() {
+		layout=$(herbstclient attr tags.focus.tiling.focused_frame.algorithm)
+		count=$(herbstclient attr tags.focus.curframe_wcount)
+
+		if [[ "$layout" == "horizontal" ]]; then
+			icon="${GLYLYTH}"
+		elif [[ "$layout" == "vertical" ]]; then
+			icon="${GLYLYTV}"
+		elif [[ "$layout" == "max" ]]; then
+			icon="${GLYLYTM}"
+		elif [[ "$layout" == "grid" ]]; then
+			icon="${GLYLYTG}"
+		fi
+
+		if [[ "$layout" == "max" ]]; then
+			echo "LAYOUT ${RED}${LGTBG} $icon%{F-} $count"
+		else
+			echo "LAYOUT ${RED}${LGTBG} $icon%{F-}"
+		fi
+	}
+	layouticon
+	herbstclient watch tags.focus.tiling.focused_frame.algorithm
+	herbstclient --idle "attribute_changed" |
+		while read -r line; do
+			layouticon
+		done
+}
+
+layout | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
 notif() {
 	[[ -e /tmp/old_notifs ]] && rm /tmp/old_notifs
@@ -350,6 +280,8 @@ notif() {
 				# Block foreground until file gets deleted
 				inotifywait -q -q /tmp/notif_pause
 			fi
+			# Duplicate any '%' to process them as literal '%' in lemonbar
+			line=$(echo "$line" | sed 's/%/%%/g')
 			case "$line" in
 			LOG*)
 				line="${line#LOG }"
@@ -429,7 +361,7 @@ brightness() {
 		fi
 	}
 	brighticon
-	inotifywait -m -q -e modify /sys/class/backlight/intel_backlight/brightness |
+	inotifywait -m -q -e close_write /sys/class/backlight/intel_backlight/brightness |
 		while read -r line; do
 			brighticon
 		done
@@ -476,9 +408,10 @@ battery() {
 battery | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
 wireless() {
-	wifi_info() {
-		local wifi=$(connmanctl services | grep --fixed-strings "*AO" | awk '{print $2}')
-		local strength=$(connmanctl services | grep "$wifi" | awk '{print $3}' | xargs -I _ connmanctl services _ | grep "Strength" | cut -d'=' -f2)
+	while :; do
+		local wifi=$(iwctl station wlp5s0 show | grep "Connected network" | awk '{print $3}')
+		local raw=$(iwctl station wlp5s0 show | grep "AverageRSSI" | awk '{print $2}')
+		local strength=$(echo "2*($raw+100)" | bc)
 
 		if [[ -z $wifi ]]; then
 			local wifi="Disconnected"
@@ -494,27 +427,22 @@ wireless() {
 		else
 			echo "WIRELESS ${LGTBG}${MAGENTA} ${GLYWLAN5}${FCLR} ${DRKBG} ${wifi} "
 		fi
-	}
-	wifi_info
-	connmanctl monitor tech |
-		while read -r line; do
-			if grep -q "Connected = False" <<<"$line"; then
-				local wifi="Disconnected"
-				echo "WIRELESS ${LGTBG}${GREY} ${GLYWLAN1}${FCLR} ${DRKBG} %{A1:urxvtdc -e connmanctl:}${wifi}%{A}"
-			elif grep -q "Connected = True" <<<"$line"; then
-				wifi_info
-			fi
-		done
+		sleep ${WIRELESS_SLEEP}
+	done
 }
 
 wireless | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
 vpn() {
 	while :; do
-		vpn="$(connmanctl services | grep --fixed-strings "* R acer" | awk '{print $3}')"
-
-		if [ -n "$vpn" ]; then
-			echo "VPN ${LGTBG} ${BLUE}${GLYVPN}${FCLR} ${DRKBG} $vpn "
+		socks=$(ss -tulpn | grep 1080)
+		opncnt=$(pgrep -x openconnect)
+		if [ -n "$opncnt" ] && [ -z "$socks" ]; then
+			echo "VPN ${LGTBG} ${BLUE}${GLYVPN}${FCLR} ${DRKBG} UMB "
+		elif [ -n "$socks" ] && [ -z "$opncnts" ]; then
+			echo "VPN ${LGTBG} ${BLUE}${GLYVPN}${FCLR} ${DRKBG} SOCKS "
+		elif [ -n "$opncnt" ] && [ -n "$socks" ]; then
+			echo "VPN ${LGTBG} ${BLUE}${GLYVPN}${FCLR} ${DRKBG} UMB, SOCKS "
 		else
 			echo "VPN ${LGTBG} ${BLUE}${GLYVPN}${FCLR} ${DRKBG} Off "
 		fi

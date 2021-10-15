@@ -17,6 +17,13 @@ tail -f "$FNOTIFY" |
 	done &
 
 # Alias to change home/config dir
-/usr/bin/irssi --config="$XDG_CONFIG_HOME"/irssi/config --home="$XDG_CONFIG_HOME"/irssi
+cmd="/usr/bin/irssi --config=$XDG_CONFIG_HOME/irssi/config --home=$XDG_CONFIG_HOME/irssi"
+
+sock=$(ss -tulpn | grep 1080)
+if [ -n "$sock" ]; then
+	SOCKS_SERVER=127.0.0.1:1080 socksify $cmd
+else
+	$cmd
+fi
 
 cleanup

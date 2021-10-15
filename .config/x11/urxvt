@@ -2,10 +2,12 @@
 URxvt.font: -barbaross-creeper-medium-r-normal--13-101-100-100-c-70-iso8859-1,\
 						-slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1,\
 						-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
+						xft:Symbola:pixelsize=13:antialias=true,\
 						-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1
 URxvt.boldFont: -barbaross-creeper-bold-r-normal--13-101-100-100-c-70-iso8859-1,\
 								-slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1,,\
 								-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
+								xft:Symbola:pixelsize=13:antialias=true,\
 								-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1
 URxvt.italicfont:
 URxvt.boldItalicFont:
@@ -68,6 +70,12 @@ URxvt.keysym.Control-Shift-T:   perl:newterm
 ! Activate keyboard-select
 URxvt.keysym.M-Escape: 					perl:keyboard-select:activate
 URxvt.keyboard-select.clipboard: true
+
+! tabbed settings
+!URxvt.tabbed.tabbar-fg: 2
+!URxvt.tabbed.tabbar-bg: 0
+!URxvt.tabbed.tab-fg: 3
+!URxvt.tabbed.tab-bg: 0
 
 ! Font resize settings
 !URxvt.keysym.C-minus:     resize-font:smaller

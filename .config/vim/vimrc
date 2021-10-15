@@ -45,7 +45,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 " Notes/ task
 Plug 'vimwiki/vimwiki'
-Plug 'tools-life/taskwiki'
+"Plug 'tools-life/taskwiki'
 " writing plugins
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'

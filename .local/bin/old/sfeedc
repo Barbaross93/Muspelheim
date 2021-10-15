@@ -1,0 +1,7 @@
+#!/usr/bin/sh
+
+# Only want a specific category? seaarch with one as the first argument
+
+upper=$(echo "$@" | tr "[:lower:]" "[:upper:]")
+
+sfeed_curses ~/.config/sfeed/feeds/"$upper"*

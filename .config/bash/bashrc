@@ -13,20 +13,10 @@ source ~/.config/bash/ble.sh/out/ble.sh --noattach --rcfile ~/.config/bash/blerc
 source ~/.config/bash/gitstatus/gitstatus.plugin.sh
 # Automagically allow completion for aliases
 source ~/.config/bash/complete-alias/complete_alias
-# Needed for autojump
-source /etc/profile.d/autojump.sh
+# Startup zoxide
+eval "$(zoxide init bash)"
 
 ## Helper functions for prompt
-# Determine cursor position
-getCPos() {
-	local v=() t=$(stty -g)
-	stty -echo
-	printf "\033[6n"
-	IFS='[;' read -ra v -d R
-	stty $t
-	CPos=(${v[@]:1})
-}
-
 # Adjust window title based on command
 trap 'echo -ne "\033]0;${BASH_COMMAND%% *}\007"' DEBUG
 window_title() {
@@ -38,12 +28,22 @@ window_title() {
 	fi
 }
 
+if [[ ${BLE_VERSION-} ]]; then
+	ble/function#advice after ble/widget/clear-screen '_ble_edit_lineno=0'
+	_check_clear_command() {
+		local rex_eval_prefix='((eval|command|env|sudo)[[:space:]]+)?'
+		local rex_clear_command='(tput[[:space:]]+)?(clear|reset)'
+		local rex=$'(^|[\n;&|(])[[:space:]]*'$rex_eval_prefix$rex_clear_command'([ \t\n;&|)]|$)'
+		[[ $BASH_COMMAND =~ $rex ]] && _ble_edit_lineno=0
+	}
+	blehook POSTEXEC+=_check_clear_command
+fi
+
 # Classy touch inspired prompt
 custom_prompt() {
 	cmd_cde=$?
 	window_title
-	getCPos
-	if [ $CPos -eq 1 ]; then
+	if ((_ble_edit_lineno == 0)); then
 		PS1=""
 	else
 		PS1="\n"
@@ -75,8 +75,6 @@ custom_prompt() {
 
 gitstatus_stop && gitstatus_start
 PROMPT_COMMAND=custom_prompt
-# Need to append the last bit for autojump
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
 #export PS0="\n"
 export PS2="\[$(tput setaf 1)\] ■\[$(tput setaf 7)\]"
 
@@ -90,7 +88,7 @@ shopt -s histappend
 shopt -s autocd
 
 # Update window sizes every command
-#shopt -s checkwinsize
+shopt -s checkwinsize
 
 ### General configs
 # Colorized man pages
@@ -135,54 +133,52 @@ fi
 eval $(dircolors -p | perl -pe 's/^((CAP|S[ET]|O[TR]|M|E)\w+).*/$1 00/' | dircolors -)
 
 # Aliases
-alias sudo='sudo'
+alias dvim='doas vim'
 alias weather="curl 'wttr.in/?T'"
-alias svim="sudoedit"
 alias li="exa --icons"
 alias l="exa -la"
 alias ip="ip --color=auto"
 alias diff='diff --color=auto'
 #alias clip="xclip -sel clip"
 alias clip="xsel -ib"
-alias startvpn="pass sshthanos | sudo openconnect vpn.som.umaryland.edu -b -q --user=cullen.ross --authgroup SOM-Multifactor --passwd-on-stdin --servercert pin-sha256:zWuWUmGaQEWraG+Xvv6uF58rrupSRmqCzeNioSDEaaI="
-alias stopvpn="sudo pkill openconnect"
+alias startvpn="pass sshthanos | doas openconnect vpn.som.umaryland.edu -b -q --user=cullen.ross --authgroup SOM-Multifactor --passwd-on-stdin --servercert pin-sha256:zWuWUmGaQEWraG+Xvv6uF58rrupSRmqCzeNioSDEaaI="
+alias stopvpn="doas pkill openconnect"
 alias sshthanos="ssh cullen.ross@thanos.igs.umaryland.edu"
-alias cat="bat"
+alias cat="bat -p"
 alias pfetch="curl -s https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch | sh"
 #alias vim="nvim"
-alias sshpi="ssh pi@192.168.0.26"
-alias piunmount="ssh pi@192.168.0.18 sudo /mnt/fd1/unmount.sh"
 alias ls="exa"
 alias ncdu="compsize"
 #alias backupssh="rsync -a --delete --quiet -e ssh / pi@192.168.0.18:/media/RaspberryPi/Genome"
 alias scan="scanimage --device 'hpaio:/net/OfficeJet_3830_series?ip=192.168.0.13' --progress --format=png --output-file"
 #alias cp="cp --reflink" #to make lightweight copies w/ btrfs
 # avoid typing the whole thing
-alias halt="sudo halt"
-alias poweroff="sudo poweroff"
-alias reboot="sudo reboot"
-alias shutdown="sudo shutdown"
-alias zzz="sudo zzz"
-alias ZZZ="sudo ZZZ"
-alias xr="sudo xbps-remove -Rcon"
-alias xc="sudo xbps-remove -Oo"
-alias xu='sudo xbps-install -Suv'
+alias halt="doas halt"
+alias poweroff="doas poweroff"
+alias reboot="doas reboot"
+alias shutdown="doas shutdown"
+alias zzz="doas zzz"
+alias ZZZ="doas ZZZ"
+alias xr="doas xbps-remove -Rcon"
+alias xc="doas xbps-remove -Oo"
+alias xu='doas xbps-install -Suv'
 alias xl='xbps-query -l'
 alias xf='xbps-query -f'
 alias xd='xbps-query -x'
 alias xm='xbps-query -m'
 alias xs='fuzzypkg'
-alias clk='sudo vkpurge rm all'
+alias clk='doas vkpurge rm all'
 alias cml='connmanctl'
 alias tksv='tmux kill-server'
 alias hc='herbstclient'
 alias pyratehole="lynx gopher://g.nixers.net/1/~pyratebeard/music/this_week.txt"
 alias dotlink="stow -R --target=/home/barbaross -d /home/barbaross/Public/thonkpad-dotfiles ."
+alias sfeedc="sfeed_curses ~/.config/sfeed/feeds/*"
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....="cd ../../../.."
-alias _="sudo"
+alias _="doas"
 complete -F _complete_alias "${!BASH_ALIASES[@]}"
 
 # Completion for some xtools, since bash_completions haven't been done for it
@@ -244,6 +240,7 @@ calc() {
 cht() {
 	curl -s "cheat.sh/$(echo -n "$*" | jq -sRr @uri)"
 }
+
 # Pfetch configuration
 export PF_INFO="ascii title os host kernel wm pkgs shell editor palette"
 

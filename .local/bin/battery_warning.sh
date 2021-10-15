@@ -3,7 +3,7 @@
 if [ "$(acpi | wc -l)" = "1" ]; then
 	battery_level=$(acpi -b | grep -P -o '[0-9]+(?=%)')
 	if [ "$battery_level" -le 5 ]; then
-		sudo ZZZ
+		doas ZZZ
 	elif [ "$battery_level" -le 10 ]; then
 		#printf "BRD:#af5f5f\tSEC:5\tBattery low\tBattery level is ${battery_level}%%!\n" >$XNOTIFY_FIFO
 		notify-send -u critical -t 5000 "Battery low" "Battery level is ${battery_level}%!"
@@ -14,7 +14,7 @@ if [ "$(acpi | wc -l)" = "1" ]; then
 else
 	battery_level=$(acpi -b | awk NR==2 | grep -P -o '[0-9]+(?=%)')
 	if [ "$battery_level" -le 5 ]; then
-		sudo ZZZ
+		doas ZZZ
 	elif [ "$battery_level" -le 10 ]; then
 		#printf "BRD:#af5f5f\tSEC:10\tBattery low\tBattery level is ${battery_level}%%!\n" >$XNOTIFY_FIFO
 		notify-send -u critical -t 10000 "Battery low" "Battery level is ${battery_level}%!"

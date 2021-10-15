@@ -13,15 +13,16 @@ case "$choice" in
 	xset s activate
 	;;
 *Logout*)
-	logout
+	herbstclient quit
+	#logout
 	;;
 *Hibernate*)
-	sudo ZZZ
+	doas ZZZ
 	;;
 *Reboot*)
-	sudo reboot
+	doas reboot
 	;;
 *Shutdown*)
-	sudo poweroff
+	doas poweroff
 	;;
 esac

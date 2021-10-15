@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Do nothing if interrupted
+trap '' INT TSTP
+
+userresources=$HOME/.config/x11/Xresources
+
+# merge in defaults
+[ -f "$userresources" ] && xrdb -merge "$userresources"
+
+# Just to make sure my profile settings are loaded
+[ -f /etc/profile ] && . /etc/profile
+[ -f ~/.config/bash/bash_profile ] && . ~/.config/bash/bash_profile
+[ -f ~/.config/x11/xprofile ] && . ~/.config/x11/xprofile
+
+# X settings
+xset +fp ~/.local/share/fonts/misc
+xset +fp /usr/share/fonts/misc
+xset s 180 119 #with xss-lock, dim screen after 3 minutes, then lock 2 minutes later
+xset dpms 300  #with xss-lock, blank screen shortly after locking
+xset r rate 440 50
+xset -b
+
+#hsetroot -solid "#1c1c1c"
+#picom --experimental-backends &
+
+gpg-connect-agent /bye
+xinput set-prop "Elan Touchpad" "Device Enabled" 0
+xcape -e 'Shift_L=Escape'
+
+lock &
+exec herbstluftwm --locked
+#exec bspwm

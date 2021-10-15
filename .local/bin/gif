@@ -16,10 +16,10 @@ selection() {
 	else
 		notify-send "Record" "Select region to record"
 		#printf "Select region to record\n" >$XNOTIFY_FIFO
-		coord=($(xrectsel "%w %h %x %y"))
+		eval $(crud)
 		input=$(date '+%Y-%m-%d_%H-%M-%S')
 		output=~/Pictures/Gifs/Recordings/${input}.gif
-		ffmpeg -f x11grab -video_size ${coord[0]}x${coord[1]} -framerate 20 -i $DISPLAY+${coord[2]},${coord[3]} /tmp/$input.mkv
+		ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} /tmp/$input.mkv
 		ffmpeg -i /tmp/${input}.mkv -vf "fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop -1 ${output}
 
 		rm -rf /tmp/${input}.mkv

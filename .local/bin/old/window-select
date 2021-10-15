@@ -1,0 +1,11 @@
+#!/bin/bash
+
+windows=($(bspc query -N -n .window))
+for w in ${windows[@]}; do
+	list+="$(bspc query -D -n $w --names) $(xdotool getwindowname $w)\n"
+done
+selection=$(echo -ne $list | bemenu -ix -p 'Select window:')
+
+if [ -n "$selection" ]; then
+	bspc node -f "${windows[$selection]}"
+fi

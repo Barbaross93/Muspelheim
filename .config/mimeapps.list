@@ -1,6 +1,6 @@
 
 [Default Applications]
-image/jpeg=sxiv.desktop
-image/png=sxiv.desktop
-image/jpg=sxiv.desktop
+image/jpeg=nsxiv.desktop
+image/png=nsxiv.desktop
+image/jpg=nsxiv.desktop
 application/pdf=org.pwmt.zathura.desktop

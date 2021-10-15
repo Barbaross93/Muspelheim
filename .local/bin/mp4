@@ -16,10 +16,10 @@ selection() {
 		notify-send "Record" "Select region to record"
 		#printf "Select region to record\n" >$XNOTIFY_FIFO
 
-		coord=($(xrectsel "%w %h %x %y"))
+		eval $(crud)
 		input=$(date '+%Y-%m-%d_%H-%M-%S')
 		output=~/Videos/${input}.mp4
-		ffmpeg -f x11grab -video_size ${coord[0]}x${coord[1]} -framerate 20 -i $DISPLAY+${coord[2]},${coord[3]} -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
+		ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
 		#scr -c -e &>/dev/null
 	fi
 }

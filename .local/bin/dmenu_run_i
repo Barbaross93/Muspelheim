@@ -1,12 +1,19 @@
-#!/bin/sh
+#!/usr/bin/bash
 # dmenu_run improved
 # if a command ends with "!", it is started in term.
 
 hc() {
 	herbstclient "$@"
 }
-
 termcmd="$HOME/.local/bin/urxvtdc"
+
+list_cmds() {
+	IFS=: read -ra path <<<"$PATH"
+	for dir in "${path[@]}"; do
+		printf '%s\n' "$dir/"* |
+			awk -F / '{print $NF;}'
+	done | sort -u
+}
 
 launch() {
 	cmd="$(dmenu_path | dmenu $@)"
@@ -26,12 +33,12 @@ launch2() {
 	esac
 }
 
-launch "$@"
+#launch "$@"
 
-#if hc compare tags.focus.frame_count = 1 && hc compare tags.focus.curframe_wcount = 0; then
-#	launch "$@"
-#elif hc compare tags.focus.curframe_wcount = 0; then
-#	launch "$@"
-#else
-#	launch2 "$@"
-#fi
+if hc compare tags.focus.frame_count = 1 && hc compare tags.focus.curframe_wcount = 0; then
+	launch "$@"
+elif hc compare tags.focus.curframe_wcount = 0; then
+	launch "$@"
+else
+	launch2 "$@"
+fi

@@ -20,6 +20,7 @@
 ##-----------------------------------------------------------------------------
 ## Basic settings
 
+#bleopt prompt_ruler=empty-line
 
 ## The following setting specifies the input encoding. Currently only "UTF-8"
 ## and "C" is available.
@@ -292,7 +293,7 @@ bleopt char_width_mode=west
 ## "emoji_width" specifies the width of emoji characters.  If an empty value is
 ## specified, special treatment of emoji is disabled.
 
-bleopt emoji_width=2
+bleopt emoji_width=
 
 
 ## "emoji_version" specifies the version of Unicode Emoji.  Available values

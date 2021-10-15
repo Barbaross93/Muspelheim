@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec xss-lock -n dim-screen.sh -l -- lock
