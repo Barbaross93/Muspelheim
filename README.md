@@ -24,3 +24,9 @@
 - Compositor: [xcompmgr](https://github.com/freedesktop/xcompmgr)
 - Display manager/Lock screen: [sx](https://github.com/Earnestly/sx) with [xsecurelock](https://github.com/google/xsecurelock)
 - Color scheme: [alduin](https://github.com/AlessandroYorba/Alduin)
+
+## Credits
+The following were major sources of inspiration. A massive thank you for these fine folks sharing their setups!
+- [xer0](https://github.com/xero/dotfiles)
+- [pyratebeard](https://gitlab.com/pyratebeard/dotfiles)
+- [JLErvin](https://github.com/JLErvin/dotfiles)
