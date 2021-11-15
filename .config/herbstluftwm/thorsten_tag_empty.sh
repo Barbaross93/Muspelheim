@@ -2,8 +2,6 @@
 
 # hide the frame border if the focused frame is empty
 
-#: and . compare tags.focus.curframe_wcount = 0 \
-
 herbstclient --idle focus_changed | while read event; do
   herbstclient mktemp int OPACITY chain \
     : set_attr OPACITY 100 \

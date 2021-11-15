@@ -1,3 +1,0 @@
-#!/bin/sh
-
-urxvtdc -name 'Tasks' -e dash -c "tmux new -s Tasks 'tmux source-file ~/.config/task/tmux_session'"

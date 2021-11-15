@@ -1,0 +1,116 @@
+###################################
+# __               __
+#|  |_.---.-.-----|  |--.----.----.
+#|   _|  _  |__ --|    <|   _|  __|
+#|____|___._|_____|__|__|__| |____|
+###################################
+
+# [Created by task 2.5.1 10/2/2020 17:07:27]
+# Taskwarrior program configuration file.
+# For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# Use the command 'task show' to see all defaults and overrides
+
+# Files
+data.location=~/.config/task
+
+# Remove override warnings
+verbose=blank,footnote,label,new-id,affected,edit,special,project,sync,unwait
+
+#Taskwarrior-tui
+#uda.taskwarrior-tui.selection.indicator=•
+#uda.taskwarrior-tui.selection.bold=yes
+#uda.taskwarrior-tui.selection.italic=no
+#uda.taskwarrior-tui.selection.dim=no
+#uda.taskwarrior-tui.selection.blink=no
+#uda.taskwarrior-tui.calendar.months-per-row=4
+#uda.taskwarrior-tui.task-report.show-info=false
+#uda.taskwarrior-tui.task-report.looping=true
+#uda.taskwarrior-tui.style.context.active=black on white
+#uda.taskwarrior-tui.style.calendar.title=black on black
+
+confirmation=no
+color=on
+# Color theme (uncomment one to use)
+#rule.precedence.color=deleted,completed,active,keyword.,tag.,project,overdue,scheduled,due.today,due,priority,blocked,blocking,recurring,tagged,uda.
+
+# General decoration
+color.label=cyan
+color.label.sort=cyan
+color.alternate=magenta
+color.header=yellow
+color.footnote=yellow
+color.warning=bold red
+color.error=white on red
+color.debug=blue
+
+# Task state
+color.completed=blue
+color.deleted=gray
+color.active=black on bright green
+color.recurring=magenta
+color.scheduled=white on green
+color.until=
+color.blocked=black on white
+color.blocking=black on bright white
+
+# Project
+#color.project.Lab=magenta
+
+# Priority
+color.uda.priority.H=red on black
+color.uda.priority.M=green
+color.uda.priority.L=blue
+
+# Tags
+color.tag.next=bold yellow
+color.tag.none=
+color.tagged=
+
+# Due
+color.due=red
+color.due.today=red
+color.overdue=bold red
+
+# UDA
+#color.uda.X=
+
+# Report: burndown
+color.burndown.done=on green
+color.burndown.pending=on red
+color.burndown.started=on yellow
+
+# Report: history
+color.history.add=black on red
+color.history.delete=black on yellow
+color.history.done=black on green
+
+# Report: summary
+color.summary.background=white on black
+color.summary.bar=black on green
+
+# Command: calendar
+color.calendar.due=white on red
+color.calendar.due.today=bold white on red
+color.calendar.holiday=black on bright yellow
+color.calendar.overdue=black on bright red
+color.calendar.today=bold white on bright blue
+color.calendar.weekend=white on bright black
+color.calendar.weeknumber=bold blue
+
+# Command: sync
+color.sync.added=green
+color.sync.changed=yellow
+color.sync.rejected=red
+
+# Command: undo
+color.undo.after=green
+color.undo.before=red
+context.Lab=+lab
+context.Personal=+personal

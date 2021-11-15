@@ -39,5 +39,5 @@ for s in $snapshots; do
 	efibootmgr -q --create --disk /dev/nvme0n1 --part 1 --label "$s" --loader "binaries\\$s.efi"
 done
 
-# Hopefully this never changes
-efibootmgr -q -o 0000,0005,0004,0003,0002,0001
+# TODO Intelligently figure out order
+efibootmgr -q -o 0005,0004,0003,0002,0001,0000

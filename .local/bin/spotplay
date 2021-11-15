@@ -1,11 +1,17 @@
 #!/bin/sh
 
-sleep 0.1
+# Short delay for mpris data to catch up
+sleep 1.5
 status=$(playerctl status)
 
 if [ "$status" = Playing ]; then
-	albumart=$(playerctl metadata mpris:artUrl)
-	albumartfetch=$(curl -s --output /tmp/cover.png $albumart)
+	#albumart=$(playerctl metadata mpris:artUrl)
+	#albumartfetch=$(curl -s --output /tmp/cover.png $albumart)
+	#filepath="$(cmus-remote -C "format_print %f")"
+	fileurl="$(playerctl metadata mpris:artUrl)"
+	filepath=${fileurl#file://}
+	cp $filepath /tmp/cover.png
+	#ffmpeg -y -i "$filepath" /tmp/cover.png
 	#random_name=$(mktemp --suffix ".png")
 	#cp /tmp/large_cover.png "$random_name"
 	# Needed for ueberzug album art script

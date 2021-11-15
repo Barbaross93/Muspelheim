@@ -11,10 +11,9 @@ cmd="$@"
 triggered=false
 
 while true; do
-    while :; do
-        [ -f /tmp/caffeine ] || break
-        sleep 0.2
-    done
+    if [ -f /tmp/caffeine ]; then
+        inotifywait -q -q /tmp/caffeine
+    fi
     tosleep=$(((timeout - $(xprintidle)) / 1000))
     if [ $tosleep -le 0 ]; then
         $triggered || $cmd

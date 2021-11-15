@@ -38,16 +38,21 @@ settings:
   content.geolocation:
     https://www.google.com: true
   content.media.audio_capture:
+    https://umaryland.webex.com: true
     https://umaryland.zoom.us: true
     https://www.onlinemictest.com: true
   content.media.audio_video_capture:
     https://video.simplepractice.com: true
+  content.media.video_capture:
+    https://umaryland.webex.com: true
   content.notifications.enabled:
     https://www.netflix.com: true
     https://www.reddit.com: true
     https://www.youtube.com: true
   content.pdfjs:
     global: false
+  content.proxy:
+    global: system
   content.register_protocol_handler:
     https://mail.google.com?extsrc=mailto&url=%25s: true
   content.user_stylesheets:
@@ -61,10 +66,12 @@ settings:
     - /usr/bin/nvim {}
   fileselect.folder.command:
     global:
-    - sterm
+    - urxvt
     - -e
-    - lf
+    - ranger
     - --choosedir={}
+  fileselect.handler:
+    global: default
   fileselect.multiple_files.command:
     global:
     - sterm
@@ -77,6 +84,8 @@ settings:
     - -e
     - lf
     - --choosefile={}
+  fonts.default_family:
+    global: 10pt custom
   fonts.default_size:
     global: 10pt
   hints.radius:

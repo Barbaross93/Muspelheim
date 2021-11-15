@@ -16,13 +16,19 @@ export TERMINAL=/usr/bin/urxvt
 export TZ=America/New_York
 
 # bemenu options
-export BEMENU_OPTS="-w -i --fn 'custom 13px' -H 36 --tf '#1c1c1c' --tb '#a87f5f' --nb '#1c1c1c' --nf '#dfdfaf' --hb '#a87f5f' --hf '#1c1c1c' --fb '#1c1c1c' --ff '#dfdfaf'"
+export BEMENU_OPTS=" -w -i --fn 'custom 13px' -H 36 --tf '#1c1c1c' --tb '#a87f5f' --nb '#1c1c1c' --nf '#dfdfaf' --hb '#a87f5f' --hf '#1c1c1c' --fb '#1c1c1c' --ff '#dfdfaf' --ch 13"
+
+# allow mouse scrolling man pages in tmux
+export LESS='--mouse --wheel-lines 5'
 
 # Limit syncthing
 export GOMAXPROCS=4
 
 #Password asker
 export SUDO_ASKPASS="${HOME}/.local/bin/sudopass"
+
+# Sudo editor
+export SUDO_EDITOR=vim
 
 #Uniform Qt and GTK appearance
 export QT_QPA_PLATFORMTHEME=qt5ct
@@ -108,9 +114,6 @@ export TASKRC="${XDG_CONFIG_HOME}/task/taskrc"
 # Move timewarrior dir
 export TIMEWARRIORDB="${XDG_CONFIG_HOME}/timewarrior"
 
-#Move gnupg home
-#export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
-
 #Move urxvt socket
 export RXVT_SOCKET="/tmp/urxvtd"
 
@@ -134,4 +137,7 @@ export SFEED_YANKER="xsel -ib"
 # Set notification fifo
 export XNOTIFY_FIFO="/tmp/xnotify.fifo"
 export XNOTIFY_HIST_FIFO="/tmp/xnotify_hist.fifo"
+
+#Move gnupg home
+#export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
 

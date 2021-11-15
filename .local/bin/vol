@@ -104,11 +104,11 @@ esac
 #bar=$(draw ${vol} 10)
 #printf "SEC:1\tTAG:volume\t$label Volume: $vol%%\n" >$XNOTIFY_FIFO
 
-#muted=$(amixer get Master | grep "Mono" | awk '{print $6}' | sed -r '/^\s*$/d')
-#if [ "$muted" = "[off]" ]; then
-#dunstify -t 3000 -r 2593 -u normal -a mutevol -h int:value:$vol "Audio" "$label Volume: $vol%"
-#echo $vol! >>/tmp/xobvol
-#else
-#dunstify -t 3000 -r 2593 -u normal -a volume -h int:value:$vol "Audio" "$label Volume: $vol%"
-#echo $vol >>/tmp/xobvol
-#fi
+muted=$(amixer get Master | grep "Mono" | awk '{print $6}' | sed -r '/^\s*$/d')
+if [ "$muted" = "[off]" ]; then
+	#dunstify -t 3000 -r 2593 -u normal -a mutevol -h int:value:$vol "Audio" "$label Volume: $vol%"
+	echo $vol! >>/tmp/xob_vol
+else
+	#dunstify -t 3000 -r 2593 -u normal -a volume -h int:value:$vol "Audio" "$label Volume: $vol%"
+	echo $vol >>/tmp/xob_vol
+fi

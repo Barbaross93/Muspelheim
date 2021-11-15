@@ -8,9 +8,6 @@
 #
 ###################################
 
-# Include settings that are under the control of asoundconf(1).
-# (To disable these settings, comment out this line.)
-</home/barbaross/.config/alsa/asoundrc.asoundconf>
 pcm.snd_card { # my usual sound card
     type hw
     card 0

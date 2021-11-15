@@ -1,5 +1,16 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 #set -euo pipefail
+
+vfifo=/tmp/xob_vol
+bfifo=/tmp/xob_bright
+
+[ -e "$vfifo" ] && rm $vfifo
+mkfifo $vfifo
+[ -e "$bfifo" ] && rm $bfifo
+mkfifo $bfifo
+
+tail -f $vfifo | xob -s volume &
+tail -f $bfifo | xob -s backlight &
 
 volu() {
 	stdbuf -o0 -i0 -e0 alsactl monitor |
@@ -26,7 +37,7 @@ light() {
 			xbacklight -get
 		done
 }
-volu | xob -s volume &
-light | xob -s backlight &
+#volu | xob -s volume &
+#light | xob -s backlight &
 
 wait

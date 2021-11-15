@@ -7,19 +7,20 @@ config.load_autoconfig()
 # everforest.draw.konda(c, {"spacing": {"vertical": 5, "horizontal": 8}})
 alduin.draw.konda(c)
 
-c.fonts.hints = "10pt monospace"
-c.fonts.keyhint = "10pt monospace"
-c.fonts.prompts = "10pt monospace"
-c.fonts.downloads = "10pt monospace"
-c.fonts.statusbar = "10pt monospace"
-c.fonts.contextmenu = "10pt monospace"
-c.fonts.messages.info = "10pt monospace"
-c.fonts.debug_console = "10pt monospace"
-c.fonts.completion.entry = "10pt monospace"
-c.fonts.completion.category = "10pt monospace"
+c.fonts.default_family = "custom"
+c.fonts.hints = "10pt custom"
+c.fonts.keyhint = "10pt custom"
+c.fonts.prompts = "10pt custom"
+c.fonts.downloads = "10pt custom"
+c.fonts.statusbar = "10pt custom"
+c.fonts.contextmenu = "10pt custom"
+c.fonts.messages.info = "10pt custom"
+c.fonts.debug_console = "10pt custom"
+c.fonts.completion.entry = "10pt custom"
+c.fonts.completion.category = "10pt custom"
 c.url.start_pages = "~/.config/qutebrowser/startpage/index.html"
 c.url.default_page = "~/.config/qutebrowser/startpage/index.html"
-c.editor.command = ["/usr/bin/st", "-e", "/usr/bin/vim {}"]
+c.editor.command = ["/usr/bin/urxvt", "-e", "/usr/bin/vim {}"]
 
 c.colors.webpage.darkmode.enabled = False
 
@@ -33,12 +34,12 @@ config.bind(
 # Qute-pass keubindings
 config.bind(
     ",pp",
-    "spawn --userscript qute-pass -d ddmenu",
+    "spawn --userscript qute-pass -d dmenu",
 )
 
 config.bind(
     ",pu",
-    "spawn --userscript qute-pass --username-only -d ddmenu",
+    "spawn --userscript qute-pass --username-only -d dmenu",
 )
 
 config.bind(
@@ -53,7 +54,7 @@ config.bind(
 
 config.bind(
     ",pP",
-    "spawn --userscript qute-pass --password-only -d ddmenu",
+    "spawn --userscript qute-pass --password-only -d dmenu",
 )
 
 # Open download

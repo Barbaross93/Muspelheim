@@ -1,0 +1,5 @@
+#!/bin/sh
+
+rofi -i -dmenu "$@"
+#/usr/bin/bemenu "$@"
+#/usr/bin/dmenu -b -i -fn custom -nb "#1c1c1c" -nf "#dfdfaf" -sb "#af875f" -sf "#1c1c1c" "$@"

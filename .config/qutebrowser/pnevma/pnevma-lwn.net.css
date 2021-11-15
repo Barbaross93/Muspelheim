@@ -1,0 +1,76 @@
+* {
+  border-color: #e4c9af !important;
+}
+a {
+  color: #7fa5bd !important;
+}
+a:visited {
+  color: #d7beda !important;
+}
+body {
+  background-color: #1c1c1c !important;
+  color: #a1bdce !important;
+}
+html {
+  background-color: #1c1c1c !important;
+}
+input,
+textarea {
+  background-color: #2f2e2d !important;
+  color: #a1bdce !important;
+}
+blockquote,
+pre {
+  background-color: #2f2e2d !important;
+  color: #a1bdce !important;
+}
+tr.Even {
+  background-color: #2f2e2d !important;
+}
+.BigQuote {
+  background-color: #2f2e2d !important;
+  color: #d78787 !important;
+}
+.Cat1HL {
+  background-color: #afbea2 !important;
+  color: #b1e7dd !important;
+}
+.Cat2HL {
+  background-color: #383635 !important;
+}
+.Cat3HL {
+  background-color: #333231 !important;
+}
+.FeatureByline {
+  background-color: #2f2e2d !important;
+  border: none !important;
+}
+.Headline {
+  background-color: #383635 !important;
+}
+.QuotedText {
+  color: #d7beda !important;
+}
+DIV.GAByline {
+  background-color: #2f2e2d !important;
+  border: none !important;
+}
+table.OddEven tr:nth-child(even) {
+  background-color: #212121 !important;
+}
+table.OddEven tr:nth-child(odd) {
+  background-color: #1c1c1c !important;
+}
+DIV.CommentBox {
+  border-color: #2f2e2d !important;
+}
+DIV.CommentBox P.CommentTitle {
+  background-color: #383635 !important;
+}
+#menu,
+.topnav-container {
+  background-color: #2f2e2d !important;
+}
+.navmenu ul {
+  background-color: #2f2e2d !important;
+}

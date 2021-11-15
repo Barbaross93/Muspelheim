@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Do nothing if interrupted
 trap '' INT TSTP
@@ -20,14 +20,37 @@ xset s 180 119 #with xss-lock, dim screen after 3 minutes, then lock 2 minutes l
 xset dpms 300  #with xss-lock, blank screen shortly after locking
 xset r rate 440 50
 xset -b
-
-#hsetroot -solid "#1c1c1c"
-#picom --experimental-backends &
-
-gpg-connect-agent /bye
-xinput set-prop "Elan Touchpad" "Device Enabled" 0
+xinput disable "Elan Touchpad"
 xcape -e 'Shift_L=Escape'
 
+# Need to start gpg agent before lock screen for pam-gnupg
+gpg-connect-agent /bye
+
+## Ensure ssh-agent is running
+SSH_ENV="$HOME/.ssh/agent-environment"
+
+start_agent() {
+	echo "Initialising new SSH agent..."
+	/usr/bin/ssh-agent | sed 's/^echo/#echo/' >"${SSH_ENV}"
+	echo succeeded
+	chmod 600 "${SSH_ENV}"
+	. "${SSH_ENV}" >/dev/null
+	/usr/bin/ssh-add
+}
+
+# Source SSH settings, if applicable
+if [ -f "${SSH_ENV}" ]; then
+	. "${SSH_ENV}" >/dev/null
+	ps ${SSH_AGENT_PID} | grep ssh-agent$ >/dev/null || {
+		start_agent
+	}
+else
+	start_agent
+fi
+
+# needed to create a dbus session address env var
+eval $(dbus-launch --sh-syntax --exit-with-session)
+
 lock &
+sleep 0.3
 exec herbstluftwm --locked
-#exec bspwm

@@ -2,15 +2,28 @@
 URxvt.font: -barbaross-creeper-medium-r-normal--13-101-100-100-c-70-iso8859-1,\
 						-slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1,\
 						-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
-						xft:Symbola:pixelsize=13:antialias=true,\
-						-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1
+						-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1, \
+						xft:Kochi Gothic:pixelsize=13:antialias=false, \
+						xft:Symbola:pixelsize=13:antialias=true
 URxvt.boldFont: -barbaross-creeper-bold-r-normal--13-101-100-100-c-70-iso8859-1,\
 								-slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1,,\
 								-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
-								xft:Symbola:pixelsize=13:antialias=true,\
-								-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1
-URxvt.italicfont:
-URxvt.boldItalicFont:
+								-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1, \
+								xft:Kochi Gothic:pixelsize=13:antialias=false, \
+								xft:Symbola:pixelsize=13:antialias=true
+URxvt.italicfont: -barbaross-creeper-medium-r-normal--13-101-100-100-c-70-iso8859-1,\
+									-slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1,\
+									-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
+									-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1, \
+									xft:Kochi Gothic:pixelsize=13:antialias=false, \
+									xft:Symbola:pixelsize=13:antialias=true
+
+URxvt.boldItalicFont: -barbaross-creeper-bold-r-normal--13-101-100-100-c-70-iso8859-1, \
+                      -slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1, \
+                      -wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
+                      -gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1, \
+											xft:Kochi Gothic:pixelsize=13:antialias=false, \
+											xft:Symbola:pixelsize=13:antialias=true
 
 ! Settings
 URxvt.depth:                    24

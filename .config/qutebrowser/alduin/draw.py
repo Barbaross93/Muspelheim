@@ -8,7 +8,7 @@ def konda(c):
         "background-alt": "#262626",
         "background-attention": "#262626",
         "border": "#af875f",
-        "current-line": "#4e4e4e",
+        "current-line": "#424242",
         "selection": "#af875f",
         "foreground": "#dfdfaf",
         "foreground-alt": "#626262",
@@ -80,7 +80,7 @@ def konda(c):
 
     c.colors.hints.bg = palette["background"]
 
-    c.colors.hints.fg = palette["green"]
+    c.colors.hints.fg = palette["foreground"]
 
     c.hints.border = "1px solid " + palette["background-alt"]
 
@@ -166,9 +166,9 @@ def konda(c):
 
     # c.statusbar.padding = padding
 
-    c.colors.tabs.bar.bg = palette["selection"]
+    c.colors.tabs.bar.bg = palette["current-line"]
 
-    c.colors.tabs.even.bg = palette["selection"]
+    c.colors.tabs.even.bg = palette["current-line"]
 
     c.colors.tabs.even.fg = palette["foreground"]
 
@@ -180,7 +180,7 @@ def konda(c):
 
     c.colors.tabs.indicator.system = "none"
 
-    c.colors.tabs.odd.bg = palette["selection"]
+    c.colors.tabs.odd.bg = palette["current-line"]
 
     c.colors.tabs.odd.fg = palette["foreground"]
 
@@ -192,11 +192,11 @@ def konda(c):
 
     c.colors.tabs.selected.odd.fg = palette["foreground"]
 
-    c.colors.tabs.pinned.even.bg = palette["selection"]
+    c.colors.tabs.pinned.even.bg = palette["current-line"]
 
     c.colors.tabs.pinned.even.fg = palette["foreground"]
 
-    c.colors.tabs.pinned.odd.bg = palette["selection"]
+    c.colors.tabs.pinned.odd.bg = palette["current-line"]
 
     c.colors.tabs.pinned.odd.fg = palette["foreground"]
 

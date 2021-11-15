@@ -1,7 +1,7 @@
 QMenu {
-    background-color: #fbf1c7;
-    color: #3c3836;
-    border: 0px solid #fbf1c7;
+    background-color: #1c1c1c;
+    color: #dfdfaf;
+    border: 0px solid #000000;
     border-radius 0px;
     padding: 2px;
 }

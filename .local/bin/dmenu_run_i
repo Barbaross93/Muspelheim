@@ -16,7 +16,7 @@ list_cmds() {
 }
 
 launch() {
-	cmd="$(dmenu_path | dmenu $@)"
+	cmd="$(list_cmds | dmenu $@)"
 	[ -z "$cmd" ] && exit 1
 	case $cmd in
 	*\!) setsid -f ${termcmd} -e "$(printf "%s" "${cmd}" | cut -d'!' -f1)" ;;
@@ -25,7 +25,7 @@ launch() {
 }
 
 launch2() {
-	cmd="$(dmenu_path | dmenu $@)"
+	cmd="$(list_cmds | dmenu $@)"
 	[ -z "$cmd" ] && exit 1
 	case $cmd in
 	*\!) hc split auto && hc cycle_frame && setsid -f ${termcmd} -e "$(printf "%s" "${cmd}" | cut -d'!' -f1)" ;;
@@ -36,9 +36,12 @@ launch2() {
 #launch "$@"
 
 if hc compare tags.focus.frame_count = 1 && hc compare tags.focus.curframe_wcount = 0; then
-	launch "$@"
+	#launch "$@"
+	rofi -show run
 elif hc compare tags.focus.curframe_wcount = 0; then
-	launch "$@"
+	rofi -show run
+	#launch "$@"
 else
-	launch2 "$@"
+	rofi -show run -run-command "herbstclient and , split auto , cycle_frame , spawn {cmd}" -run-shell-command "herbstclient and , split auto , cycle_frame , spawn {terminal} -e {cmd}"
+	#launch2 "$@"
 fi

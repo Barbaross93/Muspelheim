@@ -1,25 +1,18 @@
 #!/bin/sh
 
-if [ "$(acpi | wc -l)" = "1" ]; then
-	battery_level=$(acpi -b | grep -P -o '[0-9]+(?=%)')
-	if [ "$battery_level" -le 5 ]; then
-		doas ZZZ
-	elif [ "$battery_level" -le 10 ]; then
-		#printf "BRD:#af5f5f\tSEC:5\tBattery low\tBattery level is ${battery_level}%%!\n" >$XNOTIFY_FIFO
-		notify-send -u critical -t 5000 "Battery low" "Battery level is ${battery_level}%!"
-	elif [ "$battery_level" -ge 100 ]; then
-		#printf "SEC:10\tBattery Full\tDisconnect the power\n" >$XNOTIFY_FIFO
-		notify-send -t 10000 "Battery Full" "Disconnect the power"
-	fi
-else
-	battery_level=$(acpi -b | awk NR==2 | grep -P -o '[0-9]+(?=%)')
-	if [ "$battery_level" -le 5 ]; then
-		doas ZZZ
-	elif [ "$battery_level" -le 10 ]; then
-		#printf "BRD:#af5f5f\tSEC:10\tBattery low\tBattery level is ${battery_level}%%!\n" >$XNOTIFY_FIFO
-		notify-send -u critical -t 10000 "Battery low" "Battery level is ${battery_level}%!"
-	elif [ "$battery_level" -ge 100 ]; then
-		#printf "SEC:5\tBattery Full\tDisconnect the power\n" >$XNOTIFY_FIFO
-		notify-send -t 5000 "Battery Full" "Disconnect the power"
+battery_level=$(acpi -b | awk NR==1 | grep -P -o '[0-9]+(?=%)')
+if [ "$battery_level" -le 5 ]; then
+	sudo ZZZ
+elif [ "$battery_level" -le 10 ]; then
+	notify-send -u critical -t 5000 "Battery low" "Battery level is ${battery_level}%!"
+elif [ "$battery_level" -ge 100 ]; then
+	notify-send -t 10000 "Battery Full" "Disconnect the power"
+fi
+
+bt_bat_check=$(acpi -b | wc -l)
+if [ $bt_bat_check -eq 2 ]; then
+	bt_bat_lvl=$(cat /sys/class/power_supply/hid-34:88:5d:b6:e9:13-battery/capacity)
+	if [ "$bt_bat_lvl" -le 10 ]; then
+		notify-send -u critical -t 5000 "Battery low" "Bluetooth battery level is low! ${bt_bat_lvl}% remaining!"
 	fi
 fi

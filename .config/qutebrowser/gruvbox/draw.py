@@ -4,15 +4,15 @@
 # def konda(c, options={}):
 def konda(c):
     palette = {
-        "background": "#fbf1c7",
-        "background-alt": "#d5c4a1",
+        "background": "#282828",
+        "background-alt": "#504945",
         "background-attention": "#665c54",
         "border": "#d79921",
-        "current-line": "#d5c4a1",
+        "current-line": "#504945",
         "selection": "#d79921",
-        "foreground": "#3c3836",
+        "foreground": "#ebdbb2",
         "foreground-alt": "#928374",
-        "foreground-attention": "#9d0006",
+        "foreground-attention": "#fb4934",
         "comment": "#a0a79a",
         "cyan": "#689d6a",
         "green": "#98971a",

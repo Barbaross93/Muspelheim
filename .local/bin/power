@@ -17,12 +17,12 @@ case "$choice" in
 	#logout
 	;;
 *Hibernate*)
-	doas ZZZ
+	sudo ZZZ
 	;;
 *Reboot*)
-	doas reboot
+	sudo reboot
 	;;
 *Shutdown*)
-	doas poweroff
+	sudo poweroff
 	;;
 esac

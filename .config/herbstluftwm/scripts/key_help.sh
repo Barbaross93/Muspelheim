@@ -8,4 +8,4 @@ description=$(grep 'hc keybind' ~/.config/herbstluftwm/autostart | awk '{$1=$1};
 
 final=$(paste -d '\t' <(echo "$modifier") <(echo "$description") | column -s $'\t' -t)
 
-echo "$final" | bemenu -p "Help:"
+echo "$final" | dmenu -p "Help:"

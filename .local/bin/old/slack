@@ -1,3 +1,0 @@
-#!/bin/sh
-
-urxvtdc -name slack -e slack-term

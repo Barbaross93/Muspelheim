@@ -22,19 +22,142 @@ hc() {
 hc emit_hook reload
 
 # Always wanted for refresh
-#noisewall "#452f2f"
-hsetroot -tile ~/Pictures/noise_tile.png
+noisewall "#452f2f"
 #xsetroot -bitmap ~/Pictures/bitmap-walls/patterns/dots_rand2.xbm -bg "#402929" -fg "#452f2f"
 
 # remove all existing keybindings
 hc keyunbind --all
+
+# Basics
+hc keybind Mod4-Return or ',' and '.' compare tags.focus.frame_count = 1 '.' compare tags.focus.curframe_wcount = 0 '.' spawn urxvtdc ',' and '_' compare tags.focus.curframe_wcount = 0 '_' spawn urxvtdc ',' chain '-' split auto '-' cycle_frame '-' spawn urxvtdc #bsp-like spawning of terminal
+
+hc keybind Mod4-Shift-Return spawn urxvtdc                                    #Spawn terminal
+hc keybind Mod4-e spawn dmenu_run_i                                           #Launcher
+hc keybind Mod4-Shift-e spawn power                                           #Power menu
+hc keybind Mod4-d spawn hlscrthpd.sh                                          #Dropdown terminal
+hc keybind Mod4-space spawn dmenu-task                                        #Tasklist
+hc keybind Mod4-a spawn ~/.config/herbstluftwm/scripts/key_help.sh            #Keybinding help
+hc keybind Mod4-Shift-a spawn urxvtdc -e vim ~/.config/herbstluftwm/autostart #Edit hlwm config
+
+# Window info/wm ctrls
+hc keybind Mod4-w spawn rofi -show window                               #Switch windows
+hc keybind Mod4-Control-w spawn ~/.config/herbstluftwm/toggle_titles.sh #Toggle window titles
+hc keybind Mod4-Shift-r reload                                          #Reload hlwm
+
+# Toggles
+hc keybind Mod4-b spawn togglebar.sh            #Toggle bar
+hc keybind XF86Launch1 spawn toggle_touchpad.sh #Toggle touchpad
+#hc keybind XF86Bluetooth spawn fzf-bluetooth    #Bluetooth menu
+hc keybind XF86Display spawn caffeine.sh      #Toggle caffeine
+hc keybind Mod4-Shift-n spawn toggledunst     #Toggle notifications
+hc keybind XF86Tools spawn toggle_redshift.sh #Toggle redshift
+
+# Utilities
+hc keybind Mod4-u spawn unmount.sh                    #Unmount drives
+hc keybind Print spawn prtscr                         #Print Screen
+hc keybind Mod4-Print spawn prtregion                 #Print region
+hc keybind Mod4-z spawn file-finder                   #File search/ directory opener
+hc keybind Mod4-x spawn clipmenu -p 'Clipboard:' -l 0 #Clipboard manager
+hc keybind Mod4-Shift-p spawn togglepicom             #Toggle compositor
+hc keybind Mod4-Shift-c spawn colorpicker.sh          #Colorpicker
+hc keybind Mod4-Shift-m spawn kaomoji.sh              #Kaomoji selector
+
+# Notification controls
+hc keybind Control-grave spawn notif_hist.sh -q #Query last notification
+hc keybind Control-space spawn notif_hist.sh -c #Close all notification history
+
+# Volume/Brightness keys
+hc keybind XF86MonBrightnessUp spawn bright up     #Increase brightness
+hc keybind XF86MonBrightnessDown spawn bright down #Decrease brightness
+
+hc keybind XF86AudioRaiseVolume spawn vol pulse up           #Increase Volume
+hc keybind XF86AudioLowerVolume spawn vol pulse down         #Decrease volume
+hc keybind XF86AudioMute spawn vol pulse mute                #Mute audio
+hc keybind XF86AudioMicMute spawn vol pulsemic mute          #Mute microphone
+hc keybind Mod4-XF86AudioRaiseVolume spawn vol pulsemic up   #Increase mic volume
+hc keybind Mod4-XF86AudioLowerVolume spawn vol pulsemic down #Decrease mic volume
+hc keybind Mod4-XF86AudioMute spawn vol pulsemic mute        #mute mic
+
+# Player controls
+hc keybind Mod4-Control-Mod1-Left spawn playerctl previous #Previous audio
+hc keybind Mod4-Control-Mod1-Right spawn playerctl next    #Next audio
+hc keybind Mod4-Control-Mod1-Up spawn playerctl play-pause #Toggle play/pause audio
+hc keybind Mod4-Control-Mod1-Down spawn playerctl stop     #Stop audio
+
+# Window/frame controls
+hc keybind Mod4-q remove                                                   #Remove focused frame
+hc keybind Mod4-Shift-q close_and_remove                                   #Close window and frame if last window
+hc keybind Mod4-m spawn ~/.config/herbstluftwm/scripts/maximize.sh         #Alternate tiled and monocle layout
+hc keybind Mod4-i jumpto urgent                                            #Jump to urgent window
+hc keybind Mod4-c cycle                                                    #Circulate focus on windows in frame
+hc keybind Mod4-Shift-s spawn ~/.config/herbstluftwm//scripts/savestate.sh #Save current session
+hc keybind Mod4-Tab cycle_layout +1 max vertical                           #Cycle between max and vertical frame layouts
+hc keybind Mod4-grave cycle_monitor
+
+# focusing clients
+hc keybind Mod4-Left focus left   #Focus left
+hc keybind Mod4-Down focus down   #Focus down
+hc keybind Mod4-Up focus up       #focus up
+hc keybind Mod4-Right focus right #Focus right
+
+# moving clients
+hc keybind Mod4-Shift-Left shift left   #Move window left
+hc keybind Mod4-Shift-Down shift down   #Move window down
+hc keybind Mod4-Shift-Up shift up       #Move window up
+hc keybind Mod4-Shift-Right shift right #Move window right
+
+# Cycle focus through tags
+hc keybind Mod4-period use_index +1 --skip-visible #Cycle tag focus forward
+hc keybind Mod4-comma use_index -1 --skip-visible  #Cycle tag focus backward
+
+# Create frames
+frac="0.5"
+hc keybind Mod4-Control-Left split left $frac   #Create frame to left
+hc keybind Mod4-Control-Right split right $frac #Create frame to right
+hc keybind Mod4-Control-Up split up $frac       #Create frame up
+hc keybind Mod4-Control-Down split down $frac   #Create frame down
+hc keybind Mod4-Control-space split explode     #Explode current frame
+
+# resizing frames
+resizestep=0.02
+hc keybind Mod4-Mod1-Left resize left +$resizestep   #Resize frame leftwards
+hc keybind Mod4-Mod1-Down resize down +$resizestep   #Resize frames downwards
+hc keybind Mod4-Mod1-Up resize up +$resizestep       #Resize frame upwards
+hc keybind Mod4-Mod1-Right resize right +$resizestep #Resize frame rightwards
+
+hc keybind Mod4-f set always_show_frame toggle #Toggle frame visibility
+
+# Adjust gaps
+hc keybind Mod4-minus spawn ~/.config/herbstluftwm/scripts/gap_adjust.sh -win       #Minus window gap
+hc keybind Mod4-equal spawn ~/.config/herbstluftwm/scripts/gap_adjust.sh +win       #Plus window gap
+hc keybind Mod4-Shift-minus spawn ~/.config/herbstluftwm/scripts/gap_adjust.sh -frm #Minus frame gap
+hc keybind Mod4-Shift-equal spawn ~/.config/herbstluftwm/scripts/gap_adjust.sh +frm #Plus frame gap
+hc keybind Mod4-Backspace spawn ~/.config/herbstluftwm/scripts/gap_adjust.sh        #Reset gaps
+
+# Load keychains
+~/.config/herbstluftwm/scripts/keychain.sh
+
+# remove any existing mouse bindings
+hc mouseunbind --all
+hc mousebind Mod4-Button1 move
+hc mousebind Mod4-Button2 zoom
+hc mousebind Mod4-Button3 resize
+
 # tags
 tag_names=({1..9} 0)
+tag_keys=({1..9} 0)
 # Need this before tag creation
 hc set default_frame_layout 'max'
 hc rename default "${tag_names[0]}" || true
 for i in "${!tag_names[@]}"; do
     hc add "${tag_names[$i]}"
+    key="${tag_keys[$i]}"
+    if [ -n "$key" ]; then
+        #hc keybind "$Mod-$key" use_index "$i" #Focus tag at number
+        hc keybind "Mod4-$key" substitute PRE tags.focus.index chain + use_index "$i" + or , compare tags.focus.index != PRE , use_previous #Focus tag at number
+        hc keybind "Mod4-Shift-$key" move_index "$i"                                                                                        #Move focus window to tag at number
+        #hc keybind "$Mod-Control-$key" move_and_follow "$i"
+    fi
 done
 
 # theme
@@ -80,7 +203,7 @@ hc pad 0 0 0 0 0
 
 # rules
 hc unrule -F
-hc rule focus=on # normally focus new clients and if floating, place in the center
+hc rule focus=on # normally focus new clients
 hc rule instance=dropdown floating=on focus=on
 #hc rule class=dmenu floating=on floatplacement=center focus=on
 hc rule class=Nsxiv floating=on floatplacement=none floating_geometry=1824x1026+40+19 focus=on
@@ -92,13 +215,13 @@ hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on floatplacement=center
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 hc rule class=qutebrowser tag=1
 hc rule title=mutt tag=2
-hc rule title=vit tag=2
+hc rule title=tasknc tag=2
 hc rule title=ikhal tag=2
 hc rule class=Zathura tag=3
-hc rule instance=bib.sh tag=5
-hc rule title=slack-term tag=6
-hc rule title=irssi tag=6
-hc rule instance=Spotify tag=7
+#hc rule instance=bib.sh tag=5
+#hc rule title=slack-term tag=6
+hc rule title=weechat tag=6
+hc rule title=ncmpcpp tag=7
 
 # unlock, just to be sure
 hc unlock
@@ -118,7 +241,7 @@ if hc silent new_attr bool my_not_first_autostart; then
     # Run these programs as user services
     runsvdir -P ~/.local/service &
 
-    # generic programs
+    # programs that dont run well as service or need to be toggleable
     setsid -f sbar.sh &
     xob_startup.sh &
     ~/.config/herbstluftwm/thorsten_tag_empty.sh &
@@ -128,19 +251,16 @@ if hc silent new_attr bool my_not_first_autostart; then
         [ "$(cat /sys/class/net/wlp5s0/carrier)" -eq 1 ] && break
     done
     matches=$(iwctl station wlp5s0 show | grep 'Ollies_Network\|Ollies_5ghz_Network')
-    case "$matches" in
-    *Ollies*Network*)
-        synergyc 192.168.0.16 &
-        #syncthing -no-browser &
-        ;;
-    *)
-        ssh -NTD 1080 -p 51820 pi@barbarossavpn.crabdance.com &
+    if [ -n "$matches" ]; then
+        synergyc 192.168.0.8 &
+    else
+        sudo wg-quick up acer
+        #ssh -NTD 1080 -p 51820 pi@barbarossavpn.crabdance.com &
         #all_proxy=socks5://localhost:1080 syncthing -no-browser &
-        ;;
-    esac
+    fi
 
-    distraction_mode_check.sh &
-    redshift -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//') &
+    #distraction_mode_check.sh &
+    redshift -l "$(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//')" &
 fi
 
 # do multi monitor setup here, e.g.:

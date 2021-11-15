@@ -34,7 +34,7 @@ tail -f /tmp/signal_bar |
 #-misc-termsynu-medium-r-normal-*-14-*-*-*-*-*-iso10646-*
 #-romeovs-creep2-medium-r-normal--11-110-75-75-c-50-iso10646-1
 #-sxthe-terra-medium-r-normal--12-120-72-72-c-60-iso8859-1
-FONTS="-f -barbaross-creeper-medium-r-normal--13-101-100-100-c-70-iso8859-1 -f -wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1 -f -slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1 -f -barbaross-creeper-bold-r-normal--13-101-100-100-c-70-iso8859-1"
+FONTS="-f -barbaross-creeper-medium-r-normal--13-101-100-100-c-70-iso8859-1 -f -wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1 -f -barbaross-creeper-bold-r-normal--13-101-100-100-c-70-iso8859-1"
 WIDTH=1920        # bar width
 HEIGHT=36         # bar height
 XOFF=0            # x offset
@@ -62,6 +62,7 @@ VPN_SLEEP=5
 WIRELESS_SLEEP=5
 TIME_SLEEP=5
 DATE_SLEEP=300
+TRAY_SLEEP=5
 
 #Colors
 FOREGROUND="%{F$BFG}"
@@ -88,6 +89,7 @@ UNDLN="%{U$BBG}"
 # Formatting Strings
 SEP=" ${BACKGROUND} ${CLR}"
 SEP2="${DRKBG} ${CLR}"
+SEP3="${BACKGROUND} ${CLR}"
 
 # Glyphs used for both bars
 GLYWIN=$(echo -e "\ue1d7")
@@ -133,7 +135,11 @@ GLYLYTH=$(echo -e "\ue26b")
 GLYLYTV=$(echo -e "\ue004")
 GLYLYTM=$(echo -e "\ue000")
 GLYLYTG=$(echo -e "\ue005")
-GLYVPN=$(echo -e "\ue1f7")
+GLYVPN=""
+GLYRDSHFT=$(echo -e "\ue26e")
+GLYNOTIFON=""
+GLYNOTIFOFF=""
+GLYBT=""
 
 PANEL_FIFO=/tmp/panel-fifo
 EXT_PANEL_FIFO=/tmp/ext-panel-fifo
@@ -259,7 +265,7 @@ layout() {
 	}
 	layouticon
 	herbstclient watch tags.focus.tiling.focused_frame.algorithm
-	herbstclient --idle "attribute_changed" |
+	herbstclient --idle "(focus|attribute)_changed" |
 		while read -r line; do
 			layouticon
 		done
@@ -271,7 +277,7 @@ notif() {
 	[[ -e /tmp/old_notifs ]] && rm /tmp/old_notifs
 	mkfifo /tmp/old_notifs
 	{
-		tiramisu -o "#body" &
+		tiramisu -o "#summary\t#body\t#timeout" &
 		tail -f /tmp/old_notifs &
 	} |
 		while read -r line; do
@@ -290,14 +296,25 @@ notif() {
 				echo "LOG $line" >>/tmp/notif_log
 				;;
 			esac
-			if [ $(echo $line | wc -c) -gt 100 ]; then
-				line="$(echo $line | cut -c -100)..."
+			body="$(echo -e "$line" | cut -f1 -)"
+			summary="$(echo -e "$line" | cut -f2 -)"
+			timeout="$(echo -e "$line" | cut -f3 -)"
+			notif="$summary"
+			# If body is blank, display summary
+			[ -z "$notif" ] && notif="$body"
+			if [ $(echo $notif | wc -c) -gt 100 ]; then
+				line="$(echo $notif | cut -c -90)..."
 			fi
-			echo "NOTIF %{T4}${ORANGE}NOTIFICATION:%{T-}${CLR} $line"
+			echo "NOTIF %{T3}${ORANGE}NOTIFICATION:%{T-}${CLR} $notif"
 			c=0
-			while [[ "$c" != "10.0" ]]; do
+			if [ "$timeout" = "-1" ]; then
+				time=10.0
+			else
+				time=$(echo "scale=1;$timeout/1000" | bc)
+			fi
+			while (($(echo "$c <= $time" | bc -l))); do
 				[[ -f "/tmp/notif_skip" ]] && rm /tmp/notif_skip && break
-				while [ $(xprintidle) -gt 120000 ] || pgrep -x "physlock" >/dev/null; do
+				while [ $(xprintidle) -gt 120000 ] || pgrep -x "xsecurelock" >/dev/null; do
 					sleep 1
 				done
 				sleep 0.2
@@ -410,12 +427,12 @@ battery | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 wireless() {
 	while :; do
 		local wifi=$(iwctl station wlp5s0 show | grep "Connected network" | awk '{print $3}')
-		local raw=$(iwctl station wlp5s0 show | grep "AverageRSSI" | awk '{print $2}')
+		local raw=$(cat /proc/net/wireless | grep wlp5s0 | awk '{print $4}' | tr -d '.')
 		local strength=$(echo "2*($raw+100)" | bc)
 
 		if [[ -z $wifi ]]; then
 			local wifi="Disconnected"
-			echo "WIRELESS ${LGTBG}${GREY} ${GLYWLAN1}${FCLR} ${DRKBG} %{A1:urxvtdc -e connmanctl:}${wifi}%{A}"
+			echo "WIRELESS ${LGTBG}${GREY} ${GLYWLAN1}${FCLR} ${DRKBG} %{A1:urxvtdc -e iwctl:}${wifi}%{A}"
 		elif [[ "$strength" -lt 20 ]]; then
 			echo "WIRELESS ${LGTBG}${MAGENTA} ${GLYWLAN1}${FCLR} ${DRKBG} ${wifi} "
 		elif [[ "$strength" -lt 40 ]]; then
@@ -435,14 +452,9 @@ wireless | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
 vpn() {
 	while :; do
-		socks=$(ss -tulpn | grep 1080)
-		opncnt=$(pgrep -x openconnect)
-		if [ -n "$opncnt" ] && [ -z "$socks" ]; then
-			echo "VPN ${LGTBG} ${BLUE}${GLYVPN}${FCLR} ${DRKBG} UMB "
-		elif [ -n "$socks" ] && [ -z "$opncnts" ]; then
-			echo "VPN ${LGTBG} ${BLUE}${GLYVPN}${FCLR} ${DRKBG} SOCKS "
-		elif [ -n "$opncnt" ] && [ -n "$socks" ]; then
-			echo "VPN ${LGTBG} ${BLUE}${GLYVPN}${FCLR} ${DRKBG} UMB, SOCKS "
+		vpn=$(ip addr | grep acer)
+		if [ -n "$vpn" ]; then
+			echo "VPN ${LGTBG} ${BLUE}${GLYVPN}${FCLR} ${DRKBG} On "
 		else
 			echo "VPN ${LGTBG} ${BLUE}${GLYVPN}${FCLR} ${DRKBG} Off "
 		fi
@@ -451,7 +463,7 @@ vpn() {
 
 }
 
-vpn | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
+#vpn | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
 clock() {
 	while true; do
@@ -475,7 +487,54 @@ cdate() {
 
 cdate | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
-echo "" | lemonbar -p -g 1920x39+0+0 -B "${BDR}" -n "bdr" &
+tray() {
+	while :; do
+		# Redshift info
+		if [ "$(pgrep -x redshift)" ]; then
+			temp=$(redshift -l 39.2904:-76.6122 -p 2>/dev/null | grep temp | cut -d ":" -f 2 | tr -dc "[:digit:]")
+
+			if [ -z "$temp" ]; then
+				redshift="${GREY}${GLYRDSHFT}"
+			elif [ "$temp" -ge 5000 ]; then
+				redshift="${CYAN}${GLYRDSHFT}"
+			elif [ "$temp" -ge 4000 ]; then
+				redshift="${RED}${GLYRDSHFT}"
+			else
+				redshift="${YELLOW}${GLYRDSHFT}"
+			fi
+		else
+			redshift="${GREY}${GLYRDSHFT}"
+		fi
+
+		# Notification status
+		#if [ ! -f /tmp_notif_pause ]; then
+		#	notif="${YELLOW}%{A1:echo pause >/tmp/signal_bar:}${GLYNOTIFON}%{A}"
+		#else
+		#	notif="${GREY}%{A1:echo resume >/tmp/signal_bar:}${GLYNOTIFOFF}%{A}"
+		#fi
+
+		# Bluetooth info
+		if rfkill | grep hci0 >/dev/null; then
+			bt="${BLUE}${GLYBT}"
+		else
+			bt="${GREY}${GLYBT}"
+		fi
+
+		# VPN info
+		vpn=$(ip addr | grep acer)
+		if [ -n "$vpn" ]; then
+			vpn="${MAGENTA}%{A1:sudo wg-quick down acer:}${GLYVPN}%{A}"
+		else
+			vpn="${GREY}%{A1:sudo wg-quick up acer:}${GLYVPN}%{A}"
+		fi
+		echo "TRAY ${DRKBG} $redshift $bt $vpn "
+		sleep ${TRAY_SLEEP}
+	done
+}
+
+tray | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
+# Grey border
+echo "" | lemonbar -p -g 1920x3+0+36 -B "${BDR}" -n "bdr" &
 
 while read -r line; do
 	case $line in
@@ -509,12 +568,15 @@ while read -r line; do
 	NOTIF*)
 		fn_notif="${line#NOTIF }"
 		;;
+	TRAY*)
+		fn_tray="${line#TRAY }"
+		;;
 	esac
-	printf "%s\n" "${UNDLN}%{+u}%{+o}%{l} ${fn_work}${SEP}${fn_layout}${SEP}${fn_notif}%{r}${fn_bat}${SEP}${fn_bright}${SEP}${fn_vol}${SEP}${fn_wire}${SEP}${fn_vpn}${SEP}${fn_date}${SEP}${fn_time}${SEP2}${CLR} %{-u}%{-o}"
+	printf "%s\n" "${UNDLN}%{+u}%{+o}%{l} ${fn_work}${SEP3}${fn_layout}${SEP}${fn_notif}%{r}${fn_tray}${SEP}${fn_bat}${SEP}${fn_bright}${SEP}${fn_vol}${SEP}${fn_wire}${SEP}${fn_date}${SEP}${fn_time}${SEP2}${CLR} %{-u}%{-o}"
 done <"${PANEL_FIFO}" | lemonbar ${OPTIONS} | sh >/dev/null &
 
 if xrandr | grep "HDMI2 connected"; then
-	echo "" | lemonbar -o HDMI2 -p -g ${WIDTH}x38+${XOFF}+${YOFF} -B "${BDR}" -n "ext-bdr" &
+	echo "" | lemonbar -o HDMI2 -p -g ${WIDTH}x3+0+36 -B "${BDR}" -n "ext-bdr" &
 
 	while read -r line; do
 		case $line in
@@ -548,9 +610,12 @@ if xrandr | grep "HDMI2 connected"; then
 		NOTIF*)
 			fn_notif="${line#NOTIF }"
 			;;
+		TRAY*)
+			fn_tray="${line#TRAY }"
+			;;
 		esac
 
-		printf "%s\n" "${UNDLN}%{+u}%{+o}%{l} ${fn_work}${SEP}${fn_layout}${SEP}${fn_notif}%{r}${fn_bat}${SEP}${fn_bright}${SEP}${fn_vol}${SEP}${fn_wire}${SEP}${fn_vpn}${SEP}${fn_date}${SEP}${fn_time}${SEP2}${CLR} %{-u}%{-o}"
+		printf "%s\n" "${UNDLN}%{+u}%{+o}%{l} ${fn_work}${SEP3}${fn_layout}${SEP}${fn_notif}%{r}${fn_tray}${SEP}${fn_bat}${SEP}${fn_bright}${SEP}${fn_vol}${SEP}${fn_wire}${SEP}${fn_date}${SEP}${fn_time}${SEP2}${CLR} %{-u}%{-o}"
 	done <"${EXT_PANEL_FIFO}" | lemonbar -o HDMI2 ${EXTOPTIONS} | sh >/dev/null &
 else
 	# For some bizarre reason, the main panel wont show anything until something is watching the external panel fifo

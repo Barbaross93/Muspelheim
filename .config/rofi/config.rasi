@@ -1,0 +1,13 @@
+configuration {
+	theme: "dmenu";
+	run {
+		display-name: "Launch:";
+	}
+	window {
+		display-name: "Windows:";
+	}
+	emoji {
+		display-name: "Emoji:";
+	}
+}
+// vim:ft=css

@@ -4,23 +4,23 @@
 
 ## Info
 - OS: Void Linux
-- Window Manager: Herbstluftwm
-- Terminal: urxvt
-- Shell: dash as /bin/sh and bash for interactive
+- Window Manager: [Herbstluftwm](https://github.com/herbstluftwm/herbstluftwm)
+- Terminal: [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html)
+- Shell: dash as /bin/sh and zsh for interactive
 - Browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser)
-- Bar: lemonbar
+- Bar: [lemonbar](https://github.com/LemonBoy/bar)
 - Fonts: creeper for primary text, [Cozette](https://github.com/slavfox/Cozette) for terminal icons, and [Siji](https://github.com/stark/siji) for bar icons
-- Music: [ncspot](https://github.com/hrkfdn/ncspot) with [cava](https://github.com/karlstav/cava), urxvt's built-in image display, and [lyrics-in-terminal](https://github.com/Jugran/lyrics-in-terminal) for audio visualization, cover art preview, and lyrics in a multipaned tmux session
+- Music: [ncmpcpp](https://github.com/ncmpcpp/ncmpcp) with [mpd](https://github.com/MusicPlayerDaemon/MPD) and  urxvt's built-in image display
 - GTK: [Elkowar's phocus fork](https://github.com/elkowar/gtk) (modified to match current colorscheme)
-- File manager: ranger
-- Editor: vim
-- Email: mutt
+- File manager: [ranger](https://github.com/ranger/ranger)
+- Editor: [vim](https://github.com/vim/vim)
+- Email: [mutt](https://gitlab.com/muttmua/mutt)
 - Calendar/Contacts: [khal](https://github.com/pimutils/khal) and [khard](https://github.com/scheibler/khard) synced with [vdirsyncer](https://github.com/pimutils/vdirsyncer)
-- Tasks: [taskwarrior](https://github.com/GothenburgBitFactory/taskwarrior) with tasknc
-- Chat: irssi
-- RSS feeds: newsboat
-- App Launcher: [dmenu](https://github.com/Barbarossa93/dmenu)
-- Notifications: tiramisu (formerly dunst, [xnotify](https://github.com/phillbush/xnotify))
+- Tasks: [taskwarrior](https://github.com/GothenburgBitFactory/taskwarrior) with [tasknc](https://github.com/lharding/tasknc)
+- Chat: [weechat](https://github.com/weechat/weechat)
+- RSS feeds: [newsboat](https://github.com/newsboat/newsboat)
+- App Launcher: [rofi](https://github.com/davatorium/rofi)
+- Notifications: [tiramisu](https://github.com/Sweets/tiramisu)
 - Compositor: [xcompmgr](https://github.com/freedesktop/xcompmgr)
-- Display manager/Lock screen: xinit with xsecurelock
+- Display manager/Lock screen: [sx](https://github.com/Earnestly/sx) with [xsecurelock](https://github.com/google/xsecurelock)
 - Color scheme: [alduin](https://github.com/AlessandroYorba/Alduin)

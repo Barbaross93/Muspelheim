@@ -3,8 +3,8 @@
 #xdotool getactivewindow windowsize 448 413 windowmove 732 331
 
 hc() { ${herbstclient_command:-herbstclient} "$@"; }
-dm() { ${bemenu_command:-bemenu} "$@"; }
-bemenu_lines=${bemenu_lines:-10}
+dm() { ${dmenu_command:-dmenu} "$@"; }
+dmenu_lines=${dmenu_lines:-10}
 
 case "$1" in
 

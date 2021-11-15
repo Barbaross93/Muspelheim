@@ -1,3 +1,0 @@
-#!/bin/sh
-
-urxvtdc -name "Spotify" -e dash -c "tmux new-session -s Spotify -x $(tput cols) -y $(tput lines) 'tmux source-file ~/.config/ncspot/tmux_session'"
