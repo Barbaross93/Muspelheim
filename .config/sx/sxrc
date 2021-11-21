@@ -49,7 +49,7 @@ else
 fi
 
 # needed to create a dbus session address env var
-eval $(dbus-launch --sh-syntax --exit-with-session)
+[ -z $DBUS_SESSION_BUS_ADDRESS ] && eval $(dbus-launch --sh-syntax --exit-with-session)
 
 lock &
 sleep 0.3

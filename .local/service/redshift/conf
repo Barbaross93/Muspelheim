@@ -1,0 +1,9 @@
+# -*- mode: sh; -*-
+
+# Additional command line arguments for redshift(1).
+OPTS="-l $(curl -s 'https://location.services.mozilla.com/v1/geolocate?key=geoclue' | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//')"
+
+# Setting this to 1 enables logging, any other value - disables.
+LOGGING_ENABLE=0
+# The directory will be created for you, if logging is enabled.
+LOG_DIR="$HOME/var/log/redshift"

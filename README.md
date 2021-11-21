@@ -1,6 +1,6 @@
 # Muspelheim
 
-<img src="https://raw.githubusercontent.com/Barbarossa93/Muspelheim/master/screenshots/2021-11-15_10-20-28.png" alt="img" align="center">
+<img src="https://i.redd.it/dns852i9gsz71.png" alt="img" align="center">
 
 ## Info
 - OS: Void Linux
@@ -21,7 +21,7 @@
 - RSS feeds: [newsboat](https://github.com/newsboat/newsboat)
 - App Launcher: [rofi](https://github.com/davatorium/rofi)
 - Notifications: [tiramisu](https://github.com/Sweets/tiramisu)
-- Compositor: [xcompmgr](https://github.com/freedesktop/xcompmgr)
+- Compositor: [picom](https://github.com/yshui/picom)
 - Display manager/Lock screen: [sx](https://github.com/Earnestly/sx) with [xsecurelock](https://github.com/google/xsecurelock)
 - Color scheme: [alduin](https://github.com/AlessandroYorba/Alduin)
 

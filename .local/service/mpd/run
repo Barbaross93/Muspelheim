@@ -1,4 +1,8 @@
 #!/bin/sh
-[ -r conf ] && . ./conf
-#install -d -m 0755 -o mpd -g mpd /run/mpd
-exec mpd --no-daemon ${OPTS:-}
+
+# Wait for the PipeWire Pulse daemon to start.
+#sv check "$HOME/.runit/sv/pipewire-pulse" >/dev/null || exit 1
+
+[ -r ./conf ] && . ./conf
+
+exec mpd --no-daemon --stderr ${OPTS:-} 2>&1

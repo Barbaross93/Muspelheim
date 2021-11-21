@@ -48,9 +48,9 @@ hc keybind Mod4-Shift-r reload                                          #Reload 
 hc keybind Mod4-b spawn togglebar.sh            #Toggle bar
 hc keybind XF86Launch1 spawn toggle_touchpad.sh #Toggle touchpad
 #hc keybind XF86Bluetooth spawn fzf-bluetooth    #Bluetooth menu
-hc keybind XF86Display spawn caffeine.sh      #Toggle caffeine
-hc keybind Mod4-Shift-n spawn toggledunst     #Toggle notifications
-hc keybind XF86Tools spawn toggle_redshift.sh #Toggle redshift
+hc keybind XF86Display spawn caffeine.sh #Toggle caffeine
+#hc keybind Mod4-Shift-n spawn toggledunst     #Toggle notifications
+#hc keybind XF86Tools spawn toggle_redshift.sh #Toggle redshift
 
 # Utilities
 hc keybind Mod4-u spawn unmount.sh                    #Unmount drives
@@ -85,7 +85,7 @@ hc keybind Mod4-Control-Mod1-Up spawn playerctl play-pause #Toggle play/pause au
 hc keybind Mod4-Control-Mod1-Down spawn playerctl stop     #Stop audio
 
 # Window/frame controls
-hc keybind Mod4-q remove                                                   #Remove focused frame
+hc keybind Mod4-q close                                                    #Close focused window
 hc keybind Mod4-Shift-q close_and_remove                                   #Close window and frame if last window
 hc keybind Mod4-m spawn ~/.config/herbstluftwm/scripts/maximize.sh         #Alternate tiled and monocle layout
 hc keybind Mod4-i jumpto urgent                                            #Jump to urgent window
@@ -114,8 +114,8 @@ hc keybind Mod4-comma use_index -1 --skip-visible  #Cycle tag focus backward
 frac="0.5"
 hc keybind Mod4-Control-Left split left $frac   #Create frame to left
 hc keybind Mod4-Control-Right split right $frac #Create frame to right
-hc keybind Mod4-Control-Up split up $frac       #Create frame up
-hc keybind Mod4-Control-Down split down $frac   #Create frame down
+hc keybind Mod4-Control-Up split top $frac      #Create frame up
+hc keybind Mod4-Control-Down split bottom $frac #Create frame down
 hc keybind Mod4-Control-space split explode     #Explode current frame
 
 # resizing frames
@@ -242,6 +242,7 @@ if hc silent new_attr bool my_not_first_autostart; then
     runsvdir -P ~/.local/service &
 
     # programs that dont run well as service or need to be toggleable
+    setsid -f picom --experimental-backends &
     setsid -f sbar.sh &
     xob_startup.sh &
     ~/.config/herbstluftwm/thorsten_tag_empty.sh &
@@ -250,17 +251,18 @@ if hc silent new_attr bool my_not_first_autostart; then
     while :; do
         [ "$(cat /sys/class/net/wlp5s0/carrier)" -eq 1 ] && break
     done
-    matches=$(iwctl station wlp5s0 show | grep 'Ollies_Network\|Ollies_5ghz_Network')
-    if [ -n "$matches" ]; then
+    network=$(iwctl station wlp5s0 show | grep 'Connected network' | awk '{print $3}')
+    case "$network" in
+    Ollies_Network | Ollies_5ghz_Network)
         synergyc 192.168.0.8 &
-    else
-        sudo wg-quick up acer
-        #ssh -NTD 1080 -p 51820 pi@barbarossavpn.crabdance.com &
-        #all_proxy=socks5://localhost:1080 syncthing -no-browser &
-    fi
-
-    #distraction_mode_check.sh &
-    redshift -l "$(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//')" &
+        ;;
+    epfl | epfl-wpa)
+        sudo -A openvpn --config /etc/openvpn/client/barbarossaOvpn.conf --askpass /etc/openvpn/barbarossOvpn.pass --daemon
+        ;;
+    *)
+        sudo -A wg-quick up barbarossvpn
+        ;;
+    esac
 fi
 
 # do multi monitor setup here, e.g.:
