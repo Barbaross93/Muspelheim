@@ -1,6 +1,6 @@
 # Muspelheim
 
-<img src="https://i.redd.it/dns852i9gsz71.png" alt="img" align="center">
+<img src="https://raw.githubusercontent.com/Barbarossa93/Muspelheim/master/screenshots/2021-12-09_13-54-00.png" alt="img" align="center">
 
 ## Info
 - OS: Void Linux
