@@ -64,6 +64,11 @@ for i in "${!programs[@]}"; do
     # Generally, a terminal is running something, be it fish or some other running process
     if [[ "${programs[$i]}" == "urxvt" ]]; then
         title=$(cat $session_dir/saved_session_rules | sed -n -e $n\p | grep -o '".*"' | tr -d '"')
+        if grep "ncmpcpp" <(echo "$title"); then
+            title=ncmpcpp
+        elif grep "WeeChat" <(echo "$title"); then
+            title=weechat
+        fi
         programs[$i]="urxvt -title '$title' -e $title"
     fi
 
@@ -74,7 +79,7 @@ for i in "${!programs[@]}"; do
 
     # Correction for dropdown term
     if [[ "${programs[$i]}" == "dropdown" ]]; then
-        programs[$i]="scrthpd.sh"
+        programs[$i]="hlscrthpd.sh"
     fi
 
     # Reload zathura instances

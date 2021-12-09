@@ -6,7 +6,7 @@
 - OS: Void Linux
 - Window Manager: [Herbstluftwm](https://github.com/herbstluftwm/herbstluftwm)
 - Terminal: [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html)
-- Shell: dash as /bin/sh and zsh for interactive
+- Shell: zsh
 - Browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser)
 - Bar: [lemonbar](https://github.com/LemonBoy/bar)
 - Fonts: creeper for primary text, [Cozette](https://github.com/slavfox/Cozette) for terminal icons, and [Siji](https://github.com/stark/siji) for bar icons
@@ -22,7 +22,7 @@
 - App Launcher: [rofi](https://github.com/davatorium/rofi)
 - Notifications: [tiramisu](https://github.com/Sweets/tiramisu)
 - Compositor: [picom](https://github.com/yshui/picom)
-- Display manager/Lock screen: [sx](https://github.com/Earnestly/sx) with [xsecurelock](https://github.com/google/xsecurelock)
+- Display manager/Lock screen: xinit with [xsecurelock](https://github.com/google/xsecurelock)
 - Color scheme: [alduin](https://github.com/AlessandroYorba/Alduin)
 
 ## Credits

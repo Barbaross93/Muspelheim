@@ -22,6 +22,6 @@ case "$1" in
     herbstclient set frame_gap $WG
     ;;
 *)
-    herbstclient set window_gap -3 && herbstclient set frame_gap 12
+    herbstclient set window_gap 0 && herbstclient set frame_gap 12
     ;;
 esac

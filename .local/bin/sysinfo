@@ -137,7 +137,7 @@ draw() {
 	for v in $(seq 0 $((size - 1))); do
 		test "$v" -le "$inc" &&
 			out="${out}\e[1;${color}m${FULL}" ||
-			out="${out}\e[0;37m${EMPTY}"
+			out="${out}\e[0;37m${GRY}${EMPTY}"
 	done
 	printf $out
 }

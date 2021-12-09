@@ -1,11 +1,9 @@
 #!/bin/sh
 
-if pidof xcompmgr; then
+if pidof picom; then
 	notify-send "Compositor" "Compositor killed"
-	pkill xcompmgr
-	#printf "SEC:3\tXcompmgr killed\n" >$XNOTIFY_FIFO
+	sv down ~/.local/service/picom
 else
-	setsid -f xcompmgr &
+	sv up ~/.local/service/picom
 	notify-send "Compositor" "Compositor started"
-	#printf "SEC:3\tXcompmgr Started\n" >$XNOTIFY_FIFO
 fi

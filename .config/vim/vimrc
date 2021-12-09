@@ -42,9 +42,8 @@ Plug 'preservim/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-syntastic/syntastic'
 Plug 'airblade/vim-gitgutter'
-Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
 " Notes/ task
-Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 "Plug 'tools-life/taskwiki'
 " writing plugins
 Plug 'junegunn/goyo.vim'
@@ -68,14 +67,15 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'semanser/vim-outdated-plugins'
 Plug 'easymotion/vim-easymotion'
-"Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'farmergreg/vim-lastplace'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'chrisbra/Colorizer'
 
 " Retired Plugins
 "Plug 'ycm-core/YouCompleteMe'
+"Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
+"Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 "Plug 'morhetz/gruvbox'
 "Plug 'psliwka/vim-smoothie'
 "Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -124,6 +124,8 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+set titlestring=vim\ %F
 
 let g:ascii = [
             \ ' ██▒   █▓ ██▓ ███▄ ▄███▓',
@@ -210,6 +212,7 @@ let g:outdated_plugins_silent_mode = 1
 "Vimwiki settings
 let g:vimwiki_list = [{'path': '~/Documents/vimwiki/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_global_ext = 0
 
 " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
 " - https://github.com/Valloric/YouCompleteMe

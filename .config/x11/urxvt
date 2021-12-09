@@ -3,27 +3,22 @@ URxvt.font: -barbaross-creeper-medium-r-normal--13-101-100-100-c-70-iso8859-1,\
 						-slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1,\
 						-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
 						-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1, \
-						xft:Kochi Gothic:pixelsize=13:antialias=false, \
-						xft:Symbola:pixelsize=13:antialias=true
+						xft:Twitter Color Emoji:pixelsize=13
 URxvt.boldFont: -barbaross-creeper-bold-r-normal--13-101-100-100-c-70-iso8859-1,\
 								-slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1,,\
-								-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
+								-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1, \
 								-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1, \
-								xft:Kochi Gothic:pixelsize=13:antialias=false, \
-								xft:Symbola:pixelsize=13:antialias=true
+								xft:Twitter Color Emoji:pixelsize=13
 URxvt.italicfont: -barbaross-creeper-medium-r-normal--13-101-100-100-c-70-iso8859-1,\
 									-slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1,\
 									-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
 									-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1, \
-									xft:Kochi Gothic:pixelsize=13:antialias=false, \
-									xft:Symbola:pixelsize=13:antialias=true
-
+									xft:Twitter Color Emoji:pixelsize=13
 URxvt.boldItalicFont: -barbaross-creeper-bold-r-normal--13-101-100-100-c-70-iso8859-1, \
                       -slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1, \
                       -wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
                       -gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1, \
-											xft:Kochi Gothic:pixelsize=13:antialias=false, \
-											xft:Symbola:pixelsize=13:antialias=true
+											xft:Twitter Color Emoji:pixelsize=13
 
 ! Settings
 URxvt.depth:                    24
@@ -49,6 +44,7 @@ URxvt*scrollWithBuffer:         true
 URxvt*scrollTtyKeypress:        true
 URxvt.secondaryScreen:          1
 URxvt.secondaryScroll:          0
+URxvt.rewrapMode: 							always
 
 ! Navigation keybinds
 URxvt.keysym.Shift-Up:          command:\033]720;1\007
@@ -67,7 +63,7 @@ URxvt.keysym.Shift-Control-C:   eval:selection_to_clipboard
 
 ! Perl stuff from here on out
 URxvt.perl-lib: 								/home/barbaross/.config/x11/urxvt-ext/
-URxvt.perl-ext-common:         	default,matcher,selection-to-clipboard,newterm,keyboard-select,clipboard-osc,vtwheel,eval,overlay-osc
+URxvt.perl-ext-common:         	default,matcher,selection-to-clipboard,newterm,keyboard-select,vtwheel,-confirm-paste,background
 
 ! Matcher extension settings
 URxvt.url-launcher:             linkhandler
@@ -83,6 +79,9 @@ URxvt.keysym.Control-Shift-T:   perl:newterm
 ! Activate keyboard-select
 URxvt.keysym.M-Escape: 					perl:keyboard-select:activate
 URxvt.keyboard-select.clipboard: true
+
+! Background, activate!
+URxvt.background.expr:
 
 ! tabbed settings
 !URxvt.tabbed.tabbar-fg: 2

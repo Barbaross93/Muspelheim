@@ -41,7 +41,7 @@ XOFF=0            # x offset
 YOFF=0            # y offset
 BBG=${background} # bar background color
 BFG=${foreground}
-BDR=${color16}
+BDR=${color17}
 
 # Status constants
 # Change these to modify bar behavior
@@ -57,11 +57,6 @@ BATTERY_2=20
 BATTERY_1=10
 
 # Sleep constants
-BATTERY_SLEEP=30
-VPN_SLEEP=5
-WIRELESS_SLEEP=5
-TIME_SLEEP=5
-DATE_SLEEP=300
 TRAY_SLEEP=5
 
 #Colors
@@ -135,11 +130,13 @@ GLYLYTH=$(echo -e "\ue26b")
 GLYLYTV=$(echo -e "\ue004")
 GLYLYTM=$(echo -e "\ue000")
 GLYLYTG=$(echo -e "\ue005")
-GLYVPN=""
+GLYVPN=""
 GLYRDSHFT=$(echo -e "\ue26e")
 GLYNOTIFON=""
 GLYNOTIFOFF=""
 GLYBT=""
+GLYCAFF=""
+GLYMON=""
 
 PANEL_FIFO=/tmp/panel-fifo
 EXT_PANEL_FIFO=/tmp/ext-panel-fifo
@@ -257,11 +254,11 @@ layout() {
 			icon="${GLYLYTG}"
 		fi
 
-		if [[ "$layout" == "max" ]]; then
-			echo "LAYOUT ${RED}${LGTBG} $icon%{F-} $count"
-		else
-			echo "LAYOUT ${RED}${LGTBG} $icon%{F-}"
-		fi
+		#if [[ "$layout" == "max" ]]; then
+		#	echo "LAYOUT ${RED}${LGTBG} $icon%{F-} $count"
+		#else
+		echo "LAYOUT ${RED}${LGTBG} $icon%{F-}"
+		#fi
 	}
 	layouticon
 	herbstclient watch tags.focus.tiling.focused_frame.algorithm
@@ -271,7 +268,7 @@ layout() {
 		done
 }
 
-layout | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
+#layout | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
 notif() {
 	[[ -e /tmp/old_notifs ]] && rm /tmp/old_notifs
@@ -281,13 +278,23 @@ notif() {
 		tail -f /tmp/old_notifs &
 	} |
 		while read -r line; do
+			# Easy to spam binding, clean up first before cont.
 			[[ -f "/tmp/notif_skip" ]] && rm /tmp/notif_skip
+
+			# We block the forground until rofi is dead, if its running
+			pid=$(pgrep -x rofi)
+			if [ -n "$pid" ]; then
+				tail --pid="$pid" -f /dev/null
+			fi
+
 			if [[ -f "/tmp/notif_pause" ]]; then
 				# Block foreground until file gets deleted
 				inotifywait -q -q /tmp/notif_pause
 			fi
+
 			# Duplicate any '%' to process them as literal '%' in lemonbar
-			line=$(echo "$line" | sed 's/%/%%/g')
+			line=${line//%/%%}
+
 			case "$line" in
 			LOG*)
 				line="${line#LOG }"
@@ -300,12 +307,15 @@ notif() {
 			summary="$(echo -e "$line" | cut -f2 -)"
 			timeout="$(echo -e "$line" | cut -f3 -)"
 			notif="$summary"
-			# If body is blank, display summary
+
+			# If summary is blank, display body instead
 			[ -z "$notif" ] && notif="$body"
-			if [ $(echo $notif | wc -c) -gt 100 ]; then
-				line="$(echo $notif | cut -c -90)..."
+			if [ $(echo "$notif" | wc -c) -gt 100 ]; then
+				notif="$(echo $notif | cut -c -100)..."
 			fi
+
 			echo "NOTIF %{T3}${ORANGE}NOTIFICATION:%{T-}${CLR} $notif"
+
 			c=0
 			if [ "$timeout" = "-1" ]; then
 				time=10.0
@@ -314,12 +324,10 @@ notif() {
 			fi
 			while (($(echo "$c <= $time" | bc -l))); do
 				[[ -f "/tmp/notif_skip" ]] && rm /tmp/notif_skip && break
-				while [ $(xprintidle) -gt 120000 ] || pgrep -x "xsecurelock" >/dev/null; do
-					sleep 1
-				done
 				sleep 0.2
 				c=$(echo "scale=1;$c + 0.2" | bc)
 			done
+
 			echo "NOTIF ${CLR}"
 		done
 }
@@ -387,45 +395,44 @@ brightness() {
 
 brightness | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
-battery() {
-	while true; do
-		local cap="$(cat /sys/class/power_supply/BAT0/capacity)"
-		local stat="$(cat /sys/class/power_supply/BAT0/status)"
-		#bar=$(draw $cap 8 ${RED} ${YELLOW} ${YELLOW} ${FOREGROUND} ${FOREGROUND})
-		bar="$cap%%"
+batstat() {
+	battery -s | uq |
+		while read -r line; do
+			stat=$(echo "$line" | cut -f1 -d' ')
+			cap=$(echo "$line" | cut -f2 -d' ')
 
-		if [[ ${stat} = "Charging" ]]; then
-			echo "BATTERY ${LGTBG}${GREEN} ${GLYBATCHG}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
-		elif [[ ${cap} -lt ${BATTERY_1} ]]; then
-			echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT1}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
-		elif [[ ${cap} -lt ${BATTERY_2} ]]; then
-			echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT2}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
-		elif [[ ${cap} -lt ${BATTERY_3} ]]; then
-			echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT3}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
-		elif [[ ${cap} -lt ${BATTERY_4} ]]; then
-			echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT4}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
-		elif [[ ${cap} -lt ${BATTERY_5} ]]; then
-			echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT5}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
-		elif [[ ${cap} -lt ${BATTERY_6} ]]; then
-			echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT6}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
-		elif [[ ${cap} -lt ${BATTERY_7} ]]; then
-			echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT7}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
-		elif [[ ${cap} -lt ${BATTERY_8} ]]; then
-			echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT8}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
-		elif [[ ${cap} -lt ${BATTERY_9} ]]; then
-			echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT9}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
-		else
-			echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT10}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
-		fi
+			bar="$cap%%"
 
-		sleep ${BATTERY_SLEEP}
-	done
+			if [[ ${stat} = "Charging" ]]; then
+				echo "BATTERY ${LGTBG}${GREEN} ${GLYBATCHG}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
+			elif [[ ${cap} -lt ${BATTERY_1} ]]; then
+				echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT1}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
+			elif [[ ${cap} -lt ${BATTERY_2} ]]; then
+				echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT2}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
+			elif [[ ${cap} -lt ${BATTERY_3} ]]; then
+				echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT3}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
+			elif [[ ${cap} -lt ${BATTERY_4} ]]; then
+				echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT4}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
+			elif [[ ${cap} -lt ${BATTERY_5} ]]; then
+				echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT5}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
+			elif [[ ${cap} -lt ${BATTERY_6} ]]; then
+				echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT6}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
+			elif [[ ${cap} -lt ${BATTERY_7} ]]; then
+				echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT7}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
+			elif [[ ${cap} -lt ${BATTERY_8} ]]; then
+				echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT8}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
+			elif [[ ${cap} -lt ${BATTERY_9} ]]; then
+				echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT9}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
+			else
+				echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT10}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
+			fi
+		done
 }
 
-battery | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
+batstat | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
 wireless() {
-	while :; do
+	wirelessicon() {
 		local wifi=$(iwctl station wlp5s0 show | grep "Connected network" | awk '{print $3}')
 		local raw=$(cat /proc/net/wireless | grep wlp5s0 | awk '{print $4}' | tr -d '.')
 		local strength=$(echo "2*($raw+100)" | bc)
@@ -444,95 +451,112 @@ wireless() {
 		else
 			echo "WIRELESS ${LGTBG}${MAGENTA} ${GLYWLAN5}${FCLR} ${DRKBG} ${wifi} "
 		fi
-		sleep ${WIRELESS_SLEEP}
-	done
+	}
+
+	wirelessicon
+	ip monitor route dev wlp5s0 |
+		while read -r line; do
+			echo "$line" | grep "broadcast" && wirelessicon
+		done
 }
 
 wireless | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
-vpn() {
-	while :; do
-		vpn=$(ip addr | grep acer)
-		if [ -n "$vpn" ]; then
-			echo "VPN ${LGTBG} ${BLUE}${GLYVPN}${FCLR} ${DRKBG} On "
-		else
-			echo "VPN ${LGTBG} ${BLUE}${GLYVPN}${FCLR} ${DRKBG} Off "
-		fi
-		sleep ${VPN_SLEEP}
-	done
+vpninfo() {
+	vpnicon() {
+		cvpn=""
+		vpn="$(ip addr | grep 'barbarossvpn\|tun0' | awk '{print $2}' | grep -v -E '^[0-9]+' | tr -d ':')"
+		for v in $vpn; do
+			case "$v" in
+			barbarossvpn)
+				cvpn+="${RED}%{A1:sudo -A wg-quick down barbarossvpn:}${GLYVPN}%{A}"
+				;;
+			tun0)
+				cvpn+="${ORANGE}%{A1:sudo -A pkill openvpn:}${GLYVPN}%{A}"
+				;;
+			esac
+		done
+		[ -z "$cvpn" ] && cvpn="${GREY}%{A1:sudo wg-quick up barbarossvpn:}${GLYVPN}%{A}"
 
+		echo "VPN ${DRKBG} $cvpn"
+	}
+	vpnicon
+	ip monitor netconf |
+		while read -r line; do
+			echo "$line" | grep "barbarossvpn\|tun0" && vpnicon
+		done
 }
 
-#vpn | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
+vpninfo | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
-clock() {
-	while true; do
-		local clock="$(date +'%I:%M %p')"
-		echo "CLOCK ${LGTBG} ${GREEN}${GLYTIME}${FCLR} ${DRKBG} ${clock} "
+bltth() {
+	rfkill event |
+		while read -r line; do
+			status=$(echo "$line" | grep "type 2" | awk '{print $10}')
 
-		sleep ${TIME_SLEEP}
-	done
+			if [ "$status" -eq 1 ]; then
+				bt="${GREY}${GLYBT}"
+			else
+				bt="${CYAN}${GLYBT}"
+			fi
+
+			echo "BLTTH ${DRKBG} $bt"
+
+		done
 }
 
-clock | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
+bltth | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
-cdate() {
-	while :; do
-		local date="$(date +'%A, %B %d')"
-		echo "DATE ${LGTBG} ${ORANGE}${GLYDATE}${FCLR} ${DRKBG} ${date} "
-
-		sleep ${DATE_SLEEP}
-	done
+ctime() {
+	clock -sf "CLOCK ${LGTBG} ${ORANGE}${GLYDATE}${FCLR} ${DRKBG} %A, %B %d${SEP}${LGTBG} ${GREEN}${GLYTIME}${FCLR} ${DRKBG} %I:%M %p " | uq
 }
 
-cdate | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
+ctime | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
 tray() {
 	while :; do
 		# Redshift info
-		if [ "$(pgrep -x redshift)" ]; then
-			temp=$(redshift -l 39.2904:-76.6122 -p 2>/dev/null | grep temp | cut -d ":" -f 2 | tr -dc "[:digit:]")
+		#if [ "$(pgrep -x redshift)" ]; then
+		#	loc=$(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//')
+		#	temp=$(redshift -l "$loc" -p 2>/dev/null | grep temp | cut -d ":" -f 2 | tr -dc "[:digit:]")
+		#
+		#	if [ -z "$temp" ]; then
+		#		redshift="${GREY}${GLYRDSHFT}"
+		#	elif [ "$temp" -ge 5000 ]; then
+		#		redshift="${BLUE}${GLYRDSHFT}"
+		#	elif [ "$temp" -ge 4000 ]; then
+		#		redshift="${RED}${GLYRDSHFT}"
+		#	else
+		#		redshift="${YELLOW}${GLYRDSHFT}"
+		#	fi
+		#else
+		#	redshift="${GREY}${GLYRDSHFT}"
+		#fi
 
-			if [ -z "$temp" ]; then
-				redshift="${GREY}${GLYRDSHFT}"
-			elif [ "$temp" -ge 5000 ]; then
-				redshift="${CYAN}${GLYRDSHFT}"
-			elif [ "$temp" -ge 4000 ]; then
-				redshift="${RED}${GLYRDSHFT}"
-			else
-				redshift="${YELLOW}${GLYRDSHFT}"
-			fi
+		# Caffeine status
+		if xset q | grep Enabled >/dev/null; then
+			caffeine="${GREY}%{A1:caffeine.sh:}${GLYCAFF}%{A}"
 		else
-			redshift="${GREY}${GLYRDSHFT}"
+			caffeine="${MAGENTA}%{A1:caffeine.sh:}${GLYCAFF}%{A}"
 		fi
 
 		# Notification status
-		#if [ ! -f /tmp_notif_pause ]; then
+		#if [ ! -f /tmp/notif_pause ]; then
 		#	notif="${YELLOW}%{A1:echo pause >/tmp/signal_bar:}${GLYNOTIFON}%{A}"
 		#else
 		#	notif="${GREY}%{A1:echo resume >/tmp/signal_bar:}${GLYNOTIFOFF}%{A}"
 		#fi
 
-		# Bluetooth info
-		if rfkill | grep hci0 >/dev/null; then
-			bt="${BLUE}${GLYBT}"
-		else
-			bt="${GREY}${GLYBT}"
-		fi
-
-		# VPN info
-		vpn=$(ip addr | grep acer)
-		if [ -n "$vpn" ]; then
-			vpn="${MAGENTA}%{A1:sudo wg-quick down acer:}${GLYVPN}%{A}"
-		else
-			vpn="${GREY}%{A1:sudo wg-quick up acer:}${GLYVPN}%{A}"
-		fi
-		echo "TRAY ${DRKBG} $redshift $bt $vpn "
+		echo "TRAY ${DRKBG} $caffeine" | uq
 		sleep ${TRAY_SLEEP}
 	done
 }
 
 tray | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
+
+# For funsies
+monster="${LGTBG}${RED} %{A1:dmenu_run_i:}%{A3:power:}${GLYMON}%{A}%{A}"
+
 # Grey border
 echo "" | lemonbar -p -g 1920x3+0+36 -B "${BDR}" -n "bdr" &
 
@@ -540,9 +564,6 @@ while read -r line; do
 	case $line in
 	CLOCK*)
 		fn_time="${line#CLOCK }"
-		;;
-	DATE*)
-		fn_date="${line#DATE }"
 		;;
 	VOLUME*)
 		fn_vol="${line#VOLUME }"
@@ -559,11 +580,11 @@ while read -r line; do
 	WIRELESS*)
 		fn_wire="${line#WIRELESS }"
 		;;
-	LAYOUT*)
-		fn_layout="${line#LAYOUT }"
-		;;
 	VPN*)
 		fn_vpn="${line#VPN }"
+		;;
+	BLTTH*)
+		fn_bltth="${line#BLTTH }"
 		;;
 	NOTIF*)
 		fn_notif="${line#NOTIF }"
@@ -572,7 +593,7 @@ while read -r line; do
 		fn_tray="${line#TRAY }"
 		;;
 	esac
-	printf "%s\n" "${UNDLN}%{+u}%{+o}%{l} ${fn_work}${SEP3}${fn_layout}${SEP}${fn_notif}%{r}${fn_tray}${SEP}${fn_bat}${SEP}${fn_bright}${SEP}${fn_vol}${SEP}${fn_wire}${SEP}${fn_date}${SEP}${fn_time}${SEP2}${CLR} %{-u}%{-o}"
+	printf "%s\n" "${UNDLN}%{+u}%{+o}%{l} ${monster}${SEP}${fn_work}${SEP3}${fn_notif}%{r}${fn_bltth}${fn_tray}${fn_vpn}${SEP}${fn_bat}${SEP}${fn_bright}${SEP}${fn_vol}${SEP}${fn_wire}${SEP}${fn_time}${SEP2}${CLR} %{-u}%{-o}"
 done <"${PANEL_FIFO}" | lemonbar ${OPTIONS} | sh >/dev/null &
 
 if xrandr | grep "HDMI2 connected"; then
@@ -582,9 +603,6 @@ if xrandr | grep "HDMI2 connected"; then
 		case $line in
 		CLOCK*)
 			fn_time="${line#CLOCK }"
-			;;
-		DATE*)
-			fn_date="${line#DATE }"
 			;;
 		VOLUME*)
 			fn_vol="${line#VOLUME }"
@@ -601,11 +619,11 @@ if xrandr | grep "HDMI2 connected"; then
 		WIRELESS*)
 			fn_wire="${line#WIRELESS }"
 			;;
-		LAYOUT*)
-			fn_layout="${line#LAYOUT }"
-			;;
 		VPN*)
 			fn_vpn="${line#VPN }"
+			;;
+		BLTTH*)
+			fn_bltth="${line#BLTTH }"
 			;;
 		NOTIF*)
 			fn_notif="${line#NOTIF }"
@@ -615,7 +633,7 @@ if xrandr | grep "HDMI2 connected"; then
 			;;
 		esac
 
-		printf "%s\n" "${UNDLN}%{+u}%{+o}%{l} ${fn_work}${SEP3}${fn_layout}${SEP}${fn_notif}%{r}${fn_tray}${SEP}${fn_bat}${SEP}${fn_bright}${SEP}${fn_vol}${SEP}${fn_wire}${SEP}${fn_date}${SEP}${fn_time}${SEP2}${CLR} %{-u}%{-o}"
+		printf "%s\n" "${UNDLN}%{+u}%{+o}%{l} ${monster}${SEP}${fn_work}${SEP3}${fn_notif}%{r}${fn_bltth}${fn_tray}${fn_vpn}${SEP}${fn_bat}${SEP}${fn_bright}${SEP}${fn_vol}${SEP}${fn_wire}${SEP}${fn_time}${SEP2}${CLR} %{-u}%{-o}"
 	done <"${EXT_PANEL_FIFO}" | lemonbar -o HDMI2 ${EXTOPTIONS} | sh >/dev/null &
 else
 	# For some bizarre reason, the main panel wont show anything until something is watching the external panel fifo

@@ -8,7 +8,7 @@ def konda(c):
         "background-alt": "#262626",
         "background-attention": "#262626",
         "border": "#af875f",
-        "current-line": "#424242",
+        "current-line": "#3a3a3a",
         "selection": "#af875f",
         "foreground": "#dfdfaf",
         "foreground-alt": "#626262",

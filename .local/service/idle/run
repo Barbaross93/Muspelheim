@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec idle.sh 10 doas zzz -H

@@ -1,7 +1,8 @@
 auto-reload no
 external-url-viewer "urlscan"
 #notify-always yes
-notify-program notify-send
+notify-program ""
+notify-xterm yes
 ignore-mode "display"
 
 bind-key j down

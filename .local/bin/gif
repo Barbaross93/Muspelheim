@@ -16,7 +16,7 @@ selection() {
 	else
 		notify-send "Record" "Select region to record"
 		#printf "Select region to record\n" >$XNOTIFY_FIFO
-		eval $(crud)
+		eval $(slop --color=0.874,0.874,0.686 -n -b 2 -f 'W=%w H=%h X=%x Y=%y')
 		input=$(date '+%Y-%m-%d_%H-%M-%S')
 		output=~/Pictures/Gifs/Recordings/${input}.gif
 		ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} /tmp/$input.mkv

@@ -3,14 +3,14 @@
         "default": [
             [
                 "header",
-                "white",
-                "dark blue",
+                "yellow",
+                "black",
                 "standout"
             ],
             [
                 "footer",
-                "white",
-                "dark red",
+                "dark magenta",
+                "black",
                 "standout"
             ],
             [
@@ -36,7 +36,7 @@
             ],
             [
                 "urlref:number",
-                "yellow",
+                "dark magenta",
                 "black",
                 "standout"
             ],
@@ -48,8 +48,8 @@
             ],
             [
                 "url:sel",
-                "white",
-                "dark blue",
+                "dark red",
+                "black",
                 "bold"
             ]
         ],

@@ -2,18 +2,20 @@
 # window frame configurations
 set window-height 3000
 set window-width 1000
-set statusbar-h-padding 0
-set statusbar-v-padding 0
+set statusbar-h-padding 6
+set statusbar-v-padding 6
 set page-padding 10
-set window-title-page true
+set window-title-page false
 set window-title-home-tilde true
-set guioptions vc
+set statusbar-basename true
+set statusbar-tilde true
+set guioptions s
 
 # set scrolling options
 set scroll-step 40
 
 # font size
-set font "Termsynu 10"
+set font "creeper 10"
 
 # clipboard configurations
 set selection-clipboard clipboard

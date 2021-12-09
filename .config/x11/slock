@@ -1,9 +1,0 @@
-!!! Colors
-slock.bgcolor: 		#1c1c1c
-slock.initcolor: 	#424242
-slock.inputcolor: #af5f5f
-slock.failcolor:  #dfdfaf
-slock.capscolor:  #dfaf87
-slock.pamcolor:   #a87f5f
-
-! vim:ft=xdefaults

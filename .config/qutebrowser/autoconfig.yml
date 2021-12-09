@@ -40,11 +40,14 @@ settings:
   content.media.audio_capture:
     https://umaryland.webex.com: true
     https://umaryland.zoom.us: true
+    https://ummsteleport.umms.org: true
     https://www.onlinemictest.com: true
   content.media.audio_video_capture:
+    https://ummsteleport.umms.org: true
     https://video.simplepractice.com: true
   content.media.video_capture:
     https://umaryland.webex.com: true
+    https://ummsteleport.umms.org: true
   content.notifications.enabled:
     https://www.netflix.com: true
     https://www.reddit.com: true
@@ -125,4 +128,4 @@ settings:
     global: true
   url.searchengines:
     global:
-      DEFAULT: https://www.google.com/search?hl=en&q={}
+      DEFAULT: https://duckduckgo.com/?ia=web&q={}

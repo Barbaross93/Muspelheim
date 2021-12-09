@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 
-### URxvt method below
-function reset_background {
+reset_background() {
 	printf "\e]20;;100x100+1000+1000\a"
 }
 
-# For w/e reason urxvt will only show the image if it has a different file name, so we create copies w/ random names
+# For w/e reason urxvt will only show the image if it has a different file name, so we create every image w/ random names
 tmp=$(mktemp --suffix ".png")
-albumartspot=$(playerctl metadata mpris:artUrl)
-albumartfetchspot=$(curl -s --output /tmp/cover.png $albumartspot)
-cp /tmp/cover.png "$tmp"
+filepath=$(mpc current -f "http://192.168.0.2/%file%")
+ffmpeg -y -i "$filepath" "$tmp" &>/dev/null
 reset_background
-printf "\e]20;${tmp};50x50+95+45:op=keep-aspect\a"
+printf "\e]20;${tmp};50x50+95+40:op=keep-aspect\x9c"
 rm "$tmp"

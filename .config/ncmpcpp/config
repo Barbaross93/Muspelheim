@@ -2,6 +2,7 @@
 mpd_host = "localhost"
 mpd_port = "6600"
 mpd_music_dir = "http://192.168.0.2/"
+mpd_connection_timeout = 60
 
 # General
 lyrics_directory = "/home/barbaross/.cache/lyrics/"
@@ -22,10 +23,11 @@ lines_scrolled = 1
 # Aesthetics
 user_interface = "classic"
 playlist_display_mode = "columns"
-song_columns_list_format = "(20)[]{a} (25)[]{t} (20)[]{b} (5)[]{l}"
+song_columns_list_format = "(20)[4]{a} (25)[]{t} (20)[9]{b} (5)[]{l}"
+song_status_format = "$8%a "%b" - %t$9"
 
 colors_enabled = "yes"
-discard_colors_if_item_is_selected = "no"
+discard_colors_if_item_is_selected = "yes"
 
 header_visibility = "yes"
 titles_visibility = "no"
@@ -37,23 +39,24 @@ playlist_editor_display_mode = columns
 
 volume_color = "2"
 statusbar_color = "4"
+statusbar_time_color = "9"
 header_window_color = "2"
 main_window_color = "8"
 empty_tag_color = "9"
 color1 = "8"
 color2 = "8"
 
-now_playing_prefix = "$4$b"
+now_playing_prefix = "$2$b"
 now_playing_suffix = "$9$/b"
-current_item_prefix = "$(4_1)$b"
+current_item_prefix = "$(2_1)$b"
 current_item_suffix = "$/b$(end)"
-current_item_inactive_column_prefix = "$(8_1)"
+current_item_inactive_column_prefix = "$(4_1)"
 current_item_inactive_column_suffix = $(end)
-state_line_color = "9"
+state_line_color = "1"
 state_flags_color = "4"
 window_border_color = "9"
 active_window_border = "9"
-player_state_color = "4"
+player_state_color = "9"
 
 progressbar_color = "1"  
 progressbar_look= "━━━"
@@ -66,9 +69,9 @@ visualizer_output_name = "visulaizer"
 visualizer_in_stereo = "yes"
 visualizer_type = "wave_filled"
 visualizer_look = "┃┃"
-visualizer_color = "blue, 9, black"
+visualizer_color = "9, yellow, red"
 visualizer_fps = 30
 
 # Notification hooks
-#execute_on_player_state_change = spotplay
-execute_on_song_change = spotplay && ~/.config/ncmpcpp/urxvt-cover.sh
+execute_on_player_state_change = mpdnotif.sh
+execute_on_song_change = ~/.config/ncmpcpp/urxvt-cover.sh

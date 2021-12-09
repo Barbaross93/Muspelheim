@@ -39,5 +39,14 @@ for s in $snapshots; do
 	efibootmgr -q --create --disk /dev/nvme0n1 --part 1 --label "$s" --loader "binaries\\$s.efi"
 done
 
-# TODO Intelligently figure out order
-efibootmgr -q -o 0005,0004,0003,0002,0001,0000
+# "Intelligently" figure out order
+# attempts to start sorting based on name of snapshot instead of efibootmgr ID
+snaps="$(efibootmgr | grep 'ROOT' | sed 's/Boot//g' | tr -d '*' | sort -k2.1 -r | cut -d' ' -f1)"
+main=$(efibootmgr | grep 'Void' | sed 's/Boot//g' | tr -d '*' | cut -d' ' -f1)
+
+for s in $snaps; do
+	snap_order+="$s,"
+done
+# Remove last extra comma
+snap_order=${snap_order::-1}
+efibootmgr -q -o "$main,$snap_order"

@@ -23,13 +23,16 @@ case "$1" in
 *png | *png* | *jpg | *jpg* | *jpe | *jpe* | *jpeg | *jpeg* | *gif)
 	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && nsxiv -s f -a "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1 &
 	;;
-#*reddit*unix* | *apod* | *xkcd* | *smbc-comics*)
-#	images=$(lynx -image_links -dump "$1" | grep '\. https\?://.*\.\(gif\|jpg\|png\)$' | cut -d . -f 2- | cut -d ' ' -f 2- | grep -v redditstatic | grep -v 'images/mob' | dmenu -p Images:)
-#	test -n "$images" && linkhandler "$images"
-#	;;
+*apod*)
+	images=$(lynx -image_links -dump "$1" | grep '\. https\?://.*\.\(gif\|jpg\|png\)$' | cut -d . -f 2- | cut -d ' ' -f 2- | grep -v redditstatic | grep -v 'images/mob' | dmenu -p Images:)
+	test -n "$images" && linkhandler "$images"
+	;;
+*reddit*)
+	pipx run tuir "$1"
+	;;
 *)
-	if [ -z "$*" ]; then
-		exit 1
+	if [ "$(herbstclient attr clients.focus.title)" = "newsboat" ]; then
+		lynx "$1"
 	else
 		setsid $BROWSER "$1" >/dev/null 2>&1 &
 	fi

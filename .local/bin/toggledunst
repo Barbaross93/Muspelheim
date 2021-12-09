@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if [ -f "/tmp/notif_pause" ]; then
-	echo resume >>/tmp/signal_bar
-	notify-send "notifs" "Notifications resumed"
-else
-	notify-send "notifs" "Notifications paused"
-	echo pause >>/tmp/signal_bar
-fi

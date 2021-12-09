@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec mpd-mpris -no-instance -host localhost -port 6600

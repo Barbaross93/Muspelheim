@@ -13,7 +13,7 @@
 # Completion
 autoload -Uz compinit
 compinit
-setopt COMPLETE_ALIASES
+unsetopt completealiases
 
 ## Nifty third party tools
 #import nifty gitstatus tool
@@ -41,7 +41,9 @@ autoload -U colors && colors
 
 # Make home/end/del keys work properly
 bindkey  "^[[7~"   beginning-of-line
+bindkey  "^[[1~"   beginning-of-line
 bindkey  "^[[8~"   end-of-line
+bindkey  "^[[4~"   end-of-line
 bindkey  "^[[3~"   delete-char
 bindkey  "^[[5~"   up-line-or-history
 bindkey  "^[[6~"   down-line-or-history
@@ -74,7 +76,7 @@ cup(){
   echo "$line"
 }
 
-# Preexec function: Stuff to do before inserted command is run
+# Preexec function
 setup() {
 	# Change window title to current command right after command is inputted
 	print -Pn "\e]0;$1\a"
@@ -134,7 +136,7 @@ eval $(dircolors -p | perl -pe 's/^((CAP|S[ET]|O[TR]|M|E)\w+).*/$1 00/' | dircol
 export PF_INFO="ascii title os host kernel wm pkgs shell editor palette"
 
 ### Aliases
-alias svim='sudo -e vim'
+alias svim='sudoedit'
 alias weather="curl 'wttr.in/?T'"
 alias li="exa --icons"
 alias l="exa -la"
@@ -169,13 +171,19 @@ alias pyratehole="lynx gopher://g.nixers.net/1/~pyratebeard/music/this_week.txt"
 alias dotlink="stow -R --target=/home/barbaross -d /home/barbaross/Public/thonkpad-dotfiles ."
 alias spotdl="cd ~/Music && pipx run spotdl"
 alias sshpi="ssh pi@192.168.0.2"
-alias tp="trash-put"
-alias tr="trash-restore"
-alias te="trash-empty"
+alias trp="trash-put"
+alias trr="trash-restore"
+alias tre="trash-empty"
+alias ovpn="sudo openvpn --config /etc/openvpn/client/barbarossaOvpn.ovpn --askpass /etc/openvpn/barbarossOvpn.pass --daemon"
+alias kovpn="sudo pkill openvpn"
+alias wgu="sudo wg-quick up barbarossvpn"
+alias wgd="sudo wg-quick down barbarossvpn"
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....="cd ../../../.."
 alias _="sudo"
+alias mntmsc="sshfs pi@192.168.0.2:/var/www/html ~/Music"
+alias vit="pipx run vit"
 
 ### Functions
 
