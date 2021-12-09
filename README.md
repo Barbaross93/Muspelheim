@@ -16,7 +16,7 @@
 - Editor: [vim](https://github.com/vim/vim)
 - Email: [mutt](https://gitlab.com/muttmua/mutt)
 - Calendar/Contacts: [khal](https://github.com/pimutils/khal) and [khard](https://github.com/scheibler/khard) synced with [vdirsyncer](https://github.com/pimutils/vdirsyncer)
-- Tasks: [taskwarrior](https://github.com/GothenburgBitFactory/taskwarrior) with [tasknc](https://github.com/lharding/tasknc)
+- Tasks: [taskwarrior](https://github.com/GothenburgBitFactory/taskwarrior) with [vit](https://github.com/vit-project/vit)
 - Chat: [weechat](https://github.com/weechat/weechat)
 - RSS feeds: [newsboat](https://github.com/newsboat/newsboat)
 - App Launcher: [rofi](https://github.com/davatorium/rofi)
