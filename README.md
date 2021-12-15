@@ -10,7 +10,7 @@
 - Browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser)
 - Bar: [lemonbar](https://github.com/LemonBoy/bar)
 - Fonts: creeper for primary text, [Cozette](https://github.com/slavfox/Cozette) for terminal icons, and [Siji](https://github.com/stark/siji) for bar icons
-- Music: [ncmpcpp](https://github.com/ncmpcpp/ncmpcp) with [mpd](https://github.com/MusicPlayerDaemon/MPD) and  urxvt's built-in image display
+- Music: [cmus](https://github.com/cmus/cmus)
 - GTK: [Elkowar's phocus fork](https://github.com/elkowar/gtk) (modified to match current colorscheme)
 - File manager: [ranger](https://github.com/ranger/ranger)
 - Editor: [vim](https://github.com/vim/vim)
