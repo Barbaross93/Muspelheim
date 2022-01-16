@@ -34,14 +34,14 @@ tail -f /tmp/signal_bar |
 #-misc-termsynu-medium-r-normal-*-14-*-*-*-*-*-iso10646-*
 #-romeovs-creep2-medium-r-normal--11-110-75-75-c-50-iso10646-1
 #-sxthe-terra-medium-r-normal--12-120-72-72-c-60-iso8859-1
-FONTS="-f -barbaross-creeper-medium-r-normal--13-101-100-100-c-70-iso8859-1 -f -wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1 -f -barbaross-creeper-bold-r-normal--13-101-100-100-c-70-iso8859-1"
+FONTS="-f -barbaross-creeper-medium-r-normal--15-150-100-100-m-80-iso8859-1 -f -wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1 -f -barbaross-creeper-bold-r-normal--15-150-100-100-m-80-iso8859-1"
 WIDTH=1920        # bar width
 HEIGHT=36         # bar height
 XOFF=0            # x offset
 YOFF=0            # y offset
 BBG=${background} # bar background color
 BFG=${foreground}
-BDR=${color17}
+BDR=${color16}
 
 # Status constants
 # Change these to modify bar behavior
@@ -281,12 +281,13 @@ notif() {
 			# Easy to spam binding, clean up first before cont.
 			[[ -f "/tmp/notif_skip" ]] && rm /tmp/notif_skip
 
-			# We block the forground until rofi is dead, if its running
+			# We block the foreground until rofi is dead, if its running
 			pid=$(pgrep -x rofi)
 			if [ -n "$pid" ]; then
 				tail --pid="$pid" -f /dev/null
 			fi
 
+			# If pause signal was sent to script
 			if [[ -f "/tmp/notif_pause" ]]; then
 				# Block foreground until file gets deleted
 				inotifywait -q -q /tmp/notif_pause
@@ -298,9 +299,11 @@ notif() {
 			case "$line" in
 			LOG*)
 				line="${line#LOG }"
+				pretext="NOTIF %{T3}${ORANGE}NOTIF HISTORY:%{T-}${CLR} "
 				;;
 			*)
 				echo "LOG $line" >>/tmp/notif_log
+				pretext="NOTIF %{T3}${ORANGE}NOTIFICATION:%{T-}${CLR} "
 				;;
 			esac
 			body="$(echo -e "$line" | cut -f1 -)"
@@ -308,20 +311,47 @@ notif() {
 			timeout="$(echo -e "$line" | cut -f3 -)"
 			notif="$summary"
 
-			# If summary is blank, display body instead
-			[ -z "$notif" ] && notif="$body"
-			if [ $(echo "$notif" | wc -c) -gt 100 ]; then
-				notif="$(echo $notif | cut -c -100)..."
-			fi
-
-			echo "NOTIF %{T3}${ORANGE}NOTIFICATION:%{T-}${CLR} $notif"
-
-			c=0
+			# Determine actual timeout in secs
 			if [ "$timeout" = "-1" ]; then
 				time=10.0
 			else
 				time=$(echo "scale=1;$timeout/1000" | bc)
 			fi
+
+			# If summary is blank, display body instead
+			[ -z "$notif" ] && notif="$body"
+
+			# Scroll if greater than 75 characters
+			if [ ${#notif} -gt 75 ]; then
+				#echo "$notif" | timeout ${time}s zscroll -n -d 0.3 -l 75 -b "$pretext"
+				#txtstrng=$(echo "$notif" | skroll -n 75 -d 0 -r)
+				scrolltxt="$notif - "
+
+				end=$((SECONDS + ${time%.*}))
+				while [ $SECONDS -lt $end ]; do
+					[[ -f "/tmp/notif_skip" ]] && rm /tmp/notif_skip && break
+					c=0
+					length=${#scrolltxt}
+					dots=$(printf '%0.s.' $(seq -s " " 75))
+					while [ $c -le $length ]; do
+						[ $SECONDS -ge $end ] && break
+						[[ -f "/tmp/notif_skip" ]] && break
+						scrollstart=${scrolltxt:$c:$length}
+						scrollend=${scrolltxt:0:$c}
+						# Need to use grep to handle multibyte chars
+						finaltxt=$(grep -o "^$dots" <(printf "%s" "$scrollstart$scrollend"))
+						echo "$pretext$finaltxt"
+						c=$((c + 1))
+						sleep 0.2
+					done
+				done
+				echo "NOTIF ${CLR}"
+				continue
+			else
+				echo "$pretext$notif"
+			fi
+
+			c=0
 			while (($(echo "$c <= $time" | bc -l))); do
 				[[ -f "/tmp/notif_skip" ]] && rm /tmp/notif_skip && break
 				sleep 0.2
@@ -366,7 +396,6 @@ volume() {
 
 volume | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
-#TODO Make me not need brightness watcher external script
 brightness() {
 	brighticon() {
 		#local light=$(xbacklight -get)
@@ -433,7 +462,7 @@ batstat | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
 wireless() {
 	wirelessicon() {
-		local wifi=$(iwctl station wlp5s0 show | grep "Connected network" | awk '{print $3}')
+		local wifi=$(iwctl station wlp5s0 show | grep "Connected network" | xargs | cut -d' ' -f3-)
 		local raw=$(cat /proc/net/wireless | grep wlp5s0 | awk '{print $4}' | tr -d '.')
 		local strength=$(echo "2*($raw+100)" | bc)
 
@@ -496,7 +525,7 @@ bltth() {
 
 			if [ "$status" -eq 1 ]; then
 				bt="${GREY}${GLYBT}"
-			else
+			elif [ "$status" -eq 0 ]; then
 				bt="${CYAN}${GLYBT}"
 			fi
 
@@ -639,4 +668,10 @@ else
 	# For some bizarre reason, the main panel wont show anything until something is watching the external panel fifo
 	tail -f "${EXT_PANEL_FIFO}" &>/dev/null &
 fi
+
+# Make bars below all windows
+for i in $(xdotool search --all --maxdepth 1 --onlyvisible --name 'main|bdr'); do
+	herbstclient lower "$i"
+done
+
 wait

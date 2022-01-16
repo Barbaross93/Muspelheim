@@ -22,6 +22,7 @@ query() {
 
 cleanup() {
 	[ -f $count ] && rm $count
+	#pgrep --full "timeout.*zscroll.*" && pkill --full "timeout.*zscroll.*"
 	echo "skip" >/tmp/signal_bar
 }
 

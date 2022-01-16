@@ -35,13 +35,13 @@ hc keybind Mod4-r chain \
     '->' spawn notify-send "hlwm" "Record mp4/gif (mg) or press Escape" \
     '->' keybind "${keys[0]}" chain "${unbind[@]}" , spawn mp4 \
     '->' keybind "${keys[1]}" chain "${unbind[@]}" , spawn gif \
-    '->' keybind Escape chain "${unbind[@]}"
+    '->' keybind Escape chain "${unbind[@]}" #Keychain to record mp4 or gif
 
-hc keybind Mod4-Mod1-r chain \
-    '->' spawn notify-send "hlwm" "Record mp4/gif selection (mg) or press Escape" \
-    '->' keybind "${keys[0]}" chain "${unbind[@]}" , spawn mp4 -s \
-    '->' keybind "${keys[1]}" chain "${unbind[@]}" , spawn gif -s \
-    '->' keybind Escape chain "${unbind[@]}"
+#hc keybind Mod4-Mod1-r chain \
+#    '->' spawn notify-send "hlwm" "Record mp4/gif selection (mg) or press Escape" \
+#    '->' keybind "${keys[0]}" chain "${unbind[@]}" , spawn mp4 -s \
+#    '->' keybind "${keys[1]}" chain "${unbind[@]}" , spawn gif -s \
+#    '->' keybind Escape chain "${unbind[@]}"
 
 #########################################################################################
 
@@ -55,9 +55,9 @@ done
 
 hc keybind Mod4-j chain \
     '->' spawn notify-send "hlwm" "Song info/cover art (na) or press Escape" \
-    '->' keybind "${keys[0]}" chain "${unbind[@]}" , spawn spotplay \
-    '->' keybind "${keys[1]}" chain "${unbind[@]}" , spawn nsxiv -b /tmp/cover.png \
-    '->' keybind Escape chain "${unbind[@]}"
+    '->' keybind "${keys[0]}" chain "${unbind[@]}" , spawn ~/.config/cmus/cmus_notify.sh \
+    '->' keybind "${keys[1]}" chain "${unbind[@]}" , spawn ~/.config/cmus/art.sh \
+    '->' keybind Escape chain "${unbind[@]}" #Keychain for song info/art
 
 #########################################################################################
 
@@ -74,27 +74,11 @@ hc keybind Mod4-s chain \
     '->' keybind "${keys[0]}" chain "${unbind[@]}" , pseudotile toggle \
     '->' keybind "${keys[1]}" chain "${unbind[@]}" , attr clients.focus.floating toggle \
     '->' keybind "${keys[2]}" chain "${unbind[@]}" , fullscreen toggle \
-    '->' keybind Escape chain "${unbind[@]}"
+    '->' keybind Escape chain "${unbind[@]}" #Keychain for window states
 
 #########################################################################################
 
-# Rotate focus across all frames
-keys=(f b)
-
-unbind=()
-for k in "${keys[@]}" Escape; do
-    unbind+=(, keyunbind "$k")
-done
-
-hc keybind Mod4-Control-r chain \
-    '->' spawn notify-send "hlwm" "Rotate focus across all frames (fb) or press Escape" \
-    '->' keybind "${keys[0]}" chain "${unbind[@]}" , spawn spotplay \
-    '->' keybind "${keys[1]}" chain "${unbind[@]}" , spawn cover_popup.sh \
-    '->' keybind Escape chain "${unbind[@]}"
-
-#########################################################################################
-
-# Pomodoro functions
+# Pomo controls
 keys=(s t k)
 
 unbind=()
@@ -103,10 +87,10 @@ for k in "${keys[@]}" Escape; do
 done
 
 hc keybind Mod4-p chain \
-    '->' spawn notify-send "hlwm" "Pomodoro functions (stk) or press Escape" \
+    '->' spawn notify-send "hlwm" "Pomodoro controls (stk) or press Escape" \
     '->' keybind "${keys[0]}" chain "${unbind[@]}" , spawn pomo -s \
     '->' keybind "${keys[1]}" chain "${unbind[@]}" , spawn pomo -t \
     '->' keybind "${keys[2]}" chain "${unbind[@]}" , spawn pomo -k \
-    '->' keybind Escape chain "${unbind[@]}"
+    '->' keybind Escape chain "${unbind[@]}" #Keychain for pomodoro ctrls
 
 #########################################################################################

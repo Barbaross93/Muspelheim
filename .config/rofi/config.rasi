@@ -1,5 +1,5 @@
 configuration {
-	theme: "dmenu";
+	terminal: "urxvtdc";
 	run {
 		display-name: "Launch:";
 	}
@@ -10,4 +10,5 @@ configuration {
 		display-name: "Emoji:";
 	}
 }
+@theme "dmenu"
 // vim:ft=css

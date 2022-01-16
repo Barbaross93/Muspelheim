@@ -44,7 +44,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'airblade/vim-gitgutter'
 " Notes/ task
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
-"Plug 'tools-life/taskwiki'
+Plug 'tools-life/taskwiki'
 " writing plugins
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
@@ -57,7 +57,7 @@ Plug 'preservim/vim-textobj-quote'
 Plug 'preservim/vim-lexical'
 Plug 'tpope/vim-markdown'
 "Misc/useful plugins
-Plug 'AlessandroYorba/Alduin'
+Plug 'AlessandroYorba/Alduin', {'branch': 'master'}
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
@@ -82,7 +82,6 @@ Plug 'chrisbra/Colorizer'
 "Plug 'mbbill/undotree'
 "Plug 'preservim/nerdcommenter'
 "Plug 'tpope/vim-surround'
-"Plug 'vim-airline/vim-airline-themes'
 "Plug 'jiangmiao/auto-pairs'
 "Plug 'jalvesaq/zotcite'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -162,6 +161,8 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 let g:airline_symbols.dirty=' '
 
+" airline tabs
+let g:airline#extensions#tabline#enabled = 1
 
 " setup for goyo & limelight
 let g:limelight_conceal_ctermfg = 'gray'
@@ -253,6 +254,9 @@ let g:gitgutter_sign_removed_above_and_below = '▍'
 
 " vim-pandoc settings
 "let g:pandoc#biblio#sources = "g"
+let g:pandoc#command#latex_engine = 'tectonic'
+let g:pandoc#command#autoexec_on_writes = 1
+let g:pandoc#command#autoexec_command = "Pandoc pdf"
 let g:pandoc#biblio#bibs = ['/home/barbaross/Documents/School/Bibliography/Library/Library.bib']
 augroup VimCompletesMePandoc
   autocmd!
@@ -298,3 +302,7 @@ nnoremap td  :tabclose<CR>
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
+
+" indent wrapped lines correctly:
+set breakindent
+set showbreak=..

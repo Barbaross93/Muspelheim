@@ -8,21 +8,26 @@ config.load_autoconfig()
 alduin.draw.konda(c)
 
 c.fonts.default_family = "custom"
-c.fonts.hints = "10pt custom"
-c.fonts.keyhint = "10pt custom"
-c.fonts.prompts = "10pt custom"
-c.fonts.downloads = "10pt custom"
-c.fonts.statusbar = "10pt custom"
-c.fonts.contextmenu = "10pt custom"
-c.fonts.messages.info = "10pt custom"
-c.fonts.debug_console = "10pt custom"
-c.fonts.completion.entry = "10pt custom"
-c.fonts.completion.category = "10pt custom"
+c.fonts.hints = "15pt custom"
+c.fonts.keyhint = "15pt custom"
+c.fonts.prompts = "15pt custom"
+c.fonts.downloads = "15pt custom"
+c.fonts.statusbar = "15pt custom"
+c.fonts.contextmenu = "15pt custom"
+c.fonts.messages.info = "15pt custom"
+c.fonts.debug_console = "15pt custom"
+c.fonts.completion.entry = "15pt custom"
+c.fonts.completion.category = "15pt custom"
 c.url.start_pages = "~/.config/qutebrowser/startpage/index.html"
 c.url.default_page = "~/.config/qutebrowser/startpage/index.html"
 c.editor.command = ["/usr/bin/urxvt", "-e", "/usr/bin/vim {}"]
 
 c.colors.webpage.darkmode.enabled = False
+
+# Tor browsing
+#c.content.proxy = 'socks5://localhost:9050/'
+# c.url.searchengines = {
+#    'DEFAULT': 'https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/?q={}'}
 
 # config.set("colors.webpage.darkmode.enabled", False)
 # Toggle darkmode css

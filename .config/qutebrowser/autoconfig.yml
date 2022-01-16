@@ -37,6 +37,8 @@ settings:
     global: auto
   content.geolocation:
     https://www.google.com: true
+  content.headers.referer:
+    global: same-domain
   content.media.audio_capture:
     https://umaryland.webex.com: true
     https://umaryland.zoom.us: true
@@ -88,9 +90,9 @@ settings:
     - lf
     - --choosefile={}
   fonts.default_family:
-    global: 10pt custom
+    global: 15pt custom
   fonts.default_size:
-    global: 10pt
+    global: 15pt
   hints.radius:
     global: 0
   keyhint.radius:

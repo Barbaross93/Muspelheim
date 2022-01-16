@@ -50,7 +50,7 @@ wm="hlwm"
 shell=$(basename $(printenv SHELL))
 term=$(echo "$TERM")
 term="${term%-256color}"
-uptm=$(uptime -p | sed -e 's/hour/hr/' -e 's/hours/hrs/' -e 's/minutes/mins/' -e 's/minute/min/' -e 's/up //')
+#uptm=$(uptime -p | sed -e 's/hour/hr/' -e 's/hours/hrs/' -e 's/minutes/mins/' -e 's/minute/min/' -e 's/up //')
 
 #Cleanup first
 clear

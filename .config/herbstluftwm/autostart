@@ -22,9 +22,7 @@ hc() {
 hc emit_hook reload
 
 # Always wanted for refresh
-hsetroot -tile ~/Pictures/noise_tile.png
-#noisewall "#452f2f"
-#xsetroot -bitmap ~/Pictures/bitmap-walls/patterns/dots_rand2.xbm -bg "#402929" -fg "#452f2f"
+noisewall "#452f2f"
 
 # remove all existing keybindings
 hc keyunbind --all
@@ -55,8 +53,8 @@ hc keybind XF86Display spawn caffeine.sh        #Toggle caffeine
 
 # Utilities
 hc keybind Mod4-u spawn unmount.sh                    #Unmount drives
-hc keybind Print spawn prtscr                         #Print Screen
-hc keybind Mod4-Print spawn prtregion                 #Print region
+hc keybind XF86Favorites spawn prtscr                 #Print Screen
+hc keybind Mod4-XF86Favorites spawn prtregion         #Print region
 hc keybind Mod4-z spawn file-finder                   #File search/ directory opener
 hc keybind Mod4-x spawn clipmenu -p 'Clipboard:' -l 0 #Clipboard manager
 hc keybind Mod4-Shift-c spawn colorpicker.sh          #Colorpicker
@@ -74,16 +72,14 @@ hc keybind XF86MonBrightnessDown spawn bright down #Decrease brightness
 hc keybind XF86AudioRaiseVolume spawn vol pulse up           #Increase Volume
 hc keybind XF86AudioLowerVolume spawn vol pulse down         #Decrease volume
 hc keybind XF86AudioMute spawn vol pulse mute                #Mute audio
-hc keybind XF86AudioMicMute spawn vol pulsemic mute          #Mute microphone
-hc keybind Mod4-XF86AudioRaiseVolume spawn vol pulsemic up   #Increase mic volume
 hc keybind Mod4-XF86AudioLowerVolume spawn vol pulsemic down #Decrease mic volume
 hc keybind Mod4-XF86AudioMute spawn vol pulsemic mute        #mute mic
 
 # Player controls
-hc keybind Mod4-Control-Mod1-Left spawn media-control previous #Previous audio
-hc keybind Mod4-Control-Mod1-Right spawn media-control next    #Next audio
-hc keybind Mod4-Control-Mod1-Up spawn media-control play-pause #Toggle play/pause audio
-hc keybind Mod4-Control-Mod1-Down spawn media-control stop     #Stop audio
+hc keybind Mod4-Control-Mod1-Left spawn playerctl previous #Previous audio
+hc keybind Mod4-Control-Mod1-Right spawn playerctl next    #Next audio
+hc keybind Mod4-Control-Mod1-Up spawn playerctl play-pause #Toggle play/pause audio
+hc keybind Mod4-Control-Mod1-Down spawn playerctl stop     #Stop audio
 
 # Window/frame controls
 hc keybind Mod4-q close                                                    #Close focused window
@@ -108,8 +104,9 @@ hc keybind Mod4-Shift-Up shift up       #Move window up
 hc keybind Mod4-Shift-Right shift right #Move window right
 
 # Cycle focus through tags
-hc keybind Mod4-period use_index +1 --skip-visible #Cycle tag focus forward
-hc keybind Mod4-comma use_index -1 --skip-visible  #Cycle tag focus backward
+hc keybind Mod4-period ~/.config/herbstluftwm/scripts/tag_switch.sh next #Switch to next non-empty tag
+
+hc keybind Mod4-comma ~/.config/herbstluftwm/scripts/tag_switch.sh prev #Switch to prev non-empty tag
 
 # Create frames
 frac="0.5"
@@ -126,7 +123,9 @@ hc keybind Mod4-Mod1-Down resize down +$resizestep   #Resize frames downwards
 hc keybind Mod4-Mod1-Up resize up +$resizestep       #Resize frame upwards
 hc keybind Mod4-Mod1-Right resize right +$resizestep #Resize frame rightwards
 
+# Misc. frame ctrls
 hc keybind Mod4-f set always_show_frame toggle #Toggle frame visibility
+hc keybind Mod4-Control-r rotate               #Rotate fram layout by 90 degrees
 
 # Adjust gaps
 hc keybind Mod4-minus spawn ~/.config/herbstluftwm/scripts/gap_adjust.sh -win       #Minus window gap
@@ -138,8 +137,9 @@ hc keybind Mod4-BackSpace spawn ~/.config/herbstluftwm/scripts/gap_adjust.sh    
 # swapping frames (actually just transferring windows across frames)
 hc keybind Mod4-Shift-Ctrl-Right \
     substitute OLDWIN clients.focus.winid chain \
-    , focus -e right
-
+    , focus -e right \
+    , substitute NEWWIN clients.focus.winid \
+    spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN left
 hc keybind Mod4-Shift-Ctrl-Left \
     substitute OLDWIN clients.focus.winid chain \
     , focus -e left \
@@ -185,14 +185,12 @@ for i in "${!tag_names[@]}"; do
         hc keybind "Mod4-Shift-$key" move_index "$i"                                                                                        #Move focus window to tag at number
     fi
 done
-hc keybind Mod1-Tab spawn ~/.config/herbstluftwm/scripts/tag_switch.sh next #Switch to next non-empty tag
-hc keybind Mod1-Shift-Tab ~/.config/herbstluftwm/scripts/tag_switch.sh prev #Switch to prev non-empty tag
 
 # theme
 hc set hide_covered_windows false
 hc set frame_border_active_color '#af875f'
 hc set frame_border_normal_color '#1c1c1c'
-hc set frame_border_inner_color '#3a3a3a'
+hc set frame_border_inner_color '#424242'
 hc set frame_border_inner_width 5
 hc set frame_border_width 8
 hc set always_show_frame 0
@@ -207,16 +205,21 @@ hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
 hc attr theme.minimal.reset 1
 
+hc attr theme.title_when 'multiple_tabs'
+hc attr theme.title_align 'center'
 hc attr theme.title_color '#dfdfaf'
 hc attr theme.title_font 'custom'
-hc attr theme.title_align 'center'
-hc attr theme.minimal.title_align 'center'
-hc attr theme.minimal.active.title_height 25
-hc attr theme.minimal.active.padding_top 18
-hc attr theme.minimal.title_color '#dfdfaf'
-hc attr theme.minimal.title_font 'custom'
-hc attr theme.minimal.active.color '#1c1c1c'
-hc attr theme.minimal.normal.color '#3a3a3a'
+hc attr theme.title_height 25
+hc attr theme.title_depth 18
+hc attr theme.border_width 0
+hc attr theme.tab_color '#424242'
+#hc attr theme.inner_width 5
+#hc attr theme.outer_width 3
+hc attr theme.color '#1c1c1c'
+hc attr theme.active.color '#1c1c1c'
+hc attr theme.normal.outer_color '#1c1c1c'
+hc attr theme.active.outer_color '#af875f'
+hc attr theme.inner_color '#424242'
 hc attr theme.floating.border_width 8
 hc attr theme.floating.inner_width 5
 hc attr theme.floating.outer_width 3
@@ -229,7 +232,7 @@ hc attr theme.urgent.outer_color '#af5f5f'
 hc set frame_active_opacity 0
 
 hc set window_gap 0
-hc set smart_window_surroundings 1
+hc set smart_window_surroundings 0
 hc set smart_frame_surroundings 0
 hc set focus_stealing_prevention true
 hc set mouse_recenter_gap 0
@@ -242,20 +245,18 @@ hc pad 0 0 0 0 0
 hc unrule -F
 hc rule focus=on # normally focus new clients
 hc rule instance=dropdown floating=on focus=on
-hc rule class=Nsxiv floating=on floatplacement=none floating_geometry=1824x1026+40+19 focus=on
+hc rule class=Nsxiv floating=on floatplacement=center focus=on #floating_geometry=1824x1026+40+19
 hc rule class=mpv floating=on floatplacement=center focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on floatplacement=center
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 hc rule class=qutebrowser tag=1
 hc rule title=mutt tag=2
-hc rule title=tasknc tag=2
+hc rule title=vit tag=2
 hc rule title=ikhal tag=2
 hc rule class=Zathura tag=3
-#hc rule instance=bib.sh tag=5
-#hc rule title=slack-term tag=6
 hc rule title=weechat tag=6
-hc rule title=ncmpcpp tag=7
+hc rule title=Music tag=7 #fix me
 
 # unlock, just to be sure
 hc unlock
@@ -272,7 +273,7 @@ if hc silent new_attr bool my_not_first_autostart; then
     # Run these programs as user services
     runsvdir -P ~/.local/service &
 
-    # programs that dont run well as service or need to be toggleable
+    # programs that dont run well as service
     setsid -f sbar.sh &
     xob_startup.sh &
     ~/.config/herbstluftwm/idle_focus.sh &
@@ -282,13 +283,10 @@ if hc silent new_attr bool my_not_first_autostart; then
     while :; do
         [ "$(cat /sys/class/net/wlp5s0/carrier)" -eq 1 ] && break
     done
-    network=$(iwctl station wlp5s0 show | grep 'Connected network' | awk '{print $3}')
+    network=$(iwctl station wlp5s0 show | grep 'Connected network' | xargs | cut -d' ' -f3-)
     case "$network" in
     Ollies*Network)
         synergyc -d FATAL --enable-crypto --daemon --tls-cert /home/barbaross/.synergy/SSL/Synergy.pem 192.168.0.8
-        ;;
-    epfl | epfl-wpa)
-        sudo -A openvpn --config /etc/openvpn/client/barbarossaOvpn.conf --askpass /etc/openvpn/barbarossOvpn.pass --daemon
         ;;
     *)
         sudo -A wg-quick up barbarossvpn

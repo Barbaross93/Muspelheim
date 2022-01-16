@@ -14,6 +14,7 @@
 autoload -Uz compinit
 compinit
 unsetopt completealiases
+zstyle ':completion:*' rehash true
 
 ## Nifty third party tools
 #import nifty gitstatus tool
@@ -59,6 +60,20 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Setup fzf
 source /usr/share/fzf/key-bindings.zsh
+
+# Setup thefuck
+#eval $(thefuck --alias)
+#fuck-command-line() {
+#    local FUCK="$(THEFUCK_REQUIRE_CONFIRMATION=0 thefuck $(fc -ln -1 | tail -n 1) 2> /dev/null)"
+#    [[ -z $FUCK ]] && echo -n -e "\a" && return
+#    BUFFER=$FUCK
+#    zle end-of-line
+#}
+#zle -N fuck-command-line
+## Defined shortcut keys: [Esc] [Esc]
+#bindkey -M emacs '\e\e' fuck-command-line
+#bindkey -M vicmd '\e\e' fuck-command-line
+#bindkey -M viins '\e\e' fuck-command-line
 
 # Style completion menu
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==35=35}:${(s.:.)LS_COLORS}")';
@@ -170,20 +185,22 @@ alias hc='herbstclient'
 alias pyratehole="lynx gopher://g.nixers.net/1/~pyratebeard/music/this_week.txt"
 alias dotlink="stow -R --target=/home/barbaross -d /home/barbaross/Public/thonkpad-dotfiles ."
 alias spotdl="cd ~/Music && pipx run spotdl"
-alias sshpi="ssh pi@192.168.0.2"
+alias sshpi="ssh -p 5522 barbaross@192.168.0.2"
 alias trp="trash-put"
 alias trr="trash-restore"
 alias tre="trash-empty"
-alias ovpn="sudo openvpn --config /etc/openvpn/client/barbarossaOvpn.ovpn --askpass /etc/openvpn/barbarossOvpn.pass --daemon"
-alias kovpn="sudo pkill openvpn"
+#alias ovpn="sudo openvpn --config /etc/openvpn/client/barbarossaOvpn.ovpn --askpass /etc/openvpn/barbarossOvpn.pass --daemon"
+#alias kovpn="sudo pkill -INT openvpn"
 alias wgu="sudo wg-quick up barbarossvpn"
 alias wgd="sudo wg-quick down barbarossvpn"
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....="cd ../../../.."
 alias _="sudo"
-alias mntmsc="sshfs pi@192.168.0.2:/var/www/html ~/Music"
-alias vit="pipx run vit"
+#alias mntmsc="sshfs pi@192.168.0.2:/var/www/html ~/Music"
+#alias vit="pipx run vit"
+alias cmus='tmux new-session -s Music "tmux source-file ~/.config/cmus/tmux_session"'
+alias newsboat='newsboat -q'
 
 ### Functions
 

@@ -62,7 +62,8 @@ fade_brightness() {
 }
 
 trap 'exit 0' TERM INT
-trap "set_brightness $(get_brightness); kill %%" EXIT
+trap "set_brightness $(get_brightness); echo resume >/tmp/signal_bar; kill %%" EXIT
+echo pause >/tmp/signal_bar
 fade_brightness $min_brightness
 sleep 2147483647 &
 wait

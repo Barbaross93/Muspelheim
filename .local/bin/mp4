@@ -7,22 +7,22 @@
 #	setsid -f giph -s -y -a ~/Videos/$(date +%s).mp4 &>/dev/null
 #fi
 
-selection() {
-	if pgrep ffmpeg >/dev/null 2>&1; then
-		pkill ffmpeg >/dev/null 2>&1
-		notify-send "Record" "Recording ended"
-		#printf "Recording ended\n" >$XNOTIFY_FIFO
-	else
-		notify-send "Record" "Select region to record"
-		#printf "Select region to record\n" >$XNOTIFY_FIFO
+#selection() {
+if pgrep ffmpeg >/dev/null 2>&1; then
+	pkill ffmpeg >/dev/null 2>&1
+	notify-send "Record" "Recording ended"
+	#printf "Recording ended\n" >$XNOTIFY_FIFO
+else
+	notify-send "Record" "Select region to record"
+	#printf "Select region to record\n" >$XNOTIFY_FIFO
 
-		eval $(slop --color=0.874,0.874,0.686 -n -b 2 -f 'W=%w H=%h X=%x Y=%y')
-		input=$(date '+%Y-%m-%d_%H-%M-%S')
-		output=~/Videos/${input}.mp4
-		ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
-		#scr -c -e &>/dev/null
-	fi
-}
+	eval $(slop --color=0.874,0.874,0.686 -n -b 2 -f 'W=%w H=%h X=%x Y=%y')
+	input=$(date '+%Y-%m-%d_%H-%M-%S')
+	output=~/Videos/${input}.mp4
+	ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
+	#scr -c -e &>/dev/null
+fi
+#}
 
 full() {
 	if pgrep ffmpeg >/dev/null 2>&1; then
@@ -41,11 +41,11 @@ full() {
 	fi
 }
 
-case "$1" in
--s | --selection)
-	selection
-	;;
--f | --full | *)
-	full
-	;;
-esac
+#case "$1" in
+#-s | --selection)
+#	selection
+#	;;
+#-f | --full | *)
+#	full
+#	;;
+#esac

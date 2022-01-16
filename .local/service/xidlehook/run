@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec xidlehook --detect-sleep --timer 120 'echo pause >/tmp/signal_bar' 'echo resume >/tmp/signal_bar' --timer 480 'sudo zzz -H' '' --socket /tmp/xidlehook.sock

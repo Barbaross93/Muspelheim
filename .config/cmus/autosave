@@ -1,4 +1,4 @@
-set aaa_mode=all
+set aaa_mode=album
 set altformat_current= %F 
 set altformat_playlist= %f%= %d 
 set altformat_title=%f
@@ -17,20 +17,20 @@ set color_info=yellow
 set color_separator=black
 set color_statusline_attr=default
 set color_statusline_bg=default
-set color_statusline_fg=yellow
+set color_statusline_fg=magenta
 set color_titleline_attr=bold
 set color_titleline_bg=black
 set color_titleline_fg=red
 set color_trackwin_album_attr=bold
 set color_trackwin_album_bg=default
-set color_trackwin_album_fg=magenta
+set color_trackwin_album_fg=red
 set color_win_attr=default
 set color_win_bg=default
 set color_win_cur=yellow
 set color_win_cur_attr=bold
 set color_win_cur_sel_attr=bold
 set color_win_cur_sel_bg=black
-set color_win_cur_sel_fg=red
+set color_win_cur_sel_fg=yellow
 set color_win_dir=gray
 set color_win_fg=gray
 set color_win_inactive_cur_sel_attr=default
@@ -185,7 +185,7 @@ bind common s toggle shuffle
 bind common space win-toggle
 bind common t toggle show_remaining_time
 bind common tab win-next
-bind common u update-cache
+bind common u shell ~/.config/cmus/update.sh
 bind common up win-up
 bind common v player-stop
 bind common x player-play

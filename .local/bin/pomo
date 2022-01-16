@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# If not already running, start it
+if ! pgrep -x spt >/dev/null; then
+	nohup spt -e 'mpv ~/.config/pomo/war-horn.mp3' >/dev/null 2>&1 &
+	exit
+fi
+
+case "$1" in
+--state | -s)
+	kill -USR1 "$(pgrep -x spt)"
+	;;
+--toggle | -t)
+	kill -USR2 "$(pgrep -x spt)" && notify-send "Pomo" "Pomodoro state toggled"
+	;;
+--kill | -k)
+	pkill spt && notify-send "pomo" "Pomodoro timer killed"
+	;;
+*)
+	echo "$(basename $0) requires one argument: --state,-s --toggle,-t --kill,-k"
+	;;
+esac

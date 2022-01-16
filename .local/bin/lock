@@ -10,31 +10,29 @@ gpg-connect-agent --no-autostart reloadagent /bye
 #xclip -selection clipboard /dev/null
 #xclip -selection primary /dev/null
 #xclip -selection secondary /dev/null
-xsel -cb
+xsel -cbps
 
 xlock() {
 	XSECURELOCK_BACKGROUND_COLOR="#1c1c1c" XSECURELOCK_AUTH_BACKGROUND_COLOR="#1c1c1c" XSECURELOCK_AUTH_FOREGROUND_COLOR="#dfdfaf" \
 		XSECURELOCK_AUTH_WARNING_COLOR="#af5f5f" XSECURELOCK_SAVER="/home/barbaross/.local/bin/background.sh" \
 		XSECURELOCK_SHOW_HOSTNAME=0 XSECURELOCK_COMPOSITE_OBSCURER=1 XSECURELOCK_BURNIN_MITIGATION=0 XSECURELOCK_SHOW_USERNAME=0 \
-		XSECURELOCK_PASSWORD_PROMPT=cursor XSECURELOCK_SHOW_DATETIME=0 XSECURELOCK_FONT="-barbaross-creeper-medium-r-normal--13-101-100-100-c-70-iso8859-1" \
-		XSECURELOCK_NO_COMPOSITE=0 XSECURELOCK_BLANK_TIMEOUT=10 XSECURELOCK_DISCARD_FIRST_KEYPRESS=0 XSECURELOCK_BLANK_DPMS_STATE=off xsecurelock #-- xdotool key 0
+		XSECURELOCK_PASSWORD_PROMPT=cursor XSECURELOCK_SHOW_DATETIME=0 XSECURELOCK_FONT="-barbaross-creeper-medium-r-normal--15-150-100-100-m-80-iso8859-1" \
+		XSECURELOCK_NO_COMPOSITE=0 XSECURELOCK_BLANK_TIMEOUT=-1 XSECURELOCK_DISCARD_FIRST_KEYPRESS=0 XSECURELOCK_BLANK_DPMS_STATE=off xsecurelock #-- xdotool key 0
 }
 
 #dunstctl set-paused true
 echo pause >/tmp/signal_bar
 status=$(playerctl status)
-mpdstatus=$(mpc status | grep 'playing')
+#mpdstatus=$(mpc status | grep 'playing')
 playerctl pause
-mpc pause
+#mpc pause
 
 ## If using locker w/o screen coverage (e.g. xtrlock, slock with unlockscreen patch)
-#sxiv -bf ~/.cache/i3lock/$currentWall &
+#nsxiv -bf ~/.cache/i3lock/$currentWall &
 #unclutter -idle 0 -jitter 99999 & # hide cursor
 
 ### Locker(s)
 #slock -m "$(lock_msg.sh)" || lock
-#physlock -m -s -b "lock_msg.sh" -a "setterm --blank 0 &>/dev/null; setterm --powerdown 0 &>/dev/null" || lock
-#physlock -m -s -p "$(lock_msg.sh)" || lock
 #slock || lock
 xlock || lock
 #i3lock -i ~/Pictures/noise_lock_452f2f.png -e -t -u -n || lock
@@ -43,9 +41,9 @@ xlock || lock
 if [ "$status" = "Playing" ]; then
 	playerctl play
 fi
-if [ -n "$mpdstatus" ]; then
-	mpc play
-fi
+#if [ -n "$mpdstatus" ]; then
+#	mpc play
+#fi
 echo resume >/tmp/signal_bar
 
 #wait

@@ -9,7 +9,7 @@
     border-color:          #1c1c1c;
     text-color:           #dfdfaf;
     vertical-align:         0.5;
-    font:            "custom 13px";
+    font:            "custom 15px";
 }
 window {
     anchor:     north;
@@ -27,7 +27,7 @@ box-num {
     orientation: horizontal;
     background-color: #3a3a3a;
     expand:     false;
-    padding: 5px;
+    padding: 3px 5px;
     children: [ num-filtered-rows, textbox-slash, num-rows ];
 }
 num-filtered-rows {
@@ -44,7 +44,7 @@ textbox-slash {
 prompt {
     background-color:   #a87f5f;
     text-color:         #1c1c1c;
-    padding:    4px;
+    padding:    3px 5px;
 }
 listview {
     layout:     horizontal;
@@ -58,7 +58,7 @@ scrollbar {
 entry {
     expand:     false;
     width:      20em;
-    padding:    5px;
+    padding:    3px 5px;
 }
 element {
     padding: 0px 2px;
@@ -73,6 +73,6 @@ element selected {
 element-text {
     background-color:   inherit; 
     text-color:         inherit;
-    padding:            5px;
+    padding:            3px 5px;
 }
 // vim:ft=css

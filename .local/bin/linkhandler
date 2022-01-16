@@ -28,7 +28,7 @@ case "$1" in
 	test -n "$images" && linkhandler "$images"
 	;;
 *reddit*)
-	pipx run tuir "$1"
+	tuir "$1"
 	;;
 *)
 	if [ "$(herbstclient attr clients.focus.title)" = "newsboat" ]; then

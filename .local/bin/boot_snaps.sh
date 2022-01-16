@@ -9,22 +9,22 @@ number_of_snapshots=5
 
 mkdir -p "$binaries"
 
-snapshots=$(ls -1 "$snapshot_dir" | sort --numeric-sort | tail -$number_of_snapshots)
+snapshots=$(ls -1 "$snapshot_dir" | tail -$number_of_snapshots)
 
-num_binaries=$(ls -1 $binaries | grep -v "void-*" | wc -l)
+num_binaries=$(find "$binaries" -name 'ROOT*' | wc -l)
 
 # To make life easy, just remove all snapshot efi entries first
 efi=$(efibootmgr | grep "ROOT" | cut -c 5-8)
 for e in $efi; do
-	efibootmgr -q -b $e -B
+	efibootmgr -q -b "$e" -B
 done
 
 prune() {
 	diff=$(("$1" - number_of_snapshots))
-	to_delete=$(ls -1 "$2" | grep -v "void-*" | head -$diff)
+	to_delete=$(find "$2" -name 'ROOT*' | head -$diff)
 
 	for d in $to_delete; do
-		rm -f "$d"
+		rm -f "$d" && echo "$(basename "$d")" deleted.
 	done
 }
 

@@ -40,7 +40,6 @@ for id in $(herbstclient foreach C clients. echo C | grep -oE '0x[0-9a-fA-F]*');
     fi
     if herbstclient compare "${client}.floating" = on; then
         rule+=("floating=on")
-        consequence=
     else
         rule+=(
             "index=$(herbstclient get_attr ${client}.parent_frame.index)"
@@ -64,19 +63,24 @@ for i in "${!programs[@]}"; do
     # Generally, a terminal is running something, be it fish or some other running process
     if [[ "${programs[$i]}" == "urxvt" ]]; then
         title=$(cat $session_dir/saved_session_rules | sed -n -e $n\p | grep -o '".*"' | tr -d '"')
+        curdir="~"
         if grep "ncmpcpp" <(echo "$title"); then
-            title=ncmpcpp
+            prog=ncmpcpp
         elif grep "WeeChat" <(echo "$title"); then
-            title=weechat
+            prog=weechat
+        elif grep 'Music' <(echo "$title"); then
+            title=Music
+            prog='tmux new-session -s Music "tmux source-file ~/.config/cmus/tmux_session"'
+        elif grep 'ranger' <(echo "$title"); then
+            prog="ranger $(echo $title | cut -d':' -f2-)"
+        elif grep 'barbaross@Muspelheim: ' <(echo "$title"); then
+            prog="zsh"
+            curdir=$(echo "$title" | cut -d':' -f2-)
+        else
+            prog="$title"
         fi
-        programs[$i]="urxvt -title '$title' -e $title"
+        programs[$i]="urxvt -title '$title' -cd $curdir -e $prog"
     fi
-
-    # Special spotify tmux session
-    if [[ "${programs[$i]}" == "Spotify" ]]; then
-        programs[$i]="urxvt -name \"Spotify\" -e bash -ic \"tmux new-session -s Spotify 'tmux source-file ~/.config/spotifyd/tmux_session'\""
-    fi
-
     # Correction for dropdown term
     if [[ "${programs[$i]}" == "dropdown" ]]; then
         programs[$i]="hlscrthpd.sh"

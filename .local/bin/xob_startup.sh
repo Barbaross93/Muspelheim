@@ -9,8 +9,8 @@ mkfifo $vfifo
 [ -e "$bfifo" ] && rm $bfifo
 mkfifo $bfifo
 
-tail -f $vfifo | xob -s volume &
-tail -f $bfifo | xob -s backlight &
+tail -f $vfifo | xob -t 2000 -s volume &
+tail -f $bfifo | xob -t 2000 -s backlight &
 
 volu() {
 	stdbuf -o0 -i0 -e0 alsactl monitor |
@@ -37,7 +37,7 @@ light() {
 			xbacklight -get
 		done
 }
-#volu | xob -s volume &
-#light | xob -s backlight &
+#volu | xob -t 2000 -s volume &
+#light | xob -t 2000 -s backlight &
 
 wait

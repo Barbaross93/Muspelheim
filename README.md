@@ -11,12 +11,11 @@
 - Bar: [lemonbar](https://github.com/LemonBoy/bar)
 - Fonts: creeper for primary text, [Cozette](https://github.com/slavfox/Cozette) for terminal icons, and [Siji](https://github.com/stark/siji) for bar icons
 - Music: [cmus](https://github.com/cmus/cmus)
-- GTK: [Elkowar's phocus fork](https://github.com/elkowar/gtk) (modified to match current colorscheme)
 - File manager: [ranger](https://github.com/ranger/ranger)
 - Editor: [vim](https://github.com/vim/vim)
 - Email: [mutt](https://gitlab.com/muttmua/mutt)
 - Calendar/Contacts: [khal](https://github.com/pimutils/khal) and [khard](https://github.com/scheibler/khard) synced with [vdirsyncer](https://github.com/pimutils/vdirsyncer)
-- Tasks: [taskwarrior](https://github.com/GothenburgBitFactory/taskwarrior) with [tasknc](https://github.com/lharding/tasknc)
+- Tasks: [taskwarrior](https://github.com/GothenburgBitFactory/taskwarrior) with [vit](https://github.com/vit-project/vit)
 - Chat: [weechat](https://github.com/weechat/weechat)
 - RSS feeds: [newsboat](https://github.com/newsboat/newsboat)
 - App Launcher: [rofi](https://github.com/davatorium/rofi)

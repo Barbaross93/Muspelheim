@@ -26,7 +26,7 @@ done <~/.config/herbstluftwm/sessions/saved_session
 ##########################################################################
 
 ### Launches programs to fulfill rules
-tmux kill-session -t Spotify
+tmux kill-session -t Music
 ~/.config/herbstluftwm/sessions/saved_session_programs
 
 ##########################################################################

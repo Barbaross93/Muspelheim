@@ -16,7 +16,6 @@ herbstclient --idle "focus_changed" | while read -r event; do
   # Lock before changes
   # hide the frame border if the focused frame is empty
   # check if focused window is floating, if so, change active frame color (to reduce active window confusion)
-  # change title_heights and padding_tops depending on number of windows in frame
   # All clear!
   herbstclient chain \
     ^ lock \
@@ -30,11 +29,5 @@ herbstclient --idle "focus_changed" | while read -r event; do
     . and , compare tags.focus.floating_focused = true \
     , set frame_border_active_color '#1c1c1c' \
     . set frame_border_active_color '#af875f' \
-    ^ or . \
-    . and , compare tags.focus.curframe_wcount gt 1 \
-    , chain : attr theme.minimal.active.title_height 25 \
-    : attr theme.minimal.active.padding_top 18 \
-    . chain : attr theme.minimal.active.title_height 0 \
-    : attr theme.minimal.active.padding_top 0 \
     ^ unlock
 done
