@@ -24,14 +24,14 @@ fade_steps=20
 
 # Time to sleep (in seconds) between increments when using sysfs. If unset or
 # empty, fading is disabled.
-fade_step_time=0.05
+fade_step_time=0.01
 
 ###############################################################################
 
 get_brightness() {
     if [ -z "$sysfs_path" ]; then
-        xbacklight -get
-        #light
+        #xbacklight -get
+        light | cut -d'.' -f1
     else
         cat $sysfs_path
     fi
@@ -39,31 +39,38 @@ get_brightness() {
 
 set_brightness() {
     if [ -z "$sysfs_path" ]; then
-        xbacklight -steps 1 -set $1
-        #light -S $1
+        #xbacklight -steps 1 -set $1
+        light -S $1
     else
         echo $1 >$sysfs_path
     fi
 }
 
 fade_brightness() {
-    if [ -z "$sysfs_path" ]; then
-        xbacklight -time $fade_time -steps $fade_steps -set $1
-        #light -S $1
-    elif [ -z "$fade_step_time" ]; then
+    if [ -z "$fade_step_time" ]; then
         set_brightness $1
     else
         level=$(get_brightness)
-        while [ "$level" -le "$1" ]; do
-            set_brightness $level
+        steps=$(echo "($level - $min_brightness)/$fade_steps" | bc -l)
+        while [ $(get_brightness) -gt $min_brightness ]; do
+            light -U "$steps"
             sleep $fade_step_time
         done
     fi
 }
 
-trap 'exit 0' TERM INT
-trap "set_brightness $(get_brightness); echo resume >/tmp/signal_bar; kill %%" EXIT
+#cur_idle=$(xprintidle)
+old_brightness=$(get_brightness)
 echo pause >/tmp/signal_bar
 fade_brightness $min_brightness
-sleep 2147483647 &
-wait
+xinput test-xi2 --root |
+    while read -r event; do
+        echo "$event" | grep EVENT >/dev/null 2>&1 && break
+    done
+#while :; do
+#    [ $(xprintidle) -lt $cur_idle ] && break
+#    sleep 0.75
+#done
+
+set_brightness $old_brightness
+echo resume >/tmp/signal_bar

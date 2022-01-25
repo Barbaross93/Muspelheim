@@ -7,10 +7,10 @@
         $(function () {
             var thehours = new Date().getHours();
             var themessage;
-            var night = ('Good night Barbarossa');
-            var morning = ('Good morning Barbarossa');
-            var afternoon = ('Good afternoon Barbarossa');
-            var evening = ('Good evening Barbarossa');
+            var night = ('Good night Barbaross');
+            var morning = ('Good morning Barbaross');
+            var afternoon = ('Good afternoon Barbaross');
+            var evening = ('Good evening Barbaross');
 
             if (thehours >= 0 && thehours < 6) {
                 themessage = night;
@@ -52,6 +52,7 @@
             --color13: #af8787;
             --color14: #87afaf;
             --color15: #dfdfaf;
+            --color16: #323232;
         }
 
         @font-face {
@@ -67,16 +68,44 @@
             color: var(--foreground);
         }
 
-        .box {
-            width: 700px;
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 460px 600px 1fr;
+            grid-template-areas:
+            ". left right .";
+            column-gap: 20px;
+            justify-items: center;
+             align-items: center;
+            min-height: 100%;
             right: 50%;
             bottom: 50%;
             transform: translate(50%, 50%);
             position: absolute;
         }
 
+        .left-container {
+            grid-area: left;
+            aspect-ratio: 1/1;
+        }
+
+        .right-container {
+            grid-area: right;
+            width: 100%;
+            right: 50%;
+            bottom: 50%;
+            transform: translate(50%, 50%);
+            position: absolute;
+        }
+       
+        img {
+            height: 85%;
+            width: 85%;
+            border: 8px solid var(--color0);
+        }
+
         .categories {
             float: left;
+            color: var(--color3);
             margin 0;
             width: 20%;
             text-align: left;
@@ -102,7 +131,7 @@
         }
 
         a:hover {
-            font-weight: 350;
+            text-decoration: underline;
         }
 
         a:visited {
@@ -115,91 +144,61 @@
 
         .greeting {
             font-weight: 350;
+            color: var(--color1);
             float: left;
             margin 50;
             width: 100%;
+            height: 25px;
             text-align: left;
+            border-bottom: 3px solid var(--color0);
         }
     </style>
     <title>New Tab</title>
 </head>
 
 <body>
-    <!-- <main class="greeting">
-     <div id="col-1"></div>
-    </main>
+    <div class="container">
+        <div class="left-container">
+            <div class="img">
+                <img src="gustav_dore_bone_dred.jpg" />
+            </div>
+        </div>
 
-    <script>
-      var today = new Date();
-      var hourNow = today.getHours();
-      var greeting;
-
-      if (hourNow < 6){
-        greeting = "Good night Barbarossa";
-      }
-      else if (hourNow < 12){
-	greeting = 'Good morning Barbarossa';
-      }
-      else if (hourNow < 18){
-        greeting = 'Good afternoon Barbarossa';
-      }
-      else if (hourNow < 24){
-        greeting = 'Good evening Barbarossa';
-      }
-      else {
-        greeting = "Welcome";
-      }
- 
-      document.getElementById("col-1").innerHTML = greeting;
-    </script> -->
-    <!-- <form action="http://www.google.com/search" method="get">
-    	<input type="text" name="q"/>
-    </form> -->
-</body>
-<div class=box>
+    <div class=right-container>
     <div class="greeting">
     </div>
     <div class=categories>
         <p class="cat">Productive</p>
-        <p class="cat">Chill</p>
-        <p class="cat">Misc</p>
+        <p class="cat">Funsies</p>
+        <p class="cat">Nifty</p>
     </div>
     <div class=items>
         <p class="lst">
-            <span style="color: var(--color1)">[</span><a href="https://blackboard.umaryland.edu">Blackboard</a><span
-                style="color: var(--color1)">]</span>
-            <span style="color: var(--color3)">[</span><a href="https://office.com">Office365</a><span
-                style="color: var(--color3)">]</span>
-            <span style="color: var(--color2)">[</span><a href="https://docs.google.com/document/u/0/">Google Docs</a><span
-                style="color: var(--color2)">]</span>
-            <span style="color: var(--color5)">[</span><a href="https://github.com">Github</a><span
-                style="color: var(--color5)">]</span>
-            <span style="color: var(--color6)">[</span><a href="https://gmail.com">Gmail</a><span
-                style="color: var(--color6)">]</span>
+            <a href="https://docs.google.com/document/u/0/">Google Docs</a> <span style="color: var(--color8)">|</span>
+            <a href="https://github.com">Github</a> <span style="color: var(--color8)">|</span>
+            <a href="https://gmail.com">Gmail</a> <span style="color: var(--color8)">|</span>
+            <a href="https://yahoo.com">Yahoo</a>
         </p>
         <p class="lst">
-            <span style="color: var(--color1)">[</span><a href="https://netflix.com">Netflix</a><span
-                style="color: var(--color1)">]</span>
-            <span style="color: var(--color5)">[</span><a href="https://hulu.com">Hulu</a><span
-                style="color: var(--color5)">]</span>
-            <span style="color: var(--color3)">[</span><a href="https://reddit.com">Reddit</a><span
-                style="color: var(--color3)">]</span>
-            <span style="color: var(--color2)">[</span><a href="https://discord.com/channels/@me">Discord</a><span
-                style="color: var(--color2)">]</span>
-            <span style="color: var(--color6)">[</span><a href="https://nixers.net">Nixers</a><span
-                style="color: var(--color6)">]</span>
+            <a href="https://hulu.com">Hulu</a> <span style="color: var(--color8)">|</span>
+            <a href="https://reddit.com">Reddit</a> <span style="color: var(--color8)">|</span>
+            <a href="https://discord.com/channels/@me">Discord</a> <span style="color: var(--color8)">|</span>
+            <a href="https://16colo.rs">16colo.rs</a> <span style="color: var(--color8)">|</span>
+            <a href="https://nixers.net">Nixers</a>
+            
         </p>
-            <p class="lst">
-                <span style="color: var(--color5)">[</span><a href="https://wiki.archlinux.org/">Arch Wiki</a><span 
-                    style="color: var(--color5)">]</span>
-                <span style="color: var(--color2)">[</span><a href="https://youtube.com">Youtube</a><span 
-                    style="color: var(--color2)">]</span>
-                <span style="color: var(--color3)">[</span><a href="https://yahoo.com">Yahoo</a><span
-                    style="color: var(--color3)">]</span>
-                <span style="color: var(--color4)">[</span><a href="https://artstation.com">Artstation</a><span
-                    style="color: var(--color4)">]</span>
-            </p>
+        <p class="lst">
+            <a href="https://wiki.archlinux.org/">Arch Wiki</a> <span style="color: var(--color8)">|</span>
+            <a href="https://docs.voidlinux.org/">Void Docs</a> <span style="color: var(--color8)">|</span>
+            <a href="https://youtube.com">Youtube</a> <span style="color: var(--color8)">|</span>
+            <a href="https://open.spotify.com/">Spotify</a> <span style="color: var(--color8)">|</span>
+            <a href="https://artstation.com">Artstation</a> 
+        </p>
+    </div>
     </div>
 </div>
+</body>
 
 </html>
+
+

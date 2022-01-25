@@ -1,0 +1,61 @@
+volume = {
+    x         = {relative = 0.5; offset = 0;};
+    y         = {relative = 0.8; offset = 0;};
+    length    = {relative = 0.20; offset = 0;};
+    thickness = 14;
+    outline   = 6;
+    border    = 2;
+    padding   = 3;
+    orientation = "horizontal";
+
+    overflow = "proportional";
+
+    color = {
+        normal = {
+            fg     = "#ad7dad";
+            bg     = "#232326";
+            border = "#9ba997";
+	    outline = "#232326";
+       };
+        alt = {
+            fg     = "#6e6e72";
+            bg     = "#232326";
+            border = "#9ba997";
+	    outline = "#232326";
+
+        };
+        overflow = {
+            fg     = "#ff0000";
+            bg     = "#000000";
+            border = "#ff0000";
+	    outline = "#232326";
+        };
+        altoverflow = {
+            fg     = "#550000";
+            bg     = "#000000";
+            border = "#550000";
+	    outline = "#232326";
+        };
+    };
+};
+
+backlight = {
+    x         = {relative = 0.5; offset = 0;};
+    y         = {relative = 0.80; offset = 0;};
+    length    = {relative = 0.20; offset = 0;};    
+    thickness = 14;
+    outline   = 6;
+    border    = 2;
+    padding   = 3;
+
+    orientation = "horizontal";
+
+    color = {
+        normal = {
+            fg     = "#e0e0e4";
+            bg     = "#232326";
+            border = "#9ba997";
+	    outline = "#232326";
+        };
+    };
+};

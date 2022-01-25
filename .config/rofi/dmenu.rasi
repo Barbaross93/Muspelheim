@@ -9,7 +9,7 @@
     border-color:          #1c1c1c;
     text-color:           #dfdfaf;
     vertical-align:         0.5;
-    font:            "custom 15px";
+    font:            "monospace 15px";
 }
 window {
     anchor:     north;

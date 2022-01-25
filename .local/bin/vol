@@ -65,8 +65,7 @@ pulsemic)
 		if [ "$muted" = "[on]" ]; then
 			#pulsemixer --toggle-mute --id source-1
 			amixer set Capture toggle
-			notify-send "Audio" " Mic muted"
-			#printf " Mic muted\n" >$XNOTIFY_FIFO
+			#notify-send "Audio" " Mic muted"
 			exit 0
 		else
 			#pulsemixer --toggle-mute --id source-1

@@ -49,6 +49,11 @@ bindkey  "^[[3~"   delete-char
 bindkey  "^[[5~"   up-line-or-history
 bindkey  "^[[6~"   down-line-or-history
 
+#Word Navigation
+WORDCHARS=''
+bindkey "^[[1;5C" forward-word 
+bindkey "^[[1;5D" backward-word
+
 # Autosuggestions and syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -62,18 +67,21 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/fzf/key-bindings.zsh
 
 # Setup thefuck
-#eval $(thefuck --alias)
-#fuck-command-line() {
-#    local FUCK="$(THEFUCK_REQUIRE_CONFIRMATION=0 thefuck $(fc -ln -1 | tail -n 1) 2> /dev/null)"
-#    [[ -z $FUCK ]] && echo -n -e "\a" && return
-#    BUFFER=$FUCK
-#    zle end-of-line
-#}
-#zle -N fuck-command-line
-## Defined shortcut keys: [Esc] [Esc]
-#bindkey -M emacs '\e\e' fuck-command-line
-#bindkey -M vicmd '\e\e' fuck-command-line
-#bindkey -M viins '\e\e' fuck-command-line
+eval $(thefuck --alias)
+fuck-command-line() {
+    local FUCK="$(THEFUCK_REQUIRE_CONFIRMATION=0 thefuck $(fc -ln -1 | tail -n 1) 2> /dev/null)"
+    [[ -z $FUCK ]] && echo -n -e "\a" && return
+    BUFFER=$FUCK
+    zle end-of-line
+}
+zle -N fuck-command-line
+# Defined shortcut keys: [Esc] [Esc]
+bindkey -M emacs '\e\e' fuck-command-line
+bindkey -M vicmd '\e\e' fuck-command-line
+bindkey -M viins '\e\e' fuck-command-line
+
+#Source ssh environment
+. ~/.ssh/agent-environment > /dev/null
 
 # Style completion menu
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==35=35}:${(s.:.)LS_COLORS}")';
@@ -161,7 +169,6 @@ alias clip="xsel -ib"
 alias cat="bat -p"
 alias pfetch="curl -s https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch | sh"
 alias ls="exa"
-alias cs="compsize"
 alias scan="scanimage --device 'hpaio:/net/OfficeJet_3830_series?ip=192.168.0.13' --progress --format=png --output-file"
 alias cp="cp --reflink" #to make lightweight copies w/ btrfs
 # avoid typing the whole thing
@@ -184,7 +191,6 @@ alias tksv='tmux kill-server'
 alias hc='herbstclient'
 alias pyratehole="lynx gopher://g.nixers.net/1/~pyratebeard/music/this_week.txt"
 alias dotlink="stow -R --target=/home/barbaross -d /home/barbaross/Public/thonkpad-dotfiles ."
-alias spotdl="cd ~/Music && pipx run spotdl"
 alias sshpi="ssh -p 5522 barbaross@192.168.0.2"
 alias trp="trash-put"
 alias trr="trash-restore"
@@ -197,10 +203,11 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....="cd ../../../.."
 alias _="sudo"
-#alias mntmsc="sshfs pi@192.168.0.2:/var/www/html ~/Music"
-#alias vit="pipx run vit"
 alias cmus='tmux new-session -s Music "tmux source-file ~/.config/cmus/tmux_session"'
 alias newsboat='newsboat -q'
+alias bnps='java -jar ~/Public/font-stuff/bitsnpicas/main/java/BitsNPicas/BitsNPicas.jar'
+alias spotdl="ts pipx run spotdl -o ~/Music"
+alias usv="SVDIR=~/.local/service sv"
 
 ### Functions
 
@@ -211,9 +218,9 @@ man() {
 		LESS_TERMCAP_md=$(printf "\e[1;31m") \
 		LESS_TERMCAP_me=$(printf "\e[0m") \
 		LESS_TERMCAP_se=$(printf "\e[0m") \
-		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+		LESS_TERMCAP_so=$(printf "\e[1;40;35m") \
 		LESS_TERMCAP_ue=$(printf "\e[0m") \
-		LESS_TERMCAP_us=$(printf "\e[1;32m") \
+		LESS_TERMCAP_us=$(printf "\e[1;33m") \
 		man "$@"
 }
 
@@ -254,4 +261,63 @@ calc() {
 # Cht query
 cht() {
 	curl -s "cheat.sh/$(echo -n "$*" | jq -sRr @uri)"
+}
+
+# ncdu for btrfs
+btdu() {
+	sudo mkdir /btrfs-root
+	sudo mount -o subvol=/ /dev/mapper/luks-3a14b623-8ada-431e-b8bc-94c93a87c249 /btrfs-root/
+	sudo btdu /btrfs-root/
+	sudo umount /btrfs-root/
+	sudo rmdir /btrfs-root/
+}
+
+#Shitty attempt at a wrapper around reptyr; should probably fix up
+reptyr() {
+	query=$(echo "$*" | sed 's/ /.*/g')
+	pid=$(pgrep --full "$query" | head -1)
+	/usr/bin/reptyr $pid || /usr/bin/reptyr -s $pid || /usr/bin/reptyr -T $pid && exit
+}
+
+#Convert bdf to otb or ttf
+bnps-conv() {
+	if [[ $2 != *.bdf ]]; then
+		echo "Input file must bs a bdf file!"
+		exit
+	fi
+
+	case "$1" in
+		otb)
+			java -jar ~/Public/font-stuff/bitsnpicas/main/java/BitsNPicas/BitsNPicas.jar convertbitmap -f otb -o ${2:0:-4}.otb $2
+			;;
+		ttf)
+			java -jar ~/Public/font-stuff/bitsnpicas/main/java/BitsNPicas/BitsNPicas.jar convertbitmap -f ttf -o ${2:0:-4}.ttf $2
+			;;
+		*)
+			echo "Please specify otb or ttf first before passing the file path!"
+			;;
+		esac
+}
+
+#Embolden and convert
+bnps-bld() {	
+	if [[ $2 != *.bdf ]]; then
+		echo "Input file must bs a bdf file!"
+		exit
+	fi
+
+	case "$1" in
+		otb)
+			java -jar ~/Public/font-stuff/bitsnpicas/main/java/BitsNPicas/BitsNPicas.jar convertbitmap -b -f otb -o ${2:0:-4}.otb $2
+			;;
+		ttf)
+			java -jar ~/Public/font-stuff/bitsnpicas/main/java/BitsNPicas/BitsNPicas.jar convertbitmap -b -f ttf -o ${2:0:-4}.ttf $2
+			;;
+		bdf)
+			java -jar ~/Public/font-stuff/bitsnpicas/main/java/BitsNPicas/BitsNPicas.jar convertbitmap -b -f bdf -o ${2:0:-4}.bdf $2
+			;;
+		*)
+			echo "Please specify otb, ttf, or bdf first before passing the file path!"
+			;;
+		esac
 }

@@ -321,42 +321,36 @@ notif() {
 			# If summary is blank, display body instead
 			[ -z "$notif" ] && notif="$body"
 
-			# Scroll if greater than 75 characters
-			if [ ${#notif} -gt 75 ]; then
-				#echo "$notif" | timeout ${time}s zscroll -n -d 0.3 -l 75 -b "$pretext"
-				#txtstrng=$(echo "$notif" | skroll -n 75 -d 0 -r)
-				scrolltxt="$notif - "
-
+			# Scroll if greater than 70 characters
+			if [ ${#notif} -gt 70 ]; then
 				end=$((SECONDS + ${time%.*}))
 				while [ $SECONDS -lt $end ]; do
 					[[ -f "/tmp/notif_skip" ]] && rm /tmp/notif_skip && break
 					c=0
-					length=${#scrolltxt}
-					dots=$(printf '%0.s.' $(seq -s " " 75))
+					length=${#notif}
 					while [ $c -le $length ]; do
 						[ $SECONDS -ge $end ] && break
 						[[ -f "/tmp/notif_skip" ]] && break
-						scrollstart=${scrolltxt:$c:$length}
-						scrollend=${scrolltxt:0:$c}
-						# Need to use grep to handle multibyte chars
-						finaltxt=$(grep -o "^$dots" <(printf "%s" "$scrollstart$scrollend"))
-						echo "$pretext$finaltxt"
+						scrollstart=${notif:$c:70}
+						if [ ${#scrollstart} -eq 70 ]; then
+							echo "$pretext$scrollstart..."
+							[ $c -eq 0 ] && sleep 1
+						else
+							echo "$pretext$scrollstart"
+						fi
 						c=$((c + 1))
 						sleep 0.2
 					done
 				done
-				echo "NOTIF ${CLR}"
-				continue
 			else
 				echo "$pretext$notif"
+				c=0
+				while (($(echo "$c <= $time" | bc -l))); do
+					[[ -f "/tmp/notif_skip" ]] && rm /tmp/notif_skip && break
+					sleep 0.2
+					c=$(echo "scale=1;$c + 0.2" | bc)
+				done
 			fi
-
-			c=0
-			while (($(echo "$c <= $time" | bc -l))); do
-				[[ -f "/tmp/notif_skip" ]] && rm /tmp/notif_skip && break
-				sleep 0.2
-				c=$(echo "scale=1;$c + 0.2" | bc)
-			done
 
 			echo "NOTIF ${CLR}"
 		done
@@ -398,20 +392,20 @@ volume | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
 brightness() {
 	brighticon() {
-		#local light=$(xbacklight -get)
-		#local rounded=$(echo "($light)/1" | bc)
-		local rounded=$(xbacklight -get)
+		local light=$(light -G)
+		local rounded=$(echo "($light)/1" | bc)
+		#local rounded=$(xbacklight -get)
 		#local bar=$(draw $rounded 8 ${FOREGROUND})
 		local bar="$rounded%%"
 
 		if [[ "$rounded" -lt 25 ]]; then
-			echo "BRIGHTNESS ${LGTBG} ${YELLOW}${GLYLIGHT1}${FCLR} ${DRKBG} %{A4:xbacklight -inc 5:}%{A5:xbacklight -dec 5:}$bar%{A}%{A} "
+			echo "BRIGHTNESS ${LGTBG} ${YELLOW}${GLYLIGHT1}${FCLR} ${DRKBG} %{A4:light -A 5:}%{A5:light -U 5:}$bar%{A}%{A} "
 		elif [[ "$rounded" -lt 50 ]]; then
-			echo "BRIGHTNESS ${LGTBG} ${YELLOW}${GLYLIGHT2}${FCLR} ${DRKBG} %{A4:xbacklight -inc 5:}%{A5:xbacklight -dec 5:}$bar%{A}%{A} "
+			echo "BRIGHTNESS ${LGTBG} ${YELLOW}${GLYLIGHT2}${FCLR} ${DRKBG} %{A4:light -A 5:}%{A5:light -U 5:}$bar%{A}%{A} "
 		elif [[ "$rounded" -lt 75 ]]; then
-			echo "BRIGHTNESS ${LGTBG} ${YELLOW}${GLYLIGHT3}${FCLR} ${DRKBG} %{A4:xbacklight -inc 5:}%{A5:xbacklight -dec 5:}$bar%{A}%{A} "
+			echo "BRIGHTNESS ${LGTBG} ${YELLOW}${GLYLIGHT3}${FCLR} ${DRKBG} %{A4:light -A 5:}%{A5:light -U 5:}$bar%{A}%{A} "
 		else
-			echo "BRIGHTNESS ${LGTBG} ${YELLOW}${GLYLIGHT4}${FCLR} ${DRKBG} %{A4:xbacklight -inc 5:}%{A5:xbacklight -dec 5:}$bar%{A}%{A}"
+			echo "BRIGHTNESS ${LGTBG} ${YELLOW}${GLYLIGHT4}${FCLR} ${DRKBG} %{A4:light -A 5:}%{A5:light -U 5:}$bar%{A}%{A}"
 		fi
 	}
 	brighticon
@@ -586,7 +580,7 @@ tray | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 # For funsies
 monster="${LGTBG}${RED} %{A1:dmenu_run_i:}%{A3:power:}${GLYMON}%{A}%{A}"
 
-# Grey border
+# Grey bottom border
 echo "" | lemonbar -p -g 1920x3+0+36 -B "${BDR}" -n "bdr" &
 
 while read -r line; do
@@ -625,8 +619,8 @@ while read -r line; do
 	printf "%s\n" "${UNDLN}%{+u}%{+o}%{l} ${monster}${SEP}${fn_work}${SEP3}${fn_notif}%{r}${fn_bltth}${fn_tray}${fn_vpn}${SEP}${fn_bat}${SEP}${fn_bright}${SEP}${fn_vol}${SEP}${fn_wire}${SEP}${fn_time}${SEP2}${CLR} %{-u}%{-o}"
 done <"${PANEL_FIFO}" | lemonbar ${OPTIONS} | sh >/dev/null &
 
-if xrandr | grep "HDMI2 connected"; then
-	echo "" | lemonbar -o HDMI2 -p -g ${WIDTH}x3+0+36 -B "${BDR}" -n "ext-bdr" &
+if xrandr | grep "HDMI-2 connected"; then
+	echo "" | lemonbar -o HDMI-2 -p -g ${WIDTH}x3+0+36 -B "${BDR}" -n "ext-bdr" &
 
 	while read -r line; do
 		case $line in
@@ -663,7 +657,7 @@ if xrandr | grep "HDMI2 connected"; then
 		esac
 
 		printf "%s\n" "${UNDLN}%{+u}%{+o}%{l} ${monster}${SEP}${fn_work}${SEP3}${fn_notif}%{r}${fn_bltth}${fn_tray}${fn_vpn}${SEP}${fn_bat}${SEP}${fn_bright}${SEP}${fn_vol}${SEP}${fn_wire}${SEP}${fn_time}${SEP2}${CLR} %{-u}%{-o}"
-	done <"${EXT_PANEL_FIFO}" | lemonbar -o HDMI2 ${EXTOPTIONS} | sh >/dev/null &
+	done <"${EXT_PANEL_FIFO}" | lemonbar -o HDMI-2 ${EXTOPTIONS} | sh >/dev/null &
 else
 	# For some bizarre reason, the main panel wont show anything until something is watching the external panel fifo
 	tail -f "${EXT_PANEL_FIFO}" &>/dev/null &

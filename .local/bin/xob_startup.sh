@@ -31,10 +31,10 @@ volu() {
 light() {
 	inotifywait -m -q -e close_write /sys/class/backlight/intel_backlight/brightness |
 		while read -r line; do
-			#light=$(xbacklight)
-			#rounded=$(echo "$light/1" | bc)
-			#echo $rounded
-			xbacklight -get
+			light=$(light)
+			rounded=$(echo "$light/1" | bc)
+			echo $rounded
+			#xbacklight -get
 		done
 }
 #volu | xob -t 2000 -s volume &

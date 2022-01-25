@@ -1,10 +1,10 @@
 @import "/home/barbaross/.mozilla/firefox/j7zjgx6b.default-release/startpage/colors.css";
 
 
-* {
+/** {
 	font-family: "Inconsolata";
 	font-size: 20px;
-}
+}*/
 
 html {
     /*font-size: 18px;*/

@@ -1,0 +1,14 @@
+! Remap caps lock to control
+keycode 66 = Control_L
+add control = Control_L
+
+! make escape be caps_lock
+clear lock
+keycode 9 = Caps_Lock
+add Lock = Caps_Lock
+
+! make a fake escape key (so we can map it with xcape)
+keycode 999 = Escape
+
+! Make stupidly placed print key a super key
+keycode 107 = Super_R

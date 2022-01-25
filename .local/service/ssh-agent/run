@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#
+# Start ssh-agent from runit
+#
+
+file=~/.ssh/agent-environment
+
+exec >"$file"
+
+echo "# started $(date)"
+
+# For some reason, this line doesn't get emitted by ssh-agent when it is run
+# with -d or -D.  Since we are starting the program with exec we already know
+# the pid ahead of time though so we can create this line manually
+echo "SSH_AGENT_PID=$$; export SSH_AGENT_PID"
+
+exec ssh-agent -D

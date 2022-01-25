@@ -11,7 +11,8 @@ choice=$(echo "$options" | dmenu -p "Power:")
 case "$choice" in
 *Lock*)
 	#xidlehook-client --socket /tmp/xidlehook.sock control --action Trigger --timer 2
-	xset s activate
+	#xset s activate
+	xautolock -locknow
 	;;
 *Logout*)
 	herbstclient quit

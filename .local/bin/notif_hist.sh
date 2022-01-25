@@ -7,12 +7,16 @@ query() {
 	# Set to never time out, reverse order and attempts to dedup, doesnt work great
 	notifs=$(tac $notif_log | cat -n | sort -uk2 | sort -nk1 | cut -f2-)
 
-	if test $(find "$count" -mmin +1); then
-		rm $count
-	fi
+	# delete count file if older than 15 seconds
+	find "$count" -not -newermt '-15 seconds' -delete
+
 	if [ ! -f "$count" ]; then
 		echo 1 >$count
 	fi
+
+	# Refresh time on count file just in case
+	touch $count
+
 	c=$(cat $count)
 	echo "skip" >/tmp/signal_bar
 	echo "$notifs" | awk "NR==$c" >"/tmp/old_notifs" &
@@ -23,6 +27,7 @@ query() {
 cleanup() {
 	[ -f $count ] && rm $count
 	#pgrep --full "timeout.*zscroll.*" && pkill --full "timeout.*zscroll.*"
+	#pgrep zscroll && pkill zscroll
 	echo "skip" >/tmp/signal_bar
 }
 

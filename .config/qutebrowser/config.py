@@ -7,17 +7,17 @@ config.load_autoconfig()
 # everforest.draw.konda(c, {"spacing": {"vertical": 5, "horizontal": 8}})
 alduin.draw.konda(c)
 
-c.fonts.default_family = "custom"
-c.fonts.hints = "15pt custom"
-c.fonts.keyhint = "15pt custom"
-c.fonts.prompts = "15pt custom"
-c.fonts.downloads = "15pt custom"
-c.fonts.statusbar = "15pt custom"
-c.fonts.contextmenu = "15pt custom"
-c.fonts.messages.info = "15pt custom"
-c.fonts.debug_console = "15pt custom"
-c.fonts.completion.entry = "15pt custom"
-c.fonts.completion.category = "15pt custom"
+c.fonts.default_family = "monospace"
+c.fonts.hints = "15pt monospace"
+c.fonts.keyhint = "15pt monospace"
+c.fonts.prompts = "15pt monospace"
+c.fonts.downloads = "15pt monospace"
+c.fonts.statusbar = "15pt monospace"
+c.fonts.contextmenu = "15pt monospace"
+c.fonts.messages.info = "15pt monospace"
+c.fonts.debug_console = "15pt monospace"
+c.fonts.completion.entry = "15pt monospace"
+c.fonts.completion.category = "15pt monospace"
 c.url.start_pages = "~/.config/qutebrowser/startpage/index.html"
 c.url.default_page = "~/.config/qutebrowser/startpage/index.html"
 c.editor.command = ["/usr/bin/urxvt", "-e", "/usr/bin/vim {}"]

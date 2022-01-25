@@ -106,10 +106,17 @@ $PADCC                             Y
 
 EOF
 
-BAR="████"
-OUTT="$BLK$BAR$RED$BAR$GRN$BAR$YLW$BAR$BLU$BAR$PUR$BAR$CYN$BAR$WHT$BAR$RST"
-printf "%s%b" "$PADC" "$OUTT"
-printf "\n\n"
+#BAR="█▓▒░"
+#OUTT="$BLK$BAR$RED$BAR$GRN$BAR$YLW$BAR$BLU$BAR$PUR$BAR$CYN$BAR$WHT$BAR$RST"
+#printf "%s%b" "$PADC" "$OUTT"
+#printf "\n\n"
+printf "%s" "$PADC"
+i=0
+while [ $i -le 6 ]; do
+	printf "\e[$((i + 41))m\e[$((i + 30))m█▓▒░"
+	i=$(($i + 1))
+done
+printf "\e[37m█\e[0m▒░\n\n"
 
 # greetings
 printf "%s%b" "$PADC" "         hello $RED$BLD$name$RST\n"

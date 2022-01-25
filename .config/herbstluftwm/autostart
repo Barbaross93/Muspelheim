@@ -23,6 +23,7 @@ hc emit_hook reload
 
 # Always wanted for refresh
 noisewall "#452f2f"
+#hsetroot -center ~/Pictures/muspelheim_dore.png
 
 # remove all existing keybindings
 hc keyunbind --all
@@ -73,7 +74,7 @@ hc keybind XF86AudioRaiseVolume spawn vol pulse up           #Increase Volume
 hc keybind XF86AudioLowerVolume spawn vol pulse down         #Decrease volume
 hc keybind XF86AudioMute spawn vol pulse mute                #Mute audio
 hc keybind Mod4-XF86AudioLowerVolume spawn vol pulsemic down #Decrease mic volume
-hc keybind Mod4-XF86AudioMute spawn vol pulsemic mute        #mute mic
+hc keybind XF86AudioMicMute spawn vol pulsemic mute          #mute mic
 
 # Player controls
 hc keybind Mod4-Control-Mod1-Left spawn playerctl previous #Previous audio
@@ -208,7 +209,7 @@ hc attr theme.minimal.reset 1
 hc attr theme.title_when 'multiple_tabs'
 hc attr theme.title_align 'center'
 hc attr theme.title_color '#dfdfaf'
-hc attr theme.title_font 'custom'
+hc attr theme.title_font 'monospace'
 hc attr theme.title_height 25
 hc attr theme.title_depth 18
 hc attr theme.border_width 0
@@ -271,13 +272,20 @@ if hc silent new_attr bool my_not_first_autostart; then
     fi
 
     # Run these programs as user services
-    runsvdir -P ~/.local/service &
+    if pgrep --full "runsvdir -P /home/barbaross/.local/service"; then
+        # Logging out doesnt stop services, so must restart them
+        sv restart ~/.local/service/* &
+    else
+        runsvdir -P ~/.local/service &
+    fi
 
-    # programs that dont run well as service
-    setsid -f sbar.sh &
-    xob_startup.sh &
-    ~/.config/herbstluftwm/idle_focus.sh &
-    ~/.config/herbstluftwm/idle_fullscreen.sh &
+    # Startup bar; didnt work great as a user service
+    setsid sbar.sh &
+
+    # Refresh dbus session address in cron
+    crontab -l | tac | sed -e "/DBUS_SESSION_BUS_ADDRESS/d" -e '$ d' >/tmp/crontmp
+    echo -e "DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS\n#Environment variables" >>/tmp/crontmp
+    crontab <(tac /tmp/crontmp) && rm /tmp/crontmp
 
     # Things that require an internet connection
     while :; do

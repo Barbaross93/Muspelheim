@@ -1,0 +1,64 @@
+auto-reload no
+external-url-viewer "urlscan"
+#notify-always yes
+notify-program ""
+notify-xterm yes
+ignore-mode "display"
+
+bind-key j down
+bind-key k up
+#bind-key j next articlelist
+bind-key j next articlelist
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key G end
+bind-key g home
+bind-key d pagedown
+bind-key u pageup
+bind-key l open
+bind-key h quit
+bind-key a toggle-article-read
+bind-key n next-unread
+bind-key N prev-unread
+bind-key D pb-download
+bind-key U show-urls
+bind-key x pb-delete
+
+color listnormal blue default
+color listfocus yellow black bold
+color listnormal_unread white default bold
+color listfocus_unread yellow black bold
+color info yellow black bold
+color article white default bold
+
+browser "linkhandler %u"
+macro w set browser "lynx %u"; open-in-browser ; set browser "linkhandler %u"
+macro f set browser "qutebrowser %u"; open-in-browser ; set browser "linkhandler %u"
+macro v set browser "setsid -f mpv" ; open-in-browser ; set browser linkhandler
+macro c set browser "xsel -b <<<" ; open-in-browser ; set browser linkhandler
+
+# feedlist format and colours
+#feedlist-format "%?l?├──╼ %t &├───%t?"
+feedlist-format "%?l?┃%4i %n %8u %t &┣━━━━━━━━━ ■ %t?"
+
+#highlight feedlist ".*─────.*" green
+
+highlight feedlist "[┃┃]" red default bold
+highlight feedlist "┣━.*" red default bold
+highlight feedlist "■" color8 default
+# article format and colours
+#articlelist-format "%?T? │ %2i %f  %t?"
+articlelist-format " %2i  %t"
+
+#highlight all "---.*---" yellow
+#highlight feedlist ".*(0/0))" black
+highlight article "(^Feed:.*|^Title:.*|^Author:.*)" green default bold
+highlight article "(^Link:.*|^Date:.*)" default default
+highlight article "https?://[^ ]+" red default
+highlight article "^(Title):.*$" blue default
+highlight article "\\[[0-9][0-9]*\\]" magenta default bold
+highlight article "\\[image\\ [0-9]+\\]" red default bold
+highlight article "\\[embedded flash: [0-9][0-9]*\\]" red default bold
+highlight article ":.*\\(link\\)$" green default
+highlight article ":.*\\(image\\)$" blue default
+highlight article ":.*\\(embedded flash\\)$" magenta default

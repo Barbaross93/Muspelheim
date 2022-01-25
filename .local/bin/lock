@@ -2,6 +2,9 @@
 
 #trap 'kill -9 -$$ %1 %2' EXIT INT
 
+# If locker is already running, just exit
+pgrep -x xsecurelock && exit
+
 ### Pre-lock
 # Clear gpg-cache and ssh keys prior to lock. pam-gnupg starts it up again after unlock
 gpg-connect-agent --no-autostart reloadagent /bye
@@ -10,7 +13,7 @@ gpg-connect-agent --no-autostart reloadagent /bye
 #xclip -selection clipboard /dev/null
 #xclip -selection primary /dev/null
 #xclip -selection secondary /dev/null
-xsel -cbps
+xsel -dbps --logfile /dev/null
 
 xlock() {
 	XSECURELOCK_BACKGROUND_COLOR="#1c1c1c" XSECURELOCK_AUTH_BACKGROUND_COLOR="#1c1c1c" XSECURELOCK_AUTH_FOREGROUND_COLOR="#dfdfaf" \
@@ -26,6 +29,9 @@ status=$(playerctl status)
 #mpdstatus=$(mpc status | grep 'playing')
 playerctl pause
 #mpc pause
+#Kill these just in case
+pkill rofi
+pkill xcolor
 
 ## If using locker w/o screen coverage (e.g. xtrlock, slock with unlockscreen patch)
 #nsxiv -bf ~/.cache/i3lock/$currentWall &

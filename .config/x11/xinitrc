@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# Do nothing if interrupted
+trap '' INT TSTP
+
+userresources=$HOME/.config/x11/Xresources
+usermodmap=$HOME/.config/x11/Xmodmap
+
+# merge in defaults
+[ -f "$userresources" ] && xrdb -merge "$userresources"
+[ -f "$usermodmap" ] && xmodmap "$usermodmap"
+
+# Just to make sure my profile settings are loaded
+[ -f /etc/profile ] && . /etc/profile
+[ -f ~/.config/x11/xprofile ] && . ~/.config/x11/xprofile
+
+# X settings
+xset +fp ~/.local/share/fonts/misc,/usr/share/fonts/misc
+#xset s 180 119 #with xss-lock, dim screen after 3 minutes, then lock 2 minutes later
+xset s off
+xset s noblank
+xset dpms 300 #with xss-lock, blank screen shortly after locking
+xset r rate 440 50
+xset -b
+xinput disable "Elan Touchpad"
+
+# Need to start gpg agent before lock screen for pam-gnupg
+gpg-connect-agent /bye
+
+lock &
+sleep 0.5
+exec dbus-run-session -- herbstluftwm --locked
