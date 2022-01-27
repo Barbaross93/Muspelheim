@@ -80,7 +80,7 @@ def konda(c):
 
     c.colors.hints.bg = palette["background"]
 
-    c.colors.hints.fg = palette["yellow"]
+    c.colors.hints.fg = palette["purple"]
 
     c.hints.border = "1px solid " + palette["background-alt"]
 
