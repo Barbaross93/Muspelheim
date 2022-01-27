@@ -40,6 +40,20 @@ setopt SHARE_HISTORY
 # Colors for prompt
 autoload -U colors && colors
 
+# Default to vi mode bay-bee
+bindkey -v
+vim_ins_mode="i"
+vim_cmd_mode="c"
+vim_mode=$vim_ins_mode
+
+# Fix a bug when you C-c in CMD mode and you'd be prompted with CMD mode indicator, while in fact you would be in INS mode
+# Fixed by catching SIGINT (C-c), set vim_mode to INS and then repropagate the SIGINT, so if anything else depends on it, we will not break it
+# Thanks Ron! (see comments)
+function TRAPINT() {
+  vim_mode=$vim_ins_mode
+  return $(( 128 + $1 ))
+} 
+
 # Make home/end/del keys work properly
 bindkey  "^[[7~"   beginning-of-line
 bindkey  "^[[1~"   beginning-of-line
@@ -81,6 +95,14 @@ cup(){
   echo "$line"
 }
 
+#Vim mode helper function; notifies current state
+zle-keymap-select() {
+  vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
+  custom_prompt
+	zle reset-prompt
+}
+zle -N zle-keymap-select
+
 # Preexec function
 setup() {
 	# Change window title to current command right after command is inputted
@@ -98,9 +120,17 @@ custom_prompt() {
 		PROMPT=$'\n'
 	fi
 	PROMPT+="%{$fg[red]%}┏━"
-	[ "$(id -u)" -eq 0 ] && PROMPT+="[%{$fg[white]%}root%{$fg[red]%}]%{%G━%}"
-	PROMPT+="[%{$fg[white]%}%~%{$fg[red]%}]"
 
+	#Are we root?
+	[ "$(id -u)" -eq 0 ] && PROMPT+="[%{$fg[white]%}root%{$fg[red]%}]%{%G━%}"
+	
+	#Current directory
+	PROMPT+="[%{$fg[white]%}%~%{$fg[red]%}]"
+	
+	#Vi mode state
+	PROMPT+="%{%G━%}[%{$fg[white]%}${vim_mode}%{$fg[red]%}]"
+
+	#Git status
 	if gitstatus_query MY && [[ "$VCS_STATUS_RESULT" == ok-sync ]]; then
 		if [[ -n "$VCS_STATUS_LOCAL_BRANCH" ]]; then
 			PROMPT+="%{%G━%}[%{$fg[white]%}${${VCS_STATUS_LOCAL_BRANCH:-@${VCS_STATUS_COMMIT}}//\%/%%}" # escape backslash
