@@ -1,6 +1,6 @@
 # Configs to ignore
 .config/vdirsyncer/
-.config/msmtp/
+.config/msmtp/*.log
 .config/autorandr/
 .config/cmus/cache
 .config/cmus/command-history
@@ -12,13 +12,11 @@
 .config/herbstluftwm/sessions/
 .config/herbstluftwm/scripts/old/
 .config/hplip/
-.config/isync/
 .config/mutt/accounts/
 .config/mutt/.mailsynclastrun
 .config/mutt/signature
 .config/newsboat/history.cmdline
 .config/newsboat/urls
-.config/notmuch/
 .config/qutebrowser/bookmarks/
 .config/qutebrowser/host_block
 .config/qutebrowser/quickmarks
