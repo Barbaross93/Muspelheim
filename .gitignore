@@ -1,26 +1,42 @@
 # Configs to ignore
-.config/vdirsyncer
-.config/msmtp
-.config/autorandr
-.config/git
-.config/gtk-3.0
-.config/hplip
-.config/isync
-.config/mutt/accounts
+.config/vdirsyncer/
+.config/msmtp/
+.config/autorandr/
+.config/cmus/cache
+.config/cmus/command-history
+.config/cmus/lib.pl
+.config/cmus/playlists/
+.config/cmus/search-history
+.config/git/
+.config/gtk-3.0/
+.config/herbstluftwm/sessions/
+.config/herbstluftwm/scripts/old/
+.config/hplip/
+.config/isync/
+.config/mutt/accounts/
 .config/mutt/.mailsynclastrun
 .config/mutt/signature
 .config/newsboat/history.cmdline
 .config/newsboat/urls
-.config/old
+.config/notmuch/
+.config/qutebrowser/bookmarks/
+.config/qutebrowser/host_block
+.config/qutebrowser/quickmarks
+.config/qutebrowser/alduin/__pycache__/
+.config/old/
 .config/pam-gnupg
-.config/ranger/plugins
+.config/ranger/plugins/
 .config/task/*.data
-.config/vim/autoload
-.config/vim/plugged
-.config/weechat
-.config/zsh/gitstatus
+.config/vim/autoload/
+.config/vim/plugged/
+.config/weechat/
+.config/zsh/gitstatus/
 .config/zsh/.histfile
 .config/zsh/.zcompdump
 
 # Scripts to ignore
-.local/bin/old
+.local/bin/old/
+
+# Service folders to ignore
+.local/service/*/supervise/
+.local/service/*/log/

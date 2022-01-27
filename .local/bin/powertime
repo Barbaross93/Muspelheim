@@ -4,6 +4,8 @@ if [ "$(acpi | awk NR==1 | awk '{print $3}')" = "Charging," ]; then
 	time=$(acpi | awk NR==1 | awk '{print $5, $6, $7}')
 	#printf "SEC:3\t $time\n" >$XNOTIFY_FIFO
 	notify-send "Battery" " $time"
+elif [ "$(acpi | awk NR==1 | awk '{print $3}')" = "Not" ]; then
+	notify-send "Battery" " AC mode activated"
 elif [ "$(acpi | awk NR==1 | awk '{print $3}')" = "Full," ]; then
 	#printf "SEC:3\t Full\n" >$XNOTIFY_FIFO
 	notify-send "Battery" " Full"

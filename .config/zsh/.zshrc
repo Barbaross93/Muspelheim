@@ -199,7 +199,7 @@ alias clk='sudo vkpurge rm all'
 alias tksv='tmux kill-server'
 alias hc='herbstclient'
 alias pyratehole="lynx gopher://g.nixers.net/1/~pyratebeard/music/this_week.txt"
-alias dotlink="stow -R --target=/home/barbaross -d /home/barbaross/Public/thonkpad-dotfiles ."
+alias dotlink="stow --ignore='.git' --ignore='screenshots' --ignore='wallpapers' --ignore='.gitignore' --ignore='pkglist.txt' --ignore='README.md' -R --target=/home/barbaross -d /home/barbaross/Public/thonkpad-dotfiles ."
 alias sshpi="ssh -p 5522 barbaross@192.168.0.2"
 alias trp="trash-put"
 alias trr="trash-restore"
