@@ -103,6 +103,11 @@ zle-keymap-select() {
 }
 zle -N zle-keymap-select
 
+zle-line-finish() {
+  vim_mode=$vim_ins_mode
+}
+zle -N zle-line-finish
+
 # Preexec function
 setup() {
 	# Change window title to current command right after command is inputted
