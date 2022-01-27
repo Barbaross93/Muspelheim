@@ -29,7 +29,14 @@
 .config/task/*.data
 .config/vim/autoload/
 .config/vim/plugged/
-.config/weechat/
+.config/weechat/logs/
+.config/weechat/script/
+.config/weechat/sec.conf
+.config/weechat/irc.conf
+.config/weechat/plugins.conf
+.config/weechat/relay.conf
+.config/weechat/weecord.conf
+.config/weechat/weechat.log
 .config/zsh/gitstatus/
 .config/zsh/.histfile
 .config/zsh/.zcompdump
