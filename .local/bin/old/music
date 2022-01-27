@@ -1,3 +1,0 @@
-#!/bin/sh
-
-urxvtdc -name "Music" -e dash -c "tmux new-session -s Music -x $(tput cols) -y $(tput lines) 'tmux source-file ~/.config/cmus/tmux_session'"
