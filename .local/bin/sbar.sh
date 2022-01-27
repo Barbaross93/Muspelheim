@@ -111,6 +111,7 @@ GLYBAT8=$(echo -e "\ue249")
 GLYBAT9=$(echo -e "\ue24a")
 GLYBAT10=$(echo -e "\ue24b")
 GLYBATCHG=$(echo -e "\ue23a")
+GLYBATAC=""
 GLYWLAN1=$(echo -e "\ue218")
 GLYWLAN2=$(echo -e "\ue219")
 GLYWLAN3=$(echo -e "\ue21a")
@@ -426,7 +427,9 @@ batstat() {
 
 			bar="$cap%%"
 
-			if [[ ${stat} = "Charging" ]]; then
+			if [[ ${stat} = "Not" ]]; then
+				echo "BATTERY ${LGTBG}${GREEN} ${GLYBATAC}${FCLR} ${DRKBG} %{A1:powertime:}AC%{A}"
+			elif [[ ${stat} = "Charging" ]]; then
 				echo "BATTERY ${LGTBG}${GREEN} ${GLYBATCHG}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
 			elif [[ ${cap} -lt ${BATTERY_1} ]]; then
 				echo "BATTERY ${LGTBG}${GREEN} ${GLYBAT1}${FCLR} ${DRKBG} %{A1:powertime:}${bar}%{A}"
