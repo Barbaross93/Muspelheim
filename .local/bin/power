@@ -1,8 +1,8 @@
 #!/bin/sh
 
-options="⭤ Lock
+options=" Lock
 ↵ Logout
-z Suspend
+ Suspend
 ⏼ Hibernate
  Reboot
 ⏻ Shutdown"
