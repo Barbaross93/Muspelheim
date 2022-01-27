@@ -8,35 +8,30 @@
 #	setsid -f giph -s -y ~/Pictures/Gifs/Recordings/$(date +%s).gif &>/dev/null
 #fi
 
-#selection() {
-if pgrep ffmpeg >/dev/null 2>&1; then
-	pkill ffmpeg
-	notify-send "Record" "Stopping gif recording..."
-	#printf "Stopping gif recording...\n" >$XNOTIFY_FIFO
-else
-	notify-send "Record" "Select region to record"
-	#printf "Select region to record\n" >$XNOTIFY_FIFO
-	eval $(slop --color=0.874,0.874,0.686 -n -b 2 -f 'W=%w H=%h X=%x Y=%y')
-	input=$(date '+%Y-%m-%d_%H-%M-%S')
-	output=~/Pictures/Gifs/Recordings/${input}.gif
-	ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} /tmp/$input.mkv
-	ffmpeg -i /tmp/${input}.mkv -vf "fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop -1 ${output}
+selection() {
+	if pgrep ffmpeg >/dev/null 2>&1; then
+		pkill ffmpeg
+		notify-send "Record" "Stopping gif recording..."
+	else
+		notify-send "Record" "Select region to record"
+		eval $(hacksaw -c "#dfdfaf" -s 2 -f 'W=%w H=%h X=%x Y=%y')
+		input=$(date '+%Y-%m-%d_%H-%M-%S')
+		output=~/Pictures/Gifs/Recordings/${input}.gif
+		ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} /tmp/$input.mkv
+		ffmpeg -i /tmp/${input}.mkv -vf "fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop -1 ${output}
 
-	rm -rf /tmp/${input}.mkv
-	notify-send "Record" "Recording finished!"
-	#printf "Recording finished!\n" >$XNOTIFY_FIFO
-	#scr -c -e $(date '+%Y-%m-%d_%H-%M-%S').gif &>/dev/null
-fi
-#}
+		rm -rf /tmp/${input}.mkv
+		notify-send "Record" "Recording finished!"
+		#scr -c -e $(date '+%Y-%m-%d_%H-%M-%S').gif &>/dev/null
+	fi
+}
 
 full() {
 	if pgrep ffmpeg >/dev/null 2>&1; then
 		pkill ffmpeg
 		notify-send "Record" "Stopping gif Recording..."
-		#printf "Stopping gif recording...\n" >$XNOTIFY_FIFO
 	else
 		notify-send "Record" "Recording started"
-		#printf "Select region to record\n" >$XNOTIFY_FIFO
 		# To make high quality gifs, create a bunch of pngs and then create the gif
 
 		input=$(date '+%Y-%m-%d_%H-%M-%S')
@@ -48,16 +43,15 @@ full() {
 
 		rm -rf /tmp/${input}.ogv
 		notify-send "Record" "Recording finished!"
-		#printf "Recording finished!\n" >$XNOTIFY_FIFO
 		#scr -c -e $(date '+%Y-%m-%d_%H-%M-%S').gif &>/dev/null
 	fi
 }
 
-#case "$1" in
-#-s | --selection)
-#	selection
-#	;;
-#-f | --full | *)
-#	full
-#	;;
-#esac
+case "$1" in
+-s | --selection)
+	selection
+	;;
+-f | --full | *)
+	full
+	;;
+esac

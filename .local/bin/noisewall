@@ -6,7 +6,7 @@
 
 fi="/tmp/noisewall.png"
 
-convert -size 1920x1080 canvas:"$1" -separate -seed 1000 \
+convert -size 100x100 canvas:"$1" -separate -seed 1000 \
 	-attenuate 0.13 +noise gaussian -combine -colorspace sRGB "$fi"
 
 hsetroot -tile "$fi" && rm "$fi"

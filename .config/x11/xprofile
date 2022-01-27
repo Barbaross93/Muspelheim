@@ -43,6 +43,11 @@ export CM_LAUNCHER=dmenu
 # colorscheme for fzf
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'  --color fg:7,bg:-1,hl:6,fg+:6,bg+:-1,hl+:6 --color info:2,prompt:1,spinner:5,pointer:5,marker:3,header:8'
 
+#set task spooler settings
+export TS_MAXFINISHED=5
+export TS_ONFINISH="ts_alert.sh"
+export TS_SAVELIST="${HOME}/.local/share/ts/ts_list.sh"
+
 #for bat theme
 export BAT_THEME="base16"
 

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec picom --backend glx --vsync --glx-no-stencil
+exec picom --backend glx --vsync --glx-no-stenci -o 0.2 -c -r 24 -l -24 -t -24

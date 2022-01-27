@@ -1,0 +1,49 @@
+#!/bin/sh --
+# x - start an xserver
+# simple fork of sx
+# requires xauth Xorg /dev/urandom
+
+cleanup() {
+	if [ "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+		kill "$pid"
+		wait "$pid"
+		xorg=$?
+	fi
+
+	if ! stty "$stty"; then
+		stty sane
+	fi
+
+	xauth remove :"$tty"
+
+	if [ "$1" = exit ]; then
+		exit "${xorg:-0}"
+	fi
+}
+
+stty=$(stty -g)
+tty=$(tty)
+tty=${tty#/dev/tty}
+
+cfgdir=${XDG_CONFIG_HOME:-$HOME/.config}/x11
+datadir=${XDG_DATA_HOME:-$HOME/.local/share}/x11
+mkdir -p -- "$cfgdir" "$datadir"
+
+export XAUTHORITY="${XAUTHORITY:-$datadir/xauthority}"
+touch -- "$XAUTHORITY"
+
+xauth add :"$tty" MIT-MAGIC-COOKIE-1 "$(od -An -N16 -tx /dev/urandom | tr -d ' ')"
+
+trap 'cleanup; trap - INT; kill -INT "$$"' INT
+trap 'cleanup exit' EXIT HUP TERM QUIT
+
+# Xorg will check whether it inherited a USR1 with a disposition of SIG_IGN and
+# use this state to reply back to the parent process with its own USR1.
+# This is done to indicate that the server is ready to accept connections.
+# Taking advantage of this feature allows launching the client directly from a
+# USR1 signal trap which obviates the need to poll for server readiness.
+trap 'DISPLAY=:$tty exec "${@:-$cfgdir/xinitrc}" & wait "$!"' USR1
+
+(trap '' USR1 && exec Xorg :"$tty" -keeptty vt"$tty" -noreset -background none -auth "$XAUTHORITY") &
+pid=$!
+wait "$pid"

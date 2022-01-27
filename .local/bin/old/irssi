@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+
+FNOTIFY="$XDG_CONFIG_HOME/irssi/fnotify"
+
+cleanup() {
+	rm "$FNOTIFY"
+	kill -- -$$
+}
+
+[ ! -f "$FNOTIFY" ] && touch "$FNOTIFY"
+tail -f "$FNOTIFY" |
+	while read line; do
+		channel=$(echo "$line" | awk '{print $2}')
+		person=$(echo "$line" | cut -d '<' -f2 | cut -d '>' -f1)
+		message=$(echo "$line" | awk -F │ '{print $2}')
+		notify-send "irssi" "$person in $channel says:\t$message\n"
+	done &
+
+# Alias to change home/config dir
+cmd="/usr/bin/irssi --config=$XDG_CONFIG_HOME/irssi/config --home=$XDG_CONFIG_HOME/irssi"
+
+sock=$(ss -tulpn | grep 1080)
+if [ -n "$sock" ]; then
+	SOCKS_SERVER=127.0.0.1:1080 socksify $cmd
+else
+	$cmd
+fi
+
+cleanup

@@ -1,11 +1,9 @@
 #!/usr/bin/env sh
 
-current=$(herbstclient attr theme.title_height)
+current=$(herbstclient attr theme.title_when)
 
-if [ "$current" -eq 0 ]; then
-	herbstclient attr theme.title_height 25
-	herbstclient attr theme.title_depth 18
+if [ "$current" = "multiple_tabs" ]; then
+	herbstclient attr theme.title_when always
 else
-	herbstclient attr theme.title_height 0
-	herbstclient attr theme.title_depth 0
+	herbstclient attr theme.title_when multiple_tabs
 fi

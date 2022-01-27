@@ -19,21 +19,21 @@ geometry() {
 }
 
 dropdown=/tmp/herbstluftwm:dropdown
-if xdotool search --onlyvisible --classname 'dropdown'; then
+if xdo id -n dropdown; then
   if [[ $(herbstclient list_monitors | grep '[FOCUS]' | cut -d'"' -f2) == $(herbstclient attr clients.$(cat $dropdown) | grep 's - - tag' | awk '{ print $6 }' | tr -d \") ]]; then
-    xdotool search --onlyvisible --classname 'dropdown' windowunmap
+    xdo hide -n 'dropdown'
     exit
   fi
 fi
 if [[ -f $dropdown ]]; then
   if ! herbstclient bring $(cat $dropdown); then
     geometry
-    xdotool search --classname 'dropdown' windowmap && exit
+    xdo show -n 'dropdown' && exit
   fi
 fi
-if ! xdotool search --classname 'dropdown' windowmap; then
+if ! xdo show -n 'dropdown'; then
   geometry
-  urxvt -name 'dropdown' -e tmux_startup.sh &
-  xdotool search --sync --onlyvisible --classname 'dropdown'
+  urxvt -name 'dropdown' -e tmux new -As Dropdown &
+  xdo id -m -n 'dropdown'
   herbstclient attr clients.focus.winid >$dropdown
 fi

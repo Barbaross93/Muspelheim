@@ -1,51 +1,38 @@
 #!/bin/bash
 
-#if pgrep -f giph &>/dev/null; then
-#	giph --stop &>/dev/null
-#else
-#	notify-send --app-name "giph" -u normal "Select region to record"
-#	setsid -f giph -s -y -a ~/Videos/$(date +%s).mp4 &>/dev/null
-#fi
+selection() {
+	if pgrep ffmpeg >/dev/null 2>&1; then
+		pkill ffmpeg >/dev/null 2>&1
+		notify-send "Record" "Recording ended"
+	else
+		notify-send "Record" "Select region to record"
 
-#selection() {
-if pgrep ffmpeg >/dev/null 2>&1; then
-	pkill ffmpeg >/dev/null 2>&1
-	notify-send "Record" "Recording ended"
-	#printf "Recording ended\n" >$XNOTIFY_FIFO
-else
-	notify-send "Record" "Select region to record"
-	#printf "Select region to record\n" >$XNOTIFY_FIFO
-
-	eval $(slop --color=0.874,0.874,0.686 -n -b 2 -f 'W=%w H=%h X=%x Y=%y')
-	input=$(date '+%Y-%m-%d_%H-%M-%S')
-	output=~/Videos/${input}.mp4
-	ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
-	#scr -c -e &>/dev/null
-fi
-#}
+		eval $(hacksaw -c "#dfdfaf" -s 2 -f 'W=%w H=%h X=%x Y=%y')
+		input=$(date '+%Y-%m-%d_%H-%M-%S')
+		output=~/Videos/${input}.mp4
+		ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
+	fi
+}
 
 full() {
 	if pgrep ffmpeg >/dev/null 2>&1; then
 		pkill ffmpeg >/dev/null 2>&1
 		notify-send "Record" "Recording ended"
-		#printf "Recording ended\n" >$XNOTIFY_FIFO
 	else
 		notify-send "Record" "Recording started"
-		#printf "Recording started\n" >$XNOTIFY_FIFO
 
 		input=$(date '+%Y-%m-%d_%H-%M-%S')
 		output=~/Videos/${input}.mp4
 		mrect=($(herbstclient monitor_rect ""))
 		ffmpeg -f x11grab -video_size ${mrect[2]}x${mrect[3]} -framerate 20 -i $DISPLAY -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
-		#scr -c -e &>/dev/null
 	fi
 }
 
-#case "$1" in
-#-s | --selection)
-#	selection
-#	;;
-#-f | --full | *)
-#	full
-#	;;
-#esac
+case "$1" in
+-s | --selection)
+	selection
+	;;
+-f | --full | *)
+	full
+	;;
+esac

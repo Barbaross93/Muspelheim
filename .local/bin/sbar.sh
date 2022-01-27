@@ -578,7 +578,7 @@ tray() {
 tray | tee "${PANEL_FIFO}" >"${EXT_PANEL_FIFO}" &
 
 # For funsies
-monster="${LGTBG}${RED} %{A1:dmenu_run_i:}%{A3:power:}${GLYMON}%{A}%{A}"
+monster="${LGTBG}${RED} %{A1:launch:}%{A3:power:}${GLYMON}%{A}%{A}"
 
 # Grey bottom border
 echo "" | lemonbar -p -g 1920x3+0+36 -B "${BDR}" -n "bdr" &
@@ -664,8 +664,9 @@ else
 fi
 
 # Make bars below all windows
-for i in $(xdotool search --all --maxdepth 1 --onlyvisible --name 'main|bdr'); do
-	herbstclient lower "$i"
+for i in main bdr ext-main ext-bdr; do
+	id=$(xdo id -a $i)
+	herbstclient lower "$id"
 done
 
 wait

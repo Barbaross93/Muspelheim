@@ -1,0 +1,147 @@
+#!/bin/bash
+
+if [ -n "$TMUX" ]; then
+	trap "tmux set automatic-rename on" exit SIGTERM SIGINT
+	tmux rename-window 'pomo'
+fi
+
+confirmation() {
+	while true; do
+		for i in {1..4}; do
+			#peaclock --config "./.peaclock/config/pomowork"
+			tty-clock -p 1500 -c -C 1 -s -H && printf "Pomodoro\tWork period over!\n" >$XNOTIFY_FIFO && mpv --no-terminal ~/.config/pomod/sound.ogg &>/dev/null
+			while true; do
+				read -e -p 'Continue? (y/n): ' confirm
+				if [[ $confirm == [yY] || $confirm == [yY][Ee][sS] ]]; then
+					if [[ $i = 4 ]]; then
+						break
+					fi
+					unset confirm
+					#peaclock --config "./.peaclock/config/pomoshortbreak"
+					ttyclock -p 300 -c -C 4 -s -H && printf "Pomodoro\tShort break over!\n" >$XNOTIFY_FIFO && mpv --no-terminal ~/.config/pomod/sound.ogg &>/dev/null
+					while true; do
+						read -e -p 'Continue? (y/n): ' confirm
+						if [[ $confirm == [yY] || $confirm == [yY][Ee][sS] ]]; then
+							unset confirm
+							break
+						elif [[ $confirm == [nN] || $confirm == [nN][oO] ]]; then
+							tput reset
+							exit 0
+						else
+							unset confirm
+							echo "Invalid input."
+							continue
+						fi
+					done
+					break
+				elif [[ $confirm == [nN] || $confirm == [nN][oO] ]]; then
+					tput reset
+					exit 0
+				else
+					unset confirm
+					echo "Invalid input"
+					continue
+				fi
+			done
+		done
+		while true; do
+			if [[ $confirm == [yY] || $confirm == [yY][Ee][sS] ]]; then
+				unset confirm
+				#peaclock --config "./.peaclock/config/pomolongbreak"
+				tty-clock -p 900 -c -C 6 -s -H && printf "Pomodoro\tLong break over!" >$XNOTIFY_FIFO && mpv --no-terminal ~/.config/pomod/sound.ogg &>/dev/null
+				while true; do
+					read -e -p 'Continue? (y/n): ' confirm
+					if [[ $confirm == [yY] || $confirm == [yY][Ee][sS] ]]; then
+						unset confirm
+						break
+					elif [[ $confirm == [nN] || $confirm == [nN][oO] ]]; then
+						tput reset
+						exit 0
+					else
+						unset confirm
+						echo "Invalid input."
+						continue
+					fi
+				done
+				break
+			elif [[ $confirm == [nN] || $confirm == [nN][oO] ]]; then
+				tput reset
+				exit 0
+			else
+				unset confirm
+				echo "Invalid input"
+				read -e -p 'Continue? (y/n): ' confirm
+				continue
+			fi
+		done
+	done
+}
+
+no-confirmation() {
+	while true; do
+		for i in {1..4}; do
+			start=$SECONDS
+			#peaclock --config "./.peaclock/config/pomowork"
+			tty-clock -p 1500 -c -C 1 -s -H && printf "Pomodoro\tWork period over!\n" >$XNOTIFY_FIFO && mpv --no-terminal ~/.config/pomod/sound.ogg &>/dev/null
+			while true; do
+				duration=$((SECONDS - start))
+				if [[ $duration -ge 1499 ]]; then
+					if [[ $i = 4 ]]; then
+						break
+					fi
+					unset start
+					unset duration
+					start=$SECONDS
+					#peaclock --config "./.peaclock/config/pomoshortbreak"
+					tty-clock -p 300 -c -C 4 -s -H && printf "Pomodoro\tShort break over!\n" >$XNOTIFY_FIFO && mpv --no-terminal ~/.config/pomod/sound.ogg &>/dev/null
+					while true; do
+						duration=$((SECONDS - start))
+						if [[ $duration -ge 299 ]]; then
+							unset start
+							unset duration
+							break
+						else
+							tput reset
+							exit 0
+						fi
+					done
+					break
+				else
+					tput reset
+					exit 0
+				fi
+			done
+		done
+		while true; do
+			unset start
+			unset duration
+			start=$SECONDS
+			#peaclock --config "./.peaclock/config/pomolongbreak"
+			tty-clock -p 900 -c -C 6 -s -H && printf "Pomodoro\tLong break over!\n" >$XNOTIFY_FIFO && mpv --no-terminal ~/.config/pomod/sound.ogg &>/dev/null
+			while true; do
+				duration=$((SECONDS - start))
+				if [[ $duration -ge 899 ]]; then
+					unset start
+					unset duration
+					break
+				else
+					tput reset
+					exit 0
+				fi
+			done
+			break
+		done
+	done
+}
+
+case "$1" in
+-c | --confirm)
+	confirmation
+	;;
+-n | --no-confirm)
+	no-confirmation
+	;;
+*)
+	no-confirmation
+	;;
+esac

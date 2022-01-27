@@ -1,0 +1,5 @@
+#!/bin/sh
+
+rm /tmp/theme_state
+rm /tmp/bspwm-startup.lock
+bspc quit

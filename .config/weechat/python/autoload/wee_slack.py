@@ -1,1 +1,0 @@
-/usr/lib/weechat/python/wee_slack.py

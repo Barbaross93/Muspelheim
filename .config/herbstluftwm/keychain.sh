@@ -35,13 +35,13 @@ hc keybind Mod4-r chain \
     '->' spawn notify-send "hlwm" "Record mp4/gif (mg) or press Escape" \
     '->' keybind "${keys[0]}" chain "${unbind[@]}" , spawn mp4 \
     '->' keybind "${keys[1]}" chain "${unbind[@]}" , spawn gif \
-    '->' keybind Escape chain "${unbind[@]}" #Keychain to record mp4 or gif
+    '->' keybind Escape chain "${unbind[@]}" #Keychain to record mp4 or gif fulscreen
 
-#hc keybind Mod4-Mod1-r chain \
-#    '->' spawn notify-send "hlwm" "Record mp4/gif selection (mg) or press Escape" \
-#    '->' keybind "${keys[0]}" chain "${unbind[@]}" , spawn mp4 -s \
-#    '->' keybind "${keys[1]}" chain "${unbind[@]}" , spawn gif -s \
-#    '->' keybind Escape chain "${unbind[@]}"
+hc keybind Mod4-Mod1-r chain \
+    '->' spawn notify-send "hlwm" "Record mp4/gif selection (mg) or press Escape" \
+    '->' keybind "${keys[0]}" chain "${unbind[@]}" , spawn mp4 -s \
+    '->' keybind "${keys[1]}" chain "${unbind[@]}" , spawn gif -s \
+    '->' keybind Escape chain "${unbind[@]}" #Keychain to record mp4 or gif selection
 
 #########################################################################################
 
@@ -53,7 +53,7 @@ for k in "${keys[@]}" Escape; do
     unbind+=(, keyunbind "$k")
 done
 
-hc keybind Mod4-j chain \
+hc keybind Mod4-c chain \
     '->' spawn notify-send "hlwm" "Song info/cover art (na) or press Escape" \
     '->' keybind "${keys[0]}" chain "${unbind[@]}" , spawn ~/.config/cmus/cmus_notify.sh \
     '->' keybind "${keys[1]}" chain "${unbind[@]}" , spawn ~/.config/cmus/art.sh \

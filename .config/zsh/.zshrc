@@ -17,7 +17,7 @@ unsetopt completealiases
 zstyle ':completion:*' rehash true
 
 ## Nifty third party tools
-#import nifty gitstatus tool
+#import gitstatus tool
 source ~/.config/zsh/gitstatus/gitstatus.plugin.zsh
 # Startup zoxide
 eval "$(zoxide init zsh)"
@@ -30,8 +30,8 @@ zstyle :compinstall filename '/home/barbaross/.config/zsh/.zshrc'
 
 # History opts
 HISTFILE=~/.config/zsh/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt APPEND_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt EXTENDED_HISTORY
@@ -57,28 +57,9 @@ bindkey "^[[1;5D" backward-word
 # Autosuggestions and syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-#source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-
-# Key bindings for history substring search
-#bindkey '^[[A' history-substring-search-up
-#bindkey '^[[B' history-substring-search-down
 
 # Setup fzf
 source /usr/share/fzf/key-bindings.zsh
-
-# Setup thefuck
-eval $(thefuck --alias)
-fuck-command-line() {
-    local FUCK="$(THEFUCK_REQUIRE_CONFIRMATION=0 thefuck $(fc -ln -1 | tail -n 1) 2> /dev/null)"
-    [[ -z $FUCK ]] && echo -n -e "\a" && return
-    BUFFER=$FUCK
-    zle end-of-line
-}
-zle -N fuck-command-line
-# Defined shortcut keys: [Esc] [Esc]
-bindkey -M emacs '\e\e' fuck-command-line
-bindkey -M vicmd '\e\e' fuck-command-line
-bindkey -M viins '\e\e' fuck-command-line
 
 #Source ssh environment
 . ~/.ssh/agent-environment > /dev/null
@@ -87,6 +68,7 @@ bindkey -M viins '\e\e' fuck-command-line
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==35=35}:${(s.:.)LS_COLORS}")';
 zstyle ':completion:*:descriptions' format $'\e[01;33m %d\e[0m'
 zstyle ':completion:*:messages' format $'\e[01;31m %d\e[0m'
+zstyle ':completion:*' menu select
 
 ## Prompt stuff
 # Helper functions for prompt
@@ -147,11 +129,6 @@ add-zsh-hook precmd custom_prompt
 export PROMPT2="%{$fg_bold[black]%} %{%G■%}%{$reset_color%} "
 
 ### General configs
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-	export EDITOR='vim'
-fi
-
 # Color support for ls, fd, etc
 eval $(dircolors -p | perl -pe 's/^((CAP|S[ET]|O[TR]|M|E)\w+).*/$1 00/' | dircolors -)
 
@@ -208,9 +185,9 @@ alias newsboat='newsboat -q'
 alias bnps='java -jar ~/Public/font-stuff/bitsnpicas/main/java/BitsNPicas/BitsNPicas.jar'
 alias spotdl="ts pipx run spotdl -o ~/Music"
 alias usv="SVDIR=~/.local/service sv"
+alias figlet="figlet -d ~/Public/figlet-fonts"
 
 ### Functions
-
 # Colorized man pages
 man() {
 	env \
@@ -249,7 +226,7 @@ cl() {
 		cd "$dir" >/dev/null
 		ls
 	else
-		echo "bash: cl: $dir: Directory not found"
+		echo "zsh: cl: $dir: Directory not found"
 	fi
 }
 
@@ -320,4 +297,40 @@ bnps-bld() {
 			echo "Please specify otb, ttf, or bdf first before passing the file path!"
 			;;
 		esac
+}
+
+rld_btmp_fnts() {
+	BTMP_FNT_DIR=~/.local/share/fonts/misc/
+
+	echo "Recreating X11 font index files..."
+	mkfontscale $BTMP_FNT_DIR
+	mkfontdir $BTMP_FNT_DIR
+	echo "Done!"
+
+	echo ""
+
+	echo "Refreshing X11 bitmap font database..."
+	xset fp rehash
+	echo "Done!"
+
+	# Want to know its XLFD name?
+	if [ -n "$*" ]; then
+		echo""
+		echo "XLFD Name(s:"
+		xlsfonts | grep "$*"
+	fi
+}
+
+font_test() {
+echo "
+
+                0 1 2 3 4 5 6 7 8 9
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+a b c d e f g h i j k l m n o p q r s t u v w x y z
+            ! @ # \$ % ^ & * ( ) _ + = -
+                   , . / ; ' [ ]
+                   < > ? : \" { }
+
+
+"
 }

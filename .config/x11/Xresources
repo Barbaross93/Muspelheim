@@ -9,7 +9,7 @@ Xft.rgba:                       rgb
 Xft.lcdfilter:                  lcddefault
 
 !Nsxiv config
-Nsxiv.bar.font: custom:pixelsize=15
+Nsxiv.bar.font: monospace:pixelsize=15
 
 !Colors
 #include "/home/barbaross/.config/x11/colorschemes/alduin.Xresources"

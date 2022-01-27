@@ -21,7 +21,6 @@ btrfs-progs-5.14.1_1
 cava-0.7.4_1
 chromium-widevine-96.0.4664.110_1
 chrony-4.2_1
-clang-12.0.1_2
 clipmenu-6.2.0_1
 cmus-2.9.1_2
 cronie-1.5.7_1
@@ -127,6 +126,7 @@ synergy-1.13.0_2
 task-2.6.1_1
 tealdeer-1.5.0_1
 tectonic-0.8.0_2
+thinkfan-1.3.0_1
 tig-2.5.4_1
 tiramisu-2.0.20211107_1
 tlp-1.5.0_1
