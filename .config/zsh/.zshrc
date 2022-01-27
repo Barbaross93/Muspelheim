@@ -42,8 +42,8 @@ autoload -U colors && colors
 
 # Default to vi mode bay-bee
 bindkey -v
-vim_ins_mode="i"
-vim_cmd_mode="c"
+vim_ins_mode="■"
+vim_cmd_mode="□"
 vim_mode=$vim_ins_mode
 
 # Fix a bug when you C-c in CMD mode and you'd be prompted with CMD mode indicator, while in fact you would be in INS mode
@@ -127,9 +127,6 @@ custom_prompt() {
 	#Current directory
 	PROMPT+="[%{$fg[white]%}%~%{$fg[red]%}]"
 	
-	#Vi mode state
-	PROMPT+="%{%G━%}[%{$fg[white]%}${vim_mode}%{$fg[red]%}]"
-
 	#Git status
 	if gitstatus_query MY && [[ "$VCS_STATUS_RESULT" == ok-sync ]]; then
 		if [[ -n "$VCS_STATUS_LOCAL_BRANCH" ]]; then
@@ -144,9 +141,9 @@ custom_prompt() {
 	fi
 
 	if [ $cmd_cde -eq 0 ]; then
-		PROMPT+=$'\n'"%{$fg[red]%}┗━━ %{$fg_bold[black]%}■ %{$reset_color%}"
+		PROMPT+=$'\n'"%{$fg[red]%}┗━━ %{$fg_bold[black]%}${vim_mode} %{$reset_color%}"
 	else
-		PROMPT+=$'\n'"%{$fg[red]%}┗━━ %{$reset_color%}■ "
+		PROMPT+=$'\n'"%{$fg[red]%}┗━━ %{$reset_color%}${vim_mode} "
 	fi
 	
 	setopt no_prompt_{bang,subst} prompt_percent  # enable/disable correct prompt expansions
