@@ -42,6 +42,7 @@ autoload -U colors && colors
 
 # Default to vi mode bay-bee
 bindkey -v
+bindkey -v '^?' backward-delete-char
 vim_ins_mode="■"
 vim_cmd_mode="□"
 vim_mode=$vim_ins_mode
