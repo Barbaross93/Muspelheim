@@ -8,23 +8,23 @@
 #	setsid -f giph -s -y ~/Pictures/Gifs/Recordings/$(date +%s).gif &>/dev/null
 #fi
 
-selection() {
-	if pgrep ffmpeg >/dev/null 2>&1; then
-		pkill ffmpeg
-		notify-send "Record" "Stopping gif recording..."
-	else
-		notify-send "Record" "Select region to record"
-		eval $(hacksaw -c "#dfdfaf" -s 2 -f 'W=%w H=%h X=%x Y=%y')
-		input=$(date '+%Y-%m-%d_%H-%M-%S')
-		output=~/Pictures/Gifs/Recordings/${input}.gif
-		ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} /tmp/$input.mkv
-		ffmpeg -i /tmp/${input}.mkv -vf "fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop -1 ${output}
+#selection() {
+if pgrep ffmpeg >/dev/null 2>&1; then
+	pkill ffmpeg
+	notify-send "Record" "Stopping gif recording..."
+else
+	notify-send "Record" "Select region to record"
+	eval $(slop --color=0.874,0.874,0.686 -n -b 2 -f 'W=%w H=%h X=%x Y=%y')
+	input=$(date '+%Y-%m-%d_%H-%M-%S')
+	output=~/Pictures/Gifs/Recordings/${input}.gif
+	ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} /tmp/$input.mkv
+	ffmpeg -i /tmp/${input}.mkv -vf "fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop -1 ${output}
 
-		rm -rf /tmp/${input}.mkv
-		notify-send "Record" "Recording finished!"
-		#scr -c -e $(date '+%Y-%m-%d_%H-%M-%S').gif &>/dev/null
-	fi
-}
+	rm -rf /tmp/${input}.mkv
+	notify-send "Record" "Recording finished!"
+	#scr -c -e $(date '+%Y-%m-%d_%H-%M-%S').gif &>/dev/null
+fi
+#}
 
 full() {
 	if pgrep ffmpeg >/dev/null 2>&1; then
@@ -47,11 +47,11 @@ full() {
 	fi
 }
 
-case "$1" in
--s | --selection)
-	selection
-	;;
--f | --full | *)
-	full
-	;;
-esac
+#case "$1" in
+#-s | --selection)
+#	selection
+#	;;
+#-f | --full | *)
+#	full
+#	;;
+#esac

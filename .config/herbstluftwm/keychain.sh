@@ -37,11 +37,11 @@ hc keybind Mod4-r chain \
     '->' keybind "${keys[1]}" chain "${unbind[@]}" , spawn gif \
     '->' keybind Escape chain "${unbind[@]}" #Keychain to record mp4 or gif fulscreen
 
-hc keybind Mod4-Mod1-r chain \
-    '->' spawn notify-send "hlwm" "Record mp4/gif selection (mg) or press Escape" \
-    '->' keybind "${keys[0]}" chain "${unbind[@]}" , spawn mp4 -s \
-    '->' keybind "${keys[1]}" chain "${unbind[@]}" , spawn gif -s \
-    '->' keybind Escape chain "${unbind[@]}" #Keychain to record mp4 or gif selection
+#hc keybind Mod4-Mod1-r chain \
+#    '->' spawn notify-send "hlwm" "Record mp4/gif selection (mg) or press Escape" \
+#    '->' keybind "${keys[0]}" chain "${unbind[@]}" , spawn mp4 -s \
+#    '->' keybind "${keys[1]}" chain "${unbind[@]}" , spawn gif -s \
+#    '->' keybind Escape chain "${unbind[@]}" #Keychain to record mp4 or gif selection
 
 #########################################################################################
 

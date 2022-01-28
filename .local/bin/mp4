@@ -1,18 +1,18 @@
 #!/bin/bash
 
-selection() {
-	if pgrep ffmpeg >/dev/null 2>&1; then
-		pkill ffmpeg >/dev/null 2>&1
-		notify-send "Record" "Recording ended"
-	else
-		notify-send "Record" "Select region to record"
+#selection() {
+if pgrep ffmpeg >/dev/null 2>&1; then
+	pkill ffmpeg >/dev/null 2>&1
+	notify-send "Record" "Recording ended"
+else
+	notify-send "Record" "Select region to record"
 
-		eval $(hacksaw -c "#dfdfaf" -s 2 -f 'W=%w H=%h X=%x Y=%y')
-		input=$(date '+%Y-%m-%d_%H-%M-%S')
-		output=~/Videos/${input}.mp4
-		ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
-	fi
-}
+	eval $(slop --color=0.874,0.874,0.686 -n -b 2 -f 'W=%w H=%h X=%x Y=%y')
+	input=$(date '+%Y-%m-%d_%H-%M-%S')
+	output=~/Videos/${input}.mp4
+	ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
+fi
+#}
 
 full() {
 	if pgrep ffmpeg >/dev/null 2>&1; then
@@ -28,11 +28,11 @@ full() {
 	fi
 }
 
-case "$1" in
--s | --selection)
-	selection
-	;;
--f | --full | *)
-	full
-	;;
-esac
+#case "$1" in
+#-s | --selection)
+#	selection
+#	;;
+#-f | --full | *)
+#	full
+#	;;
+#esac
