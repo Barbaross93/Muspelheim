@@ -73,6 +73,9 @@ bindkey "^[[1;5D" backward-word
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# Autosuggest keybind ctrl + @
+bindkey '^@' autosuggest-accept
+
 # Setup fzf
 source /usr/share/fzf/key-bindings.zsh
 
