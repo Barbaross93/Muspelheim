@@ -1,20 +1,12 @@
 #!/bin/bash
 
-#if pgrep -f giph &>/dev/null; then
-#	giph --stop &>/dev/null
-#	notify-send --app-name "giph" -u normal "Stopping gif recording..."
-#else
-#	notify-send --app-name "giph" -u normal "Select region to record"
-#	setsid -f giph -s -y ~/Pictures/Gifs/Recordings/$(date +%s).gif &>/dev/null
-#fi
-
 #selection() {
 if pgrep ffmpeg >/dev/null 2>&1; then
 	pkill ffmpeg
 	notify-send "Record" "Stopping gif recording..."
 else
 	notify-send "Record" "Select region to record"
-	eval $(slop --color=0.874,0.874,0.686 -n -b 2 -f 'W=%w H=%h X=%x Y=%y')
+	eval $(slop -r boxzoom --color=0.874,0.874,0.686 -n -b 2 -f 'W=%w H=%h X=%x Y=%y')
 	input=$(date '+%Y-%m-%d_%H-%M-%S')
 	output=~/Pictures/Gifs/Recordings/${input}.gif
 	ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} /tmp/$input.mkv
@@ -22,7 +14,6 @@ else
 
 	rm -rf /tmp/${input}.mkv
 	notify-send "Record" "Recording finished!"
-	#scr -c -e $(date '+%Y-%m-%d_%H-%M-%S').gif &>/dev/null
 fi
 #}
 
@@ -43,7 +34,6 @@ full() {
 
 		rm -rf /tmp/${input}.ogv
 		notify-send "Record" "Recording finished!"
-		#scr -c -e $(date '+%Y-%m-%d_%H-%M-%S').gif &>/dev/null
 	fi
 }
 
