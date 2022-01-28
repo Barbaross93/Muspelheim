@@ -263,6 +263,13 @@ cl() {
 	fi
 }
 
+dotgit() {
+	gitdir="/home/barbaross/Public/thonkpad-dotfiles/"
+	git -C $gitdir add .
+	git -C $gitdir commit -m "$*"
+	git -C $gitdir push
+}
+
 # one off calculator
 calc() {
 	echo "scale=3;$@" | bc -l
