@@ -9,10 +9,13 @@ else
 	eval $(slop -r boxzoom --color=0.874,0.874,0.686 -n -b 2 -f 'W=%w H=%h X=%x Y=%y')
 	input=$(date '+%Y-%m-%d_%H-%M-%S')
 	output=~/Pictures/Gifs/Recordings/${input}.gif
-	ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} /tmp/$input.mkv
-	ffmpeg -i /tmp/${input}.mkv -vf "fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop -1 ${output}
+	mkdir -p /tmp/ffgif
+	ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} /tmp/ffgif/%04d.png
+	#ffmpeg -i /tmp/${input}.mkv -vf "fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop -1 ${output}
+	convert -loop 0 -delay 5 /tmp/ffgif/*.png -layers Optimize ${output}
+	rm -rf /tmp/ffgif
 
-	rm -rf /tmp/${input}.mkv
+	#rm -rf /tmp/${input}.mkv
 	notify-send "Record" "Recording finished!"
 fi
 #}
