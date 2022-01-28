@@ -99,9 +99,9 @@ hc keybind Mod4-Shift-k shift up        #Move window up
 hc keybind Mod4-Shift-l shift right     #Move window right
 
 # Cycle focus through tags
-hc keybind Mod4-period ~/.config/herbstluftwm/scripts/tag_switch.sh next #Switch to next non-empty tag
+hc keybind Mod4-period spawn ~/.config/herbstluftwm/scripts/tag_switch.sh next #Switch to next non-empty tag
 
-hc keybind Mod4-comma ~/.config/herbstluftwm/scripts/tag_switch.sh prev #Switch to prev non-empty tag
+hc keybind Mod4-comma spawn ~/.config/herbstluftwm/scripts/tag_switch.sh prev #Switch to prev non-empty tag
 
 # Create frames
 frac="0.5"
@@ -138,7 +138,7 @@ hc keybind Mod4-Shift-equal spawn ~/.config/herbstluftwm/scripts/gap_adjust.sh +
 hc keybind Mod4-BackSpace spawn ~/.config/herbstluftwm/scripts/gap_adjust.sh        #Reset gaps
 
 # swapping frames (actually just transferring windows across frames)
-c keybind Mod4-Shift-Ctrl-Right \
+hc keybind Mod4-Shift-Ctrl-Right \
   substitute OLDWIN clients.focus.winid chain \
   , focus -e right \
   , substitute NEWWIN clients.focus.winid \
