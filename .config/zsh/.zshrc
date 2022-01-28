@@ -47,9 +47,6 @@ vim_ins_mode="■"
 vim_cmd_mode="□"
 vim_mode=$vim_ins_mode
 
-# Fix a bug when you C-c in CMD mode and you'd be prompted with CMD mode indicator, while in fact you would be in INS mode
-# Fixed by catching SIGINT (C-c), set vim_mode to INS and then repropagate the SIGINT, so if anything else depends on it, we will not break it
-# Thanks Ron! (see comments)
 function TRAPINT() {
   vim_mode=$vim_ins_mode
   return $(( 128 + $1 ))
@@ -99,6 +96,40 @@ cup(){
   echo "$line"
 }
 
+#Collapse path to single chars if it gets too long
+collapse_pwd() {
+    echo $(pwd | sed -e "s,^$HOME,~,")
+}
+
+#Truncate the dir path
+truncated_pwd() {
+  n=$1 # n = number of directories to show in full (n = 3, /a/b/c/dee/ee/eff)
+  path=`collapse_pwd`
+
+  # split our path on /
+  dirs=("${(s:/:)path}")
+  dirs_length=$#dirs
+
+  if [[ $dirs_length -ge $n ]]; then
+    # we have more dirs than we want to show in full, so compact those down
+    ((max=dirs_length - n))
+    for (( i = 1; i <= $max; i++ )); do
+      step="$dirs[$i]"
+      if [[ -z $step ]]; then
+        continue
+      fi
+      if [[ $step =~ "^\." ]]; then
+        dirs[$i]=$step[0,2] #make .mydir => .m
+      else
+        dirs[$i]=$step[0,1] # make mydir => m
+      fi
+      
+    done
+  fi
+
+  echo ${(j:/:)dirs}
+}
+
 #Vim mode helper function; notifies current state
 zle-keymap-select() {
   vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
@@ -134,7 +165,7 @@ custom_prompt() {
 	[ "$(id -u)" -eq 0 ] && PROMPT+="[%{$fg[white]%}root%{$fg[red]%}]%{%G━%}"
 	
 	#Current directory
-	PROMPT+="[%{$fg[white]%}%~%{$fg[red]%}]"
+	PROMPT+="[%{$fg[white]%}%{$(truncated_pwd 3)%}%{$fg[red]%}]"
 	
 	#Git status
 	if gitstatus_query MY && [[ "$VCS_STATUS_RESULT" == ok-sync ]]; then
