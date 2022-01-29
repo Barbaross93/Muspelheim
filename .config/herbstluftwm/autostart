@@ -24,11 +24,14 @@ hc emit_hook reload
 # Always wanted for refresh
 noisewall "#452f2f"
 
-# Lazy load keybinds
-~/.config/herbstluftwm/bindings.sh &
+#Load bindings sequentially, but lazily
+{
+    # Lazy load keybinds
+    ~/.config/herbstluftwm/bindings.sh
 
-# Lazy load keychains
-~/.config/herbstluftwm/keychain.sh &
+    # Lazy load keychains
+    ~/.config/herbstluftwm/keychain.sh
+} &
 
 # tags
 tag_names=({1..9} 0)
