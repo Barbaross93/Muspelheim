@@ -9,7 +9,7 @@
     border-color:          #1c1c1c;
     text-color:           #dfdfaf;
     vertical-align:         0.5;
-    font:            "monospace 15px";
+    font:            "monospace 13px";
 }
 window {
     anchor:     north;
@@ -51,9 +51,7 @@ listview {
     spacing:    5px;
     lines:      150;
     cycle:      false;
-}
-scrollbar {
-    handle-width: 10px;
+    fixed-height: false;
 }
 entry {
     expand:     false;
@@ -74,5 +72,6 @@ element-text {
     background-color:   inherit; 
     text-color:         inherit;
     padding:            3px 5px;
+    highlight:          #87afaf;
 }
 // vim:ft=css

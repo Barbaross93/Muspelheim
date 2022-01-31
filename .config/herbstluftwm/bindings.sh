@@ -40,7 +40,7 @@ hc keybind XF86Favorites spawn prtscr                 #Print Screen
 hc keybind Mod4-XF86Favorites spawn prtregion         #Print region
 hc keybind Mod4-x spawn clipmenu -p 'Clipboard:' -l 0 #Clipboard manager
 hc keybind Mod4-Shift-c spawn colorpicker.sh          #Colorpicker
-hc keybind Mod4-Shift-z spawn xcolor -c ""            #Zoom
+hc keybind Mod4-Shift-z spawn mag.sh                  #Zoom
 hc keybind Mod4-Shift-m spawn emote                   #Kaomoji selector
 hc keybind Mod4-z spawn mwarp.sh                      #Warp mouse
 

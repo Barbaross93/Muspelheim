@@ -7,5 +7,5 @@ notify-send "Screenshot" "Select a region to screenshot"
 #scrot -s ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #shotgun -g $(hacksaw -n) ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #maim --color=0.874,0.874,0.686 -b 2 -s ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png
-import -window root -crop $(slop -r boxzoom --color=0.874,0.874,0.686 -n -b 2) ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png && notify-send "Screenshot" "Screenshot of region taken"
+import -window root -crop $(slop --color=0.874,0.874,0.686 -b 2) ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png && notify-send "Screenshot" "Screenshot of region taken"
 #printf "SEC:3 ' Screenshot of region taken\n" >$XNOTIFY_FIFO

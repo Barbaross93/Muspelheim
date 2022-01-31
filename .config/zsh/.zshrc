@@ -73,11 +73,22 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Autosuggest keybind ctrl + @
 bindkey '^@' autosuggest-accept
 
+#Setup thefuck
+eval $(thefuck --alias)
+fuck-command-line() {
+    local FUCK="$(THEFUCK_REQUIRE_CONFIRMATION=0 thefuck $(fc -ln -1 | tail -n 1) 2> /dev/null)"
+    [[ -z $FUCK ]] && echo -n -e "\a" && return
+    BUFFER=$FUCK
+    zle end-of-line
+}
+zle -N fuck-command-line
+bindkey '^F' fuck-command-line
+
 # Setup fzf
 source /usr/share/fzf/key-bindings.zsh
 
 #Source ssh environment
-. ~/.ssh/agent-environment > /dev/null
+source ~/.ssh/agent-environment > /dev/null
 
 # Style completion menu
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==35=35}:${(s.:.)LS_COLORS}")';
@@ -253,6 +264,9 @@ alias bnps='java -jar ~/Public/font-stuff/bitsnpicas/main/java/BitsNPicas/BitsNP
 alias spotdl="ts pipx run spotdl -o ~/Music"
 alias usv="SVDIR=~/.local/service sv"
 alias figlet="figlet -d ~/Public/figlet-fonts"
+alias chkrks="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhunter --sk --check"
+alias chkvrs="clamscan --recursive=yes --infected /home"
+alias updavrs="sudo freshclam"
 
 ### Functions
 # Colorized man pages
@@ -327,7 +341,9 @@ btdu() {
 reptyr() {
 	query=$(echo "$*" | sed 's/ /.*/g')
 	pid=$(pgrep --full "$query" | head -1)
-	/usr/bin/reptyr $pid || /usr/bin/reptyr -s $pid || /usr/bin/reptyr -T $pid && exit
+	echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope >/dev/null
+  /usr/bin/reptyr $pid || /usr/bin/reptyr -s $pid || /usr/bin/reptyr -T $pid
+	echo 1 | sudo tee /proc/sys/kernel/yama/ptrace_scope >/dev/null
 }
 
 #Convert bdf to otb or ttf

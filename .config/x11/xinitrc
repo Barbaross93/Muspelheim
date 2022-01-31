@@ -15,7 +15,7 @@ usermodmap=$HOME/.config/x11/Xmodmap
 [ -f ~/.config/x11/xprofile ] && . ~/.config/x11/xprofile
 
 # X settings
-xset +fp ~/.local/share/fonts/misc,/usr/share/fonts/misc
+xset +fp ~/.local/share/fonts/misc,/usr/share/fonts/misc,/usr/share/fonts/X11/spleen
 #xset s 180 119 #with xss-lock, dim screen after 3 minutes, then lock 2 minutes later
 xset s off
 xset s noblank

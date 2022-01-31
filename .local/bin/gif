@@ -6,7 +6,7 @@ if pgrep ffmpeg >/dev/null 2>&1; then
 	notify-send "Record" "Stopping gif recording..."
 else
 	notify-send "Record" "Select region to record"
-	eval $(slop -r boxzoom --color=0.874,0.874,0.686 -n -b 2 -f 'W=%w H=%h X=%x Y=%y')
+	eval $(slop --color=0.874,0.874,0.686 -b 2 -f 'W=%w H=%h X=%x Y=%y')
 	input=$(date '+%Y-%m-%d_%H-%M-%S')
 	output=~/Pictures/Gifs/Recordings/${input}.gif
 	mkdir -p /tmp/ffgif

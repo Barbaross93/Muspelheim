@@ -34,9 +34,10 @@ tail -f /tmp/signal_bar |
 #-misc-termsynu-medium-r-normal-*-14-*-*-*-*-*-iso10646-*
 #-romeovs-creep2-medium-r-normal--11-110-75-75-c-50-iso10646-1
 #-sxthe-terra-medium-r-normal--12-120-72-72-c-60-iso8859-1
-FONTS="-f -barbaross-creeper-medium-r-normal--15-150-100-100-m-80-iso8859-1 -f -wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1 -f -barbaross-creeper-bold-r-normal--15-150-100-100-m-80-iso8859-1"
+#-barbaross-creeper-medium-r-normal--15-150-100-100-m-80-iso8859-1
+FONTS="-f spleen-8x16 -f -wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1"
 WIDTH=1920        # bar width
-HEIGHT=36         # bar height
+HEIGHT=40         # bar height
 XOFF=0            # x offset
 YOFF=0            # y offset
 BBG=${background} # bar background color

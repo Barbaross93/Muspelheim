@@ -8,16 +8,16 @@ config.load_autoconfig()
 alduin.draw.konda(c)
 
 c.fonts.default_family = "monospace"
-c.fonts.hints = "15pt monospace"
-c.fonts.keyhint = "15pt monospace"
-c.fonts.prompts = "15pt monospace"
-c.fonts.downloads = "15pt monospace"
-c.fonts.statusbar = "15pt monospace"
-c.fonts.contextmenu = "15pt monospace"
-c.fonts.messages.info = "15pt monospace"
-c.fonts.debug_console = "15pt monospace"
-c.fonts.completion.entry = "15pt monospace"
-c.fonts.completion.category = "15pt monospace"
+c.fonts.hints = "12pt monospace"
+c.fonts.keyhint = "12pt monospace"
+c.fonts.prompts = "12pt monospace"
+c.fonts.downloads = "12pt monospace"
+c.fonts.statusbar = "12pt monospace"
+c.fonts.contextmenu = "12pt monospace"
+c.fonts.messages.info = "12pt monospace"
+c.fonts.debug_console = "12pt monospace"
+c.fonts.completion.entry = "12pt monospace"
+c.fonts.completion.category = "12pt monospace"
 c.url.start_pages = "~/.config/qutebrowser/startpage/index.html"
 c.url.default_page = "~/.config/qutebrowser/startpage/index.html"
 c.editor.command = ["/usr/bin/urxvt", "-e", "/usr/bin/vim {}"]
@@ -25,7 +25,7 @@ c.editor.command = ["/usr/bin/urxvt", "-e", "/usr/bin/vim {}"]
 c.colors.webpage.darkmode.enabled = False
 
 # Tor browsing
-#c.content.proxy = 'socks5://localhost:9050/'
+# c.content.proxy = 'socks5://localhost:9050/'
 # c.url.searchengines = {
 #    'DEFAULT': 'https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/?q={}'}
 

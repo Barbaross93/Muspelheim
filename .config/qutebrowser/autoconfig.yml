@@ -90,9 +90,9 @@ settings:
     - lf
     - --choosefile={}
   fonts.default_family:
-    global: 15pt monospace
+    global: 12pt monospace
   fonts.default_size:
-    global: 15pt
+    global: 12pt
   hints.radius:
     global: 0
   keyhint.radius:

@@ -7,7 +7,7 @@ if pgrep ffmpeg >/dev/null 2>&1; then
 else
 	notify-send "Record" "Select region to record"
 
-	eval $(slop -r boxzoom --color=0.874,0.874,0.686 -n -b 2 -f 'W=%w H=%h X=%x Y=%y')
+	eval $(slop --color=0.874,0.874,0.686 -b 2 -f 'W=%w H=%h X=%x Y=%y')
 	input=$(date '+%Y-%m-%d_%H-%M-%S')
 	output=~/Videos/${input}.mp4
 	ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
