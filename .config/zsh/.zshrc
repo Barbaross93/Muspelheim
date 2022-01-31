@@ -264,9 +264,6 @@ alias bnps='java -jar ~/Public/font-stuff/bitsnpicas/main/java/BitsNPicas/BitsNP
 alias spotdl="ts pipx run spotdl -o ~/Music"
 alias usv="SVDIR=~/.local/service sv"
 alias figlet="figlet -d ~/Public/figlet-fonts"
-alias chkrks="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhunter --sk --check"
-alias chkvrs="clamscan --recursive=yes --infected /home"
-alias updavrs="sudo freshclam"
 
 ### Functions
 # Colorized man pages

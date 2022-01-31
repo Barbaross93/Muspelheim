@@ -37,7 +37,7 @@ tail -f /tmp/signal_bar |
 #-barbaross-creeper-medium-r-normal--15-150-100-100-m-80-iso8859-1
 FONTS="-f spleen-8x16 -f -wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1"
 WIDTH=1920        # bar width
-HEIGHT=40         # bar height
+HEIGHT=36         # bar height
 XOFF=0            # x offset
 YOFF=0            # y offset
 BBG=${background} # bar background color
