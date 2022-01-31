@@ -35,18 +35,18 @@ efibootmgr-17_6
 eudev-3.2.10_1
 exa-0.10.1_1
 exiftool-12.39_1
-fd-8.3.1_1
+fd-8.3.2_1
 ffmpeg-4.4.1_1
 figlet-2.2.5_6
 file-5.41_1
 font-Siji-0.0.0.20171022_2
-font-cozette-1.11.3_1
+font-cozette-1.11.3_2
+font-spleen-1.8.2_2
 font-unifont-bdf-14.0.01_1
-fontopia-1.8.4_1
 fuzzypkg-1.0.8_1
 fzf-0.29.0_1
 gcc-10.2.1pre1_3
-gnudos-1.11.4_1
+grabc-1.0.2_1
 gummiboot-efistub-48.1_8
 harfbuzz-3.2.0_1
 herbstluftwm-git-0.9.4_11
@@ -56,6 +56,7 @@ htop-3.1.2_1
 inotify-tools-3.20.11.0_1
 intel-media-driver-21.3.5_1
 intel-ucode-20210608_1
+intel-undervolt-1.7_1
 iputils-20211215_1
 isync-1.4.4_1
 iwd-1.21_1
@@ -124,6 +125,7 @@ synergy-1.13.0_2
 task-2.6.1_1
 tealdeer-1.5.0_1
 tectonic-0.8.0_2
+thefuck-3.31_2
 tig-2.5.4_1
 tiramisu-2.0.20211107_1
 tlp-1.5.0_1
@@ -149,7 +151,6 @@ wireguard-tools-1.0.20210914_2
 xautolock-2.2_7
 xbanish-1.7_1
 xcape-1.2_2
-xcolor-0.5.1_1
 xdo-0.5.7_3
 xinput-1.6.3_1
 xlsfonts-1.0.6_1
