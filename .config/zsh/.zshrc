@@ -73,17 +73,6 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Autosuggest keybind ctrl + @
 bindkey '^@' autosuggest-accept
 
-#Setup thefuck
-eval $(thefuck --alias)
-fuck-command-line() {
-    local FUCK="$(THEFUCK_REQUIRE_CONFIRMATION=0 thefuck $(fc -ln -1 | tail -n 1) 2> /dev/null)"
-    [[ -z $FUCK ]] && echo -n -e "\a" && return
-    BUFFER=$FUCK
-    zle end-of-line
-}
-zle -N fuck-command-line
-bindkey '^F' fuck-command-line
-
 # Setup fzf
 source /usr/share/fzf/key-bindings.zsh
 

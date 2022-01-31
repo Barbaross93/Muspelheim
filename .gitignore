@@ -18,6 +18,7 @@
 .config/mutt/signature
 .config/newsboat/history.cmdline
 .config/newsboat/urls
+.config/polybar/polybar-scripts/old
 .config/qutebrowser/bookmarks/
 .config/qutebrowser/host_block
 .config/qutebrowser/quickmarks

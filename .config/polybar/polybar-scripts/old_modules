@@ -1,0 +1,335 @@
+[module/bspwm]
+type = internal/bspwm
+
+format = <label-state>
+pin-workspaces = false
+enable-scroll = true
+;label-separator = "  "
+label-separator-background = ${colors.shade16}
+
+label-focused-overline = ${colors.background}
+label-occupied-overline = ${colors.background}
+label-urgent-overline = ${colors.background}
+label-empty-overline = ${colors.background}
+label-separator-overline = ${colors.background}
+label-separator-underline = ${colors.background}
+
+label-focused-underline = ${colors.background}
+label-occupied-underline = ${colors.background}
+label-urgent-underline = ${colors.background}
+label-empty-underline = ${colors.background}
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-7 = 8;
+ws-icon-8 = 9;
+ws-icon-9 = 10;
+
+label-focused = %icon%
+label-focused-padding = 1
+label-focused-foreground = ${colors.shade3}
+label-focused-background = ${colors.shade16}
+
+label-dimmed-focused = %icon%
+label-dimmed-focused-padding = 1
+label-dimmed-focused-foreground = ${colors.shade6}
+label-dimmed-focused-background = ${colors.shade16}
+
+label-occupied = %icon%
+label-occupied-padding = 1
+label-occupied-background = ${colors.shade16}
+label-occupied-foreground = ${colors.shade7}
+
+label-urgent = %icon%
+label-urgent-padding = 1
+label-urgent-background = ${colors.shade16}
+label-urgent-foreground = ${colors.shade1}
+
+label-empty = %icon%
+label-empty-padding = 1
+label-empty-background = ${colors.shade16}
+label-empty-foreground = ${colors.shade0}
+
+[module/bsplayout]
+type = internal/bspwm
+
+format = <label-mode>
+pin-workspace = false
+enable-scroll = false
+inline-mode = false
+
+label-monocle-overline = ${colors.background}
+label-tiled-overline = ${colors.background}
+label-monocle-underline = ${colors.background}
+label-tiled-underline = ${colors.background}
+
+;format-suffix = %{Fcolors.shade7}|%{F-}
+format-background = ${colors.shade16}
+format-foreground = ${colors.shade1}
+;format-padding = 1
+
+; The following labels will be used to indicate the layout/mode
+; for the focused workspace. Requires <label-mode>
+;
+; Available tokens:
+;   None
+label-monocle = 
+;label-monocle-padding = 1
+label-tiled = 
+;label-tiled-padding = 1
+
+[module/bspmode]
+type = internal/bspwm
+
+format = <label-mode>
+pin-workspace = false
+enable-scroll = false
+inline-mode = false
+
+;format-suffix = %{Bcolors.shade7} %{B-}
+format-background = ${colors.shade16}
+format-foreground = ${colors.shade1}
+;format-padding-right = 1
+
+
+label-fullscreen-overline = ${colors.background}
+label-floating-overline = ${colors.background}
+label-pseudotiled-overline = ${colors.background}
+label-locked-overline = ${colors.background}
+label-sticky-overline = ${colors.background}
+label-private-overline = ${colors.background}
+label-marked-overline = ${colors.background}
+
+label-fullscreen-underline = ${colors.background}
+label-floating-underline = ${colors.background}
+label-pseudotiled-underline = ${colors.background}
+label-locked-underline = ${colors.background}
+label-sticky-underline = ${colors.background}
+label-private-unerline = ${colors.background}
+label-marked-underline = ${colors.background}
+
+label-fullscreen = 
+label-fullscreen-padding = 1
+label-floating = 
+label-floating-padding = 1
+label-pseudotiled = 
+label-pseudotiled-padding = 1
+label-locked = 
+label-locked-padding = 1
+label-sticky = 
+label-sticky-padding = 1
+label-private = 
+label-private-padding = 1
+label-marked = 
+label-marked-padding = 1
+
+[module/xwindow]
+type = internal/xwindow
+label = %title%
+label-maxlen = 120
+label-empty = Desktop
+
+format = <label>
+format-prefix = " "
+format-prefix-foreground = ${colors.shade14}
+format-foreground = ${colors.shade14}
+;format-background = ${colors.shade16}
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+
+[module/pomod]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/pomo-info
+interval = 1
+format = %{T3}<label>%{T-}
+format-background = ${colors.shade16}
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+format-padding = 1
+click-left = ~/.config/polybar/polybar-scripts/pomo-info -s
+click-middle = pomod kill && notify-send -u normal "Pomodoro restarted"
+click-right = ~/.config/polybar/polybar-scripts/pomo-info -p
+
+[module/dunst]
+type = custom/ipc
+initial = 1
+format-foreground = ${colors.shade3}
+format-background = ${colors.shade16}
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+;format-padding = 1
+
+hook-0 = echo "%{A1:notify-send "DUNST_COMMAND_PAUSE" && polybar-msg hook dunst 2:} %{A}" &
+hook-1 = echo "%{A1:notify-send "DUNST_COMMAND_RESUME" && polybar-msg hook dunst 1:} %{F#3c3836}%{F-} %{A}" &
+
+[module/redshift]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/redshift.sh
+interval = 5
+
+format-background = ${colors.shade16}
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+
+click-left = toggle_redshift.sh
+;exec = source ~/.config/polybar/polybar-scripts/env.sh && ~/.config/polybar/polybar-scripts/redshift_scroll.sh temperature 
+;click-left = source ~/.config/polybar/polybar-scripts/env.sh && ~/.config/polybar/polybar-scripts/redshift_scroll.sh toggle 
+;scroll-up = source ~/.config/polybar/polybar-scripts/env.sh && ~/.config/polybar/polybar-scripts/redshift_scroll.sh increase
+;scroll-down = source ~/.config/polybar/polybar-scripts/env.sh && ~/.config/polybar/polybar-scripts/redshift_scroll.sh decrease
+
+
+[module/temp]
+type = internal/temperature
+interval = 2
+; Thermal zone to use
+; To list all the zone types, run 
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+thermal-zone = 0
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input
+
+; Base temperature for where to start the ramp (in degrees celsius)
+; Default: 0
+base-temperature = 20
+
+; Threshold temperature to display warning label (in degrees celsius)
+; Default: 80
+warn-temperature = 60
+; Whether or not to show units next to the temperature tokens (°C, °F)
+; Default: true
+units = true
+
+format = <ramp><label>
+format-warn = <ramp><label-warn>
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+
+label = %temperature-c%
+label-warn = %temperature-c%
+label-background = ${colors.shade0}
+label-warn-background = ${colors.shade0}
+
+label-overline = ${colors.background}
+label-underline = ${colors.background}
+label-padding = 1
+
+label-warn-overline = ${colors.background}
+label-warn-underline = ${colors.background}
+label-warn-padding = 1
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-foreground = ${colors.shade1}
+ramp-background = ${colors.shade16}
+ramp-overline = ${colors.background}
+ramp-underline = ${colors.background}
+ramp-padding = 1
+
+[module/eth]
+type = internal/network
+interface = enp4s0
+interval = 3.0
+
+;format-connected-underline = ${xrdb:color2}
+format-connected-prefix = "  "
+format-connected-background = ${colors.shade0}
+format-connected-padding = 1
+format-connected-prefix-foreground = ${colors.shade5}
+format-connected-prefix-background = ${colors.shade16}
+label-connected = %{A1:setsid -f urxvt -e nmtui:}ETH%{A}
+
+label-connected-overline = ${colors.background}
+label-disconnected-overline = ${colors.background}
+label-connected-underline = ${colors.background}
+label-disconnected-underline = ${colors.background}
+
+format-connected-overline = ${colors.background}
+format-disconnected-overline = ${colors.background}
+format-connected-underline = ${colors.background}
+format-disconnected-underline = ${colors.background}
+
+format-disconnected =
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format = <bar-load>
+;format-prefix = "  "
+format-background = ${colors.shade0}
+;format-padding-left = 1
+;format-prefix-foreground = ${colors.shade5}
+;format-underline = ${xrdb:color1}
+label = %{A1:urxvt -e htop:}%percentage%%%{A}
+
+bar-load-indicator =
+bar-load-width = 8
+bar-load-foreground-0 = ${colors.foreground}
+bar-load-foreground-1 = ${colors.foreground}
+bar-load-foreground-2 = ${colors.shade3}
+bar-load-foreground-3 = ${colors.shade3}
+bar-load-foreground-4 = ${colors.shade1}
+bar-load-fill = %{T3}■%{T-}
+bar-load-empty = %{T3}□%{T-}
+bar-load-empty-foreground = ${colors.shade16}
+bar-load-fill-background = ${colors.shade0}
+bar-load-empty-background = ${colors.shade0}
+
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+
+[module/cpu_icon]
+type = custom/text
+content = "  "
+content-background = ${colors.shade16}
+content-foreground = ${colors.shade5}
+content-overline = ${colors.background}
+content-underline = ${colors.background}
+
+[module/ram]
+type = internal/memory
+interval = 2
+;format-prefix = "  "
+format-background = ${colors.shade16}
+format = <bar-used>
+;format-padding = 1
+;format-prefix-foreground = ${colors.shade4}
+label = %{A1:urxvt -e htop:}%percentage_used%%%{A}
+
+bar-used-indicator =
+bar-used-width = 8
+bar-used-foreground-0 = ${colors.foreground}
+bar-used-foreground-1 = ${colors.foreground}
+bar-used-foreground-2 = ${colors.shade3}
+bar-used-foreground-3 = ${colors.shade3}
+bar-used-foreground-4 = ${colors.shade1}
+bar-used-fill = %{T3}■%{T-}
+bar-used-empty = %{T3}□%{T-}
+bar-used-empty-foreground = ${colors.shade16}
+bar-used-fill-background = ${colors.shade0}
+bar-used-empty-background = ${colors.shade0}
+
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+
+[module/ram_icon]
+type = custom/text
+content = "  "
+content-background = ${colors.shade16}
+content-foreground = ${colors.shade4}
+content-overline = ${colors.background}
+content-underline = ${colors.background}
+
+; vim:ft=dosini
