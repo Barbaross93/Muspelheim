@@ -9,10 +9,9 @@ CLR="%{B-}%{F-}"
 mkfifo /tmp/signal_bar
 tail -f /tmp/signal_bar |
     while read -r line; do
-        [[ "$line" == "die" ]] && pkill -P $$
         [[ "$line" == "skip" ]] && touch /tmp/notif_skip
         [[ "$line" == "pause" ]] && touch /tmp/notif_pause
-        [[ "$line" == "resume" ]] && rm /tmp/notif_pause
+        [[ "$line" == "resume" ]] && rm /tmp/notif_pause 2>/dev/null
     done &
 
 # Notif logic
@@ -44,11 +43,11 @@ mkfifo /tmp/old_notifs
         case "$line" in
         LOG*)
             line="${line#LOG }"
-            pretext="${ORANGE}NOTIF HISTORY:${CLR} "
+            pretext="${ORANGE} NOTIF HISTORY:${CLR} "
             ;;
         *)
             echo "LOG $line" >>/tmp/notif_log
-            pretext="${ORANGE}NOTIFICATION:${CLR} "
+            pretext="${ORANGE} NOTIFICATION:${CLR} "
             ;;
         esac
         body="$(echo -e "$line" | cut -f1 -)"

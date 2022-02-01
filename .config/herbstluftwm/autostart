@@ -148,6 +148,7 @@ if hc silent new_attr bool my_not_first_autostart; then
     pgrep -U $uid runsv && pkill -U $uid runsv
     setsid runsvdir -P ~/.local/service &
 
+    # Launch bar
     ~/.config/polybar/launch.sh
 
     # Refresh dbus session address in cron

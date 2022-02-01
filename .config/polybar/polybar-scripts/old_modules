@@ -332,4 +332,12 @@ content-foreground = ${colors.shade4}
 content-overline = ${colors.background}
 content-underline = ${colors.background}
 
+[module/hlwm-layout]
+type = custom/script
+exec = ~/.config/polybar/polybar-scripts/hlwm-layout.sh
+tail = true
+format-background = ${colors.shade8}
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+
 ; vim:ft=dosini

@@ -44,6 +44,11 @@ shade16 = ${xrdb:color16}
 shade17 = ${xrdb:color17}
 shade18 = ${xrdb:color18}
 
+#####################################################################
+#
+#                                 BARS
+#
+#####################################################################
 [bar/bar]
 monitor = eDP-1
 width = 100%
@@ -70,10 +75,10 @@ padding-right = 1
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = Spleen:pixelsize=16;3
+font-0 = Spleen:file=/usr/share/fonts/X11/spleen/spleen-8x16.pcf.gz;3
 font-1 = Siji;2
 font-2 = Unifont;2
-font-3 = Twitter Color Emoji:pixelsize=12;2
+font-3 = Twitter Color Emoji:pixelsize=10;2
 
 dpi = 0
 
@@ -112,10 +117,10 @@ padding-right = 1
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = Spleen:pixelsize=12;2
+font-0 = Spleen:file=/usr/share/fonts/X11/spleen/spleen-8x16.pcf.gz;2
 font-1 = Siji;2
 font-2 = Unifont;2
-font-3 = Twitter Color Emoji:pixelsize=162
+font-3 = Twitter Color Emoji:pixelsize=10;2
 
 dpi = 0
 
@@ -160,14 +165,6 @@ format-background = ${colors.shade8}
 format-overline = ${colors.background}
 format-underline = ${colors.background}
 
-[module/hlwm-layout]
-type = custom/script
-exec = ~/.config/polybar/polybar-scripts/hlwm-layout.sh
-tail = true
-format-background = ${colors.shade8}
-format-overline = ${colors.background}
-format-underline = ${colors.background}
-
 [module/notif]
 type = custom/script
 exec = ~/.config/polybar/polybar-scripts/notif.sh
@@ -193,7 +190,6 @@ tail = true
 format-overline = ${colors.background}
 format-underline = ${colors.background}
 label-background = ${colors.shade0}
-interval = 5
 
 [module/caffeine]
 type = custom/script
@@ -256,7 +252,7 @@ interval = 3.0
 
 format-connected = <ramp-signal><label-connected>
 ;format-connected-padding-left = 1
-label-connected = %{A1:setsid -f urxvt -e nmtui:}%essid%%{A}
+label-connected = %{A1:setsid -f urxvt -e iwctl:}%essid%%{A}
 label-connected-foreground = ${colors.foreground}
 label-connected-background = ${colors.shade0}
 label-connected-padding = 1
@@ -273,8 +269,8 @@ format-disconnected-underline = ${colors.background}
 
 format-disconnected = <label-disconnected>
 format-disconnected-background = ${colors.shade16}
-;format-disconnected-padding = 1
-label-disconnected = 
+format-disconnected-padding = 0
+label-disconnected = "%{B#424242}%{F#626262}  %{F-}%{B-}%{B#262626} D/C %{B-}"
 ;label-disconnected = %{A1:setsid -f urxvt -e nmtui:}%{A3:/home/barbaross/.config/polybar/polybar-scripts/togglewifi.sh:}%{F#4a4845}%{F-} D/C%{A}%{A}
 
 ramp-signal-0 = 
@@ -305,8 +301,8 @@ label-padding = 1
 format-overline = ${colors.background}
 format-underline = ${colors.background}
 
-;label = %date%
-label = %{A1:~/.config/polybar/polybar-scripts/cal-popup.sh --popup &:}%date%%{A}
+label = %date%
+;label = %{A1:~/.config/polybar/polybar-scripts/cal-popup.sh --popup &:}%date%%{A}
 
 [module/time]
 type = internal/date
@@ -324,7 +320,8 @@ label-background = ${colors.shade0}
 format-overline = ${colors.background}
 format-underline = ${colors.background}
 ;label = %{A1:notify-send -a Date -i /usr/share/icons/Nord-Icon/64x64/apps/office-calendar.svg -u normal -t 3000 "$(date "+%A, %B %d %Y")":}%time%%{A}
-label = %{A1:~/.config/polybar/polybar-scripts/cal-popup.sh --popup &:}%time%%{A}
+label = %time%
+;label = %{A1:~/.config/polybar/polybar-scripts/cal-popup.sh --popup &:}%time%%{A}
 ;click-left = "~/.config/polybar/polybar-scripts/cal-popup.sh --popup &"
 
 [module/alsa]
@@ -402,11 +399,11 @@ ramp-volume-padding = 1
 type = internal/battery
 battery = BAT0
 adapter = AC
-full-at = 98
+full-at = 90
 
 label-full = %{A1:powertime:} Full%{A}
 label-charging = %{A1:powertime:}%percentage%%%{A}
-label-discharging = %{A1:powertime:}%percentage%%%{A}
+label-discharging = %{B#262626}%{A1:powertime:} %percentage%% %{A}%{B-}
 
 format-charging = <ramp-capacity> <label-charging>
 format-charging-background = ${colors.shade16}
@@ -416,10 +413,10 @@ format-charging-prefix-foreground = ${colors.shade10}
 ;format-charging-padding = 1
 ;format-charging-underline = ${xrdb:color5}
 
-format-discharging = <ramp-capacity> <label-discharging>
-format-discharging-background = ${colors.shade16}
+format-discharging = <ramp-capacity><label-discharging>
+format-discharging-background = ${colors.shade0}
 format-discharging-foreground = ${colors.shade10}
-;format-discharging-padding = 1
+format-discharging-padding = 0
 ;format-discharging-underline = ${self.format-charging-underline}
 
 format-full-background = ${colors.shade0}

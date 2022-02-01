@@ -17,7 +17,6 @@ case "$choice" in
 	;;
 *Logout*)
 	herbstclient quit
-	#logout
 	;;
 *Suspend*)
 	sudo zzz -H

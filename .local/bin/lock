@@ -2,9 +2,6 @@
 
 #trap 'kill -9 -$$ %1 %2' EXIT INT
 
-# If locker is already running, just exit
-pgrep -x xsecurelock && exit
-
 ### Pre-lock
 # Clear gpg-cache and ssh keys prior to lock. pam-gnupg starts it up again after unlock
 gpg-connect-agent --no-autostart reloadagent /bye
@@ -31,7 +28,7 @@ playerctl pause
 #mpc pause
 #Kill these just in case
 pkill rofi
-pkill xcolor
+pkill xoris
 
 ## If using locker w/o screen coverage (e.g. xtrlock, slock with unlockscreen patch)
 #nsxiv -bf ~/.cache/i3lock/$currentWall &

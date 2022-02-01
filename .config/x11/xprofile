@@ -1,4 +1,4 @@
-### Environmental vars
+### Environment vars
 
 # Add local bin
 export PATH="/home/barbaross/.local/bin:$PATH"

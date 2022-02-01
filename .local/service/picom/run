@@ -1,4 +1,3 @@
 #!/bin/sh
 
-exec picom --backend glx --vsync --glx-no-stenci -o 0.3 -c -l -12 -t -12 --shadow-exclude \
-	'!HLWM_FLOATING_WINDOW@:c && !class_g = "xob"'
+exec picom
