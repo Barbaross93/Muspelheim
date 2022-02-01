@@ -1,9 +1,9 @@
 #!/bin/bash
 
-mrect=($(herbstclient monitor_rect ""))
+#mrect=($(herbstclient monitor_rect ""))
 
-width=${mrect[2]}
-height=${mrect[3]}
+#width=${mrect[2]}
+#height=${mrect[3]}
 
 notify-send -t 3000 "Screenshot" "Screenshot in 5 seconds"
 sleep 5 &&

@@ -8,8 +8,8 @@
 - Terminal: [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html)
 - Shell: zsh
 - Browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser)
-- Bar: [lemonbar](https://github.com/LemonBoy/bar)
-- Fonts: creeper for primary text, [Cozette](https://github.com/slavfox/Cozette) for terminal icons, and [Siji](https://github.com/stark/siji) for bar icons
+- Bar: [polybar](https://github.com/polybar/polybar)
+- Fonts: [spleen](https://github.com/fcambus/spleen) for primary text, [Cozette](https://github.com/slavfox/Cozette) for terminal icons, and [Siji](https://github.com/stark/siji) for bar icons
 - Music: [cmus](https://github.com/cmus/cmus)
 - File manager: [ranger](https://github.com/ranger/ranger)
 - Editor: [vim](https://github.com/vim/vim)
