@@ -2,7 +2,7 @@
 
 #color=$(gpick -so 2>/dev/null)
 #color=$(xcolor)
-color=$(xoris)
+color=$(grabc)
 
 if [ -n "$color" ]; then
 	#temp=$(mktemp --suffix ".png")

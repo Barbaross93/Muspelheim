@@ -45,7 +45,7 @@ distro="$(cat /etc/os-release | grep NAME -m 1 | sed 's/NAME=//g' | sed 's/\"//g
 kernel=$(uname -r)
 pkgs=$(xbps-query -l | wc -l)
 colors='alduin'
-font='creeper'
+font='spleen'
 wm="hlwm"
 shell=$(basename $(printenv SHELL))
 term=$(echo "$TERM")

@@ -399,13 +399,13 @@ ramp-volume-padding = 1
 type = internal/battery
 battery = BAT0
 adapter = AC
-full-at = 90
+full-at = 89
 
 label-full = %{A1:powertime:} Full%{A}
-label-charging = %{A1:powertime:}%percentage%%%{A}
+label-charging = %{B#262626}%{A1:powertime:} %percentage%% %{A}%{B-}
 label-discharging = %{B#262626}%{A1:powertime:} %percentage%% %{A}%{B-}
 
-format-charging = <ramp-capacity> <label-charging>
+format-charging = <label-charging>
 format-charging-background = ${colors.shade16}
 format-charging-prefix = "  "
 format-charging-prefix-foreground = ${colors.shade10}
