@@ -4,6 +4,7 @@
 GLYVPN=""
 RED="%{F$color1}"
 GREY="%{F$color8}"
+ORANGE="%{F$color19}"
 
 vpnicon() {
     cvpn=""
@@ -25,5 +26,5 @@ vpnicon() {
 vpnicon
 ip monitor netconf |
     while read -r line; do
-        echo "$line" | grep "barbarossvpn\|tun0" && vpnicon
+        echo "$line" | grep "barbarossvpn\|tun0" >/dev/null && vpnicon
     done

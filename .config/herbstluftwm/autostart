@@ -163,6 +163,9 @@ if hc silent new_attr bool my_not_first_autostart; then
     Ollies*Network)
         sv start ~/.local/service/synergy
         ;;
+    epfl*)
+        sudo -A openvpn --config /etc/openvpn/client/barbarossOvpn.ovpn --askpass /etc/openvpn/barbarossOvpn.pass --daemon
+        ;;
     *)
         sudo -A wg-quick up barbarossvpn
         ;;
