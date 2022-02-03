@@ -108,7 +108,7 @@ overline-size = 6
 underline-size = 6
 line-color = ${colors.background}
 
-border-bottom-size = 2
+border-bottom-size = 3
 border-color = ${colors.shade16}
 
 padding-left = 1
@@ -192,12 +192,16 @@ format-underline = ${colors.background}
 label-background = ${colors.shade0}
 
 [module/caffeine]
-type = custom/script
-exec = ~/.config/polybar/polybar-scripts/caff-info.sh
+type = custom/ipc
+initial = 3
 format-overline = ${colors.background}
 format-underline = ${colors.background}
-label-background = ${colors.shade0}
-interval = 5
+format-background = ${colors.shade0}
+hook-0 = echo "%{F#626262}%{A1:caffeine.sh:}  %{A}"
+hook-1 = echo "%{F#af8787}%{A1:caffeine.sh:}  %{A}"
+hook-2 = ~/.config/polybar/polybar-scripts/caff-info.sh
+click-left = polybar-msg hook caffeine 2
+click-right = polybar-msg hook caffeine 1
 
 [module/backlight]
 type = internal/backlight
@@ -327,42 +331,13 @@ label = %time%
 [module/alsa]
 type = internal/alsa
 
-; Soundcard to be used
-; Usually in the format hw:# where # is the card number
-; You can find the different card numbers in `/proc/asound/cards`
 master-soundcard = default
 speaker-soundcard = default
 headphone-soundcard = default
 
-; Name of the master, speaker and headphone mixers
-; Use the following command to list available mixer controls:
-; $ amixer scontrols | sed -nr "s/.*'([[:alnum:]]+)'.*/\1/p"
-; If master, speaker or headphone-soundcard isn't the default,
-; use `amixer -c # scontrols` instead where # is the number
-; of the master, speaker or headphone soundcard respectively
-;
-; Default: Master
 master-mixer = Master
 
-; Optionally define speaker and headphone mixers
-; Default: none
 speaker-mixer = Speaker
-; Default: none
-;headphone-mixer = Headphone
-
-; NOTE: This is required if headphone_mixer is defined
-; Use the following command to list available device controls
-; $ amixer controls | sed -r "/CARD/\!d; s/.*=([0-9]+).*name='([^']+)'.*/printf '%3.0f: %s\n' '\1' '\2'/e" | sort
-; You may also need to use `amixer -c # controls` as above for the mixer names
-; Default: none
-;headphone-id = 9
-
-; Use volume mapping (similar to amixer -M and alsamixer), where the increase in volume is linear to the ear
-; Default: false
-;mapped = true
-
-; Interval for volume increase/decrease (in percent points)
-; Default: 5
 interval = 5
 
 format-volume = <ramp-volume><label-volume>

@@ -8,7 +8,8 @@ if [ "$(xset q | grep Enabled | awk '{print $3}')" = "Enabled" ]; then
     #xset s noblank
     xautolock -disable
     #xidlehook-client --socket /tmp/xidlehook.sock control --action Disable
-    notify-send "Caffeine" "Caffeine enabled"
+    #notify-send "Caffeine" "Caffeine enabled"
+    polybar-msg hook caffeine 2
 else
     xset +dpms
     #xset s on #&& DISPLAY=:8 xset +dpms s oni
@@ -17,6 +18,6 @@ else
     xset dpms 0 0 300 #&& DISPLAY=:8 xset dpms 300
     xautolock -enable
     #xidlehook-client --socket /tmp/xidlehook.sock control --action Enable
-
-    notify-send "Caffeine" "Caffeine disabled"
+    #notify-send "Caffeine" "Caffeine disabled"
+    polybar-msg hook caffeine 1
 fi
