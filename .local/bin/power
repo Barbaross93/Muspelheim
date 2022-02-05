@@ -7,7 +7,7 @@ options=" Lock
  Reboot
 ⏻ Shutdown"
 
-choice=$(echo "$options" | dmenu -p "Power:")
+choice=$(echo "$options" | dmenu -i -p "Power:")
 
 case "$choice" in
 *Lock*)

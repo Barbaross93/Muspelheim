@@ -14,4 +14,4 @@ $chaindesc"
 
 final=$(paste -d '\t' <(echo "$finmods") <(echo "$findesc") | column -s $'\t' -t)
 
-echo "$final" | dmenu -p "Help:"
+echo "$final" | dmenu -i -p "Help:"

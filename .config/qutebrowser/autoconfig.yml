@@ -16,9 +16,9 @@ settings:
     global:
       normal:
         ',d': spawn sterm -n downloads -e open_download
-        ',pP': spawn --userscript qute-pass --password-only -d ddmenu
-        ',pp': spawn --userscript qute-pass -d ddmenu
-        ',pu': spawn --userscript qute-pass --username-only -d ddmenu
+        ',pP': spawn --userscript qute-pass --password-only -d dmenu
+        ',pp': spawn --userscript qute-pass -d dmenu
+        ',pu': spawn --userscript qute-pass --username-only -d dmenu
         ',t': config-cycle content.user_stylesheets ~/.config/qutebrowser/gruvbox/gruvbox-all-sites.css
           ""
         J: tab-prev
