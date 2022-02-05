@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Print a progrss bar for current track in cmus
+# TODO: Optimize me; polling avery second is a bit much :(
 
 # Chars to represent each state
 elapsed='━'
