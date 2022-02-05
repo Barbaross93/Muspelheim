@@ -65,8 +65,9 @@ mkfifo /tmp/old_notifs
         # If summary is blank, display body instead
         [ -z "$notif" ] && notif="$body"
 
-        # Scroll if greater than 70 characters
-        if [ ${#notif} -gt 70 ]; then
+        # Scroll if greater than $char_limit characters
+        char_limit=90
+        if [ ${#notif} -gt $char_limit ]; then
             end=$((SECONDS + ${time%.*}))
             while [ $SECONDS -lt $end ]; do
                 [[ -f "/tmp/notif_skip" ]] && rm /tmp/notif_skip && break
@@ -75,8 +76,8 @@ mkfifo /tmp/old_notifs
                 while [ $c -le $length ]; do
                     [ $SECONDS -ge $end ] && break
                     [[ -f "/tmp/notif_skip" ]] && break
-                    scrollstart=${notif:$c:70}
-                    if [ ${#scrollstart} -eq 70 ]; then
+                    scrollstart=${notif:$c:$char_limit}
+                    if [ ${#scrollstart} -eq $char_limit ]; then
                         echo "$pretext$scrollstart..."
                         [ $c -eq 0 ] && sleep 1
                     else

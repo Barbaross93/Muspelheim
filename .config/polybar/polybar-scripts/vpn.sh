@@ -21,7 +21,7 @@ vpnicon() {
     done
     [ -z "$cvpn" ] && cvpn="${GREY}%{A1:sudo wg-quick up barbarossvpn:}${GLYVPN}%{A}"
 
-    echo " $cvpn "
+    echo "$cvpn"
 }
 vpnicon
 ip monitor netconf |

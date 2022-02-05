@@ -72,6 +72,6 @@ element-text {
     background-color:   inherit; 
     text-color:         inherit;
     padding:            3px 5px;
-    highlight:          underline #87afaf;
+    highlight:          underline;
 }
 // vim:ft=css

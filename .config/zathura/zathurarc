@@ -15,7 +15,7 @@ set guioptions s
 set scroll-step 40
 
 # font size
-set font "creeper 12"
+set font "Spleen 12"
 
 # clipboard configurations
 set selection-clipboard clipboard

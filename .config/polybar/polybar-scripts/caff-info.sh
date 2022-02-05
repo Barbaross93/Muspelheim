@@ -8,4 +8,4 @@ else
     caffeine="%{F#af8787}%{A1:caffeine.sh:}${GLYCAFF}%{A}"
 fi
 
-echo " $caffeine "
+echo "$caffeine"
