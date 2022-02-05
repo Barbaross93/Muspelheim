@@ -66,7 +66,7 @@ mkfifo /tmp/old_notifs
         [ -z "$notif" ] && notif="$body"
 
         # Scroll if greater than $char_limit characters
-        char_limit=90
+        char_limit=80
         if [ ${#notif} -gt $char_limit ]; then
             end=$((SECONDS + ${time%.*}))
             while [ $SECONDS -lt $end ]; do

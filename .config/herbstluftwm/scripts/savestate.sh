@@ -85,6 +85,7 @@ for i in $(herbstclient complete 1 use); do
             if [[ "${titles[$c]}" =~ "ranger" ]]; then
                 tcmd=$(echo "${titles[$c]}" | tr ":" " ")
             fi
+            [ -z $cwd ] && cwd=/home/barbaross
             cmd="urxvt -title ${titles[$c]} -cd $cwd -e $tcmd"
         else
             cmd=$pprocess
