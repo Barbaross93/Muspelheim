@@ -26,10 +26,10 @@ noisewall "#452f2f"
 
 #Load bindings sequentially, but lazily
 {
-    # Lazy load keybinds
+    # Load keybinds/mousebinds
     ~/.config/herbstluftwm/bindings.sh
 
-    # Lazy load keychains
+    # Load keychains
     ~/.config/herbstluftwm/keychain.sh
 } &
 

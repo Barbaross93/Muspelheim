@@ -5,11 +5,12 @@
 
 # Chars to represent each state
 elapsed='━'
-indc='▌'
+indc='■'
 bar='━'
 
 PBLK=$(printf "%b" "\x1b[38;2;58;58;58m")
 RED="\e[31m"
+PUR="\e[35m"
 GRY="\e[90;1m"
 
 tput civis
@@ -28,7 +29,7 @@ while :; do
 	# Move cursor back to start
 	printf '\r'
 	for b in $(seq $elapse_cols); do
-		printf "${RED}${elapsed}"
+		printf "${PUR}${elapsed}"
 	done
 
 	printf "${GRY}$indc"

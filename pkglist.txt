@@ -154,7 +154,6 @@ xdo-0.5.7_3
 xinput-1.6.3_1
 xlsfonts-1.0.6_1
 xmodmap-1.0.10_2
-xmousepasteblock-1.2_1
 xob-0.3_1
 xorg-minimal-1.2_2
 xrdb-1.2.1_1
