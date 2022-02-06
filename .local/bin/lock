@@ -28,7 +28,7 @@ playerctl pause
 #mpc pause
 #Kill these just in case
 pkill rofi
-pkill xoris
+pkill grabc
 
 ## If using locker w/o screen coverage (e.g. xtrlock, slock with unlockscreen patch)
 #nsxiv -bf ~/.cache/i3lock/$currentWall &

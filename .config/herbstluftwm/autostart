@@ -146,7 +146,7 @@ if hc silent new_attr bool my_not_first_autostart; then
     # Run these programs as user services
     uid=$(id -u)
     pgrep -U $uid runsv && pkill -U $uid runsv
-    setsid runsvdir -P ~/.local/service &
+    setsid runsvdir -P ~/.local/service
 
     # Launch bar
     ~/.config/polybar/launch.sh

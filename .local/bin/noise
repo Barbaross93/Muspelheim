@@ -3,7 +3,7 @@
 # Play one minute clip of brown noise n times
 
 # In case I need to make a new file:
-# sox -c 2 -n brownnoise.wav synth 60 brownnoise
+#sox -c 2 -n brownnoise.wav synth 60 brownnoise band -n 1786 499 tremolo 0.0333333 43 reverb 19 bass -11 treble -1 vol 14db
 
 trap 'kill -TERM $kiddo' INT TERM
 

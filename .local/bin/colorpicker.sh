@@ -1,8 +1,8 @@
 #!/bin/sh
 
 #color=$(gpick -so 2>/dev/null)
-color=$(xcolor)
-#color=$(grabc)
+#color=$(xcolor)
+color=$(grabc)
 
 if [ -n "$color" ]; then
 	#temp=$(mktemp --suffix ".png")

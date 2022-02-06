@@ -209,7 +209,7 @@ alias li="exa --icons"
 alias l="exa -la"
 alias ip="ip --color=auto"
 alias diff='diff --color=auto'
-alias clip="xsel -ib"
+alias clip="xsel -ib --logfile /dev/null"
 alias cat="bat -p"
 alias pfetch="curl -s https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch | sh"
 alias ls="exa"
