@@ -60,14 +60,14 @@ hc keybind Mod4-XF86AudioLowerVolume spawn vol alsamic down #Decrease mic volume
 hc keybind XF86AudioMicMute spawn vol alsamic mute          #mute mic
 
 # Player controls
-hc keybind Mod4-Control-Mod1-Left spawn playerctl previous #Previous audio
-hc keybind Mod4-Control-Mod1-Right spawn playerctl next    #Next audio
-hc keybind Mod4-Control-Mod1-Up spawn playerctl play-pause #Toggle play/pause audio
-hc keybind Mod4-Control-Mod1-Down spawn playerctl stop     #Stop audio
-hc keybind Mod4-Control-Mod1-h spawn playerctl previous    #Previous audio
-hc keybind Mod4-Control-Mod1-l spawn playerctl next        #Next audio
-hc keybind Mod4-Control-Mod1-k spawn playerctl play-pause  #Toggle play/pause audio
-hc keybind Mod4-Control-Mod1-j spawn playerctl stop        #Stop audio
+hc keybind Mod4-Control-Mod1-Left spawn media-control previous #Previous audio
+hc keybind Mod4-Control-Mod1-Right spawn media-control next    #Next audio
+hc keybind Mod4-Control-Mod1-Up spawn media-control play-pause #Toggle play/pause audio
+hc keybind Mod4-Control-Mod1-Down spawn media-control stop     #Stop audio
+hc keybind Mod4-Control-Mod1-h spawn media-control previous    #Previous audio
+hc keybind Mod4-Control-Mod1-l spawn media-control next        #Next audio
+hc keybind Mod4-Control-Mod1-k spawn media-control play-pause  #Toggle play/pause audio
+hc keybind Mod4-Control-Mod1-j spawn media-control stop        #Stop audio
 
 # Window/frame controls
 hc keybind Mod4-q close                                                    #Close focused window
