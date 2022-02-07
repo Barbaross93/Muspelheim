@@ -18,9 +18,15 @@ if [ $active -gt 1 ]; then
 		#mpc prev
 		cmus-remote -r
 		;;
-	*)
+	next)
 		#mpc "$@"
 		cmus-remote -n
+		;;
+	stop)
+		cmus-remote -s
+		;;
+	*)
+		cmus-remote "$@"
 		;;
 	esac
 elif command -v playerctl >/dev/null; then
