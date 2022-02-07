@@ -152,7 +152,7 @@ if hc silent new_attr bool my_not_first_autostart; then
     ~/.config/polybar/launch.sh
 
     # Refresh dbus session address in cron
-    crontab <(crontab -l | sed "s|DBUS_SESSION_BUS_ADDRESS=.*|DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS|")
+    #crontab <(crontab -l | sed "s|DBUS_SESSION_BUS_ADDRESS=.*|DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS|")
 
     # Things that require an internet connection
     while :; do

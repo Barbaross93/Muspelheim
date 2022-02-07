@@ -28,5 +28,5 @@ xinput disable "Elan Touchpad"
 gpg-connect-agent /bye
 
 lock &
-sleep 0.75
-exec dbus-run-session -- herbstluftwm --locked
+sleep 0.50
+exec herbstluftwm --locked
