@@ -5,16 +5,20 @@
 # In case I need to make a new file:
 #sox -c 2 -n brownnoise.wav synth 60 brownnoise band -n 1786 499 tremolo 0.0333333 43 reverb 19 bass -11 treble -1 vol 14db
 
-trap 'kill -TERM $kiddo' INT TERM
+trap 'kill -TERM $kiddo 2>/dev/null' INT TERM
 
 case $1 in
 -h)
 	echo "usage: $(basename $0) [min]"
 	;;
 *)
-	n=${1:-60}
-	mpv --really-quiet --loop-file="$n" --reset-on-next-file=loop-file ~/Public/brownnoise.wav &
-	kiddo=$!
-	wait
+	if pgrep --full 'mpv.*brownnoise.wav' >/dev/null; then
+		pkill noise
+	else
+		n=${1:-60}
+		mpv --really-quiet --loop-file="$n" --reset-on-next-file=loop-file ~/Public/brownnoise.wav &
+		kiddo=$!
+		wait
+	fi
 	;;
 esac

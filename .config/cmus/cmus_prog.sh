@@ -5,7 +5,7 @@
 
 # Chars to represent each state
 elapsed='━'
-indc='■'
+indc='━'
 bar='━'
 
 PBLK=$(printf "%b" "\x1b[38;2;58;58;58m")
@@ -32,7 +32,7 @@ while :; do
 		printf "${PUR}${elapsed}"
 	done
 
-	printf "${GRY}$indc"
+	printf "${PUR}$indc"
 
 	for b in $(seq $bar_cols); do
 		printf "${PBLK}$bar"

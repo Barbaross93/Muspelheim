@@ -43,6 +43,7 @@ hc keybind Mod4-Shift-c spawn colorpicker.sh             #Colorpicker
 hc keybind Mod4-Shift-z spawn mag.sh                     #Zoom
 hc keybind Mod4-Shift-m spawn emote                      #Kaomoji selector
 hc keybind Mod4-z spawn mwarp.sh                         #Warp mouse
+hc keybind Mod4-n spawn noise                            #Toggle brown noise
 
 # Notification controls
 hc keybind Control-grave spawn notif_hist.sh -q #Query last notification
