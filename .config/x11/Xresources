@@ -15,4 +15,4 @@ Nsxiv.bar.font: monospace:pixelsize=15
 #include "/home/barbaross/.config/x11/colorschemes/alduin.Xresources"
 
 !URxvt configs
-#include "/home/barbaross/.config/x11/urxvt"
+! #include "/home/barbaross/.config/x11/urxvt"
