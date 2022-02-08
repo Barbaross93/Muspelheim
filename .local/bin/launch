@@ -12,6 +12,6 @@ elif hc compare tags.focus.curframe_wcount = 0; then
 	rofi -show run -run-shell-command "{terminal} -e zsh -ic {cmd}"
 	#launch "$@"
 else
-	rofi -show run -run-command "herbstclient and , split auto , cycle_frame , spawn {cmd}" -run-shell-command "herbstclient and , split auto , cycle_frame , spawn urxvtdc -e zsh -ic {cmd}"
+	rofi -show run -run-command "herbstclient and , split auto , cycle_frame , spawn {cmd}" -run-shell-command "herbstclient and , split auto , cycle_frame , spawn alacritty -e zsh -ic {cmd}"
 	#launch2 "$@"
 fi

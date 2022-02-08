@@ -71,7 +71,7 @@ settings:
     - /usr/bin/nvim {}
   fileselect.folder.command:
     global:
-    - urxvt
+    - alacritty
     - -e
     - ranger
     - --choosedir={}

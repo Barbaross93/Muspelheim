@@ -10,7 +10,7 @@ export EDITOR="/usr/bin/vim"
 export BROWSER="linkhandler"
 
 # Default terminal
-export TERMINAL=/usr/bin/urxvt
+export TERMINAL="${HOME}/.local/bin/alacritty"
 
 # timezone
 export TZ=America/New_York

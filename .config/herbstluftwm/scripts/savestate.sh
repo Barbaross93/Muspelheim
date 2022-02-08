@@ -75,7 +75,7 @@ for i in $(herbstclient complete 1 use); do
     c=0
     for p in "${pids[@]}"; do
         pprocess="$(ps h -o command $p)"
-        if [[ "$pprocess" == *"urxvt"* ]]; then
+        if [[ "$pprocess" == *"alacritty"* ]]; then
             cpid=$(descendent_pids $p | tail -2)
             spid=$(descendent_pids $p | head -2 | tail -1)
             cwd=$(pwdx $spid | cut -d' ' -f2-)
