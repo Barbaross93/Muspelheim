@@ -5,7 +5,7 @@
 ## Info
 - OS: Void Linux
 - Window Manager: [Herbstluftwm](https://github.com/herbstluftwm/herbstluftwm)
-- Terminal: [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html)
+- Terminal: [alacritty](https://github.com/alacritty/alacritty)
 - Shell: zsh
 - Browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser)
 - Bar: [polybar](https://github.com/polybar/polybar)
@@ -29,3 +29,4 @@ The following were major sources of inspiration. A massive thank you for these f
 - [xer0](https://github.com/xero/dotfiles)
 - [pyratebeard](https://gitlab.com/pyratebeard/dotfiles)
 - [JLErvin](https://github.com/JLErvin/dotfiles)
+- [6gk](https://github.com/6gk/polka)
