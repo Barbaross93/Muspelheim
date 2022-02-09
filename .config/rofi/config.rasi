@@ -1,5 +1,5 @@
 configuration {
-	terminal: "alacritty";
+	terminal: "urxvtdc";
 	run {
 		display-name: "Launch:";
 	}

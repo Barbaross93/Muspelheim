@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# Alacritty finally has a daemon-client mode!!
-
-/usr/bin/alacritty msg create-window "$@" || /usr/bin/alacritty "$@"
