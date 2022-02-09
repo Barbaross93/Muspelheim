@@ -21,7 +21,7 @@ hc() {
 
 hc emit_hook reload
 
-# Always wanted for refresh
+# Dat wallpaper tho
 noisewall "#452f2f"
 
 #Load bindings sequentially, but lazily
@@ -149,7 +149,7 @@ if hc silent new_attr bool my_not_first_autostart; then
     setsid -f runsvdir -P ~/.local/service
 
     # Launch bar
-    ~/.config/polybar/launch.sh
+    ~/.config/yambar/launch.sh
 
     # Refresh dbus session address in cron
     #crontab <(crontab -l | sed "s|DBUS_SESSION_BUS_ADDRESS=.*|DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS|")

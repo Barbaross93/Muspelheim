@@ -51,6 +51,7 @@ shell=$(basename $(printenv SHELL))
 term=$(echo "$TERM")
 term="${term%-256color}"
 #uptm=$(uptime -p | sed -e 's/hour/hr/' -e 's/hours/hrs/' -e 's/minutes/mins/' -e 's/minute/min/' -e 's/up //')
+uptm=$(uptime -p)
 
 #Cleanup first
 clear
@@ -80,29 +81,28 @@ done
 
 # Ascii art arms
 cat <<EOF
-$PADCC$PBLD$PYLW                           |^^^|
-$PADCC                            $PGRY}_{
-$PADCC                            }_{$PYLW
-$PADCC                        /|_/$PGRN---$PYLW\\_|\\
-$PADCC                        I _|$PGRN\\_/$PYLW|_ I
-$PADCC                        \\| $PGRY| | | $PYLW|/
-$PADCC       $PGRY|\\ ${PRED}_..--.._ $PGRY/|      | | |
-$PADCC       $PRED|############|$PGRY      | | |
-$PADCC        $PRED)##########($PGRY       | | |
-$PADCC     ._$PRED/##$PGRY.'$PGRY//\\\\$PGRY'.$PRED##\\${PGRY}_.    | | |
-$PADCC      .__$PRED)#$PGRY((()))$PRED#(${PGRY}__.     | | |
-$PADCC       $PRED\\##$PGRY'.\\\\//$PGRY.'$PRED##/$PGRY      | | |
-$PADCC        $PRED\\####$PGRY\\/$PRED####/$PGRY       | | |
-$PADCC        /,.$PRED######$PGRY.,\\       | | |
-$PADCC       (  $PRED\\##${PGRY}__$PRED##/$PGRY  )      | | |
-$PADCC           $PRED"($PGRY\\/$PRED)"$PGRY          | | |
-$PADCC             )(            | | |
-$PADCC                           | | |
-$PADCC                           | | |
-$PADCC                           \\   /
-$PADCC                            \\ /
-$PADCC                             Y
-
+$PADCC$PBLD$PYLW                        |^^^|
+$PADCC                         $PGRY}_{
+$PADCC                         }_{$PYLW
+$PADCC                     /|_/$PGRN---$PYLW\\_|\\
+$PADCC                     I _|$PGRN\\_/$PYLW|_ I
+$PADCC                     \\| $PGRY| | | $PYLW|/
+$PADCC    $PGRY|\\ ${PRED}_..--.._ $PGRY/|      | | |
+$PADCC    $PRED|############|$PGRY      | | |
+$PADCC     $PRED)##########($PGRY       | | |
+$PADCC  ._$PRED/##$PGRY.'$PBLU//\\\\$PGRY'.$PRED##\\${PGRY}_.    | | |
+$PADCC   .__$PRED)#$PBLU(($PCYN()$PBLU))$PRED#(${PGRY}__.     | | |
+$PADCC    $PRED\\##$PGRY'.$PBLU\\\\//$PGRY.'$PRED##/$PGRY      | | |
+$PADCC     $PRED\\####$PBLU\\/$PRED####/$PGRY       | | |
+$PADCC     /,.$PRED######$PGRY.,\\       | | |
+$PADCC    (  $PRED\\##${PCYN}__$PRED##/$PGRY  )      | | |
+$PADCC        "($PCYN\\/$PGRY)"          | | |
+$PADCC          )(            | | |
+$PADCC                        | | |
+$PADCC                        | | |
+$PADCC                        \\   /
+$PADCC                         \\ /
+$PADCC                          Y
 
 EOF
 
@@ -120,8 +120,8 @@ printf "\e[37m█\e[0m▒░\n\n"
 
 # greetings
 printf "%s%b" "$PADC" "         hello $RED$BLD$name$RST\n"
-printf "%s%b" "$PADC" "      welcome to $GRN$BLD$host$RST\n\n"
-#printf "%s%b" "$PADC" "i've been awake for $CYN$BLD$uptm$RST\n\n"
+printf "%s%b" "$PADC" "      welcome to $GRN$BLD$host$RST\n"
+printf "%s%b" "$PADC" " i've been $CYN$BLD$uptm$RST\n\n"
 
 # environment
 printf "%s%b" "$PADC" "$YLW        distro $GRY⏹ $RST$distro\n"

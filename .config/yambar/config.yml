@@ -1,0 +1,601 @@
+icon: &icon Siji:pixelsize=10
+
+bar:
+  location: top
+  height: 24
+  foreground: dfdfafff
+  background: 1c1c1cff
+  margin: 2
+  spacing: 4
+  font: Spleen:pixelsize=16:file=/usr/share/fonts/X11/spleen/spleen-8x16.pcf.gz
+  border:
+    width: 6
+    color: 1c1c1cff
+
+  left:
+    - label:
+        content: 
+          - string: 
+              text: 
+              foreground: af5f5fff
+              font: *icon
+              margin: 8
+              deco: {background: {color: 424242ff}}
+    - script:
+        path: /home/barbaross/.config/yambar/scripts/hlwm.sh
+        anchors:
+          - occupied: &occupied 
+              margin: 8
+              foreground: dfdfafff
+              deco: {background: {color: 424242ff}}
+          - focused: &focused 
+              margin: 8
+              foreground: af875fff
+              deco: {background: {color: 262626ff}}
+          - active: &active 
+              margin: 8
+              foreground: 87afafff
+              deco: {background: {color: 424242ff}}
+          - urgent: &urgent 
+              margin: 8
+              foreground: af5f5fff
+              deco: {background: {color: 424242ff}}
+          - default: &empty 
+              margin: 8
+              foreground: 262626ff
+              deco: {background: {color: 424242ff}}
+        content:
+          list:
+            spacing: 0
+            items:
+              - map:
+                  tag: tag_1
+                  values:
+                    f:
+                      string:
+                        text: 1
+                        <<: *focused
+                    o:
+                      string:
+                        text: 1
+                        <<: *occupied
+                    u:
+                      string:
+                        text: 1
+                        <<: *urgent
+                    a:
+                      string:
+                        text: 1
+                        <<: *active
+                    e:
+                      string:
+                        text: 1
+                        <<: *empty
+              - map:
+                  tag: tag_2
+                  values:
+                    f:
+                      string:
+                        text: 2
+                        <<: *focused
+                    o:
+                      string:
+                        text: 2
+                        <<: *occupied
+                    u:
+                      string:
+                        text: 2
+                        <<: *urgent
+                    a:
+                      string:
+                        text: 2
+                        <<: *active
+                    e:
+                      string:
+                        text: 2
+                        <<: *empty
+              - map:
+                  tag: tag_3
+                  values:
+                    f:
+                      string:
+                        text: 3
+                        <<: *focused
+                    o:
+                      string:
+                        text: 3
+                        <<: *occupied
+                    u:
+                      string:
+                        text: 3
+                        <<: *urgent
+                    a:
+                      string:
+                        text: 3
+                        <<: *active
+                    e:
+                      string:
+                        text: 3
+                        <<: *empty
+              - map:
+                  tag: tag_4
+                  values:
+                    f:
+                      string:
+                        text: 4
+                        <<: *focused
+                    o:
+                      string:
+                        text: 4
+                        <<: *occupied
+                    u:
+                      string:
+                        text: 4
+                        <<: *urgent
+                    a:
+                      string:
+                        text: 4
+                        <<: *active
+                    e:
+                      string:
+                        text: 4
+                        <<: *empty
+              - map:
+                  tag: tag_5
+                  values:
+                    f:
+                      string:
+                        text: 5
+                        <<: *focused
+                    o:
+                      string:
+                        text: 5
+                        <<: *occupied
+                    u:
+                      string:
+                        text: 5
+                        <<: *urgent
+                    a:
+                      string:
+                        text: 5
+                        <<: *active
+                    e:
+                      string:
+                        text: 5
+                        <<: *empty
+              - map:
+                  tag: tag_6
+                  values:
+                    f:
+                      string:
+                        text: 6
+                        <<: *focused
+                    o:
+                      string:
+                        text: 6
+                        <<: *occupied
+                    u:
+                      string:
+                        text: 6
+                        <<: *urgent
+                    a:
+                      string:
+                        text: 6
+                        <<: *active
+                    e:
+                      string:
+                        text: 6
+                        <<: *empty
+              - map:
+                  tag: tag_7
+                  values:
+                    f:
+                      string:
+                        text: 7
+                        <<: *focused
+                    o:
+                      string:
+                        text: 7
+                        <<: *occupied
+                    u:
+                      string:
+                        text: 7
+                        <<: *urgent
+                    a:
+                      string:
+                        text: 7
+                        <<: *active
+                    e:
+                      string:
+                        text: 7
+                        <<: *empty
+              - map:
+                  tag: tag_8
+                  values:
+                    f:
+                      string:
+                        text: 8
+                        <<: *focused
+                    o:
+                      string:
+                        text: 8
+                        <<: *occupied
+                    u:
+                      string:
+                        text: 8
+                        <<: *urgent
+                    a:
+                      string:
+                        text: 8
+                        <<: *active
+                    e:
+                      string:
+                        text: 8
+                        <<: *empty
+              - map:
+                  tag: tag_9
+                  values:
+                    f:
+                      string:
+                        text: 9
+                        <<: *focused
+                    o:
+                      string:
+                        text: 9
+                        <<: *occupied
+                    u:
+                      string:
+                        text: 9
+                        <<: *urgent
+                    a:
+                      string:
+                        text: 9
+                        <<: *active
+                    e:
+                      string:
+                        text: 9
+                        <<: *empty
+              - map:
+                  tag: tag_0
+                  values:
+                    f:
+                      string:
+                        text: 0
+                        <<: *focused
+                    o:
+                      string:
+                        text: 0
+                        <<: *occupied
+                    u:
+                      string:
+                        text: 0
+                        <<: *urgent
+                    a:
+                      string:
+                        text: 0
+                        <<: *active
+                    e:
+                      string:
+                        text: 0
+                        <<: *empty
+    - script:
+        path: /home/barbaross/.config/yambar/scripts/notif.sh
+        content:
+          list:
+            spacing: 4
+            items:
+              - map:
+                  tag: history
+                  values:
+                    true:
+                      string:
+                        text: 
+                        font: *icon
+                        foreground: dfaf87ff
+                    false:
+                      string:
+                        text: 
+                        font: *icon
+                        foreground: dfaf87ff
+              - map:
+                  tag: history
+                  values:
+                    true:
+                      string:
+                        text: "NOTIF HISTORY:"
+                        foreground: dfaf87ff
+                    false:
+                      string:
+                        text: "NOTIFICATION:"
+                        foreground: dfaf87ff
+              - map:
+                  tag: notif
+                  default:
+                    string:
+                      text: "{notif}"
+                  values:
+                    clear:
+                      empty: {}
+
+  right:
+    - script:
+        path: /home/barbaross/.config/yambar/scripts/tray.sh
+        content:
+          list:
+            spacing: 0
+            items:
+              - map:
+                  tag: bluetooth
+                  values:
+                    0:
+                      string:
+                        text: 
+                        font: *icon
+                        foreground: 87afafff
+                        left-margin: 8
+                        right-margin: 4
+                        deco: {background: {color: 262626ff}}
+                    1:
+                      string:
+                        text: 
+                        font: *icon
+                        foreground: 626262ff
+                        left-margin: 8
+                        right-margin: 4
+                        deco: {background: {color: 262626ff}}
+              - map:
+                  tag: caffeine
+                  default: 
+                    string:
+                       text: 
+                       font: *icon
+                       foreground: 626262ff
+                       margin: 4
+                       deco: {background: {color: 262626ff}}
+                  values:
+                    true:
+                      string:
+                        text: 
+                        font: *icon
+                        foreground: af8787ff
+                        margin: 4
+                        deco: {background: {color: 262626ff}}
+                    false:
+                      string:
+                        text: 
+                        font: *icon
+                        foreground: 626262ff
+                        margin: 4
+                        deco: {background: {color: 262626ff}}
+              - map:
+                  tag: vpn
+                  values:
+                    none:
+                      string:
+                        text: 
+                        font: *icon
+                        foreground: 626262ff
+                        left-margin: 4
+                        right-margin: 8
+                        deco: {background: {color: 262626ff}}
+                    wireguard:
+                      string:
+                        text: 
+                        font: *icon
+                        foreground: af5f5fff
+                        left-margin: 4
+                        right-margin: 8
+                        deco: {background: {color: 262626ff}}
+                    openvpn:
+                      string:
+                        text: 
+                        font: *icon
+                        foreground: af5f5fff
+                        left-margin: 4
+                        right-margin: 8
+                        deco: {background: {color: 262626ff}}
+                    wireguardopenvpn:
+                      string:
+                        text: 
+                        font: *icon
+                        foreground: af5f5fff
+                        left-margin: 4
+                        right-margin: 8
+                        deco: {background: {color: 262626ff}}
+
+    - battery:
+        name: BAT0
+        poll-interval: 30
+        anchors:
+          discharging: &discharging
+            list:
+              spacing: 0
+              items:
+                - ramp:
+                    tag: capacity
+                    margin: 8
+                    deco: {background: {color: 424242ff}}
+                    items:
+                      - string: {text: , foreground: 87875fff, font: *icon}
+                      - string: {text: , foreground: 87875fff, font: *icon}
+                      - string: {text: , foreground: 87875fff, font: *icon}
+                      - string: {text: , foreground: 87875fff, font: *icon}
+                      - string: {text: , foreground: 87875fff, font: *icon}
+                      - string: {text: , foreground: 87875fff, font: *icon}
+                      - string: {text: , foreground: 87875fff, font: *icon}
+                      - string: {text: , foreground: 87875fff, font: *icon}
+                      - string: {text: , foreground: 87875fff, font: *icon}
+                      - string: {text: , foreground: 87875fff, font: *icon}
+                - string: 
+                    text: "{capacity}%"
+                    margin: 8
+                    deco: {background: {color: 262626ff}}
+          full: &full
+            list:
+              spacing: 0
+              items:
+                - string: 
+                    text: 
+                    foreground: 87875fff
+                    font: *icon
+                    margin: 8
+                    deco: {background: {color: 424242ff}}
+                - string: 
+                    text: "Full"
+                    margin: 8
+                    deco: {background: {color: 262626ff}}
+        content:
+          map:
+            tag: state
+            values:
+              unknown:
+                <<: *discharging
+              discharging:
+                <<: *discharging
+              charging:
+                list:
+                  spacing: 0
+                  items:
+                    - string: 
+                        text: 
+                        foreground: 87875fff
+                        font: *icon
+                        margin: 8
+                        deco: {background: {color: 424242ff}}
+                    - string: 
+                        text: "{capacity}%"
+                        margin: 8
+                        deco: {background: {color: 262626ff}}
+              full:
+                <<: *full
+              not charging:
+                <<: *full
+    - backlight: 
+        name: intel_backlight
+        content:
+          list:
+            spacing: 0
+            items: 
+              - ramp:
+                  tag: percent
+                  margin: 8
+                  deco: {background: {color: 424242ff}}
+                  items:
+                    - string: {text: , foreground: af875fff, font: *icon}
+                    - string: {text: , foreground: af875fff, font: *icon}
+                    - string: {text: , foreground: af875fff, font: *icon}
+                    - string: {text: , foreground: af875fff, font: *icon}
+              - string: 
+                  text: "{percent}%"
+                  margin: 8
+                  deco: {background: {color: 262626ff}}
+    - alsa:
+        card: default
+        mixer: Master
+        content:
+          map:
+            tag: muted
+            values:
+              true:
+                list:
+                  spacing: 0
+                  items:
+                    - string: 
+                        text: 
+                        font: *icon
+                        foreground: 626262ff
+                        margin: 8
+                        deco: {background: {color: 424242ff}}
+                    - string: 
+                        text: "{volume}%"
+                        margin: 8
+                        deco: {background: {color: 262626ff}}
+              false:
+                list:
+                  spacing: 0
+                  items:
+                    - ramp:
+                        tag: volume
+                        margin: 8
+                        deco: {background: {color: 424242ff}}
+                        items:
+                          - string: {text: , foreground: 87afafff, font: *icon}
+                          - string: {text: , foreground: 87afafff, font: *icon}
+                          - string: {text: , foreground: 87afafff, font: *icon}
+                          - string: {text: , foreground: 87afafff, font: *icon}
+                          - string: {text: , foreground: 87afafff, font: *icon}
+                    - string: 
+                        text: "{volume}%"
+                        margin: 8
+                        deco: {background: {color: 262626ff}}
+    - network:
+        name: wlp5s0
+        content:
+          map:
+            tag: state
+            default: {string: {text: , font: *icon, foreground: 626262ff}}
+            values:
+              down:
+                list:
+                  spacing: 0
+                  items:
+                    - string: 
+                        text: 
+                        font: *icon
+                        foreground: 626262ff
+                        margin: 8
+                        deco: {background: {color: 424242ff}}
+                    - string:
+                        text: D/C
+                        margin: 8
+                        deco: {background: {color: 262626ff}}
+              up:
+                list:
+                  spacing: 0
+                  items:
+                    - ramp:
+                        tag: signal
+                        margin: 8
+                        deco: {background: {color: 424242ff}}
+                        items:
+                          - string: {text: , foreground: af8787ff, font: *icon}
+                          - string: {text: , foreground: af8787ff, font: *icon}
+                          - string: {text: , foreground: af8787ff, font: *icon}
+                          - string: {text: , foreground: af8787ff, font: *icon}
+                          - string: {text: , foreground: af8787ff, font: *icon}
+                    - string: 
+                        text: "{ssid}"
+                        margin: 8
+                        deco: {background: {color: 262626ff}}
+    - clock:
+        date-format: "%a, %b %d"
+        content:
+          list:
+            spacing: 0
+            items:
+              - string: 
+                  text:  
+                  margin: 8
+                  font: *icon
+                  foreground: af875fff
+                  deco: {background: {color: 424242ff}}
+              - string: 
+                  text: "{date}"
+                  margin: 8
+                  deco: {background: {color: 262626ff}}
+    - clock:
+        time-format: "%I:%M %p"
+        content:
+          list:
+            spacing: 0
+            items:
+              - string: 
+                  text: 
+                  margin: 8
+                  font: *icon
+                  foreground: 87875fff
+                  deco: {background: {color: 424242ff}}
+              - string: 
+                  text: "{time}"
+                  margin: 8
+                  deco: {background: {color: 262626ff}}

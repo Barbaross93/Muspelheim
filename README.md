@@ -8,7 +8,7 @@
 - Terminal: [alacritty](https://github.com/alacritty/alacritty)
 - Shell: zsh
 - Browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser)
-- Bar: [polybar](https://github.com/polybar/polybar)
+- Bar: [yambar](https://codeberg.org/dnkl/yambar)
 - Fonts: [spleen](https://github.com/fcambus/spleen) for primary text, [Cozette](https://github.com/slavfox/Cozette) for terminal icons, and [Siji](https://github.com/stark/siji) for bar icons
 - Music: [cmus](https://github.com/cmus/cmus)
 - File manager: [ranger](https://github.com/ranger/ranger)
