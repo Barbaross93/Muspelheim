@@ -5,7 +5,7 @@
 ## Info
 - OS: Void Linux
 - Window Manager: [Herbstluftwm](https://github.com/herbstluftwm/herbstluftwm)
-- Terminal: [alacritty](https://github.com/alacritty/alacritty)
+- Terminal: [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html)
 - Shell: zsh
 - Browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser)
 - Bar: [yambar](https://codeberg.org/dnkl/yambar)
