@@ -507,7 +507,7 @@ bar:
                         margin: 8
                         deco: {background: {color: 424242ff}}
                     - string: 
-                        text: "{volume}%"
+                        text: "{percent}%"
                         margin: 8
                         deco: {background: {color: 262626ff}}
               false:
