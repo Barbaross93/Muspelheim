@@ -1,7 +1,0 @@
-bar:
-  location: top
-  height: 36
-  background: 00000000
-  border:
-    bottom-width: 3
-    color: 424242ff

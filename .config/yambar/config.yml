@@ -1,16 +1,38 @@
-icon: &icon Siji:pixelsize=10
+box_draw_dark: &box_draw_dark
+  deco:
+    stack:
+      - background: 
+          color: 262626ff
+      - underline:
+          size: 6
+          color: 1c1c1cff
+      - overline:
+          size: 6
+          color: 1c1c1cff
+
+box_draw_light: &box_draw_light
+  deco:
+    stack:
+      - background: 
+          color: 424242ff
+      - underline:
+          size: 6
+          color: 1c1c1cff
+      - overline:
+          size: 6
+          color: 1c1c1cff
 
 bar:
   location: top
-  height: 24
+  height: 36
   foreground: dfdfafff
   background: 1c1c1cff
-  margin: 0
+  margin: 6
   spacing: 4
-  font: Spleen:pixelsize=16:file=/usr/share/fonts/X11/spleen/spleen-8x16.pcf.gz
+  font: Spleen:pixelsize=16:file=/usr/share/fonts/X11/spleen/spleen-8x16.pcf.gz,Siji:pixelsize=10,Unifont:pixelsize=16,Twitter Color Emoji:pixelsize=12
   border:
-    width: 6
-    color: 1c1c1cff
+    bottom-width: 3
+    color: 424242ff
 
   left:
     - label:
@@ -19,32 +41,31 @@ bar:
               text: 
               on-click: launch
               foreground: af5f5fff
-              font: *icon
               margin: 8
-              deco: {background: {color: 424242ff}}
+              <<: *box_draw_light
     - script:
         path: /home/barbaross/.config/yambar/scripts/hlwm.sh
         anchors:
           - occupied: &occupied 
               margin: 8
               foreground: dfdfafff
-              deco: {background: {color: 424242ff}}
+              <<: *box_draw_light
           - focused: &focused 
               margin: 8
               foreground: af875fff
-              deco: {background: {color: 262626ff}}
+              <<: *box_draw_dark
           - active: &active 
               margin: 8
               foreground: 87afafff
-              deco: {background: {color: 424242ff}}
+              <<: *box_draw_light
           - urgent: &urgent 
               margin: 8
               foreground: af5f5fff
-              deco: {background: {color: 424242ff}}
+              <<: *box_draw_light
           - default: &empty 
               margin: 8
               foreground: 262626ff
-              deco: {background: {color: 424242ff}}
+              <<: *box_draw_light
         content:
           list:
             spacing: 0
@@ -340,12 +361,10 @@ bar:
                     true:
                       string:
                         text: 
-                        font: *icon
                         foreground: dfaf87ff
                     false:
                       string:
                         text: 
-                        font: *icon
                         foreground: dfaf87ff
               - map:
                   tag: history
@@ -380,78 +399,69 @@ bar:
                     0:
                       string:
                         text: 
-                        font: *icon
                         foreground: 87afafff
                         left-margin: 8
                         right-margin: 4
-                        deco: {background: {color: 262626ff}}
+                        <<: *box_draw_dark
                     1:
                       string:
                         text: 
-                        font: *icon
                         foreground: 626262ff
                         left-margin: 8
                         right-margin: 4
-                        deco: {background: {color: 262626ff}}
+                        <<: *box_draw_dark
               - map:
                   tag: caffeine
                   default: 
                     string:
                        text: 
-                       font: *icon
                        foreground: 626262ff
                        margin: 4
-                       deco: {background: {color: 262626ff}}
+                       <<: *box_draw_dark
                   values:
                     true:
                       string:
                         text: 
-                        font: *icon
                         foreground: af8787ff
                         margin: 4
-                        deco: {background: {color: 262626ff}}
+                        <<: *box_draw_dark
                     false:
                       string:
                         text: 
-                        font: *icon
                         foreground: 626262ff
                         margin: 4
-                        deco: {background: {color: 262626ff}}
+                        <<: *box_draw_dark
               - map:
                   tag: vpn
                   values:
                     none:
                       string:
                         text: 
-                        font: *icon
                         foreground: 626262ff
                         left-margin: 4
                         right-margin: 8
-                        deco: {background: {color: 262626ff}}
+                        <<: *box_draw_dark
                     wireguard:
                       string:
                         text: 
-                        font: *icon
                         foreground: af5f5fff
                         left-margin: 4
                         right-margin: 8
-                        deco: {background: {color: 262626ff}}
+                        <<: *box_draw_dark
                     openvpn:
                       string:
                         text: 
-                        font: *icon
                         foreground: af5f5fff
                         left-margin: 4
                         right-margin: 8
-                        deco: {background: {color: 262626ff}}
+                        <<: *box_draw_dark
                     wireguardopenvpn:
                       string:
                         text: 
-                        font: *icon
                         foreground: af5f5fff
                         left-margin: 4
                         right-margin: 8
-                        deco: {background: {color: 262626ff}}
+                        <<: *box_draw_dark
 
     - battery:
         name: BAT0
@@ -465,23 +475,23 @@ bar:
                     tag: capacity
                     on-click: powertime
                     margin: 8
-                    deco: {background: {color: 424242ff}}
+                    <<: *box_draw_light
                     items:
-                      - string: {text: , foreground: 87875fff, font: *icon}
-                      - string: {text: , foreground: 87875fff, font: *icon}
-                      - string: {text: , foreground: 87875fff, font: *icon}
-                      - string: {text: , foreground: 87875fff, font: *icon}
-                      - string: {text: , foreground: 87875fff, font: *icon}
-                      - string: {text: , foreground: 87875fff, font: *icon}
-                      - string: {text: , foreground: 87875fff, font: *icon}
-                      - string: {text: , foreground: 87875fff, font: *icon}
-                      - string: {text: , foreground: 87875fff, font: *icon}
-                      - string: {text: , foreground: 87875fff, font: *icon}
+                      - string: {text: , foreground: 87875fff}
+                      - string: {text: , foreground: 87875fff}
+                      - string: {text: , foreground: 87875fff}
+                      - string: {text: , foreground: 87875fff}
+                      - string: {text: , foreground: 87875fff}
+                      - string: {text: , foreground: 87875fff}
+                      - string: {text: , foreground: 87875fff}
+                      - string: {text: , foreground: 87875fff}
+                      - string: {text: , foreground: 87875fff}
+                      - string: {text: , foreground: 87875fff}
                 - string: 
                     text: "{capacity}%"
                     on-click: powertime
                     margin: 8
-                    deco: {background: {color: 262626ff}}
+                    <<: *box_draw_dark
           full: &full
             list:
               spacing: 0
@@ -490,14 +500,13 @@ bar:
                     text: 
                     on-click: powertime
                     foreground: 87875fff
-                    font: *icon
                     margin: 8
-                    deco: {background: {color: 424242ff}}
+                    <<: *box_draw_light
                 - string: 
                     text: "Full"
                     on-click: powertime
                     margin: 8
-                    deco: {background: {color: 262626ff}}
+                    <<: *box_draw_dark
         content:
           map:
             tag: state
@@ -514,14 +523,13 @@ bar:
                         text: 
                         on-click: powertime
                         foreground: 87875fff
-                        font: *icon
                         margin: 8
-                        deco: {background: {color: 424242ff}}
+                        <<: *box_draw_light
                     - string: 
                         text: "{capacity}%"
                         on-click: powertime
                         margin: 8
-                        deco: {background: {color: 262626ff}}
+                        <<: *box_draw_dark
               full:
                 <<: *full
               not charging:
@@ -535,16 +543,16 @@ bar:
               - ramp:
                   tag: percent
                   margin: 8
-                  deco: {background: {color: 424242ff}}
+                  <<: *box_draw_light
                   items:
-                    - string: {text: , foreground: af875fff, font: *icon}
-                    - string: {text: , foreground: af875fff, font: *icon}
-                    - string: {text: , foreground: af875fff, font: *icon}
-                    - string: {text: , foreground: af875fff, font: *icon}
+                    - string: {text: , foreground: af875fff}
+                    - string: {text: , foreground: af875fff}
+                    - string: {text: , foreground: af875fff}
+                    - string: {text: , foreground: af875fff}
               - string: 
                   text: "{percent}%"
                   margin: 8
-                  deco: {background: {color: 262626ff}}
+                  <<: *box_draw_dark
     - alsa:
         card: default
         mixer: Master
@@ -558,14 +566,13 @@ bar:
                   items:
                     - string: 
                         text: 
-                        font: *icon
                         foreground: 626262ff
                         margin: 8
-                        deco: {background: {color: 424242ff}}
+                        <<: *box_draw_light
                     - string: 
                         text: "{percent}%"
                         margin: 8
-                        deco: {background: {color: 262626ff}}
+                        <<: *box_draw_dark
               false:
                 list:
                   spacing: 0
@@ -573,23 +580,23 @@ bar:
                     - ramp:
                         tag: percent
                         margin: 8
-                        deco: {background: {color: 424242ff}}
+                        <<: *box_draw_light
                         items:
-                          - string: {text: , foreground: 87afafff, font: *icon}
-                          - string: {text: , foreground: 87afafff, font: *icon}
-                          - string: {text: , foreground: 87afafff, font: *icon}
-                          - string: {text: , foreground: 87afafff, font: *icon}
-                          - string: {text: , foreground: 87afafff, font: *icon}
+                          - string: {text: , foreground: 87afafff}
+                          - string: {text: , foreground: 87afafff}
+                          - string: {text: , foreground: 87afafff}
+                          - string: {text: , foreground: 87afafff}
+                          - string: {text: , foreground: 87afafff}
                     - string: 
                         text: "{percent}%"
                         margin: 8
-                        deco: {background: {color: 262626ff}}
+                        <<: *box_draw_dark
     - network:
         name: wlp5s0
         content:
           map:
             tag: state
-            default: {string: {text: , font: *icon, foreground: 626262ff}}
+            default: {string: {text: , foreground: 626262ff}}
             values:
               down:
                 list:
@@ -597,14 +604,13 @@ bar:
                   items:
                     - string: 
                         text: 
-                        font: *icon
                         foreground: 626262ff
                         margin: 8
-                        deco: {background: {color: 424242ff}}
+                        <<: *box_draw_light
                     - string:
                         text: D/C
                         margin: 8
-                        deco: {background: {color: 262626ff}}
+                        <<: *box_draw_dark
               up:
                 list:
                   spacing: 0
@@ -612,19 +618,19 @@ bar:
                     - ramp:
                         tag: signal
                         margin: 8
-                        deco: {background: {color: 424242ff}}
+                        <<: *box_draw_light
                         min: -90
                         max: -30
                         items:
-                          - string: {text: , foreground: af8787ff, font: *icon}
-                          - string: {text: , foreground: af8787ff, font: *icon}
-                          - string: {text: , foreground: af8787ff, font: *icon}
-                          - string: {text: , foreground: af8787ff, font: *icon}
-                          - string: {text: , foreground: af8787ff, font: *icon}
+                          - string: {text: , foreground: af8787ff}
+                          - string: {text: , foreground: af8787ff}
+                          - string: {text: , foreground: af8787ff}
+                          - string: {text: , foreground: af8787ff}
+                          - string: {text: , foreground: af8787ff}
                     - string: 
                         text: "{ssid}"
                         margin: 8
-                        deco: {background: {color: 262626ff}}
+                        <<: *box_draw_dark
     - clock:
         date-format: "%a, %b %d"
         content:
@@ -634,13 +640,12 @@ bar:
               - string: 
                   text:  
                   margin: 8
-                  font: *icon
                   foreground: af875fff
-                  deco: {background: {color: 424242ff}}
+                  <<: *box_draw_light
               - string: 
                   text: "{date}"
                   margin: 8
-                  deco: {background: {color: 262626ff}}
+                  <<: *box_draw_dark
     - clock:
         time-format: "%I:%M %p"
         content:
@@ -650,10 +655,9 @@ bar:
               - string: 
                   text: 
                   margin: 8
-                  font: *icon
                   foreground: 87875fff
-                  deco: {background: {color: 424242ff}}
+                  <<: *box_draw_light
               - string: 
                   text: "{time}"
                   margin: 8
-                  deco: {background: {color: 262626ff}}
+                  <<: *box_draw_dark
