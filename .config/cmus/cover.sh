@@ -18,6 +18,6 @@ tail -f /tmp/cmus_cover.fifo |
         filepath=$(cmus-remote -C "format_print %f")
         ffmpeg -nostdin -y -i "$filepath" "$tmp" &>/dev/null
         #reset_background
-        echo -e "\ePtmux;\e\e]20;${tmp};40x40+98+30:op=keep-aspect\a\e\\"
+        echo -e "\ePtmux;\e\e]20;${tmp};40x40+97+40:op=keep-aspect\a\e\\"
         rm "$tmp"
     done
