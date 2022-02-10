@@ -17,6 +17,7 @@ bar:
         content: 
           - string: 
               text: 
+              on-click: launch
               foreground: af5f5fff
               font: *icon
               margin: 8
@@ -54,22 +55,27 @@ bar:
                     f:
                       string:
                         text: 1
+                        on-click: herbstclient use 1
                         <<: *focused
                     o:
                       string:
                         text: 1
+                        on-click: herbstclient use 1
                         <<: *occupied
                     u:
                       string:
                         text: 1
+                        on-click: herbstclient use 1
                         <<: *urgent
                     a:
                       string:
                         text: 1
+                        on-click: herbstclient use 1
                         <<: *active
                     e:
                       string:
                         text: 1
+                        on-click: herbstclient use 1
                         <<: *empty
               - map:
                   tag: tag_2
@@ -77,22 +83,27 @@ bar:
                     f:
                       string:
                         text: 2
+                        on-click: herbstclient use 2
                         <<: *focused
                     o:
                       string:
                         text: 2
+                        on-click: herbstclient use 2
                         <<: *occupied
                     u:
                       string:
                         text: 2
+                        on-click: herbstclient use 2
                         <<: *urgent
                     a:
                       string:
                         text: 2
+                        on-click: herbstclient use 2
                         <<: *active
                     e:
                       string:
                         text: 2
+                        on-click: herbstclient use 2
                         <<: *empty
               - map:
                   tag: tag_3
@@ -100,22 +111,27 @@ bar:
                     f:
                       string:
                         text: 3
+                        on-click: herbstclient use 3
                         <<: *focused
                     o:
                       string:
                         text: 3
+                        on-click: herbstclient use 3
                         <<: *occupied
                     u:
                       string:
                         text: 3
+                        on-click: herbstclient use 3
                         <<: *urgent
                     a:
                       string:
                         text: 3
+                        on-click: herbstclient use 3
                         <<: *active
                     e:
                       string:
                         text: 3
+                        on-click: herbstclient use 3
                         <<: *empty
               - map:
                   tag: tag_4
@@ -123,10 +139,12 @@ bar:
                     f:
                       string:
                         text: 4
+                        on-click: herbstclient use 4
                         <<: *focused
                     o:
                       string:
                         text: 4
+                        on-click: herbstclient use 4
                         <<: *occupied
                     u:
                       string:
@@ -135,10 +153,12 @@ bar:
                     a:
                       string:
                         text: 4
+                        on-click: herbstclient use 4
                         <<: *active
                     e:
                       string:
                         text: 4
+                        on-click: herbstclient use 4
                         <<: *empty
               - map:
                   tag: tag_5
@@ -146,22 +166,27 @@ bar:
                     f:
                       string:
                         text: 5
+                        on-click: herbstclient use 5
                         <<: *focused
                     o:
                       string:
                         text: 5
+                        on-click: herbstclient use 5
                         <<: *occupied
                     u:
                       string:
                         text: 5
+                        on-click: herbstclient use 5
                         <<: *urgent
                     a:
                       string:
                         text: 5
+                        on-click: herbstclient use 5
                         <<: *active
                     e:
                       string:
                         text: 5
+                        on-click: herbstclient use 5
                         <<: *empty
               - map:
                   tag: tag_6
@@ -169,22 +194,27 @@ bar:
                     f:
                       string:
                         text: 6
+                        on-click: herbstclient use 6
                         <<: *focused
                     o:
                       string:
                         text: 6
+                        on-click: herbstclient use 6
                         <<: *occupied
                     u:
                       string:
                         text: 6
+                        on-click: herbstclient use 6
                         <<: *urgent
                     a:
                       string:
                         text: 6
+                        on-click: herbstclient use 6
                         <<: *active
                     e:
                       string:
                         text: 6
+                        on-click: herbstclient use 6
                         <<: *empty
               - map:
                   tag: tag_7
@@ -192,22 +222,27 @@ bar:
                     f:
                       string:
                         text: 7
+                        on-click: herbstclient use 7
                         <<: *focused
                     o:
                       string:
                         text: 7
+                        on-click: herbstclient use 7
                         <<: *occupied
                     u:
                       string:
                         text: 7
+                        on-click: herbstclient use 7
                         <<: *urgent
                     a:
                       string:
                         text: 7
+                        on-click: herbstclient use 7
                         <<: *active
                     e:
                       string:
                         text: 7
+                        on-click: herbstclient use 7
                         <<: *empty
               - map:
                   tag: tag_8
@@ -215,22 +250,27 @@ bar:
                     f:
                       string:
                         text: 8
+                        on-click: herbstclient use 8
                         <<: *focused
                     o:
                       string:
                         text: 8
+                        on-click: herbstclient use 8
                         <<: *occupied
                     u:
                       string:
                         text: 8
+                        on-click: herbstclient use 8
                         <<: *urgent
                     a:
                       string:
                         text: 8
+                        on-click: herbstclient use 8
                         <<: *active
                     e:
                       string:
                         text: 8
+                        on-click: herbstclient use 8
                         <<: *empty
               - map:
                   tag: tag_9
@@ -238,22 +278,27 @@ bar:
                     f:
                       string:
                         text: 9
+                        on-click: herbstclient use 9
                         <<: *focused
                     o:
                       string:
                         text: 9
+                        on-click: herbstclient use 9
                         <<: *occupied
                     u:
                       string:
                         text: 9
+                        on-click: herbstclient use 9
                         <<: *urgent
                     a:
                       string:
                         text: 9
+                        on-click: herbstclient use 9
                         <<: *active
                     e:
                       string:
                         text: 9
+                        on-click: herbstclient use 9
                         <<: *empty
               - map:
                   tag: tag_0
@@ -261,22 +306,27 @@ bar:
                     f:
                       string:
                         text: 0
+                        on-click: herbstclient use 0
                         <<: *focused
                     o:
                       string:
                         text: 0
+                        on-click: herbstclient use 0
                         <<: *occupied
                     u:
                       string:
                         text: 0
+                        on-click: herbstclient use 0
                         <<: *urgent
                     a:
                       string:
                         text: 0
+                        on-click: herbstclient use 0
                         <<: *active
                     e:
                       string:
                         text: 0
+                        on-click: herbstclient use 0
                         <<: *empty
     - script:
         path: /home/barbaross/.config/yambar/scripts/notif.sh
@@ -413,6 +463,7 @@ bar:
               items:
                 - ramp:
                     tag: capacity
+                    on-click: powertime
                     margin: 8
                     deco: {background: {color: 424242ff}}
                     items:
@@ -428,6 +479,7 @@ bar:
                       - string: {text: , foreground: 87875fff, font: *icon}
                 - string: 
                     text: "{capacity}%"
+                    on-click: powertime
                     margin: 8
                     deco: {background: {color: 262626ff}}
           full: &full
@@ -436,12 +488,14 @@ bar:
               items:
                 - string: 
                     text: 
+                    on-click: powertime
                     foreground: 87875fff
                     font: *icon
                     margin: 8
                     deco: {background: {color: 424242ff}}
                 - string: 
                     text: "Full"
+                    on-click: powertime
                     margin: 8
                     deco: {background: {color: 262626ff}}
         content:
@@ -458,12 +512,14 @@ bar:
                   items:
                     - string: 
                         text: 
+                        on-click: powertime
                         foreground: 87875fff
                         font: *icon
                         margin: 8
                         deco: {background: {color: 424242ff}}
                     - string: 
                         text: "{capacity}%"
+                        on-click: powertime
                         margin: 8
                         deco: {background: {color: 262626ff}}
               full:

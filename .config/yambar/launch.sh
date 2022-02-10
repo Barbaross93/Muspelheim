@@ -10,6 +10,6 @@ setsid -f yambar -c ~/.config/yambar/border.yml
 setsid -f yambar
 
 sleep 2
-for i in $(xdo id -a yambar); do
+for i in $(xdo id -a yambar | tac); do
 	herbstclient lower "$i"
 done

@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
+
 bltth() {
 	rfkill event |
 		while read -r line; do

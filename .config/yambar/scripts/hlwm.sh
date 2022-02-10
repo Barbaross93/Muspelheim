@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
+
 herbstclient --idle "tag_*" 2>/dev/null | {
 
 	while true; do

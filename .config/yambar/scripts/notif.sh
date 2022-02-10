@@ -1,5 +1,6 @@
 #!/bin/env bash
 
+trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
 # To let yambar know that the tags exists, but has no value yet
 echo "notif|string| "
 echo ""
