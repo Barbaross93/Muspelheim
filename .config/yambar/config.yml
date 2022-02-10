@@ -5,7 +5,7 @@ bar:
   height: 24
   foreground: dfdfafff
   background: 1c1c1cff
-  margin: 2
+  margin: 0
   spacing: 4
   font: Spleen:pixelsize=16:file=/usr/share/fonts/X11/spleen/spleen-8x16.pcf.gz
   border:
@@ -571,7 +571,7 @@ bar:
                   spacing: 0
                   items:
                     - ramp:
-                        tag: volume
+                        tag: percent
                         margin: 8
                         deco: {background: {color: 424242ff}}
                         items:
@@ -581,7 +581,7 @@ bar:
                           - string: {text: , foreground: 87afafff, font: *icon}
                           - string: {text: , foreground: 87afafff, font: *icon}
                     - string: 
-                        text: "{volume}%"
+                        text: "{percent}%"
                         margin: 8
                         deco: {background: {color: 262626ff}}
     - network:
@@ -613,6 +613,8 @@ bar:
                         tag: signal
                         margin: 8
                         deco: {background: {color: 424242ff}}
+                        min: -90
+                        max: -30
                         items:
                           - string: {text: , foreground: af8787ff, font: *icon}
                           - string: {text: , foreground: af8787ff, font: *icon}
