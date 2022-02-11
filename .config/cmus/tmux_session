@@ -10,6 +10,8 @@ select-pane -t 1
 split-window -h -p 23
 select-pane -t 2
 send-keys '~/.config/cmus/cover.sh' C-m
+split-window -v -p 20
+send-keys 'cava_check.sh' C-m
 select-pane -t 1
 set pane-border-style fg=black
 set pane-active-border-style fg=black
