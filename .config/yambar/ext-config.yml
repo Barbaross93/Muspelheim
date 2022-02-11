@@ -24,6 +24,7 @@ box_draw_light: &box_draw_light
 
 bar:
   location: top
+  monitor: HDMI-2
   height: 36
   foreground: dfdfafff
   background: 1c1c1cff
