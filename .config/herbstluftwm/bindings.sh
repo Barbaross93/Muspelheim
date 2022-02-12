@@ -31,6 +31,7 @@ hc keybind Mod4-b spawn togglebar.sh            #Toggle bar
 hc keybind Mod4-Shift-p spawn togglepicom       #Toggle compositor
 hc keybind XF86Launch1 spawn toggle_touchpad.sh #Toggle touchpad
 hc keybind XF86Display spawn caffeine.sh        #Toggle caffeine
+hc keybind XF86Tools spawn kb_variant.sh        #Toggles between qwerty and colemak
 #hc keybind Mod4-Shift-n spawn toggledunst     #Toggle notifications
 #hc keybind XF86Tools spawn toggle_redshift.sh #Toggle redshift
 

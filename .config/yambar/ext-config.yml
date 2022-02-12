@@ -30,7 +30,7 @@ bar:
   background: 1c1c1cff
   margin: 6
   spacing: 4
-  font: Spleen:pixelsize=16:file=/usr/share/fonts/X11/spleen/spleen-8x16.pcf.gz,Siji:pixelsize=10,Unifont:pixelsize=16,Twitter Color Emoji:pixelsize=12
+  font: Spleen:pixelsize=16:file=/usr/share/fonts/X11/spleen/spleen-8x16.pcf.gz,Siji:pixelsize=10,Unifont:pixelsize=16,Twitter Color Emoji:pixelsize=14
   border:
     bottom-width: 3
     color: 424242ff
@@ -381,7 +381,7 @@ bar:
         path: /home/barbaross/.config/yambar/scripts/tray.sh
         content:
           list:
-            spacing: 0
+            spacing: 4
             items:
               - map:
                   tag: bluetooth
@@ -390,67 +390,74 @@ bar:
                       string:
                         text: 
                         foreground: 87afafff
-                        left-margin: 8
-                        right-margin: 4
+                        #left-margin: 8
+                        #right-margin: 4
+                        margin: 8
                         <<: *box_draw_dark
                     1:
-                      string:
-                        text: 
-                        foreground: 626262ff
-                        left-margin: 8
-                        right-margin: 4
-                        <<: *box_draw_dark
+                      empty: {}
+                      #string:
+                      #  text: 
+                      #  foreground: 626262ff
+                      #  left-margin: 8
+                      #  right-margin: 4
+                      #  <<: *box_draw_dark
               - map:
                   tag: caffeine
-                  default: 
-                    string:
-                       text: 
-                       foreground: 626262ff
-                       margin: 4
-                       <<: *box_draw_dark
+                  #default: 
+                  #  string:
+                  #     text: 
+                  #     foreground: 626262ff
+                  #     margin: 4
+                  #     <<: *box_draw_dark
                   values:
                     true:
                       string:
                         text: 
                         foreground: af8787ff
-                        margin: 4
+                        margin: 8
                         <<: *box_draw_dark
                     false:
-                      string:
-                        text: 
-                        foreground: 626262ff
-                        margin: 4
-                        <<: *box_draw_dark
+                      empty: {}
+                      #string:
+                      #  text: 
+                      #  foreground: 626262ff
+                      #  margin: 4
+                      #  <<: *box_draw_dark
               - map:
                   tag: vpn
                   values:
                     none:
-                      string:
-                        text: 
-                        foreground: 626262ff
-                        left-margin: 4
-                        right-margin: 8
-                        <<: *box_draw_dark
+                      empty: {}
+                      #string:
+                      #  text: 
+                      #  foreground: 626262ff
+                      #  left-margin: 4
+                      #  right-margin: 8
+                      #  <<: *box_draw_dark
                     wireguard:
                       string:
                         text: 
                         foreground: af5f5fff
-                        left-margin: 4
-                        right-margin: 8
+                        #left-margin: 4
+                        #right-margin: 8
+                        margin: 8
                         <<: *box_draw_dark
                     openvpn:
                       string:
                         text: 
                         foreground: dfaf87ff
-                        left-margin: 4
-                        right-margin: 8
+                        #left-margin: 4
+                        #right-margin: 8
+                        margin: 8
                         <<: *box_draw_dark
                     wireguardopenvpn:
                       string:
                         text: 
                         foreground: af875fff
-                        left-margin: 4
-                        right-margin: 8
+                        #left-margin: 4
+                        #right-margin: 8
+                        margin: 8
                         <<: *box_draw_dark
 
     - battery:
@@ -581,6 +588,31 @@ bar:
                         text: "{percent}%"
                         margin: 8
                         <<: *box_draw_dark
+
+    - xkb:
+        content:
+          list:
+            spacing: 0
+            items:
+              - string:
+                  text: ""
+                  foreground: af5f5fff
+                  margin: 8
+                  <<: *box_draw_light
+              - map:
+                  tag: name
+                  values:
+                    English (US):
+                      string:
+                        text: qwty
+                        margin: 8
+                        <<: *box_draw_dark
+                    English (Colemak):
+                      string:
+                        text: clmk
+                        margin: 8
+                        <<: *box_draw_dark
+
     - network:
         name: wlp5s0
         content:

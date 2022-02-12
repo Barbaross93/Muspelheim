@@ -14,7 +14,8 @@ case "$1" in
 	kill -USR2 "$(pgrep -x spt)" && notify-send "Pomo" "Pomodoro state toggled"
 	;;
 --kill | -k)
-	pkill spt && notify-send "pomo" "Pomodoro timer killed"
+	pkill spt && pkill --full "mpv.*war-horn.mp3"
+	notify-send "pomo" "Pomodoro timer killed"
 	;;
 *)
 	echo "$(basename $0) requires one argument: --state,-s --toggle,-t --kill,-k"

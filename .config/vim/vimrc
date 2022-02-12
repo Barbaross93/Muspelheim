@@ -57,6 +57,7 @@ Plug 'preservim/vim-textobj-quote'
 Plug 'preservim/vim-lexical'
 Plug 'tpope/vim-markdown'
 "Misc/useful plugins
+"Plug 'jooize/vim-colemak'
 Plug 'AlessandroYorba/Alduin', {'branch': 'master'}
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
@@ -325,3 +326,6 @@ if exists("vimpager")
     "set t_ve=
     set wrapscan
 endif
+
+" Reload vim-colemak to remap any overridden keys
+"silent! source "$HOME/.vim/plugged/vim-colemak/plugin/colemak.vim"

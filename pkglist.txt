@@ -1,7 +1,6 @@
 ImageMagick-7.1.0.19_1
 LanguageTool-4.8_2
 XMousePasteBlock-1.2_1
-acpi-1.7_4
 acpid-2.0.33_2
 alsa-utils-1.2.6_1
 apparmor-3.0.3_2
@@ -34,7 +33,7 @@ duperemove-0.11.2_1
 efibootmgr-17_6
 eudev-3.2.10_1
 exa-0.10.1_1
-exiftool-12.39_1
+exiftool-12.40_1
 fd-8.3.2_1
 ffmpeg-4.4.1_1
 figlet-2.2.5_6
@@ -45,7 +44,6 @@ font-spleen-1.8.2_2
 font-unifont-bdf-14.0.01_1
 fuzzypkg-1.0.8_1
 fzf-0.29.0_1
-gcc-10.2.1pre1_3
 grabc-1.0.2_1
 gummiboot-efistub-48.1_8
 harfbuzz-3.3.1_1
@@ -55,13 +53,12 @@ hsetroot-1.0.5_1
 htop-3.1.2_1
 inotify-tools-3.20.11.0_1
 intel-media-driver-22.1.1_1
-intel-ucode-20210608_1
+intel-ucode-20220207_1
 intel-undervolt-1.7_1
 iputils-20211215_1
 isync-1.4.4_1
 iwd-1.23_1
 jq-1.6_1
-kbd-2.4.0_1
 khal-0.10.4_2
 khard-0.17.0_4
 ldm-0.7_1
@@ -110,6 +107,7 @@ rofi-1.7.3_1
 rxvt-unicode-9.30_2
 sane-1.0.32_1
 sbctl-0.8_1
+setxkbmap-1.3.2_1
 shellcheck-0.8.0_1
 shfmt-3.4.2_1
 slop-7.5_5
@@ -123,6 +121,7 @@ synergy-1.13.0_2
 task-2.6.1_1
 tealdeer-1.5.0_1
 tectonic-0.8.0_2
+thefuck-3.31_2
 tig-2.5.4_1
 tiramisu-2.0.20211107_1
 tlp-1.5.0_1
@@ -133,10 +132,9 @@ tuir-1.29.0_4
 twemoji-13.1.0_1
 ufw-0.36.1_2
 ufw-extras-0.6.0_1
-unbound-1.14.0_1
+unbound-1.15.0_1
 urlscan-0.9.5_3
 urxvt-perls-2.3_2
-usbutils-014_1
 vdirsyncer-0.18.0_2
 vim-huge-8.2.4221_1
 vit-2.1.0_1
@@ -151,6 +149,7 @@ xbanish-1.7_1
 xcape-1.2_2
 xdo-0.5.7_3
 xinput-1.6.3_1
+xlsfonts-1.0.6_1
 xmodmap-1.0.10_2
 xob-0.3_1
 xorg-minimal-1.2_2
