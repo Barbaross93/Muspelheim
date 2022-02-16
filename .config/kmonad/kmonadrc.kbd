@@ -1,7 +1,7 @@
 (defcfg
   ;; For Linux
   input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
-  output (uinput-sink "KMonad")
+  output (uinput-sink "KMonad" "sleep 2; xset -b; xset r rate 250 60")
 
   ;; Comment this is you want unhandled events not to be emitted
   fallthrough true

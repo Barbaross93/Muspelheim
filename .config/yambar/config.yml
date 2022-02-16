@@ -526,25 +526,6 @@ bar:
                 <<: *full
               not charging:
                 <<: *full
-    - backlight: 
-        name: intel_backlight
-        content:
-          list:
-            spacing: 0
-            items: 
-              - ramp:
-                  tag: percent
-                  margin: 8
-                  <<: *box_draw_light
-                  items:
-                    - string: {text: , foreground: af875fff}
-                    - string: {text: , foreground: af875fff}
-                    - string: {text: , foreground: af875fff}
-                    - string: {text: , foreground: af875fff}
-              - string: 
-                  text: "{percent}%"
-                  margin: 8
-                  <<: *box_draw_dark
     - alsa:
         card: default
         mixer: Master
@@ -583,6 +564,25 @@ bar:
                         text: "{percent}%"
                         margin: 8
                         <<: *box_draw_dark
+    - backlight: 
+        name: intel_backlight
+        content:
+          list:
+            spacing: 0
+            items: 
+              - ramp:
+                  tag: percent
+                  margin: 8
+                  <<: *box_draw_light
+                  items:
+                    - string: {text: , foreground: af875fff}
+                    - string: {text: , foreground: af875fff}
+                    - string: {text: , foreground: af875fff}
+                    - string: {text: , foreground: af875fff}
+              - string: 
+                  text: "{percent}%"
+                  margin: 8
+                  <<: *box_draw_dark
     - network:
         name: wlp5s0
         content:

@@ -20,7 +20,7 @@ xset +fp ~/.local/share/fonts/misc,/usr/share/fonts/misc,/usr/share/fonts/X11/sp
 xset s off
 xset s noblank
 xset dpms 300 #with xss-lock, blank screen shortly after locking
-xset r rate 440 50
+xset r rate 250 60
 xset -b
 xinput disable "Elan Touchpad"
 hsetroot -solid '#1c1c1c'
