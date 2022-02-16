@@ -47,9 +47,12 @@
                     "ps aux | grep \'xdo button\' | awk \'{print $2}\' | xargs kill")
   mwd   (cmd-button "while true; do xdo button_press -k 5; sleep 0.05; xdo button_release -k 5; done"
                     "ps aux | grep \'xdo button\' | awk \'{print $2}\' | xargs kill")
-  mlc   (cmd-button "xdo button_press -k 1; sleep 0.1; xdo button_release -k 1")
-  mmc   (cmd-button "xdo button_press -k 2; sleep 0.1; xdo button_release -k 2")
-  mrc   (cmd-button "xdo button_press -k 3; sleep 0.1; xdo button_release -k 3")
+  mlc   (cmd-button "xdo button_press -k 1" 
+                    "xdo button_release -k 1")
+  mmc   (cmd-button "xdo button_press -k 2"
+                    "xdo button_release -k 2")
+  mrc   (cmd-button "xdo button_press -k 3"
+                    "xdo button_release -k 3")
 	rmt   rmet
 )
 
