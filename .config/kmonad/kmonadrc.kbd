@@ -32,9 +32,24 @@
 
 (defalias
   cps   (tap-hold-next-release 200 esc lctl)
-	qwe 	(tap-hold-next-release 100 #((layer-switch qwerty) (cmd-button "echo qwerty >/tmp/kb.fifo")) rsft)
-	col 	(tap-hold-next-release 100 #((layer-switch colemak) (cmd-button "echo colemak >/tmp/kb.fifo")) rsft)
-	ext 	(tap-hold-next-release 200 spc (layer-toggle extend))
+  qwe   (tap-hold-next-release 100 #((layer-switch qwerty) (cmd-button "echo qwerty >/tmp/kb.fifo")) rsft)
+  col   (tap-hold-next-release 100 #((layer-switch colemak) (cmd-button "echo colemak >/tmp/kb.fifo")) rsft)
+  ext   (tap-hold-next-release 200 spc (layer-toggle extend))
+  mup   (cmd-button "while true; do xdo pointer_motion -x 0 -y -1; done"
+                    "ps aux | grep \'xdo pointer\' | awk \'{print $2}\' | xargs kill")
+  mdn   (cmd-button "while true; do xdo pointer_motion -x 0 -y +1; done"
+                    "ps aux | grep \'xdo pointer\' | awk \'{print $2}\' | xargs kill")
+  mlt   (cmd-button "while true; do xdo pointer_motion -x -1 -y 0; done"
+                    "ps aux | grep \'xdo pointer\' | awk \'{print $2}\' | xargs kill")
+  mrt   (cmd-button "while true; do xdo pointer_motion -x +1 -y 0; done"
+                    "ps aux | grep \'xdo pointer\' | awk \'{print $2}\' | xargs kill")
+  mwu   (cmd-button "while true; do xdo button_press -k 4; sleep 0.05; xdo button_release -k 4; done"
+                    "ps aux | grep \'xdo button\' | awk \'{print $2}\' | xargs kill")
+  mwd   (cmd-button "while true; do xdo button_press -k 5; sleep 0.05; xdo button_release -k 5; done"
+                    "ps aux | grep \'xdo button\' | awk \'{print $2}\' | xargs kill")
+  mlc   (cmd-button "xdo button_press -k 1; sleep 0.1; xdo button_release -k 1")
+  mmc   (cmd-button "xdo button_press -k 2; sleep 0.1; xdo button_release -k 2")
+  mrc   (cmd-button "xdo button_press -k 3; sleep 0.1; xdo button_release -k 3")
 	rmt   rmet
 )
 
@@ -48,12 +63,13 @@
                                                          left down rght
 )
 
+;; https://dreymar.colemak.org/layers-extend.html
 (deflayer extend
   _    _   	_    _   	_    _    _    _    _    _    _    _   _    _  _  _  _
 	_    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11 f12  _
-	_    esc  _    _    _    _    pgup home up   end  del  esc ins  _
-	ret  lalt _    lsft lctl _    pgdn left down rght bspc _   ssrq
-	_    C-z  C-x  C-c  C-v  _    _    _    _    _    _    _
+	_    esc  @mwu _    _    @mup pgup home up   end  del  esc ins  _
+	ret  lalt @mwd lsft lctl @mdn pgdn left down rght bspc _   ssrq
+	_    C-z  C-x  C-c  C-v  @mlc @mmc @mrc @mlt @mrt _    _
 	_    _    _              _              _    _    _    _   _   _
 																												 _   _   _
 )

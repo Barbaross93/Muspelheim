@@ -20,6 +20,7 @@ hc() {
 }
 
 hc emit_hook reload
+hc lock
 
 # Dat wallpaper tho
 noisewall "#452f2f"
@@ -107,7 +108,7 @@ hc set mouse_recenter_gap 0
 hc set focus_crosses_monitor_boundaries 1
 hc set swap_monitors_to_get_tag 0
 hc set raise_on_focus 1
-hc pad 0 0 0 0 0
+#hc pad 0 0 0 0 0
 
 # rules
 hc unrule -F
@@ -127,7 +128,9 @@ hc rule title=weechat tag=6
 hc rule title=Music tag=7 #fix me
 
 # unlock, just to be sure
-hc unlock
+for i in seq $(hc get monitors_locked); do
+    hc unlock
+done
 
 herbstclient set tree_style '■┃ ┣┗■━┓'
 
