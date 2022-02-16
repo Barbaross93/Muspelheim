@@ -381,7 +381,7 @@ bar:
         path: /home/barbaross/.config/yambar/scripts/tray.sh
         content:
           list:
-            spacing: 4
+            spacing: 0
             items:
               - map:
                   tag: bluetooth
@@ -396,12 +396,6 @@ bar:
                         <<: *box_draw_dark
                     1:
                       empty: {}
-                      #string:
-                      #  text: 
-                      #  foreground: 626262ff
-                      #  left-margin: 8
-                      #  right-margin: 4
-                      #  <<: *box_draw_dark
               - map:
                   tag: caffeine
                   #default: 
@@ -419,22 +413,24 @@ bar:
                         <<: *box_draw_dark
                     false:
                       empty: {}
-                      #string:
-                      #  text: 
-                      #  foreground: 626262ff
-                      #  margin: 4
-                      #  <<: *box_draw_dark
+
+              - map:
+                  tag: kb
+                  values:
+                    colemak:
+                      string:
+                        text: ''
+                        foreground: af5f5fff
+                        margin: 8
+                        <<: *box_draw_dark
+                    qwerty:
+                      empty: {}
+
               - map:
                   tag: vpn
                   values:
                     none:
                       empty: {}
-                      #string:
-                      #  text: 
-                      #  foreground: 626262ff
-                      #  left-margin: 4
-                      #  right-margin: 8
-                      #  <<: *box_draw_dark
                     wireguard:
                       string:
                         text: 
@@ -588,31 +584,6 @@ bar:
                         text: "{percent}%"
                         margin: 8
                         <<: *box_draw_dark
-
-    - xkb:
-        content:
-          list:
-            spacing: 0
-            items:
-              - string:
-                  text: ""
-                  foreground: af5f5fff
-                  margin: 8
-                  <<: *box_draw_light
-              - map:
-                  tag: name
-                  values:
-                    English (US):
-                      string:
-                        text: qwty
-                        margin: 8
-                        <<: *box_draw_dark
-                    English (Colemak):
-                      string:
-                        text: clmk
-                        margin: 8
-                        <<: *box_draw_dark
-
     - network:
         name: wlp5s0
         content:
@@ -654,7 +625,7 @@ bar:
                         margin: 8
                         <<: *box_draw_dark
     - clock:
-        date-format: "%a, %b %d"
+        date-format: "%A, %B %d"
         content:
           list:
             spacing: 0

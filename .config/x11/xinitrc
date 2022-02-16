@@ -4,15 +4,15 @@
 trap '' INT TSTP
 
 userresources=$HOME/.config/x11/Xresources
-usermodmap=$HOME/.config/x11/Xmodmap
+#usermodmap=$HOME/.config/x11/Xmodmap
 
 # merge in defaults
 [ -f "$userresources" ] && xrdb -merge "$userresources"
-[ -f "$usermodmap" ] && xmodmap "$usermodmap"
+#[ -f "$usermodmap" ] && xmodmap "$usermodmap"
 
 # Just to make sure my profile settings are loaded
 [ -f /etc/profile ] && . /etc/profile
-[ -f ~/.config/x11/xprofile ] && . ~/.config/x11/xprofile
+[ -f ~/.config/x11/xprofile ] && . ${HOME}/.config/x11/xprofile
 
 # X settings
 xset +fp ~/.local/share/fonts/misc,/usr/share/fonts/misc,/usr/share/fonts/X11/spleen
@@ -23,6 +23,7 @@ xset dpms 300 #with xss-lock, blank screen shortly after locking
 xset r rate 440 50
 xset -b
 xinput disable "Elan Touchpad"
+hsetroot -solid '#1c1c1c'
 
 # Need to start gpg agent before lock screen for pam-gnupg
 gpg-connect-agent /bye

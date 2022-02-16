@@ -9,14 +9,42 @@ trap 'kill -TERM $kiddo 2>/dev/null' INT TERM
 
 case $1 in
 -h)
-	echo "usage: $(basename $0) [min]"
+	echo "usage: $(basename $0) [min] [center] [wave]"
 	;;
 *)
-	if pgrep --full 'mpv.*brownnoise.wav' >/dev/null; then
+	#if pgrep --full 'mpv.*brownnoise.wav' >/dev/null; then
+	if pgrep 'play' >/dev/null; then
 		pkill noise
 	else
-		n=${1:-60}
-		mpv --really-quiet --loop-file="$n" --reset-on-next-file=loop-file ~/Public/brownnoise.wav &
+		#n=${1:-600}
+		#mpv --really-quiet --loop-file="$n" --reset-on-next-file=loop-file ~/Public/brownnoise.wav &
+
+		minutes=${1:-'599'}
+		repeats=$((minutes - 1))
+		center=${2:-'1786'}
+
+		wave=${3:-'0.0333333'}
+		#         ^increase for more volume oscillation, but suggest no higher than 0.20
+		#          (and no lower than 0.0166667). Its value should consider the 60
+		#          seconds duration of the repeated sample.
+
+		noise='brown'
+		#     ^your choice: 'white', 'pink', 'brown', 'tpdf'
+		#     where tpdf stands for Triangular Probability Density Function (cf. dither).
+		#     N.B. - white and pink noise have higher frequencies than Brown.
+
+		len='01:00'
+		#   ^CONSTANT one minute. (Format for specifying time length is hh:mm:ss.frac)
+		#     ___ATTN___ We first pre-compute one minute of audio output to file,
+		#     then playback repeatedly as necessary to satisfy minutes argument.
+		#     This dramatically cuts CPU usage by 95% after the first minute.
+
+		play -c 2 --null -t alsa synth $len ${noise}noise \
+			band -n $center 499 \
+			tremolo $wave 43 reverb 19 \
+			bass -11 treble -1 \
+			vol 14dB \
+			repeat $repeats &
 		kiddo=$!
 		wait
 	fi
