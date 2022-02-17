@@ -18,6 +18,7 @@ query() {
 	touch $count
 
 	c=$(cat $count)
+	kill -USR1 $(pgrep --full 'bash.*scripts/notif.sh' | head -1)
 	echo "skip" >/tmp/signal_bar
 	echo "$notifs" | awk "NR==$c" >"/tmp/old_notifs" &
 	c=$((c + 1))
@@ -26,7 +27,6 @@ query() {
 
 cleanup() {
 	[ -f $count ] && rm $count
-	#pgrep --full "timeout.*zscroll.*" && pkill --full "timeout.*zscroll.*"
 	#pgrep zscroll && pkill zscroll
 	echo "skip" >/tmp/signal_bar
 }

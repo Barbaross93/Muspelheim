@@ -32,4 +32,4 @@
 # [2] https://docs.voidlinux.org/config/services/index.html#enabling-services
 
 exec 1>&2
-exec /usr/bin/kmonad /home/barbaross/.config/kmonad/kmonadrc.kbd || exit 1
+exec kmonad ~/.config/kmonad/kmonadrc.kbd || exit 1

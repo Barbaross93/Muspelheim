@@ -1,4 +1,5 @@
 box_draw_dark: &box_draw_dark
+  margin: 8
   deco:
     stack:
       - background: 
@@ -11,6 +12,7 @@ box_draw_dark: &box_draw_dark
           color: 1c1c1cff
 
 box_draw_light: &box_draw_light
+  margin: 8
   deco:
     stack:
       - background: 
@@ -42,29 +44,23 @@ bar:
               text: 
               on-click: launch
               foreground: af5f5fff
-              margin: 8
               <<: *box_draw_light
     - script:
         path: /home/barbaross/.config/yambar/scripts/hlwm.sh
         anchors:
           - occupied: &occupied 
-              margin: 8
               foreground: dfdfafff
               <<: *box_draw_light
           - focused: &focused 
-              margin: 8
               foreground: af875fff
               <<: *box_draw_dark
           - active: &active 
-              margin: 8
               foreground: 87afafff
               <<: *box_draw_light
           - urgent: &urgent 
-              margin: 8
               foreground: af5f5fff
               <<: *box_draw_light
           - default: &empty 
-              margin: 8
               foreground: 262626ff
               <<: *box_draw_light
         content:
@@ -390,26 +386,16 @@ bar:
                       string:
                         text: 
                         foreground: 87afafff
-                        #left-margin: 8
-                        #right-margin: 4
-                        margin: 8
                         <<: *box_draw_dark
                     1:
                       empty: {}
               - map:
                   tag: caffeine
-                  #default: 
-                  #  string:
-                  #     text: 
-                  #     foreground: 626262ff
-                  #     margin: 4
-                  #     <<: *box_draw_dark
                   values:
                     true:
                       string:
                         text: 
                         foreground: af8787ff
-                        margin: 8
                         <<: *box_draw_dark
                     false:
                       empty: {}
@@ -421,7 +407,6 @@ bar:
                       string:
                         text: ''
                         foreground: af5f5fff
-                        margin: 8
                         <<: *box_draw_dark
                     qwerty:
                       empty: {}
@@ -435,25 +420,16 @@ bar:
                       string:
                         text: 
                         foreground: af5f5fff
-                        #left-margin: 4
-                        #right-margin: 8
-                        margin: 8
                         <<: *box_draw_dark
                     openvpn:
                       string:
                         text: 
                         foreground: dfaf87ff
-                        #left-margin: 4
-                        #right-margin: 8
-                        margin: 8
                         <<: *box_draw_dark
                     wireguardopenvpn:
                       string:
                         text: 
                         foreground: af875fff
-                        #left-margin: 4
-                        #right-margin: 8
-                        margin: 8
                         <<: *box_draw_dark
 
     - battery:
@@ -467,7 +443,6 @@ bar:
                 - ramp:
                     tag: capacity
                     on-click: powertime
-                    margin: 8
                     <<: *box_draw_light
                     items:
                       - string: {text: , foreground: 87875fff}
@@ -483,7 +458,6 @@ bar:
                 - string: 
                     text: "{capacity}%"
                     on-click: powertime
-                    margin: 8
                     <<: *box_draw_dark
           full: &full
             list:
@@ -493,12 +467,10 @@ bar:
                     text: 
                     on-click: powertime
                     foreground: 87875fff
-                    margin: 8
                     <<: *box_draw_light
                 - string: 
                     text: "Full"
                     on-click: powertime
-                    margin: 8
                     <<: *box_draw_dark
         content:
           map:
@@ -516,36 +488,15 @@ bar:
                         text: 
                         on-click: powertime
                         foreground: 87875fff
-                        margin: 8
                         <<: *box_draw_light
                     - string: 
                         text: "{capacity}%"
                         on-click: powertime
-                        margin: 8
                         <<: *box_draw_dark
               full:
                 <<: *full
               not charging:
                 <<: *full
-    - backlight: 
-        name: intel_backlight
-        content:
-          list:
-            spacing: 0
-            items: 
-              - ramp:
-                  tag: percent
-                  margin: 8
-                  <<: *box_draw_light
-                  items:
-                    - string: {text: , foreground: af875fff}
-                    - string: {text: , foreground: af875fff}
-                    - string: {text: , foreground: af875fff}
-                    - string: {text: , foreground: af875fff}
-              - string: 
-                  text: "{percent}%"
-                  margin: 8
-                  <<: *box_draw_dark
     - alsa:
         card: default
         mixer: Master
@@ -560,11 +511,9 @@ bar:
                     - string: 
                         text: 
                         foreground: 626262ff
-                        margin: 8
                         <<: *box_draw_light
                     - string: 
                         text: "{percent}%"
-                        margin: 8
                         <<: *box_draw_dark
               false:
                 list:
@@ -572,7 +521,6 @@ bar:
                   items:
                     - ramp:
                         tag: percent
-                        margin: 8
                         <<: *box_draw_light
                         items:
                           - string: {text: , foreground: 87afafff}
@@ -582,8 +530,24 @@ bar:
                           - string: {text: , foreground: 87afafff}
                     - string: 
                         text: "{percent}%"
-                        margin: 8
                         <<: *box_draw_dark
+    - backlight: 
+        name: intel_backlight
+        content:
+          list:
+            spacing: 0
+            items: 
+              - ramp:
+                  tag: percent
+                  <<: *box_draw_light
+                  items:
+                    - string: {text: , foreground: af875fff}
+                    - string: {text: , foreground: af875fff}
+                    - string: {text: , foreground: af875fff}
+                    - string: {text: , foreground: af875fff}
+              - string: 
+                  text: "{percent}%"
+                  <<: *box_draw_dark
     - network:
         name: wlp5s0
         content:
@@ -598,11 +562,9 @@ bar:
                     - string: 
                         text: 
                         foreground: 626262ff
-                        margin: 8
                         <<: *box_draw_light
                     - string:
                         text: D/C
-                        margin: 8
                         <<: *box_draw_dark
               up:
                 list:
@@ -610,7 +572,6 @@ bar:
                   items:
                     - ramp:
                         tag: signal
-                        margin: 8
                         <<: *box_draw_light
                         min: -90
                         max: -30
@@ -622,7 +583,6 @@ bar:
                           - string: {text: , foreground: af8787ff}
                     - string: 
                         text: "{ssid}"
-                        margin: 8
                         <<: *box_draw_dark
     - clock:
         date-format: "%A, %B %d"
@@ -632,12 +592,10 @@ bar:
             items:
               - string: 
                   text:  
-                  margin: 8
                   foreground: af875fff
                   <<: *box_draw_light
               - string: 
                   text: "{date}"
-                  margin: 8
                   <<: *box_draw_dark
     - clock:
         time-format: "%I:%M %p"
@@ -647,10 +605,8 @@ bar:
             items:
               - string: 
                   text: 
-                  margin: 8
                   foreground: 87875fff
                   <<: *box_draw_light
               - string: 
                   text: "{time}"
-                  margin: 8
                   <<: *box_draw_dark

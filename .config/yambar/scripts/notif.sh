@@ -1,6 +1,7 @@
 #!/bin/env bash
 
 trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
+trap "true" SIGUSR1
 # To let yambar know that the tags exists, but has no value yet
 echo "notif|string| "
 echo ""
@@ -74,13 +75,14 @@ mkfifo /tmp/old_notifs
 				length=${#notif}
 				while [ $c -le $length ]; do
 					[ $SECONDS -ge $end ] && break
-					[[ -f "/tmp/notif_skip" ]] && break
+					[ -f "/tmp/notif_skip" ] && break
 					scrollstart=${notif:$c:$char_limit}
 					if [ ${#scrollstart} -eq $char_limit ]; then
 						echo "history|bool|${hist}"
 						echo "notif|string|${scrollstart}..."
 						echo ""
-						[ $c -eq 0 ] && sleep 1
+						[ $c -eq 0 ] && sleep 1 &
+						wait $! #SIGUSR1 shoul interrupt this?
 					else
 						echo "history|bool|${hist}"
 						echo "notif|string|${scrollstart}"
@@ -94,11 +96,10 @@ mkfifo /tmp/old_notifs
 			echo "history|bool|${hist}"
 			echo "notif|string|${notif}"
 			echo ""
-			c=0
-			while (($(echo "$c <= $time" | bc -l))); do
-				[[ -f "/tmp/notif_skip" ]] && rm /tmp/notif_skip && break
-				sleep 0.2
-				c=$(echo "scale=1;$c + 0.2" | bc)
+			end=$((SECONDS + ${time%.*}))
+			while [ $SECONDS -lt $end ]; do
+				[ -f "/tmp/notif_skip" ] && rm /tmp/notif_skip && break
+				sleep 0.05
 			done
 		fi
 
