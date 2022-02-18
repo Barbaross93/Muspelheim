@@ -3,7 +3,7 @@
 htop_version=3.1.2
 config_reader_min_version=2
 fields=0 48 17 38 39 40 2 46 47 49 1
-sort_key=46
+sort_key=47
 sort_direction=-1
 tree_sort_key=46
 tree_sort_direction=1

@@ -27,7 +27,7 @@ query() {
 
 cleanup() {
 	[ -f $count ] && rm $count
-	#pgrep zscroll && pkill zscroll
+	kill -USR1 $(pgrep --full 'bash.*scripts/notif.sh' | head -1)
 	echo "skip" >/tmp/signal_bar
 }
 
