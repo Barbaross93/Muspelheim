@@ -43,6 +43,7 @@ settings:
     https://umaryland.webex.com: true
     https://umaryland.zoom.us: true
     https://ummsteleport.umms.org: true
+    https://us04web.zoom.us: true
     https://www.onlinemictest.com: true
   content.media.audio_video_capture:
     https://ummsteleport.umms.org: true
