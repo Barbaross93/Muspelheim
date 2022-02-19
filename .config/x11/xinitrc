@@ -29,5 +29,5 @@ hsetroot -solid '#1c1c1c'
 gpg-connect-agent /bye
 
 lock &
-sleep 0.50
+sleep 0.5
 exec herbstluftwm --locked

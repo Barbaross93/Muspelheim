@@ -1,35 +1,8 @@
 #!/bin/sh
-#
-# NOTE: This is a service for the runit init system!  If you are using
-#       something else (openrc, sysvinit, systemd, ...) then you do not
-#       need to use this file.
-#
-# How to use this service:
-#
-# 1. Place this file in the `/etc/sv/kmonad' directory.  You will need
-#    to create this directory; this is most easily done with `xmksv'
-#    from the `xtools' package:
-#
-#      xmksv kmonad
-#
-# 2. Symlink to `/var/service':
-#
-#      ln -s /etc/sv/kmonad /var/service
-#
-# Note that any X11-specific functionality has to be placed in an
-# appropriate place (e.g. `~/.xinitrc'), as the service will execute
-# _before_ the X server is started.
-#
-# Note 2: xmksv can create by default a `down` file that disable
-# kmonad to startup with system, if that happens just delete this file;
-# see [2] for further details.
-#
-# The paths below should be absolute paths.  You can put environment
-# variables in a `conf' file that's in the same directory as this file
-# and refer to them here if you want; see [1] for further details.
-#
-# [1] https://docs.voidlinux.org/config/services/index.html#service-directories
-# [2] https://docs.voidlinux.org/config/services/index.html#enabling-services
+
+# Needed so that kmonad doesnt start while the lock screen is running.
+# Actively typing password while kmonad starts cause bizarre behavior.
+tail --pid="$(pgrep xsecurelock)" -f /dev/null
 
 exec 1>&2
 exec kmonad ~/.config/kmonad/kmonadrc.kbd || exit 1
