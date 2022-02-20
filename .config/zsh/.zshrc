@@ -253,6 +253,14 @@ alias bnps='java -jar ~/Public/font-stuff/bitsnpicas/main/java/BitsNPicas/BitsNP
 alias spotdl="ts pipx run spotdl -o ~/Music"
 alias usv="SVDIR=~/.local/service sv"
 alias figlet="figlet -d ~/Public/figlet-fonts"
+alias bgee="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/Games/libs/ ~/Games/Baldurs_Gate/start.sh"
+alias bg2ee="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/Games/libs/ ~/Games/Baldurs_Gate_II/start.sh"
+alias idee="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/Games/libs/ ~/Games/Icewind_Dale/start.sh"
+alias ptee="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/Games/libs/ ~/Games/Planescape_Torment/start.sh"
+alias doom="doomretro ~/Games/the-ultimate-doom/DOOM.WAD"
+alias doom2="doomretro ~/Games/doom-ii-hell-on-earth/doom2/DOOM2.WAD"
+alias plutonia="doomretro ~/Games/final-doom/Plutonia/PLUTONIA.WAD"
+alias doomtnt="doomretro ~/Games/final-doom/TNT/TNT.WAD"
 
 ### Functions
 # Colorized man pages

@@ -22,6 +22,7 @@ chrony-4.2_1
 clang-12.0.1_2
 clipmenu-6.2.0_1
 cmus-2.9.1_2
+crispy-doom-5.11.1_1
 cronie-1.5.7_1
 cryptsetup-2.4.3_1
 cups-2.3.3op2_1
@@ -51,7 +52,7 @@ hplip-3.21.10_1
 hsetroot-1.0.5_1
 htop-3.1.2_1
 inotify-tools-3.20.11.0_1
-intel-media-driver-22.1.1_1
+intel-media-driver-21.3.5_2
 intel-ucode-20220207_1
 intel-undervolt-1.7_1
 iputils-20211215_1
@@ -75,8 +76,7 @@ mpv-0.34.1_1
 mpv-mpris-0.5_2
 msmtp-1.8.18_1
 msttcorefonts-1.3.4_2
-mutt-2.1.5_1
-nethack-3.6.6_2
+mutt-2.2.1_1
 newsboat-2.26_1
 nfs-utils-2.5.4_1
 ngetty-1.1_7
@@ -111,8 +111,8 @@ shellcheck-0.8.0_1
 shfmt-3.4.2_1
 slop-7.5_5
 smartmontools-7.2_1
+so-0.4.5_1
 socklog-void-20200115_2
-sox-14.4.2_5
 spt-0.6_0
 stow-2.3.1_3
 sudo-1.9.8p2_1
@@ -125,7 +125,6 @@ tig-2.5.4_1
 tiramisu-2.0.20211107_1
 tlp-1.5.0_1
 tmux-3.2a_1
-toilet-0.3_3
 trash-cli-0.20.12.26_2
 ts-1.0.2_1
 tuir-1.29.0_4

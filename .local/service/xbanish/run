@@ -1,4 +1,4 @@
 #!/bin/sh
 
-exec xbanish -s -t 3
+exec xbanish -s
 #exec unclutter --timeout 1 --start-hidden --ignore-buttons 4,5,6,7 --jitter 1

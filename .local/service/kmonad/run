@@ -5,4 +5,4 @@
 tail --pid="$(pgrep xsecurelock)" -f /dev/null
 
 exec 1>&2
-exec kmonad ~/.config/kmonad/kmonadrc.kbd || exit 1
+exec kmonad /home/barbaross/.config/kmonad/kmonadrc.kbd || exit 1
