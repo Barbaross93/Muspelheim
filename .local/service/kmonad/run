@@ -1,8 +1,0 @@
-#!/bin/sh
-
-# Needed so that kmonad doesnt start while the lock screen is running.
-# Actively typing password while kmonad starts cause bizarre behavior.
-tail --pid="$(pgrep xsecurelock)" -f /dev/null
-
-exec 1>&2
-exec kmonad /home/barbaross/.config/kmonad/kmonadrc.kbd || exit 1

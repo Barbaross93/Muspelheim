@@ -257,10 +257,8 @@ alias bgee="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/Games/libs/ ~/Games/Baldurs_Gate/
 alias bg2ee="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/Games/libs/ ~/Games/Baldurs_Gate_II/start.sh"
 alias idee="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/Games/libs/ ~/Games/Icewind_Dale/start.sh"
 alias ptee="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/Games/libs/ ~/Games/Planescape_Torment/start.sh"
-alias doom="doomretro ~/Games/the-ultimate-doom/DOOM.WAD"
-alias doom2="doomretro ~/Games/doom-ii-hell-on-earth/doom2/DOOM2.WAD"
-alias plutonia="doomretro ~/Games/final-doom/Plutonia/PLUTONIA.WAD"
-alias doomtnt="doomretro ~/Games/final-doom/TNT/TNT.WAD"
+alias doom="crispy-doom -iwad ~/Games/Doom/DOOM.WAD"
+alias doom2="crispy-doom -iwad ~/Games/Doom2/DOOM2.WAD"
 
 ### Functions
 # Colorized man pages
