@@ -57,7 +57,7 @@ intel-ucode-20220207_1
 intel-undervolt-1.7_1
 iputils-20211215_1
 isync-1.4.4_1
-iwd-1.23_1
+iwd-1.24_1
 jq-1.6_2
 khal-0.10.4_2
 khard-0.17.0_4
@@ -85,7 +85,6 @@ nsxiv-28_1
 openresolv-3.12.0_1
 openssh-8.8p1_2
 openssl-1.1.1l_1
-openvpn-2.5.5_1
 pam-gnupg-0.3_2
 pandoc-2.14.0.3_1
 pass-1.7.4_1
@@ -101,6 +100,7 @@ qt5ct-1.5_1
 qutebrowser-2.4.0_1
 ranger-1.9.3_3
 redshift-1.12_5
+reptyr-0.8.0_1
 ripgrep-13.0.0_1
 rofi-1.7.3_1
 rxvt-unicode-9.30_2
@@ -121,10 +121,11 @@ synergy-1.13.0_2
 task-2.6.1_1
 tealdeer-1.5.0_1
 tectonic-0.8.0_2
-tig-2.5.4_1
+tig-2.5.5_1
 tiramisu-2.0.20211107_1
 tlp-1.5.0_1
 tmux-3.2a_1
+toilet-0.3_3
 trash-cli-0.20.12.26_2
 ts-1.0.2_1
 tuir-1.29.0_4
@@ -138,7 +139,6 @@ vdirsyncer-0.18.0_2
 vim-huge-8.2.4221_1
 vit-2.1.0_1
 void-repo-nonfree-9_5
-vpnfailsafe-0.0.20180415_1
 weechat-3.4_1
 weechat-aspell-3.4_1
 weechat-python-3.4_1
@@ -151,7 +151,7 @@ xinput-1.6.3_1
 xob-0.3_1
 xorg-minimal-1.2_2
 xrdb-1.2.1_1
-xsecurelock-git-1.7.0_4
+xsecurelock-git-1.7.0_5
 xtools-0.63_1
 yambar-git-1.8.0_1
 yt-dlp-2022.02.04_1

@@ -2,7 +2,7 @@
 
 # If not already running, start it
 if ! pgrep -x spt >/dev/null; then
-	nohup spt -e 'mpv ~/.config/pomo/war-horn.mp3' >/dev/null 2>&1 &
+	nohup spt -e 'mpv --audio-channels=stereo ~/.config/pomo/erebor.mp3' >/dev/null 2>&1 &
 	exit
 fi
 
@@ -14,7 +14,7 @@ case "$1" in
 	kill -USR2 "$(pgrep -x spt)" && notify-send "Pomo" "Pomodoro state toggled"
 	;;
 --kill | -k)
-	pkill spt && pkill --full "mpv.*war-horn.mp3"
+	pkill spt && pkill --full "mpv.*erebor.mp3"
 	notify-send "pomo" "Pomodoro timer killed"
 	;;
 *)
