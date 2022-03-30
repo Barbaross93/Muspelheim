@@ -114,7 +114,7 @@ hc set raise_on_focus 1
 hc unrule -F
 hc rule focus=on # normally focus new clients
 hc rule instance=dropdown floating=on focus=on
-hc rule class=Nsxiv floating=on floatplacement=center focus=on #floating_geometry=1824x1026+40+19
+hc rule class=Nsxiv floating=on floatplacement=center focus=on
 hc rule class=mpv floating=on floatplacement=center focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on floatplacement=center
@@ -123,7 +123,8 @@ hc rule class=qutebrowser tag=1
 hc rule title=mutt tag=2
 hc rule title=vit tag=2
 hc rule title=ikhal tag=2
-hc rule class=Zathura tag=3
+hc rule class=Zathura tag=4
+hc rule class=Steam tag=5 floating=on floatplacement=center
 hc rule title=weechat tag=6
 hc rule title=Music tag=7 #fix me
 

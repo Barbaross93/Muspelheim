@@ -9,11 +9,12 @@ trap 'kill -TERM $kiddo 2>/dev/null' INT TERM
 
 case $1 in
 -h)
-	echo "usage: $(basename $0) [min] [center] [wave]"
+	echo "usage: $(basename $0) [min]"
+	#echo "usage: $(basename $0) [min] [center] [wave]"
 	;;
 *)
-	#if pgrep --full 'mpv.*brownnoise.wav' >/dev/null; then
-	if pgrep 'play' >/dev/null; then
+	if pgrep --full 'mpv.*brownnoise.wav' >/dev/null; then
+		#if pgrep 'play' >/dev/null; then
 		pkill noise
 	else
 		n=${1:-600}

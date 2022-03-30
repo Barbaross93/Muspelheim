@@ -253,12 +253,8 @@ alias bnps='java -jar ~/Public/font-stuff/bitsnpicas/main/java/BitsNPicas/BitsNP
 alias spotdl="ts pipx run spotdl -o ~/Music"
 alias usv="SVDIR=~/.local/service sv"
 alias figlet="figlet -d ~/Public/figlet-fonts"
-alias bgee="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/Games/libs/ ~/Games/Baldurs_Gate/start.sh"
-alias bg2ee="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/Games/libs/ ~/Games/Baldurs_Gate_II/start.sh"
-alias idee="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/Games/libs/ ~/Games/Icewind_Dale/start.sh"
-alias ptee="LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/Games/libs/ ~/Games/Planescape_Torment/start.sh"
-alias doom="crispy-doom -iwad ~/Games/Doom/DOOM.WAD"
-alias doom2="crispy-doom -iwad ~/Games/Doom2/DOOM2.WAD"
+alias doom="crispy-doom -iwad ~/Public/DOOM.WAD >/dev/null"
+alias doom2="crispy-doom -iwad ~/Public/DOOM2.WAD >/dev/null"
 
 ### Functions
 # Colorized man pages
@@ -327,15 +323,6 @@ btdu() {
 	sudo btdu /btrfs-root/
 	sudo umount /btrfs-root/
 	sudo rmdir /btrfs-root/
-}
-
-#Shitty attempt at a wrapper around reptyr; should probably fix up
-reptyr() {
-	query=$(echo "$*" | sed 's/ /.*/g')
-	pid=$(pgrep --full "$query" | head -1)
-	echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope >/dev/null
-  /usr/bin/reptyr $pid || /usr/bin/reptyr -s $pid || /usr/bin/reptyr -T $pid
-	echo 1 | sudo tee /proc/sys/kernel/yama/ptrace_scope >/dev/null
 }
 
 #Convert bdf to otb or ttf

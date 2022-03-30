@@ -1,7 +1,6 @@
 #!/bin/env bash
 
 trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
-trap "true" SIGUSR1
 # To let yambar know that the tags exists, but has no value yet
 echo "notif|string| "
 echo ""
@@ -68,21 +67,26 @@ mkfifo /tmp/old_notifs
 		# Scroll if greater than $char_limit characters
 		char_limit=80
 		if [ ${#notif} -gt $char_limit ]; then
-			end=$((SECONDS + ${time%.*}))
-			while [ $SECONDS -lt $end ]; do
+			startend=$((SECONDS + ${time%.*}))
+			while [ $SECONDS -lt $startend ]; do
 				[[ -f "/tmp/notif_skip" ]] && rm /tmp/notif_skip && break
 				c=0
 				length=${#notif}
 				while [ $c -le $length ]; do
-					[ $SECONDS -ge $end ] && break
+					[ $SECONDS -ge $startend ] && break
 					[ -f "/tmp/notif_skip" ] && break
 					scrollstart=${notif:$c:$char_limit}
 					if [ ${#scrollstart} -eq $char_limit ]; then
 						echo "history|bool|${hist}"
 						echo "notif|string|${scrollstart}..."
 						echo ""
-						[ $c -eq 0 ] && sleep 1 &
-						wait $! #SIGUSR1 shoul interrupt this?
+						if [ $c -eq 0 ]; then
+							pauseend=$((SECONDS + 1))
+							while [ $SECONDS -le $pauseend ]; do
+								[ -f "/tmp/notif_skip" ] && break
+								sleep 0.1
+							done
+						fi
 					else
 						echo "history|bool|${hist}"
 						echo "notif|string|${scrollstart}"
@@ -99,7 +103,7 @@ mkfifo /tmp/old_notifs
 			end=$((SECONDS + ${time%.*}))
 			while [ $SECONDS -lt $end ]; do
 				[ -f "/tmp/notif_skip" ] && rm /tmp/notif_skip && break
-				sleep 0.05
+				sleep 0.1
 			done
 		fi
 
