@@ -458,19 +458,6 @@ bar:
                     text: "{capacity}%"
                     on-click: powertime
                     <<: *box_draw_dark
-          full: &full
-            list:
-              spacing: 0
-              items:
-                - string: 
-                    text: 
-                    on-click: powertime
-                    foreground: 87875fff
-                    <<: *box_draw_light
-                - string: 
-                    text: "Full"
-                    on-click: powertime
-                    <<: *box_draw_dark
         content:
           map:
             tag: state
@@ -493,9 +480,31 @@ bar:
                         on-click: powertime
                         <<: *box_draw_dark
               full:
-                <<: *full
+                list:
+                  spacing: 0
+                  items:
+                    - string: 
+                        text: 
+                        on-click: powertime
+                        foreground: 87875fff
+                        <<: *box_draw_light
+                    - string: 
+                        text: "Full"
+                        on-click: powertime
+                        <<: *box_draw_dark
               not charging:
-                <<: *full
+                list:
+                  spacing: 0
+                  items:
+                    - string: 
+                        text: 
+                        on-click: powertime
+                        foreground: 87875fff
+                        <<: *box_draw_light
+                    - string: 
+                        text: "A/C"
+                        on-click: powertime
+                        <<: *box_draw_dark
     - alsa:
         card: default
         mixer: Master

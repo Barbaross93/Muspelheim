@@ -16,8 +16,8 @@ Inbox /home/barbaross/.local/share/mail/cullenrss@gmail.com/INBOX
 
 Channel cullenrss@gmail.com
 Expunge Both
-Master :cullenrss@gmail.com-remote:
-Slave :cullenrss@gmail.com-local:
+Far :cullenrss@gmail.com-remote:
+Near :cullenrss@gmail.com-local:
 Patterns * !"[Gmail]/All Mail"
 Create Both
 SyncState *

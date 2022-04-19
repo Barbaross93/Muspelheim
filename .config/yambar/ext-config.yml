@@ -459,19 +459,6 @@ bar:
                     text: "{capacity}%"
                     on-click: powertime
                     <<: *box_draw_dark
-          full: &full
-            list:
-              spacing: 0
-              items:
-                - string: 
-                    text: 
-                    on-click: powertime
-                    foreground: 87875fff
-                    <<: *box_draw_light
-                - string: 
-                    text: "Full"
-                    on-click: powertime
-                    <<: *box_draw_dark
         content:
           map:
             tag: state
@@ -494,9 +481,31 @@ bar:
                         on-click: powertime
                         <<: *box_draw_dark
               full:
-                <<: *full
+                list:
+                  spacing: 0
+                  items:
+                    - string: 
+                        text: 
+                        on-click: powertime
+                        foreground: 87875fff
+                        <<: *box_draw_light
+                    - string: 
+                        text: "Full"
+                        on-click: powertime
+                        <<: *box_draw_dark
               not charging:
-                <<: *full
+                list:
+                  spacing: 0
+                  items:
+                    - string: 
+                        text: 
+                        on-click: powertime
+                        foreground: 87875fff
+                        <<: *box_draw_light
+                    - string: 
+                        text: "A/C"
+                        on-click: powertime
+                        <<: *box_draw_dark
     - alsa:
         card: default
         mixer: Master
@@ -548,6 +557,26 @@ bar:
               - string: 
                   text: "{percent}%"
                   <<: *box_draw_dark
+    - xkb:
+         content:
+          list:
+            spacing: 0
+            items:
+              - string:
+                  text: ""
+                  foreground: af5f5fff
+                  <<: *box_draw_light
+              - map:
+                  tag: name
+                  values:
+                    English (US):
+                      string:
+                        text: qwty
+                        <<: *box_draw_dark
+                    English (Colemak):
+                      string:
+                        text: clmk
+                        <<: *box_draw_dark
     - network:
         name: wlp5s0
         content:
@@ -585,7 +614,7 @@ bar:
                         text: "{ssid}"
                         <<: *box_draw_dark
     - clock:
-        date-format: "%A, %B %d"
+        date-format: "%a, %b %d"
         content:
           list:
             spacing: 0

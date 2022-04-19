@@ -88,6 +88,9 @@ export CARGO_HOME="${XDG_DATA_HOME}/cargo"
 # Move pylint dir
 export PYLINTHOME="${XDG_CACHE_HOME}/pylint"
 
+# Move python history file
+export PYTHONSTARTUP="${HOME}/.local/bin/startup.py"
+
 # Move notmuch
 export NOTMUCH_CONFIG="${XDG_CONFIG_HOME}/notmuch/notmuchrc"
 

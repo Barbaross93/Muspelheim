@@ -23,9 +23,10 @@ xsel -dbps --logfile /dev/null
 #dunstctl set-paused true
 echo pause >/tmp/signal_bar
 status=$(playerctl status)
-#mpdstatus=$(mpc status | grep 'playing')
 playerctl pause
+#mpdstatus=$(mpc status | grep 'playing')
 #mpc pause
+
 #Kill these just in case
 pkill rofi
 pkill xcolor
