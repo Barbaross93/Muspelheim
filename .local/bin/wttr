@@ -1,0 +1,6 @@
+#!/bin/sh
+
+city=$(curl -s ipinfo.io | jq -r '.city')
+weather="$(curl -s wttr.in/${city}?format=Current+weather+for+%l:+%c%t+▪+%h+humidity+▪+%w+wind)"
+
+notify-send "Weather Info" "$weather"
