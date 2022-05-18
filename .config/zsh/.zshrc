@@ -204,7 +204,6 @@ export PF_INFO="ascii title os host kernel wm pkgs shell editor palette"
 
 ### Aliases
 alias svim='sudoedit'
-alias weather="curl 'wttr.in/?T'"
 alias li="exa --icons"
 alias l="exa -la"
 alias ip="ip --color=auto"
@@ -253,23 +252,10 @@ alias bnps='java -jar ~/Public/font-stuff/bitsnpicas/main/java/BitsNPicas/BitsNP
 alias spotdl="ts pipx run spotdl -o ~/Music"
 alias usv="SVDIR=~/.local/service sv"
 alias figlet="figlet -d ~/Public/figlet-fonts"
-alias doom="crispy-doom -iwad ~/Public/DOOM.WAD >/dev/null"
-alias doom2="crispy-doom -iwad ~/Public/DOOM2.WAD >/dev/null"
+alias doom="doomretro -iwad ~/Public/Games/Doom/DOOM.WAD >/dev/null"
+alias doom2="doomretro -iwad ~/Public/Games/Doom/DOOM2.WAD >/dev/null"
 
 ### Functions
-# Colorized man pages
-man() {
-	env \
-		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-		LESS_TERMCAP_md=$(printf "\e[1;31m") \
-		LESS_TERMCAP_me=$(printf "\e[0m") \
-		LESS_TERMCAP_se=$(printf "\e[0m") \
-		LESS_TERMCAP_so=$(printf "\e[1;40;35m") \
-		LESS_TERMCAP_ue=$(printf "\e[0m") \
-		LESS_TERMCAP_us=$(printf "\e[1;33m") \
-		man "$@"
-}
-
 # Hit Q in order to get out of ranger in the directory you're in
 r() {
 	local IFS=$'\t\n'
@@ -400,6 +386,19 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
                    , . / ; ' [ ]
                    < > ? : \" { }
 
-
 "
+}
+
+command_not_found_handler() {
+	txtred='\e[0;31m'
+  txtwht='\e[0;37m'
+  echo -e "M'lord, thy command ${txtred}$1${txtwht} does not exist!"
+  
+  suggestions=$(xlocate $1 2>/dev/null | grep bin/$1)
+  if [ -n "$suggestions" ]; then
+    echo ""
+    echo "Would one of these suffice, m'lord?:"
+    echo "$(echo $suggestions | sed 's/^/    /')"
+  fi
+  return 127
 }

@@ -126,6 +126,8 @@ settings:
       top: 15
   tabs.show:
     global: multiple
+  tabs.tabs_are_windows:
+    global: false
   tabs.title.alignment:
     global: center
   tabs.tooltips:

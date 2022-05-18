@@ -165,7 +165,7 @@ if hc silent new_attr bool my_not_first_autostart; then
     network=$(iwctl station wlp5s0 show | grep 'Connected network' | xargs | cut -d' ' -f3-)
     case "$network" in
     Ollies*Network)
-        sv start ~/.local/service/synergy
+        sv start ~/.local/service/barrier
         ;;
     *)
         sudo -A wg-quick up barbarossvpn

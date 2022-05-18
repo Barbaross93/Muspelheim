@@ -8,7 +8,7 @@ usermodmap=$HOME/.config/x11/Xmodmap
 
 # merge in defaults
 [ -f "$userresources" ] && xrdb -merge "$userresources"
-[ -f "$usermodmap" ] && xmodmap "$usermodmap"
+#[ -f "$usermodmap" ] && xmodmap "$usermodmap"
 
 # Just to make sure my profile settings are loaded
 [ -f /etc/profile ] && . /etc/profile

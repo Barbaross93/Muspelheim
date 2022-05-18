@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-#xdotool getactivewindow windowsize 636 491 windowmove 642 292
-
 modifier=$(grep "hc keybind" ~/.config/herbstluftwm/bindings.sh | awk '{$1=$1};1' | sed '/^#/d' | cut -d' ' -f3- | sed 's/Mod4/Super/g' | sed 's/Mod1/Alt/g' | awk '{print $1}' | tr -d '"')
 chainmods=$(grep "hc keybind" ~/.config/herbstluftwm/keychain.sh | awk '{$1=$1};1' | sed '/^#/d' | cut -d' ' -f3- | sed 's/Mod4/Super/g' | sed 's/Mod1/Alt/g' | awk '{print $1}' | tr -d '"')
 finmods="$modifier

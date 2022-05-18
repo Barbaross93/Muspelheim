@@ -36,16 +36,16 @@ hc keybind XF86Tools spawn kb_variant.sh        #Toggles between qwerty and cole
 #hc keybind XF86Tools spawn toggle_redshift.sh #Toggle redshift
 
 # Utilities
-hc keybind Mod4-u spawn unmount.sh                       #Unmount drives
-hc keybind XF86Favorites spawn prtscr                    #Print Screen
-hc keybind Mod4-XF86Favorites spawn prtregion            #Print region
-hc keybind Mod4-x spawn clipmenu -i -p 'Clipboard:' -l 0 #Clipboard manager
-hc keybind Mod4-Shift-c spawn colorpicker.sh             #Colorpicker
-hc keybind Mod4-Shift-z spawn mag.sh                     #Zoom
-hc keybind Mod4-Shift-m spawn emote                      #Kaomoji selector
-hc keybind Mod4-z spawn mwarp.sh                         #Warp mouse
-hc keybind Mod4-n spawn noise                            #Toggle brown noise
-
+hc keybind Mod4-u spawn unmount.sh                                                                                                       #Unmount drives
+hc keybind XF86Favorites spawn prtscr                                                                                                    #Print Screen
+hc keybind Mod4-XF86Favorites spawn prtregion                                                                                            #Print region
+hc keybind Mod4-x spawn clipmenu -i -p 'Clipboard:' -l 0                                                                                 #Clipboard manager
+hc keybind Mod4-Shift-c spawn colorpicker.sh                                                                                             #Colorpicker
+hc keybind Mod4-Shift-z spawn mag.sh                                                                                                     #Zoom
+hc keybind Mod4-Shift-m spawn emote                                                                                                      #Kaomoji selector
+hc keybind Mod4-z spawn mwarp.sh                                                                                                         #Warp mouse
+hc keybind Mod4-n spawn noise                                                                                                            #Toggle brown noise
+hc keybind Mod4-Shift-w spawn notify-send "$(curl -s 'wttr.in/Baltimore?format=Current+weather+for+%l:+%c%t+▪+%h+humidity+▪+%w+wind\n')" #Current Weather Information
 # Notification controls
 hc keybind Control-grave spawn notif_hist.sh -q #Query last notification
 hc keybind Control-space spawn notif_hist.sh -c #Close all notification history
@@ -140,47 +140,15 @@ hc keybind Mod4-Shift-equal spawn ~/.config/herbstluftwm/scripts/gap_adjust.sh +
 hc keybind Mod4-BackSpace spawn ~/.config/herbstluftwm/scripts/gap_adjust.sh        #Reset gaps
 
 # swapping frames (actually just transferring windows across frames)
-hc keybind Mod4-Shift-Ctrl-Right \
-  substitute OLDWIN clients.focus.winid chain \
-  , focus -e right \
-  , substitute NEWWIN clients.focus.winid \
-  spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN left
-hc keybind Mod4-Shift-Ctrl-Left \
-  substitute OLDWIN clients.focus.winid chain \
-  , focus -e left \
-  , substitute NEWWIN clients.focus.winid \
-  spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN right
-hc keybind Mod4-Shift-Ctrl-Up \
-  substitute OLDWIN clients.focus.winid chain \
-  , focus -e up \
-  , substitute NEWWIN clients.focus.winid \
-  spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN down
-hc keybind Mod4-Shift-Ctrl-Down \
-  substitute OLDWIN clients.focus.winid chain \
-  , focus -e down \
-  , substitute NEWWIN clients.focus.winid \
-  spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN up
+hc keybind Mod4-Shift-Ctrl-Right substitute OLDWIN clients.focus.winid chain , focus -e right , substitute NEWWIN clients.focus.winid spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN left #Swap frames to the right
+hc keybind Mod4-Shift-Ctrl-Left substitute OLDWIN clients.focus.winid chain , focus -e left , substitute NEWWIN clients.focus.winid spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN right  #Swap frames to the left
+hc keybind Mod4-Shift-Ctrl-Up substitute OLDWIN clients.focus.winid chain , focus -e up , substitute NEWWIN clients.focus.winid spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN down       #Swap frames to the top
+hc keybind Mod4-Shift-Ctrl-Down substitute OLDWIN clients.focus.winid chain , focus -e down , substitute NEWWIN clients.focus.winid spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN up     #Swap frames tothe bottom
 
-hc keybind Mod4-Shift-Ctrl-l \
-  substitute OLDWIN clients.focus.winid chain \
-  , focus -e right \
-  , substitute NEWWIN clients.focus.winid \
-  spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN left
-hc keybind Mod4-Shift-Ctrl-h \
-  substitute OLDWIN clients.focus.winid chain \
-  , focus -e left \
-  , substitute NEWWIN clients.focus.winid \
-  spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN right
-hc keybind Mod4-Shift-Ctrl-k \
-  substitute OLDWIN clients.focus.winid chain \
-  , focus -e up \
-  , substitute NEWWIN clients.focus.winid \
-  spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN down
-hc keybind Mod4-Shift-Ctrl-j \
-  substitute OLDWIN clients.focus.winid chain \
-  , focus -e down \
-  , substitute NEWWIN clients.focus.winid \
-  spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN up
+hc keybind Mod4-Shift-Ctrl-h substitute OLDWIN clients.focus.winid chain , focus -e right , substitute NEWWIN clients.focus.winid spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN left #Swap frames to the right
+hc keybind Mod4-Shift-Ctrl-l substitute OLDWIN clients.focus.winid chain , focus -e left , substitute NEWWIN clients.focus.winid spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN right #Swap frames to the left
+hc keybind Mod4-Shift-Ctrl-k substitute OLDWIN clients.focus.winid chain , focus -e up , substitute NEWWIN clients.focus.winid spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN down    #Swap frames to the top
+hc keybind Mod4-Shift-Ctrl-j substitute OLDWIN clients.focus.winid chain , focus -e down , substitute NEWWIN clients.focus.winid spawn ~/.config/herbstluftwm/scripts/swapwins.sh OLDWIN NEWWIN up    #Swap frames tothe bottom
 
 ## Mouse bindings
 # remove any existing mouse bindings

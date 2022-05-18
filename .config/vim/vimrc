@@ -308,24 +308,5 @@ let &t_EI = "\<Esc>[2 q"
 set breakindent
 set showbreak=..
 
-" vimpager
-" --------
-let vimpager_passthrough = 0
-if exists("vimpager")
-    "let vimpager_scrolloff = 0
-    "let g:less_enabled=0
-    set nonu
-    call <SNR>1_End()
-    let g:airline#extensions#tabline#enabled = 0
-    let g:loaded_airline = 1
-    set laststatus=0
-    set showtabline=0
-    let &cul=0
-    set showmode
-    let g:indentLine_enabled = 0
-    "set t_ve=
-    set wrapscan
-endif
-
 " Reload vim-colemak to remap any overridden keys
 "silent! source "$HOME/.vim/plugged/vim-colemak/plugin/colemak.vim"

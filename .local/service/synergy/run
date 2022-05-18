@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec synergyc -f -d FATAL --enable-crypto --tls-cert /home/barbaross/.synergy/SSL/Synergy.pem 192.168.0.8
