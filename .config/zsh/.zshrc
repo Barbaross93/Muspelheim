@@ -252,8 +252,8 @@ alias bnps='java -jar ~/Public/font-stuff/bitsnpicas/main/java/BitsNPicas/BitsNP
 alias spotdl="ts pipx run spotdl -o ~/Music"
 alias usv="SVDIR=~/.local/service sv"
 alias figlet="figlet -d ~/Public/figlet-fonts"
-alias doom="doomretro -iwad ~/Public/Games/Doom/DOOM.WAD >/dev/null"
-alias doom2="doomretro -iwad ~/Public/Games/Doom/DOOM2.WAD >/dev/null"
+alias doom="crispy-doom -iwad ~/Public/Games/Doom/DOOM.WAD >/dev/null"
+alias doom2="crispy-doom -iwad ~/Public/Games/Doom/DOOM2.WAD >/dev/null"
 
 ### Functions
 # Hit Q in order to get out of ranger in the directory you're in
