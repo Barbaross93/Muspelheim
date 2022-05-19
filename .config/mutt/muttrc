@@ -30,8 +30,7 @@ set timeout=300
 set query_command= "abook --config "$XDG_CONFIG_HOME"/abook/abookrc --datafile "$XDG_DATA_HOME"/abook/addressbook --mutt-query '%s'"
 bind editor <Tab> complete-query
 bind editor ^T    complete
-macro index,pager a "<pipe-message>abook --config "$XDG_CONFIG_HOME"/abook/abookrc --datafile "$XDG_DATA_HOME"/abook/addressbook --add-email-quiet<return>" 
-             "add the sender address to abook"
+macro index,pager a "<pipe-message>abook --config "$XDG_CONFIG_HOME"/abook/abookrc --datafile "$XDG_DATA_HOME"/abook/addressbook --add-email-quiet<return>" "add the sender address to abook"
 
 set smtp_authenticators = 'gssapi:login'
 set rfc2047_parameters = yes
