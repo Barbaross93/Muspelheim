@@ -257,6 +257,19 @@ alias doom2="crispy-doom -iwad ~/Public/Games/Doom/DOOM2.WAD >/dev/null"
 
 ### Functions
 # Hit Q in order to get out of ranger in the directory you're in
+# Colorized man pages
+man() {
+	env \
+		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+		LESS_TERMCAP_md=$(printf "\e[1;31m") \
+		LESS_TERMCAP_me=$(printf "\e[0m") \
+		LESS_TERMCAP_se=$(printf "\e[0m") \
+		LESS_TERMCAP_so=$(printf "\e[1;40;35m") \
+		LESS_TERMCAP_ue=$(printf "\e[0m") \
+		LESS_TERMCAP_us=$(printf "\e[1;33m") \
+		man "$@"
+}
+
 r() {
 	local IFS=$'\t\n'
 	local tempfile="$(mktemp -t tmp.XXXXXX)"

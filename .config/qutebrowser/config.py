@@ -26,9 +26,14 @@ c.colors.webpage.darkmode.enabled = False
 
 # Tor browsing
 # c.content.proxy = 'socks5://localhost:9050/'
-# c.url.searchengines = {
-#    'DEFAULT': 'https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/?q={}'}
-
+c.url.searchengines = {
+    "DEFAULT": "https://google.com/search?hl=en&q={}",
+    "!d": "https://duckduckgo.com/?ia=web&q={}",
+    "!gh": "https://github.com/search?o=desc&q={}&s=stars",
+    "!gi": "https://www.google.com/search?tbm=isch&q={}&tbs=imgo:1",
+    "!m": "https://www.google.com/maps/search/{}",
+    "!r": "https://www.reddit.com/search?q={}",
+}
 # config.set("colors.webpage.darkmode.enabled", False)
 # Toggle darkmode css
 config.bind(

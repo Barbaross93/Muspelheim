@@ -27,11 +27,11 @@ set timeout=300
 # When NeoMutt quits, run this NeoMutt command
 #shutdown-hook 'exec sync-mailbox'
 
-# Use khard, not abook
-set query_command= "khard email --parsable --search-in-source-files --remove-first-line %s"
+set query_command= "abook --config "$XDG_CONFIG_HOME"/abook/abookrc --datafile "$XDG_DATA_HOME"/abook/addressbook --mutt-query '%s'"
 bind editor <Tab> complete-query
 bind editor ^T    complete
-macro index,pager a "<enter-command>set my_pipe_decode=\$pipe_decode pipe_decode<return><pipe-message>khard add-email<return><enter-command>set pipe_decode=\$my_pipe_decode; unset my_pipe_decode<return>" "add the sender address to abook"
+macro index,pager a "<pipe-message>abook --config "$XDG_CONFIG_HOME"/abook/abookrc --datafile "$XDG_DATA_HOME"/abook/addressbook --add-email-quiet<return>" 
+             "add the sender address to abook"
 
 set smtp_authenticators = 'gssapi:login'
 set rfc2047_parameters = yes
