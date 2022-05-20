@@ -37,6 +37,7 @@
 .config/weechat/relay.conf
 .config/weechat/weecord.conf
 .config/weechat/weechat.log
+.config/weechat/weechat.conf
 .config/zsh/gitstatus/
 .config/zsh/.histfile
 .config/zsh/.zcompdump
