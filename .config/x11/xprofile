@@ -125,6 +125,9 @@ export RXVT_SOCKET="/tmp/urxvtd"
 #Move java home
 export _JAVA_OPTIONS=-"Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java -Dsun.java2d.opengl=true"
 
+# Move unison home
+export UNISON="$XDG_DATA_HOME"/unison
+
 # void changes default fzf dir
 export FZF_BASE=/usr/share/doc/fzf
 
