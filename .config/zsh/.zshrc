@@ -36,6 +36,8 @@ setopt APPEND_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt EXTENDED_HISTORY
 setopt SHARE_HISTORY
+setopt histignorespace
+setopt share_history 
 
 # Colors for prompt
 autoload -U colors && colors
