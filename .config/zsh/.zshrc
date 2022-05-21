@@ -75,6 +75,20 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Autosuggest keybind ctrl + @
 bindkey '^@' autosuggest-accept
 
+#Setup thefuck
+[[ ! -a $XDG_CACHE_HOME/thefuck ]] && mkdir -p $XDG_CACHE_HOME/thefuck && thefuck --alias > $XDG_CACHE_HOME/thefuck
+source $XDG_CACHE_HOME/thefuck
+fuck-command-line() {
+    local FUCK="$(THEFUCK_REQUIRE_CONFIRMATION=0 thefuck $(fc -ln -1 | tail -n 1) 2> /dev/null)"
+    [[ -z $FUCK ]] && echo -n -e "\a" && return
+    BUFFER=$FUCK
+    zle end-of-line
+}
+zle -N fuck-command-line
+bindkey -M emacs '\e\e' fuck-command-line
+bindkey -M vicmd '\e\e' fuck-command-line
+bindkey -M viins '\e\e' fuck-command-line
+
 # Setup fzf
 source /usr/share/fzf/key-bindings.zsh
 
@@ -387,7 +401,7 @@ rld_btmp_fnts() {
 	if [ -n "$*" ]; then
 		echo""
 		echo "XLFD Name(s:"
-		xlsfonts | grep "$*"
+		xlsfonts | grep "$*" | sed 's/^/    /'
 	fi
 }
 
@@ -413,7 +427,7 @@ command_not_found_handler() {
   if [ -n "$suggestions" ]; then
     echo ""
     echo "Would one of these suffice, m'lord?:"
-    echo "$(echo $suggestions | sed 's/^/    /')"
+    echo $suggestions | sed 's/^/    /'
   fi
   return 127
 }

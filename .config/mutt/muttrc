@@ -1,15 +1,11 @@
 # vim: filetype=muttrc
 source /home/barbaross/.config/mutt/accounts/2-cullenrss@gmail.com.muttrc
 
-set from="Cullen Ross <cullen.ross@som.umaryland.edu>"
-#set query_command = "abook --config "$HOME"/.config/abook/abookrc --datafile "$HOME"/.local/share/abook/addressbook --mutt-query '%s'"
+set from="Cullen Ross <cullenrss@gmail.com>"
 set signature=~/.config/mutt/signature
 set mailcap_path =~/.config/mutt/mailcap
-set sort = "reverse-threads"
-set sort_aux = "date-received"
-set crypt_autosign = no
-set crypt_opportunistic_encrypt = no
-set pgp_self_encrypt = no
+set sort = "threads"
+set sort_aux = "reverse-last-date-received"
 set editor="/usr/bin/vim"
 macro pager \cb <pipe-entry>'urlscan -s -r "linkhandler {}"'<enter> 'Follow links with urlscan'
 
@@ -93,10 +89,10 @@ bind    index   <down>  next-entry
 macro    index   <right> "<display-message><sync-mailbox>"
 macro browser <left> '<change-dir><kill-line>..<enter>' "Go to parent folder"
 
-#set crypt_autosign = yes
-#set crypt_opportunistic_encrypt = yes
-#set pgp_self_encrypt = yes
-#set pgp_default_key  = 'your@gpgemailaddre.ss'
+source ~/.config/mutt/gpg.rc
+set crypt_autosign = yes
+set crypt_opportunistic_encrypt = no
+set pgp_self_encrypt = yes
 
 macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 macro index O "<shell-escape>mailsync<enter>" "run mailsync to sync all mail"

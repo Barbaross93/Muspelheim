@@ -16,7 +16,7 @@ set edit_any_command="$EDITOR \"%file%\""
 # %monname% -> month name, %mon% -> month number, %mday% -> day of the month,
 # %year% -> year, %hour% -> hour, %min% -> minute, %wdayname% -> weekday name
 # %wday% -> weekday number
-set timed_template="REM %monname% %mday% %year% AT %hour%:%min% DURATION 1:00 MSG "
+set timed_template="REM %monname% %mday% %year% AT %hour%:%min% +30 DURATION 1:00 MSG "
 set untimed_template="REM %monname% %mday% %year% MSG "
 
 # weekly recurrence
