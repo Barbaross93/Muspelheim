@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec goimapnotify -conf ~/.config/imapnotify/gmail.conf
