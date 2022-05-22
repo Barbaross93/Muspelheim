@@ -11,7 +11,7 @@
 - Bar: [yambar](https://codeberg.org/dnkl/yambar)
 - Fonts: [spleen](https://github.com/fcambus/spleen) for primary text, [Cozette](https://github.com/slavfox/Cozette) for terminal icons, and [Siji](https://github.com/stark/siji) for bar icons
 - Music: [cmus](https://github.com/cmus/cmus)
-- File manager: [ranger](https://github.com/ranger/ranger)
+- File manager: [lf](https://github.com/gokcehan/lf)
 - Editor: [vim](https://github.com/vim/vim)
 - Email: [mutt](https://gitlab.com/muttmua/mutt)
 - Calendar: [wyrd](https://gitlab.com/wyrd-calendar/wyrd/) synced with [vdirsyncer](https://github.com/pimutils/vdirsyncer)

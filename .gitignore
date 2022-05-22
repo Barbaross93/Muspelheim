@@ -39,6 +39,7 @@
 .config/weechat/weechat.log
 .config/weechat/weechat.conf
 .config/weechat/python/
+.config/weechat/perl/
 .config/zsh/gitstatus/
 .config/zsh/.histfile
 .config/zsh/.zcompdump

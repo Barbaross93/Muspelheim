@@ -102,7 +102,7 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*:options' list-colors '=^(-- *)=35'
 zstyle ':completion:*:descriptions' format '%F{8}■%f %F{red}━━━[%f%F{yellow}%d%f%F{red}]%f'
-zstyle ':completion:*:messages' format '%F{8}■%f %F{red}━━━[%f%F{magenta}%d%f%F{red}]%f'
+zstyle ':completion:*:messages' format '%F{8}■%f %F{red}━━━[%f%F{cyan}%d%f%F{red}]%f'
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
 
 ## Prompt stuff
