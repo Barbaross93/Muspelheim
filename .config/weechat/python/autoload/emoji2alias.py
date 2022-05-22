@@ -1,1 +1,0 @@
-../emoji2alias.py

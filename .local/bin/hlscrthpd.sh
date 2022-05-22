@@ -33,7 +33,7 @@ if [[ -f $dropdown ]]; then
 fi
 if ! xdo show -n 'dropdown'; then
   geometry
-  urxvtdc -name 'dropdown' -e tmux new -As Dropdown &
+  alacritty --class 'dropdown' -e tmux new -As Dropdown &
   xdo id -m -n 'dropdown'
   herbstclient attr clients.focus.winid >$dropdown
 fi

@@ -10,7 +10,7 @@ export EDITOR="/usr/bin/vim"
 export BROWSER="linkhandler"
 
 # Default terminal
-export TERMINAL=/usr/bin/urxvt
+export TERMINAL=/usr/bin/alacritty
 
 # bemenu options
 export BEMENU_OPTS=" -w -i --fn 'custom 13px' -H 36 --tf '#1c1c1c' --tb '#a87f5f' --nb '#1c1c1c' --nf '#dfdfaf' --hb '#a87f5f' --hf '#1c1c1c' --fb '#1c1c1c' --ff '#dfdfaf' --ch 13"

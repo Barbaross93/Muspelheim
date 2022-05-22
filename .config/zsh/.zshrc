@@ -197,7 +197,7 @@ custom_prompt() {
 	fi
 
 	if [ $cmd_cde -eq 0 ]; then
-		PROMPT+=$'\n'"%{$fg[red]%}┗━━ %{$fg_bold[black]%}${vim_mode} %{$reset_color%}"
+		PROMPT+=$'\n'"%{$fg[red]%}┗━━ %F{8}${vim_mode} %{$reset_color%}"
 	else
 		PROMPT+=$'\n'"%{$fg[red]%}┗━━ %{$reset_color%}${vim_mode} "
 	fi
@@ -209,7 +209,7 @@ gitstatus_stop 'MY' && gitstatus_start -s -1 -u -1 -c -1 -d -1 'MY'
 autoload -Uz add-zsh-hook
 add-zsh-hook preexec setup
 add-zsh-hook precmd custom_prompt
-export PROMPT2="%{$fg_bold[black]%} %{%G■%}%{$reset_color%} "
+export PROMPT2="%F{8} %{%G■%}%{$reset_color%} "
 
 ### General configs
 # Color support for ls, fd, etc
@@ -423,7 +423,7 @@ command_not_found_handler() {
   txtwht='\e[0;37m'
   echo -e "M'lord, thy command ${txtred}$1${txtwht} does not exist!"
   
-  suggestions=$(xlocate $1 2>/dev/null | grep bin/$1)
+  suggestions=$(xlocate $1 2>/dev/null | grep ".*/bin/$1$")
   if [ -n "$suggestions" ]; then
     echo ""
     echo "Would one of these suffice, m'lord?:"

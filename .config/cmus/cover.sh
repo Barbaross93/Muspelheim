@@ -16,6 +16,9 @@ tail -f /tmp/cmus_cover.fifo |
         tmp=$(mktemp --suffix ".png")
         filepath=$(cmus-remote -C "format_print %f")
         ffmpeg -nostdin -y -i "$filepath" "$tmp" &>/dev/null
-        echo -e "\ePtmux;\e\e]20;${tmp};40x40+97+30:op=keep-aspect\a\e\\"
+        clear
+        echo -e "\n\n\n\n\n\n"
+        chafa -c full ${tmp}
+        #echo -e "\ePtmux;\e\e]20;${tmp};40x40+97+30:op=keep-aspect\a\e\\"
         rm "$tmp"
     done

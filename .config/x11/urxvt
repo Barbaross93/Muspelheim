@@ -51,7 +51,7 @@ URxvt.keysym.Shift-Control-C:   eval:selection_to_clipboard
 
 ! Perl stuff from here on out
 URxvt.perl-lib: 								/home/barbaross/.config/x11/urxvt-ext/
-URxvt.perl-ext-common:         	default,matcher,selection-to-clipboard,newterm,keyboard-select,vtwheel,resize-font,-confirm-paste
+URxvt.perl-ext-common:         	default,matcher,newterm,keyboard-select,vtwheel,resize-font,-confirm-paste
 
 ! Matcher extension settings
 URxvt.url-launcher:             linkhandler
@@ -62,7 +62,7 @@ URxvt.keysym.M-l:           		perl:matcher:select
 URxvt.underlineURLs: 						true
 
 ! open new term in same directory
-URxvt.keysym.Control-Shift-T:   perl:newterm
+URxvt.keysym.Control-Shift-N:   perl:newterm
 
 ! Activate keyboard-select
 URxvt.keysym.M-grave: 					perl:keyboard-select:activate
