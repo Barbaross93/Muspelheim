@@ -14,14 +14,15 @@
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
-#env:
+env:
   # TERM variable
   #
   # This value is used to set the `$TERM` environment variable for
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
-  #TERM: alacritty
+  TERM: alacritty
+  WINIT_X11_SCALE_FACTOR: "1"
 
 window:
   # Window dimensions (changes require restart)
@@ -46,8 +47,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 16
-    y: 16
+    x: 32
+    y: 32
 
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: true
@@ -149,7 +150,7 @@ font:
     style: Regular
 
   # Point size
-  size: 8.0
+  size: 12
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -170,7 +171,7 @@ font:
   # If `true`, Alacritty will use a custom built-in font for box drawing
   # characters (Unicode points 2500 - 259f).
   #
-  builtin_box_drawing: true
+  builtin_box_drawing: false
 
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: false
@@ -484,7 +485,7 @@ hints:
   enabled:
    - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
              [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
-     command: xdg-open
+     command: linkhandler
      post_processing: true
      mouse:
        enabled: true
@@ -740,7 +741,7 @@ key_bindings:
   - { key: N,         mods: Shift|Control,              action: CreateNewWindow }
 
   # Vi Mode
-  #- { key: Space,  mods: Shift|Control, mode: ~Search,    action: ToggleViMode            }
+  - { key: Grave,  mods: Alt, mode: ~Search,    action: ToggleViMode            }
   #- { key: Space,  mods: Shift|Control, mode: Vi|~Search, action: ScrollToBottom          }
   - { key: Escape,                      mode: Vi|~Search, action: ToggleViMode            }
   #- { key: I,                           mode: Vi|~Search, action: ToggleViMode            }

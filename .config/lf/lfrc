@@ -1,0 +1,157 @@
+##
+##  ██▓      █████▒██▀███   ▄████▄  
+## ▓██▒    ▓██   ▒▓██ ▒ ██▒▒██▀ ▀█  
+## ▒██░    ▒████ ░▓██ ░▄█ ▒▒▓█    ▄ 
+## ▒██░    ░▓█▒  ░▒██▀▀█▄  ▒▓▓▄ ▄██▒
+## ░██████▒░▒█░   ░██▓ ▒██▒▒ ▓███▀ ░
+## ░ ▒░▓  ░ ▒ ░   ░ ▒▓ ░▒▓░░ ░▒ ▒  ░
+## ░ ░ ▒  ░ ░       ░▒ ░ ▒░  ░  ▒   
+##   ░ ░    ░ ░     ░░   ░ ░        
+##     ░  ░          ░     ░ ░      
+##                         ░        
+
+# Basic Settings
+set preview true
+set hidden false
+set icons true
+set ignorecase true
+set ratios 2:3
+set cleaner /usr/bin/clear
+set previewer ~/.config/lf/preview
+
+# Custom Functions
+cmd open ${{
+    case $(file --mime-type "$f" -bL) in
+        text/*|application/json) $EDITOR "$f";;
+        *) setsid -f xdg-open "$f" >/dev/null 2>&1;;
+    esac
+}}
+
+cmd mkdir %mkdir "$@"
+
+cmd chmod ${{
+  printf "Mode Bits: "
+  read ans
+
+  for file in "$fx"
+  do
+    chmod $ans $file
+  done
+
+  lf -remote 'send reload'
+}}
+
+# Archive bindings
+cmd extract ${{
+  atool aunpack "$f"
+}}
+
+cmd zip %zip -r "$f" "$f"
+cmd tar %tar cvf "$f.tar" "$f"
+cmd targz %tar cvzf "$f.tar.gz" "$f"
+cmd tarbz2 %tar cjvf "$f.tar.bz2" "$f"
+
+# Trash cli bindings
+cmd trash %trash-put $fx
+
+cmd clear_trash %trash-empty
+
+cmd restore_trash ${{
+  trash-restore
+}}
+
+#zoxide bindings
+cmd z %{{
+    result="$(zoxide query --exclude "${PWD}" -- "$1")"
+    lf -remote "send ${id} cd '${result}'"
+}}
+
+cmd zi ${{
+    result="$(zoxide query -i -- "$1")"
+    lf -remote "send ${id} cd '${result}'"
+}}
+
+#Ripgrep
+cmd fzf_search ${{
+    res="$( \
+        RG_PREFIX="rg --column --line-number --no-heading --color=always \
+            --smart-case "
+        FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+            fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+            --ansi --layout=reverse --header 'Search in files' \
+            | cut -d':' -f1
+    )"
+    [ ! -z "$res" ] && lf -remote "send $id select \"$res\""
+}}
+map gs :fzf_search
+
+#Change window title
+cmd on-cd &{{
+    # '&' commands run silently in background (which is what we want here),
+    # but are not connected to stdout.
+    # To make sure our escape sequence still reaches stdout we pipe it to /dev/tty
+    printf "\033]0; lf:$(pwd | sed "s|$HOME|~|")\007" > /dev/tty
+}}
+
+# also run at startup
+on-cd
+
+# Bindings
+# Remove some defaults
+map m
+map o
+map n
+map "'"
+map '"'
+map d
+map c
+map e
+map f
+
+# bat as pager
+map i $~/.config/lf/preview $f | less -R
+
+# File Openers
+map ee $$EDITOR "$f"
+map u $view "$f"
+
+# Archive Mappings
+map az zip
+map at tar
+map ag targz
+map ab targz
+map au extract
+
+# Trash Mappings
+map dd trash
+map tc clear_trash
+map tr restore_trash
+
+# Basic Functions
+map . set hidden!
+map DD delete
+map p paste
+map x cut
+map y copy
+map <enter> open
+map mf mkfile
+map md push %mkdir<space>
+map ms $mkscript
+map ch chmod
+map r rename
+map H top
+map L bottom
+map R reload
+map C clear
+map U unselect
+
+# Movement
+map gv. cd ~/Videos
+map gp. cd ~/Pictures
+map gP cd ~/Public
+map gd cd ~/Documents
+map gD cd ~/Downloads
+
+map gc cd ~/.config
+map gl cd ~/.local
+map gE cd /etc

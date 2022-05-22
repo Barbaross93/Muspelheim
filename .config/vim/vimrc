@@ -178,6 +178,7 @@ autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
 " enable mouse scroll
+set ttymouse=sgr
 set mouse=a
 
 " Nerdtree

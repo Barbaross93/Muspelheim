@@ -3,7 +3,7 @@ URxvt.font:	-*-spleen-medium-*-normal--16-*-*-*-*-*-iso10646-*,\
 						-slavfox-cozette-medium-r-normal--13-120-75-75-m-60-iso10646-1,\
 						-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
 						-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1, \
-						xft:Twitter Color Emoji:pixelsize=13
+						xft:Twitter Color Emoji:pixelsize=13:antialias=false
 URxvt.boldFont:
 URxvt.italicfont:
 URxvt.boldItalicFont:

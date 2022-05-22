@@ -43,5 +43,6 @@ xlock || lock
 
 ### Post Lock
 [ "$status" = "Playing" ] && playerctl play
+mailsync #Since mail isn't detected while PC is asleep
 #if [ -n "$mpdstatus" ] && mpc play
 echo resume >/tmp/signal_bar
