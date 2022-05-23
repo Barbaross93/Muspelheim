@@ -179,11 +179,15 @@ custom_prompt() {
 	cmd_cde=$?
 	# Set window title
 	print -Pn "\e]2;%n@%M: %~\a"
-	if [ $(cup) -eq 1 ]; then
-		PROMPT=""
-	else
-		PROMPT=$'\n'
-	fi
+  cpos=$(cup)
+  case "$cpos" in
+    1|2)
+		  PROMPT=""
+      ;;
+    *)
+		  PROMPT=$'\n'
+      ;;
+  esac
 	PROMPT+="%{$fg[red]%}┏━"
 
 	#Are we root?
