@@ -3,6 +3,13 @@
 FILE="$1"
 
 image() {
+	#ratio="$(grep ratios ~/.config/lf/lfrc | head -n1 | awk '{print $3}' | tr ':' '/')"
+	#width_percentage=$(echo "(($ratio)*100)-8" | bc -l | cut -d '.' -f1)
+	#if [ -n "$TMUX" ]; then
+	#	echo -e "\ePtmux;\e\e]20;${1};${width_percentage}x94+97+8:op=keep-aspect\a\e\\"
+	#else
+	#	echo -e "\e]20;${1};${width_percentage}x84+92+8:op=keep-aspect\a"
+	#fi
 	chafa -c full "$1" -s "${2}x${3}"
 	exit
 }
@@ -59,27 +66,20 @@ handle_extension() {
 		exiftool "$1"
 		;;
 	*.pdf)
-		[ ! -f "${CACHE}.jpg" ] &&
-			pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
+		pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
 		image "${CACHE}.jpg" "$2" "$3" "$4" "$5"
-		#exit
 		;;
 	*.epub)
 		[ ! -f "$CACHE" ] &&
 			epub-thumbnailer "$1" "$CACHE" 1024
 		image "$CACHE" "$2" "$3" "$4" "$5"
-		#exit
 		;;
 	*.avi | *.mp4 | *.wmv | *.dat | *.3gp | *.ogv | *.mkv | *.mpg | *.mpeg | *.vob | *.fl[icv] | *.m2v | *.mov | *.webm | *.ts | *.mts | *.m4v | *.r[am] | *.qt | *.divx)
-		[ ! -f "${CACHE}.jpg" ] &&
-			ffmpeg -i "${FILE_PATH}" -map 0:v -map -0:V -c copy "${IMAGE_CACHE_PATH}" && exit 6
-		ffmpegthumbnailer -i "$1" -o "${CACHE}.jpg" -s 0 -q 5
+		ffmpeg -nostdin -y -i "${1}" -frames:v 1 -q:v 2 "${CACHE}.jpg"
 		image "${CACHE}.jpg" "$2" "$3" "$4" "$5"
-		#exit
 		;;
 	*.bmp | *.jpg | *.jpeg | *.png | *.xpm | *.webp | *.gif)
 		image "$1" "$2" "$3" "$4" "$5"
-		#exit
 		;;
 	*.json | *.ipynb)
 		jq --color-output . "$1"

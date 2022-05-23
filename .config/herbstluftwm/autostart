@@ -155,9 +155,6 @@ if hc silent new_attr bool my_not_first_autostart; then
     # Launch bar
     ~/.config/yambar/launch.sh
 
-    # Refresh dbus session address in cron
-    #crontab <(crontab -l | sed "s|DBUS_SESSION_BUS_ADDRESS=.*|DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS|")
-
     # Things that require an internet connection
     while :; do
         [ "$(cat /sys/class/net/wlp5s0/carrier)" -eq 1 ] && break
@@ -171,6 +168,10 @@ if hc silent new_attr bool my_not_first_autostart; then
         sudo -A wg-quick up barbarossvpn
         ;;
     esac
+
+    #On startup, check for any new mails
+    mailsync
+
 fi
 
 # do multi monitor setup here, e.g.:

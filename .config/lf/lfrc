@@ -16,7 +16,7 @@ set hidden false
 set icons true
 set ignorecase true
 set ratios 2:3
-set cleaner /usr/bin/clear
+#set cleaner ~/.config/lf/cleaner
 set previewer ~/.config/lf/preview
 
 # Custom Functions

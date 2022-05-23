@@ -1,6 +1,3 @@
 #!/bin/sh
 
-#On startup, check for any new mails
-mailsync
-
 exec mailwatch cullenrss@gmail.com

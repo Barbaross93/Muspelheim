@@ -3,9 +3,18 @@
 ID=$(task export | jq -r 'sort_by( -.urgency )[] | [ (.id|tostring), .description ] | join("	")' | awk '!$1=="0"' |
   dmenu -i -p "Tasks:" |
   cut -f 1)
-[ -z "$ID" ] && echo "Cancelled." && exit
 
-ACTION=$(printf "add\nstart\nstop\nedit\ndelete\ndone" | dmenu -i -p "Action:")
-[ -z "$ACTION" ] && echo "Cancelled." && exit
+case "$ID" in
+'')
+  exit
+  ;;
+*[0-9]*)
+  ACTION=$(printf "start\nstop\nedit\ndelete\ndone" | dmenu -i -p "Action:")
+  ;;
+*)
+  ACTION="add"
+  ;;
+esac
 
+[ -z "$ACTION" ] && exit
 task "$ID" "$ACTION"

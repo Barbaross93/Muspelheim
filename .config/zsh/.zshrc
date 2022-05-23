@@ -71,9 +71,6 @@ bindkey "^[[1;5D" backward-word
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Autosuggest keybind ctrl + @
-bindkey '^@' autosuggest-accept
-
 #Setup thefuck
 [[ ! -a $XDG_CACHE_HOME/thefuck ]] && mkdir -p $XDG_CACHE_HOME/thefuck && thefuck --alias > $XDG_CACHE_HOME/thefuck
 source $XDG_CACHE_HOME/thefuck
@@ -99,6 +96,9 @@ source /usr/share/fzf/key-bindings.zsh
 #Source ssh environment
 source ~/.ssh/agent-environment > /dev/null
 
+# Color support for ls, fd, etc
+eval $(dircolors $XDG_CONFIG_HOME/dircolors)
+
 # Style completion menu
 zstyle ':completion:*' menu select
 zstyle ':completion:*' special-dirs true
@@ -106,8 +106,8 @@ zstyle ':completion:*' completer _extensions _complete _approximate
 zstyle ':completion:*' group-name '' 
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*:options' list-colors '=^(-- *)=35'
-zstyle ':completion:*:descriptions' format '%F{8}■%f %F{red}━━━[%f%F{yellow}%d%f%F{red}]%f'
-zstyle ':completion:*:messages' format '%F{8}■%f %F{red}━━━[%f%F{cyan}%d%f%F{red}]%f'
+zstyle ':completion:*:descriptions' format '%F{8}■%f %F{red}━━━[%f%d%F{red}]%f'
+zstyle ':completion:*:messages' format '%F{8}■%f %F{red}━━━[%f%d%F{red}]%f'
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
 
 ## Prompt stuff
@@ -221,9 +221,6 @@ add-zsh-hook precmd custom_prompt
 export PROMPT2="%F{8} %{%G■%}%f%{$reset_color%} "
 
 ### General configs
-# Color support for ls, fd, etc
-eval $(dircolors $XDG_CONFIG_HOME/dircolors)
-
 # Pfetch configuration
 export PF_INFO="ascii title os host kernel wm pkgs shell editor palette"
 
