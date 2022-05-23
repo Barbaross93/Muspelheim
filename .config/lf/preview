@@ -18,8 +18,8 @@ CACHE="$HOME/.cache/lf/thumbnail.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(
 
 handle_extension() {
 	case "$(printf "%s\n" "$1" | awk '{print tolower($0)}')" in
-	*.tgz | *.tar.gz | *.tar.bz2 | *.tbz2 | *.tar.txz | *.txz | *.tar | *.zip | *.jar | *.war | *.ear | *.oxt | *.rar)
-		atool --list -- "$1"
+	*.tgz | *.tar.gz | *.tar.bz2 | *.tbz2 | *.tar.txz | *.txz | *.tar | *.zip | *.jar | *.war | *.ear | *.oxt)
+		tar --list --file "${1}"
 		exit
 		;;
 	*.rar)

@@ -43,7 +43,13 @@ cmd chmod ${{
 
 # Archive bindings
 cmd extract ${{
-  atool aunpack "$f"
+  case "$f" in
+      *.zip) unzip "$f" ;;
+      *.tar.gz) tar -xzvf "$f" ;;
+      *.tar.bz2) tar -xjvf "$f" ;;
+      *.tar) tar -xvf "$f" ;;
+      *) echo "Unsupported format" ;;
+  esac
 }}
 
 cmd zip %zip -r "$f" "$f"
