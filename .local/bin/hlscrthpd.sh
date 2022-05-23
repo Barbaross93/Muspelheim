@@ -33,7 +33,6 @@ if [[ -f $dropdown ]]; then
 fi
 if ! xdo show -n 'dropdown'; then
   geometry
-  alacritty --class 'dropdown' -e tmux new -As Dropdown &
-  xdo id -m -n 'dropdown'
-  herbstclient attr clients.focus.winid >$dropdown
+  setsid -f alacritty --class 'dropdown' -e tmux new -As Dropdown
+  xdo id -m -n 'dropdown' | tr "[:upper:]" "[:lower:]" | sed -r 's/0x([0]+)/0x/' >$dropdown
 fi
