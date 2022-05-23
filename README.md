@@ -1,6 +1,6 @@
 # Muspelheim
 
-<img src="https://raw.githubusercontent.com/Barbarossa93/Muspelheim/master/screenshots/2022-02-01_02-42-12.png" alt="img" align="center">
+![Example Scrot](/screenshots/2022-02-01_02-42-12.png)
 
 ## Info
 - OS: Void Linux
@@ -14,7 +14,7 @@
 - File manager: [lf](https://github.com/gokcehan/lf)
 - Editor: [vim](https://github.com/vim/vim)
 - Email: [mutt](https://gitlab.com/muttmua/mutt)
-- Calendar: [wyrd](https://gitlab.com/wyrd-calendar/wyrd/) synced with [vdirsyncer](https://github.com/pimutils/vdirsyncer)
+- Calendar: [wyrd](https://gitlab.com/wyrd-calendar/wyrd/)
 - Tasks: [taskwarrior](https://github.com/GothenburgBitFactory/taskwarrior) with [vit](https://github.com/vit-project/vit)
 - Chat: [weechat](https://github.com/weechat/weechat)
 - RSS feeds: [newsboat](https://github.com/newsboat/newsboat)
