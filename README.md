@@ -14,7 +14,7 @@
 - File manager: [lf](https://github.com/gokcehan/lf)
 - Editor: [vim](https://github.com/vim/vim)
 - Email: [mutt](https://gitlab.com/muttmua/mutt)
-- Calendar: [wyrd](https://gitlab.com/wyrd-calendar/wyrd/)
+- Calendar: [remind](https://git.skoll.ca/Skollsoft-Public/Remind) with [wyrd](https://gitlab.com/wyrd-calendar/wyrd/)
 - Tasks: [taskwarrior](https://github.com/GothenburgBitFactory/taskwarrior) with [vit](https://github.com/vit-project/vit)
 - Chat: [weechat](https://github.com/weechat/weechat)
 - RSS feeds: [newsboat](https://github.com/newsboat/newsboat)
