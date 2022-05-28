@@ -6,7 +6,13 @@
 
 fi="/tmp/noisewall.png"
 
-convert -size 100x100 canvas:"$1" -separate -seed 1000 \
+color=${1:-#452f2f}
+
+convert -size 100x100 canvas:"$color" -separate -seed 1000 \
 	-attenuate 0.13 +noise gaussian -combine -colorspace sRGB "$fi"
 
-hsetroot -tile "$fi" && rm "$fi"
+if [ -n "$WAYLAND_DISPLAY" ]; then
+	setsid -f swaybg -m tile -i "$fi" && "$fi"
+elif [ -n "$DISPLAY" ]; then
+	hsetroot -tile "$fi" && rm "$fi"
+fi

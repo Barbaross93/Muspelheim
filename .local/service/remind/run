@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# Daemon remind process that will send desktop notifications
-
-exec remind -z -k'notify-send %s' "${HOME}"/.local/share/office/reminders

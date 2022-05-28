@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Neverwinter Nights
+Comment=Neverwinter Nights Enhanced Edition
+Exec=game_launch.sh nvwn
+Icon=Neverwinter Nights
+Terminal=false
+StartupNotify=false
+Categories=Application;Multimedia;

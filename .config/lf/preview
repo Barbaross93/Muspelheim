@@ -10,7 +10,7 @@ image() {
 	#else
 	#	echo -e "\e]20;${1};${width_percentage}x84+92+8:op=keep-aspect\a"
 	#fi
-	chafa -c full "$1" -s "${2}x${3}"
+	chafa -f symbols -c full -s "${2}x${3}" "$1"
 	exit
 }
 

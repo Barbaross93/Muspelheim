@@ -30,9 +30,9 @@ headerbar box.horizontal.left > button.titlebutton:first-child {
 }
 headerbar button.titlebutton:not(.appmenu) {
   background: transparent;
-  min-height: auto;
+  /*min-height: auto;*/
   margin: -6px 0;
-  height: auto;
+  /*height: auto;*/
   padding: 15px 10px;
   border-radius: 0;
 }
@@ -639,7 +639,7 @@ infobar.question {
 
 tooltip {
   background: #262626;
-  opacity: 100%;
+  opacity: 100;
 }
 tooltip label {
   padding: 2px;

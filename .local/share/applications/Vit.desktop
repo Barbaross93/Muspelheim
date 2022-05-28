@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Vit
+Comment=Visual Interface Taskwarrior
+Exec=vit
+Icon=Vit
+Terminal=true
+StartupNotify=false
+Categories=Application;

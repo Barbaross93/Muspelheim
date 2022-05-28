@@ -2,7 +2,7 @@ set default-command "/bin/dash"
 neww
 set status off
 set -g set-titles-string '#S'
-send-keys 'cmus && tmux kill-session -t Music' C-m
+send-keys '/bin/cmus && tmux kill-session -t Music' C-m
 split-window -v -l 1
 select-pane -t 2
 send-keys '~/.config/cmus/cmus_prog.sh' C-m

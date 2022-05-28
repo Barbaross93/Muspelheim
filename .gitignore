@@ -1,6 +1,7 @@
 # Configs to ignore
 .config/glib-2.0/
 .config/vdirsyncer/
+.config/doomretro/
 .config/msmtp/*.log
 .config/autorandr/
 .config/cmus/cache
@@ -29,6 +30,8 @@
 .config/task/*.data
 .config/vim/autoload/
 .config/vim/plugged/
+.config/waynergy/hash/
+.config/waynergy/tls/
 .config/weechat/logs/
 .config/weechat/script/
 .config/weechat/sec.conf
@@ -48,5 +51,5 @@
 .local/bin/old/
 
 # Service folders to ignore
-.local/service/*/supervise/
-.local/service/*/log/
+.local/service/*/*/supervise/
+.local/service/*/*/log/

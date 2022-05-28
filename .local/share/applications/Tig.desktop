@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Tig
+Comment=Terminal Interface Git
+Exec=tig
+Icon=Tig
+Terminal=true
+StartupNotify=false
+Categories=Application;Development;RevisionControl;

@@ -1,0 +1,21 @@
+[calendars]
+
+[[personal]]
+path = ~/.config/vdirsyncer/calenders/reminders/
+type = calendar
+color = yellow
+
+[locale]
+timeformat = %H:%M
+dateformat = %m/%d/%Y
+longdateformat = %m/%d/%Y
+datetimeformat = %m/%d/%Y %I:%M %p
+longdatetimeformat = %m/%d/%Y %I:%M %p
+unicode_symbols = False
+
+[highlight_days]
+color = yellow
+
+[view]
+frame = top
+theme = muspelheim

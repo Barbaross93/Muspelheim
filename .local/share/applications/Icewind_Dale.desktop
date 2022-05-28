@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Icewind Dale
+Comment=Icewind Dale Enhanced Edition
+Exec=game_launch.sh iwdd
+Icon=Icewind Dale
+Terminal=false
+StartupNotify=false
+Categories=Application;Multimedia;

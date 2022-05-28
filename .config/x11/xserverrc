@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec /usr/bin/X -nolisten tcp -nolisten local -background none -ardelay 250 -arinterval 17 "$@" vt1

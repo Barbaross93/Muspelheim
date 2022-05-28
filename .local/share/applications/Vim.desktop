@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Vim
+Comment=Vi Modal
+Exec=vim
+Icon=Vim
+Terminal=true
+StartupNotify=false
+Categories=Application;

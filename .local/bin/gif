@@ -1,44 +1,54 @@
 #!/bin/bash
 
-#selection() {
-if pgrep ffmpeg >/dev/null 2>&1; then
-	pkill ffmpeg
-	notify-send "Record" "Stopping gif recording..."
-else
-	notify-send "Record" "Select region to record"
-	eval $(slop --color=0.874,0.874,0.686 -b 2 -f 'W=%w H=%h X=%x Y=%y')
-	input=$(date '+%Y-%m-%d_%H-%M-%S')
-	output=~/Pictures/Gifs/Recordings/${input}.gif
-	mkdir -p /tmp/ffgif
-	ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} /tmp/ffgif/%04d.png
-	#ffmpeg -i /tmp/${input}.mkv -vf "fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop -1 ${output}
-	convert -loop 0 -delay 5 /tmp/ffgif/*.png -layers Optimize ${output}
-	rm -rf /tmp/ffgif
-
-	#rm -rf /tmp/${input}.mkv
-	notify-send "Record" "Recording finished!"
-fi
-#}
-
-full() {
-	if pgrep ffmpeg >/dev/null 2>&1; then
-		pkill ffmpeg
-		notify-send "Record" "Stopping gif Recording..."
+if [ -n "$WAYLAND_DISPLAY" ]; then
+	pid=$(pgrep -x wf-recorder)
+	if [ -n "$pid" ]; then
+		kill -INT "$pid"
 	else
-		notify-send "Record" "Recording started"
-		# To make high quality gifs, create a bunch of pngs and then create the gif
-
 		input=$(date '+%Y-%m-%d_%H-%M-%S')
 		output=~/Pictures/Gifs/Recordings/${input}.gif
+		wf-recorder -g "$(slurp -b 00000000 -c dfdfaf)" -f ${output}
+	fi
+elif [ -n "$DISPLAY" ]; then
+	#selection() {
+	if pgrep ffmpeg >/dev/null 2>&1; then
+		pkill ffmpeg
+		notify-send "Record" "Stopping gif recording..."
+	else
+		notify-send "Record" "Select region to record"
+		eval $(slop --color=0.874,0.874,0.686 -b 2 -f 'W=%w H=%h X=%x Y=%y')
+		input=$(date '+%Y-%m-%d_%H-%M-%S')
+		output=~/Pictures/Gifs/Recordings/${input}.gif
+		mkdir -p /tmp/ffgif
+		ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} /tmp/ffgif/%04d.png
+		#ffmpeg -i /tmp/${input}.mkv -vf "fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop -1 ${output}
+		convert -loop 0 -delay 5 /tmp/ffgif/*.png -layers Optimize ${output}
+		rm -rf /tmp/ffgif
 
-		mrect=($(herbstclient monitor_rect ""))
-		ffmpeg -f x11grab -video_size ${mrect[2]}x${mrect[3]} -framerate 20 -i $DISPLAY /tmp/$input.mkv
-		ffmpeg -i /tmp/${input}.mkv -vf "fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop -1 ${output}
-
-		rm -rf /tmp/${input}.ogv
+		#rm -rf /tmp/${input}.mkv
 		notify-send "Record" "Recording finished!"
 	fi
-}
+	#}
+
+	full() {
+		if pgrep ffmpeg >/dev/null 2>&1; then
+			pkill ffmpeg
+			notify-send "Record" "Stopping gif Recording..."
+		else
+			notify-send "Record" "Recording started"
+			# To make high quality gifs, create a bunch of pngs and then create the gif
+
+			input=$(date '+%Y-%m-%d_%H-%M-%S')
+			output=~/Pictures/Gifs/Recordings/${input}.gif
+
+			mrect=($(herbstclient monitor_rect ""))
+			ffmpeg -f x11grab -video_size ${mrect[2]}x${mrect[3]} -framerate 20 -i $DISPLAY /tmp/$input.mkv
+			ffmpeg -i /tmp/${input}.mkv -vf "fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop -1 ${output}
+
+			rm -rf /tmp/${input}.ogv
+			notify-send "Record" "Recording finished!"
+		fi
+	}
 
 #case "$1" in
 #-s | --selection)
@@ -48,3 +58,4 @@ full() {
 #	full
 #	;;
 #esac
+fi

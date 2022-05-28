@@ -129,6 +129,7 @@ emotes() {
 	esac
 }
 #So meta
-select=$(grep ".*)$" ~/.local/bin/emote | tr -d ')' | grep -v '*' | sed 's/^[[:space:]]*//' | dmenu -i -p "Emote")
+select=$(grep ".*)$" ~/.local/bin/emote | tr -d ')' | grep -v '*' | sed 's/^[[:space:]]*//' | bemenu -p "Emote ")
 
-emotes $select | xsel -ib --logfile /dev/null
+emotes "$select" | wl-copy
+#emotes $select | xsel -ib --logfile /dev/null

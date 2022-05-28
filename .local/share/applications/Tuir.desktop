@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Tuir
+Comment=Terminal User Interface Reddit
+Exec=tuir
+Icon=Tuir
+Terminal=true
+StartupNotify=false
+Categories=Application;

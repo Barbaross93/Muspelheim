@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Wrapper around foot server/ footclient
+
+footclient "$@"
+if [ $? -eq 220 ]; then
+	setsid -f /usr/bin/foot --server
+	sleep 0.2
+	footclient "$@"
+fi

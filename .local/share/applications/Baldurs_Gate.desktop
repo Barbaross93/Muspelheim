@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Baldur's Gate
+Comment=Baldur's Gate Enhanced Edition
+Exec=game_launch.sh bgee
+Icon=Baldur's Gate
+Terminal=false
+StartupNotify=false
+Categories=Application;Multimedia;

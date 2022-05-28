@@ -1,0 +1,7 @@
+#!/bin/sh
+
+exec dbus-daemon \
+	--session \
+	--nofork \
+	--nopidfile \
+	--address=unix:path=${XDG_RUNTIME_DIR}/bus

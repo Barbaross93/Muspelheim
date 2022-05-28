@@ -7,7 +7,8 @@
 
 notify-send -t 3000 "Screenshot" "Screenshot in 5 seconds"
 sleep 5 &&
-	import -window root ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png
+	grim ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png
+#import -window root ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png
 #ffcast png ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #ffmpeg -f x11grab -video_size ${width}x${height} -draw_mouse 0 -i $DISPLAY -vframes 1 ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #scrot ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png

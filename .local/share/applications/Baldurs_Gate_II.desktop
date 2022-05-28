@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Baldur's Gate II
+Comment=Baldur's Gate II Enhanced Edition
+Exec=game_launch.sh bge2
+Icon=Baldur's Gate II
+Terminal=false
+StartupNotify=false
+Categories=Application;Multimedia;

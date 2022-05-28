@@ -110,7 +110,7 @@ syntax enable
 colorscheme alduin
 set splitbelow
 set splitright
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 set hlsearch
 set incsearch
 set hidden
@@ -118,6 +118,12 @@ set ttyfast
 set lazyredraw
 set number
 set encoding=utf-8
+set filetype=on
+set autoindent
+set autoread
+set belloff=all
+set shortmess=ASF
+set nofsync
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -235,7 +241,7 @@ let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 
 " Format on save
-au BufWrite * :Autoformat
+" au BufWrite * :Autoformat
 
 " Change side symbols
 let g:ale_sign_error = '▍'
@@ -269,9 +275,6 @@ augroup END
 " For undercurl spellchecker (st only)
 " let &t_Cs = "\e[4:3m"
 " let &t_Ce = "\e[4:0m"
-
-" kill popup dialogs in gvim
-set go+=c
 
 " fzf colors
 let g:fzf_colors =

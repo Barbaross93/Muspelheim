@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Doom II
+Comment=Doom II
+Exec=game_launch.sh dom2
+Icon=Doom II
+Terminal=false
+StartupNotify=false
+Categories=Application;Multimedia;

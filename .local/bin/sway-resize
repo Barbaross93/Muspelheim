@@ -1,0 +1,65 @@
+#!/usr/bin/env python
+#
+# Copyright 2016 Damien Riegel <damien.riegel@gmail.com>
+#
+# Licensed under the terms of the GNU GPL v3, or any later version.
+#
+# Resize the focused window depending on its position in the layout
+# Example: bindsym Left exec i3-smart-resize "Left"
+
+import sys
+import i3ipc
+
+DEFAULT_INCREMENT = "10 px or 10 ppt"
+
+if len(sys.argv) < 2:
+    sys.exit(-1)
+key = sys.argv[1].lower()
+
+if len(sys.argv) == 3:
+    inc = sys.argv[2]
+else:
+    inc = DEFAULT_INCREMENT
+
+def is_at_top_edge(focused):
+    workspace = focused.workspace()
+    return focused.rect.y - focused.deco_rect.height == workspace.rect.y
+
+def is_at_bottom_edge(focused):
+    workspace = focused.workspace()
+    return focused.rect.y + focused.rect.height == workspace.rect.y + workspace.rect.height
+
+def is_at_left_edge(focused):
+    workspace = focused.workspace()
+    return focused.rect.x == workspace.rect.x
+
+def is_at_right_edge(focused):
+    workspace = focused.workspace()
+    return focused.rect.x + focused.rect.width == workspace.rect.x + workspace.rect.width
+
+
+i3 = i3ipc.Connection()
+focused = i3.get_tree().find_focused()
+
+if key == "up":
+    if is_at_top_edge(focused):
+        i3.command("resize shrink down %s" % (inc))
+    else:
+        i3.command("resize grow up %s" % (inc))
+elif key == "down":
+    if is_at_bottom_edge(focused):
+        i3.command("resize shrink up %s" % (inc))
+    else:
+        i3.command("resize grow down %s" % (inc))
+elif key == "right":
+    if is_at_right_edge(focused):
+        i3.command("resize shrink left %s" % (inc))
+    else:
+        i3.command("resize grow right %s" % (inc))
+elif key == "left":
+    if is_at_left_edge(focused):
+        i3.command("resize shrink right %s" % (inc))
+    else:
+        i3.command("resize grow left %s" % (inc))
+else:
+    sys.exit(-1)

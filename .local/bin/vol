@@ -62,9 +62,9 @@ mpc)
 	;;
 esac
 
-muted=$(amixer get Master | grep "Mono" | awk '{print $6}' | sed -r '/^\s*$/d')
-if [ "$muted" = "[off]" ]; then
-	echo $vol! >>/tmp/xob_vol
-else
-	echo $vol >>/tmp/xob_vol
-fi
+#muted=$(amixer get Master | grep "Mono" | awk '{print $6}' | sed -r '/^\s*$/d')
+#if [ "$muted" = "[off]" ]; then
+#echo $vol! >>/tmp/xob_vol
+#else
+echo $vol >>/tmp/xob_vol
+#fi

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Doom
+Comment=The Ultimate Doom
+Exec=game_launch.sh doom
+Icon=Doom
+Terminal=false
+StartupNotify=false
+Categories=Application;Multimedia;

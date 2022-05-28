@@ -1,32 +1,42 @@
 #!/bin/bash
 
-#selection() {
-if pgrep ffmpeg >/dev/null 2>&1; then
-	pkill ffmpeg >/dev/null 2>&1
-	notify-send "Record" "Recording ended"
-else
-	notify-send "Record" "Select region to record"
-
-	eval $(slop --color=0.874,0.874,0.686 -b 2 -f 'W=%w H=%h X=%x Y=%y')
-	input=$(date '+%Y-%m-%d_%H-%M-%S')
-	output=~/Videos/${input}.mp4
-	ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
-fi
-#}
-
-full() {
+if [ -n "$WAYLAND_DISPLAY" ]; then
+	pid=$(pgrep -x wf-recorder)
+	if [ -n "$pid" ]; then
+		kill -INT "$pid"
+	else
+		input=$(date '+%Y-%m-%d_%H-%M-%S')
+		output=~/Videos/${input}.mp4
+		wf-recorder -g "$(slurp -b 00000000 -c dfdfaf)" -f ${output}
+	fi
+elif [ -n "$DISPLAY" ]; then
+	#selection() {
 	if pgrep ffmpeg >/dev/null 2>&1; then
 		pkill ffmpeg >/dev/null 2>&1
 		notify-send "Record" "Recording ended"
 	else
-		notify-send "Record" "Recording started"
+		notify-send "Record" "Select region to record"
 
+		eval $(slop --color=0.874,0.874,0.686 -b 2 -f 'W=%w H=%h X=%x Y=%y')
 		input=$(date '+%Y-%m-%d_%H-%M-%S')
 		output=~/Videos/${input}.mp4
-		mrect=($(herbstclient monitor_rect ""))
-		ffmpeg -f x11grab -video_size ${mrect[2]}x${mrect[3]} -framerate 20 -i $DISPLAY -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
+		ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
 	fi
-}
+	#}
+
+	full() {
+		if pgrep ffmpeg >/dev/null 2>&1; then
+			pkill ffmpeg >/dev/null 2>&1
+			notify-send "Record" "Recording ended"
+		else
+			notify-send "Record" "Recording started"
+
+			input=$(date '+%Y-%m-%d_%H-%M-%S')
+			output=~/Videos/${input}.mp4
+			mrect=($(herbstclient monitor_rect ""))
+			ffmpeg -f x11grab -video_size ${mrect[2]}x${mrect[3]} -framerate 20 -i $DISPLAY -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac $output
+		fi
+	}
 
 #case "$1" in
 #-s | --selection)
@@ -36,3 +46,4 @@ full() {
 #	full
 #	;;
 #esac
+fi

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Mutt
+Comment=Terminal Mail user Agent
+Exec=mutt
+Icon=Mutt
+Terminal=true
+StartupNotify=false
+Categories=Application;Network;Email;

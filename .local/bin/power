@@ -7,16 +7,16 @@ options=" Lock
  Reboot
 ⏻ Shutdown"
 
-choice=$(echo "$options" | dmenu -i -p "Power:")
+choice=$(echo "$options" | bemenu -p "Power")
 
 case "$choice" in
 *Lock*)
-	#xidlehook-client --socket /tmp/xidlehook.sock control --action Trigger --timer 2
-	#xset s activate
-	xautolock -locknow
+	#xautolock -locknow
+	swaylock
 	;;
 *Logout*)
-	herbstclient quit
+	#herbstclient quit
+	swaymsg exit
 	;;
 *Suspend*)
 	sudo zzz -H

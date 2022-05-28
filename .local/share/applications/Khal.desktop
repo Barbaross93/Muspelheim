@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Khal
+Comment=Console Calendar
+Exec=ikhal
+Icon=Khal
+Terminal=true
+StartupNotify=false
+Categories=Application;

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Newsboat
+Comment=Console RSS Feed
+Exec=newsboat
+Icon=Newsboat
+Terminal=true
+StartupNotify=false
+Categories=Application;

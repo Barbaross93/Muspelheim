@@ -44,10 +44,10 @@ cmd chmod ${{
 # Archive bindings
 cmd extract ${{
   case "$f" in
-      *.zip) unzip "$f" ;;
-      *.tar.gz) tar -xzvf "$f" ;;
-      *.tar.bz2) tar -xjvf "$f" ;;
-      *.tar) tar -xvf "$f" ;;
+      *.zip) unzip "$f" >/dev/null ;;
+      *.tar.gz) tar -xzvf "$f" >/dev/null ;;
+      *.tar.bz2) tar -xjvf "$f" >/dev/null ;;
+      *.tar) tar -xvf "$f" >/dev/null ;;
       *) echo "Unsupported format" ;;
   esac
 }}

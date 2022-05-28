@@ -9,23 +9,16 @@
 ##   ░ ░        ░ ░  ░  ░  ░   ░ ░      
 ## ░                           ░        
 
-### Zsh specific settings
-# Completion
-autoload -Uz compinit && compinit -C
-unsetopt completealiases
-zstyle ':completion:*' rehash true
-
-## Nifty third party tools
+### Nifty third party tools
 #import gitstatus tool
 source ~/.config/zsh/gitstatus/gitstatus.plugin.zsh
 # Startup zoxide
 eval "$(zoxide init zsh)"
 
+### Zsh specific settings
 # General opts
 setopt autocd
 unsetopt beep notify
-bindkey -e
-zstyle :compinstall filename '/home/barbaross/.config/zsh/.zshrc'
 
 # History opts
 HISTFILE=~/.config/zsh/.histfile
@@ -92,6 +85,7 @@ bindkey '^D' exit_zsh
 
 # Setup fzf
 source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
 
 #Source ssh environment
 source ~/.ssh/agent-environment > /dev/null
@@ -99,12 +93,20 @@ source ~/.ssh/agent-environment > /dev/null
 # Color support for ls, fd, etc
 eval $(dircolors $XDG_CONFIG_HOME/dircolors)
 
-# Style completion menu
+# Completion
+autoload -Uz compinit; compinit
+setopt complete_in_word
+unsetopt completealiases
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+zstyle ':completion:*' rehash true
 zstyle ':completion:*' menu select
-zstyle ':completion:*' special-dirs true
 zstyle ':completion:*' completer _extensions _complete _approximate
 zstyle ':completion:*' group-name '' 
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' squeeze-slashes true
+zstyle ':completion:*' separate-sections true
+zstyle ':completion:*' insert-sections true
+zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*:options' list-colors '=^(-- *)=35'
 zstyle ':completion:*:descriptions' format '%F{8}■%f %F{red}━━━[%f%d%F{red}]%f'
 zstyle ':completion:*:messages' format '%F{8}■%f %F{red}━━━[%f%d%F{red}]%f'
@@ -237,7 +239,8 @@ alias li="exa --icons"
 alias l="exa -la"
 alias ip="ip --color=auto"
 alias diff='diff --color=auto'
-alias clip="xsel -ib --logfile /dev/null"
+#alias clip="xsel -ib --logfile /dev/null"
+alias clip="wl-copy"
 alias cat="bat -p"
 alias pfetch="curl -s https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch | sh"
 alias ls="exa"
@@ -275,14 +278,18 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....="cd ../../../.."
 alias _="sudo"
-alias cmus='tmux new-session -s Music "tmux source-file ~/.config/cmus/tmux_session"'
 alias newsboat='newsboat -q'
+alias cmus='tmux new-session -s Music "tmux source-file ~/.config/cmus/tmux_session"'
 alias bnps='java -jar ~/Public/font-stuff/bitsnpicas/main/java/BitsNPicas/BitsNPicas.jar'
 alias spotdl="ts pipx run spotdl -o ~/Music"
 alias usv="SVDIR=~/.local/service sv"
 alias figlet="figlet -d ~/Public/figlet-fonts"
-alias doom="crispy-doom -iwad ~/Public/Games/Doom/DOOM.WAD >/dev/null"
-alias doom2="crispy-doom -iwad ~/Public/Games/Doom/DOOM2.WAD >/dev/null"
+alias g="git"
+alias gco="git checkout"
+alias gb="git branch"
+alias gc="git commit"
+alias gp="git push"
+alias ga="git add"
 
 ### Functions
 # Colorized man pages
@@ -301,7 +308,8 @@ man() {
 # auto cd on exiting lf with 'Q'
 lf () {
     local tempfile="$(mktemp)"
-    command lf -command "map Q \$echo \$PWD >$tempfile; lf -remote \"send \$id quit\"" "$@"
+    # For w/e reason, lf doesntt show chafa previews as truecolor unless we are using xterm-256color
+    TERM=xterm-256color command lf -command "map Q \$echo \$PWD >$tempfile; lf -remote \"send \$id quit\"" "$@"
 	  
     if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n $(pwd))" ]]; then
 		  cd -- "$(cat "$tempfile")" || return
@@ -390,7 +398,7 @@ bnps-bld() {
 		esac
 }
 
-rld_btmp_fnts() {
+xrbf() {
 	BTMP_FNT_DIR=~/.local/share/fonts/misc/
 
 	echo "Recreating X11 font index files..."
@@ -425,16 +433,14 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
 "
 }
 
-command_not_found_handler() {
-	txtred='\e[0;31m'
-  txtwht='\e[0;37m'
-  echo -e "M'lord, thy command ${txtred}$1${txtwht} does not exist!"
+command_not_found_handler() {	
+  printf "M'lord, thy command \033[0;31m%s\033[0m does not exist!\n" "$0" >&2
   
-  suggestions=$(xlocate $1 2>/dev/null | grep ".*/bin/$1$")
+  suggestions=$(xlocate $0 2>/dev/null | grep ".*/bin/$0" | sed 's/^/    /')
   if [ -n "$suggestions" ]; then
-    echo ""
-    echo "Would one of these suffice, m'lord?:"
-    echo $suggestions | sed 's/^/    /'
+    printf "\n%s\n" "Would one of these suffice, m'lord?:" >&2
+    printf "%s\n" "$suggestions" >&2
   fi
   return 127
 }
+

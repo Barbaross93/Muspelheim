@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# To autoresize floating window to fit image
-/usr/bin/nsxiv -g "$(identify -format %G "${@: -1}")" "$@"

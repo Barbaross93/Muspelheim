@@ -1,12 +1,11 @@
 #!/bin/sh
 
 notify-send "Screenshot" "Select a region to screenshot"
-#printf "SEC:3\t' Select a region to screenshot\n" >$XNOTIFY_FIFO
+grim -g "$(slurp -b 00000000 -c dfdfaf)" ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png
 #sleep 0.3 &&
 #eval $(slop --color=0.874,0.874,0.686 -n -b 2 -f 'W=%w H=%h X=%x Y=%y') && ffmpeg -f x11grab -video_size ${W}x${H} -draw_mouse 0 -i ${DISPLAY}+${X},${Y} -vframes 1 ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #scrot -s ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #shotgun -g $(hacksaw -n) ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
 #maim --color=0.874,0.874,0.686 -b 2 -s ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png
-import -window root -crop $(slop --color=0.874,0.874,0.686 -b 2) ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png
+#import -window root -crop $(slop --color=0.874,0.874,0.686 -b 2) ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png
 notify-send "Screenshot" "Screenshot of region taken"
-#printf "SEC:3 ' Screenshot of region taken\n" >$XNOTIFY_FIFO

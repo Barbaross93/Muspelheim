@@ -20,7 +20,7 @@ c.fonts.completion.entry = "12pt monospace"
 c.fonts.completion.category = "12pt monospace"
 c.url.start_pages = "~/.config/qutebrowser/startpage/index.html"
 c.url.default_page = "~/.config/qutebrowser/startpage/index.html"
-c.editor.command = ["/usr/bin/alacritty", "-e", "/usr/bin/vim {}"]
+c.editor.command = ["/usr/bin/foot", "-e", "/usr/bin/vim {}"]
 
 c.colors.webpage.darkmode.enabled = False
 
@@ -44,12 +44,12 @@ config.bind(
 # Qute-pass keubindings
 config.bind(
     ",pp",
-    "spawn --userscript qute-pass -d dmenu",
+    "spawn --userscript qute-pass -d bemenu",
 )
 
 config.bind(
     ",pu",
-    "spawn --userscript qute-pass --username-only -d dmenu",
+    "spawn --userscript qute-pass --username-only -d bemenu",
 )
 
 config.bind(
@@ -64,7 +64,7 @@ config.bind(
 
 config.bind(
     ",pP",
-    "spawn --userscript qute-pass --password-only -d dmenu",
+    "spawn --userscript qute-pass --password-only -d bemenu",
 )
 
 # Open download

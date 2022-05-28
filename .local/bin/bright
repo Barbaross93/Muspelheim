@@ -10,4 +10,5 @@ down)
 	;;
 esac
 
-light >/tmp/xob_bright
+cur=$(light | cut -d'.' -f1)
+echo "$cur" >/tmp/xob_bright

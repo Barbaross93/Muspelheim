@@ -25,8 +25,8 @@ mkfifo /tmp/old_notifs
 		# Easy to spam binding, clean up first before cont.
 		[[ -f "/tmp/notif_skip" ]] && rm /tmp/notif_skip
 
-		# We block the foreground until rofi is dead, if its running
-		pid=$(pgrep -x rofi)
+		# We block the foreground until bemenu is dead, if its running
+		pid=$(pgrep -x 'bemenu|bemenu-run')
 		if [ -n "$pid" ]; then
 			tail --pid="$pid" -f /dev/null
 		fi

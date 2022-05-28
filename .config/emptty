@@ -1,0 +1,18 @@
+#!/bin/sh
+Selection=false
+Environment=wayland
+
+{
+# Source environment vars
+source ~/.config/profile
+
+# Need to start gpg agent before lock screen for pam-gnupg
+gpg-connect-agent /bye 
+
+# Restart task spool list if one exists
+if [ -s $TS_SAVELIST ]; then
+    $TS_SAVELIST && truncate -s 0 $TS_SAVELIST
+fi
+} &>/dev/null
+
+exec sway &>/dev/null

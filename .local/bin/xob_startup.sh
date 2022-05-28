@@ -9,8 +9,13 @@ mkfifo $vfifo
 [ -e "$bfifo" ] && rm $bfifo
 mkfifo $bfifo
 
-tail -f $vfifo | xob -t 2000 -s volume &
-tail -f $bfifo | xob -t 2000 -s backlight &
+if [ -n "$WAYLAND_DISPLAY" ]; then
+	tail -f $vfifo | wob -t 2000 -a center -a bottom -W 384 -H 35 -M 162 -o 2 -b 3 -p 4 --border-color '#424242ff' --background-color '#1c1c1cff' --bar-color '#87afafff' &
+	tail -f $bfifo | wob -t 2000 -a center -a bottom -W 384 -H 35 -M 162 -o 2 -b 3 -p 4 --border-color '#424242ff' --background-color '#1c1c1cff' --bar-color '#af875fff' &
+elif [ -n "$DISPLAY" ]; then
+	tail -f $vfifo | xob -t 2000 -s volume &
+	tail -f $bfifo | xob -t 2000 -s backlight &
+fi
 
 volu() {
 	stdbuf -o0 -i0 -e0 alsactl monitor |
@@ -37,7 +42,5 @@ light() {
 			#xbacklight -get
 		done
 }
-#volu | xob -t 2000 -s volume &
-#light | xob -t 2000 -s backlight &
 
 wait

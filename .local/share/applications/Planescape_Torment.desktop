@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Planescape Torment
+Comment=Planescape Torment Enhanced Edition
+Exec=game_launch.sh pstm
+Icon=Planescape Torment
+Terminal=false
+StartupNotify=false
+Categories=Application;Multimedia;

@@ -1,0 +1,60 @@
+(defcfg
+  ;; For Linux
+  input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+  output (uinput-sink "KMonad")
+
+  ;; Comment this is you want unhandled events not to be emitted
+  fallthrough true
+
+  ;; Set this to false to disable any command-execution in KMonad
+  allow-cmd false
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  home  end  ins  del
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft     
+  lctl lmet lalt           spc            ralt ssrq rctl pgup up   pgdn    
+                                                         left down rght
+)
+
+(defalias
+  cps   (tap-hold-next-release 200 esc lctl)
+  ext   (tap-hold-next-release 200 spc (layer-toggle extend))
+)
+
+(deflayer base
+  caps _   	_    _   	_    _    _    _    _    _    _    _   _  _  _  _  _
+	_    _    _    _    _    _    _    _    _    _    _    _   _  _
+	_    _    _    _    _    _    _    _    _    _    _    _   _  _
+	@cps _    _    _    _    _    _    _    _    _    _    _   _
+	_    _    _    _    _    _    _    _    _    _    _    _
+	_    _    _              @ext           _    rmet _    _   _   _
+																												 _   _   _
+)
+
+;; Inspired by https://dreymar.colemak.org/layers-extend.html
+(deflayer extend
+  _    _   	_    _   	_    _    _    _    _    _    _    _   _    _  _  _  _
+	_    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11 f12  _
+	_    _    _    _    _    _    pgup home up   end  del  _   _    _
+	bspc _    _    _    _    _    pgdn left down rght ins  _   _
+	_    C-z  C-x  C-c  C-v  _    _    _    _    _    _    _
+	_    _    _              _              _    _    _    _   _   _
+																												 _   _   _
+)
+
+#|--------------------------------------------------------------------------
+(deflayer template
+  _    _   	_    _   	_    _    _    _    _    _    _    _   _  _  _  _  _
+	_    _    _    _    _    _    _    _    _    _    _    _   _  _
+	_    _    _    _    _    _    _    _    _    _    _    _   _  _
+	_    _    _    _    _    _    _    _    _    _    _    _   _
+	_    _    _    _    _    _    _    _    _    _    _    _
+	_    _    _              _              _    _    _    _   _   _
+																												 _   _   _
+)
+--------------------------------------------------------------------------|#
+;; vim:ft=lisp

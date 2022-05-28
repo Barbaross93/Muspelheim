@@ -1,0 +1,26 @@
+# Auto start session on tty1
+
+# Rename me to .zprofile to re-enable
+
+clear
+
+{
+# Source environment vars
+source ~/.config/profile
+
+# Need to start gpg agent before lock screen for pam-gnupg
+gpg-connect-agent /bye 
+
+# Restart task spool list if one exists
+if [ -s $TS_SAVELIST ]; then
+    $TS_SAVELIST && truncate -s 0 $TS_SAVELIST
+fi
+} &>/dev/null
+
+if [ -z "${WAYLAND_DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
+	exec sway &>/dev/null
+elif [ -z "${DISPLAY}" ] && [ "$(tty)" = "/dev/tty2" ]; then
+	true
+	#export XAUTHORITY="${HOME}/.local/share/x11/xauthority"
+	#exec startx ${HOME}/.config/x11/xinitrc -- ${HOME}/.config/x11/xserverrc &>/dev/null
+fi

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Cmus
+Comment=Console Music Player
+Exec=tmux new-session -s Music "tmux source-file ~/.config/cmus/tmux_session"
+Icon=Cmus
+Terminal=true
+StartupNotify=false
+Categories=Application;Multimedia;
