@@ -305,9 +305,9 @@
     for_window [app_id=imv] floating enable
     for_window [app_id=mpv] floating enable
     for_window [app_id=org.qutebrowser.qutebrowser] move --no-auto-back-and-forth window to workspace 1
-    for_window [title=^mutt$] move --no-auto-back-and-forth window to workspace 2
-    for_window [title=^ikhal$] move --no-auto-back-and-forth window to workspace 2
-    for_window [title=^vit$] move --no-auto-back-and-forth window to workspace 2
+    for_window [title=^Mutt$] move --no-auto-back-and-forth window to workspace 2
+    for_window [title=^Khal$] move --no-auto-back-and-forth window to workspace 2
+    for_window [title=^Vit$] move --no-auto-back-and-forth window to workspace 2
     for_window [app_id=zathura] move --no-auto-back-and-forth window to workspace 4
-    for_window [title=^weechat$] move --no-auto-back-and-forth window to workspace 6
-    for_window [title=^cmus$] move --no-auto-back-and-forth window to workspace 7
+    for_window [title=^WeeChat$] move --no-auto-back-and-forth window to workspace 6
+    for_window [title=^Cmus$] move --no-auto-back-and-forth window to workspace 7

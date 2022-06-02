@@ -15,10 +15,15 @@ tail -f /tmp/signal_bar |
 	done &
 
 # Notif logic
+while :; do
+	sv check ~/.local/service/common/notifications && break
+	sleep 1
+done
+
 [[ -e /tmp/old_notifs ]] && rm /tmp/old_notifs
 mkfifo /tmp/old_notifs
 {
-	tiramisu -o "#summary\t#body\t#timeout" &
+	tail -f /tmp/new_notifs &
 	tail -f /tmp/old_notifs &
 } |
 	while read -r line; do
@@ -41,12 +46,9 @@ mkfifo /tmp/old_notifs
 		LOG*)
 			line="${line#LOG }"
 			hist=true
-			#pretext="${ORANGE} NOTIF HISTORY:${CLR} "
 			;;
 		*)
-			echo "LOG $line" >>/tmp/notif_log
 			hist=false
-			#pretext="${ORANGE} NOTIFICATION:${CLR} "
 			;;
 		esac
 		body="$(echo -e "$line" | cut -f1 -)"
