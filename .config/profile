@@ -13,7 +13,7 @@ export BROWSER="linkhandler"
 export TERMINAL=/usr/bin/foot
 
 # bemenu options
-export BEMENU_OPTS="-i --fn 'monospace 16px' -H 36 --tf '#1c1c1c' --tb '#a87f5f' --nb '#1c1c1c' --nf '#dfdfaf' --hb '#a87f5f' --hf '#1c1c1c' --fb '#1c1c1c' --ff '#dfdfaf' --sb '#262626' --sf '#af875f' --ch 16 -B 6 --bdr '#1c1c1c' --hp 10"
+export BEMENU_OPTS="-i --fn 'monospace 16px' -H 36 --tf '#1c1c1c' --tb '#a87f5f' --nb '#1c1c1c' --nf '#dfdfaf' --hb '#a87f5f' --hf '#1c1c1c' --fb '#1c1c1c' --ff '#dfdfaf' --sb '#262626' --sf '#af875f' --ch 16 -B 6 --bdr '#1c1c1c' --hp 10 --cw 2 --ab '#262626' --af '#dfdfaf'"
 
 # allow mouse scrolling man pages in tmux
 export LESS='-R --mouse --wheel-lines 1 --incsearch -P%lb/%L (?eEND):%pB\%)'

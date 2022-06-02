@@ -26,8 +26,12 @@ settings:
         gi: jseval -q -f ~/.config/qutebrowser/cycle-inputs.js
   colors.webpage.bg:
     global: '#282828'
+  colors.webpage.darkmode.algorithm:
+    global: lightness-cielab
+  colors.webpage.darkmode.contrast:
+    global: 0.0
   colors.webpage.darkmode.enabled:
-    global: false
+    global: true
   colors.webpage.preferred_color_scheme:
     global: dark
   content.blocking.hosts.lists:

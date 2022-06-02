@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta name="color-scheme" content="dark" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         $(function () {
@@ -53,6 +54,33 @@
             --color14: #87afaf;
             --color15: #dfdfaf;
             --color16: #323232;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+	        :root {
+	            /* Special */
+	            --background: #1c1c1c;
+	            --foreground: #dfdfaf;
+	
+	            /* Colors */
+	            --color0: #262626;
+	            --color1: #af5f5f;
+	            --color2: #878757;
+	            --color3: #af875f;
+	            --color4: #878787;
+	            --color5: #af8787;
+	            --color6: #87afaf;
+	            --color7: #dfdaf;
+	            --color8: #4e4e4e;
+	            --color9: #af5f5f;
+	            --color10: #87875f;
+	            --color11: #af875f;
+	            --color12: #878787;
+	            --color13: #af8787;
+	            --color14: #87afaf;
+	            --color15: #dfdfaf;
+	            --color16: #323232;
+	        }
         }
 
         @font-face {

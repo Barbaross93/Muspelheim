@@ -12,7 +12,7 @@ choice=$(echo "$options" | bemenu -p "Power")
 case "$choice" in
 *Lock*)
 	#xautolock -locknow
-	swaylock
+	lock
 	;;
 *Logout*)
 	#herbstclient quit

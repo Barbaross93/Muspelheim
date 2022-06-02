@@ -45,55 +45,42 @@ bar:
               foreground: af5f5fff
               <<: *box_draw_light
     - i3:
-        persistent:
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-          - 7
-          - 8
-          - 9
-          - 0
+        persistent: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
         content:
           "":
             map:
-              tag: state
-              values:
-                focused:
+              conditions:
+                state == focused:
                   string:
                     text: "{name}"
                     foreground: af875fff
                     on-click: swaymsg --quiet workspace {name}
                     <<: *box_draw_dark
-                unfocused:
+                state == unfocused:
                   map:
-                    tag: empty
-                    values:
-                      true:
+                    conditions:
+                      empty:
                         string:
                           text: "{name}"
                           foreground: 262626ff
                           on-click: swaymsg --quiet workspace {name}
                           <<: *box_draw_light
-                      false:
+                      ~empty:
                         string:
                           text: "{name}"
                           foreground: 87afafff
                           on-click: swaymsg --quiet workspace {name}
                           <<: *box_draw_light
-                invisible:
+                state == invisible:
                   map:
-                    tag: empty
-                    values:
-                      true:
+                    conditions:
+                      empty:
                         string:
                           text: "{name}"
                           foreground: 262626ff
                           on-click: swaymsg --quiet workspace {name}
                           <<: *box_draw_light
-                      false:
+                      ~empty:
                         string:
                           text: "{name}"
                           foreground: dfdfafff
@@ -106,23 +93,21 @@ bar:
             spacing: 4
             items:
               - map:
-                  tag: history
-                  values:
-                    true:
+                  conditions:
+                    history:
                       string:
                         text: " NOTIF HISTORY:"
                         foreground: dfaf87ff
-                    false:
+                    ~history:
                       string:
                         text: " NOTIFICATION:"
                         foreground: dfaf87ff
               - map:
-                  tag: notif
                   default:
                     string:
                       text: "{notif}"
-                  values:
-                    clear:
+                  conditions:
+                    notif == clear:
                       empty: {}
 
   right:
@@ -133,53 +118,39 @@ bar:
             spacing: 0
             items:
               - map:
-                  tag: bluetooth
-                  values:
-                    0:
+                  conditions:
+                    bluetooth == 0:
                       string:
                         text: 
                         foreground: 87afafff
                         <<: *box_draw_dark
-                    1:
+                    bluetooth == 1:
                       empty: {}
               - map:
-                  tag: caffeine
-                  values:
-                    true:
+                  conditions:
+                    caffeine:
                       string:
                         text: 
                         foreground: af8787ff
                         <<: *box_draw_dark
-                    false:
+                    ~caffeine:
                       empty: {}
 
               - map:
-                  tag: kb
-                  values:
-                    colemak:
-                      string:
-                        text: ''
-                        foreground: af5f5fff
-                        <<: *box_draw_dark
-                    qwerty:
+                  conditions:
+                    vpn == none:
                       empty: {}
-
-              - map:
-                  tag: vpn
-                  values:
-                    none:
-                      empty: {}
-                    wireguard:
+                    vpn == wireguard:
                       string:
                         text: 
                         foreground: af5f5fff
                         <<: *box_draw_dark
-                    openvpn:
+                    vpn == openvpn:
                       string:
                         text: 
                         foreground: dfaf87ff
                         <<: *box_draw_dark
-                    wireguardopenvpn:
+                    vpn == wireguardopenvpn:
                       string:
                         text: 
                         foreground: af875fff
@@ -214,13 +185,12 @@ bar:
                     <<: *box_draw_dark
         content:
           map:
-            tag: state
-            values:
-              unknown:
+            conditions:
+              state == unknown:
                 <<: *discharging
-              discharging:
+              state == discharging:
                 <<: *discharging
-              charging:
+              state == charging:
                 list:
                   spacing: 0
                   items:
@@ -233,7 +203,7 @@ bar:
                         text: "{capacity}%"
                         on-click: powertime
                         <<: *box_draw_dark
-              full:
+              state == full:
                 list:
                   spacing: 0
                   items:
@@ -246,7 +216,7 @@ bar:
                         text: "Full"
                         on-click: powertime
                         <<: *box_draw_dark
-              not charging:
+              state == not charging:
                 list:
                   spacing: 0
                   items:
@@ -264,9 +234,8 @@ bar:
         mixer: Master
         content:
           map:
-            tag: muted
-            values:
-              true:
+            conditions:
+              muted:
                 list:
                   spacing: 0
                   items:
@@ -277,7 +246,7 @@ bar:
                     - string: 
                         text: "{percent}%"
                         <<: *box_draw_dark
-              false:
+              ~muted:
                 list:
                   spacing: 0
                   items:
@@ -322,13 +291,12 @@ bar:
                   foreground: af5f5fff
                   <<: *box_draw_light
               - map:
-                  tag: layout
-                  values:
-                    English (US):
+                  conditions:
+                    layout == English (US):
                       string:
                         text: qwty
                         <<: *box_draw_dark
-                    English (Colemak):
+                    layout == English (Colemak):
                       string:
                         text: clmk
                         <<: *box_draw_dark
@@ -336,10 +304,9 @@ bar:
         name: wlp5s0
         content:
           map:
-            tag: state
             default: {string: {text: , foreground: 626262ff}}
-            values:
-              down:
+            conditions:
+              state == down:
                 list:
                   spacing: 0
                   items:
@@ -350,7 +317,7 @@ bar:
                     - string:
                         text: D/C
                         <<: *box_draw_dark
-              up:
+              state == up:
                 list:
                   spacing: 0
                   items:

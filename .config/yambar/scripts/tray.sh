@@ -61,23 +61,23 @@ kb() {
 	bltth &
 	vpninfo &
 	caffeine &
-	kb &
+	#kb &
 } |
 	while read -r line; do
 		[[ "$line" =~ ^bluetooth.* ]] && bluetooth=$line
 		[[ "$line" =~ ^vpn.* ]] && vpn=$line
 		[[ "$line" =~ ^caffeine.* ]] && caffeine=$line
-		[[ "$line" =~ ^kb.* ]] && kb=$line
+		#[[ "$line" =~ ^kb.* ]] && kb=$line
 
 		[[ -z $caffeine ]] && caffeine=false
-		[[ -x $kb ]] && kb=qwerty
+		#[[ -x $kb ]] && kb=qwerty
 		# Every time there is an update, everything needs to be redrawn;
 		# otherwise non-updated modules get cleared. The above saves the last update
 		# from the module, so that we can simply echo it rather than query it
 		echo "$bluetooth"
 		echo "$vpn"
 		echo "$caffeine"
-		echo "$kb"
+		#echo "$kb"
 		echo ""
 	done
 wait

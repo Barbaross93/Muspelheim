@@ -22,7 +22,7 @@ c.url.start_pages = "~/.config/qutebrowser/startpage/index.html"
 c.url.default_page = "~/.config/qutebrowser/startpage/index.html"
 c.editor.command = ["/usr/bin/foot", "-e", "/usr/bin/vim {}"]
 
-c.colors.webpage.darkmode.enabled = False
+c.colors.webpage.darkmode.enabled = True
 
 # Tor browsing
 # c.content.proxy = 'socks5://localhost:9050/'

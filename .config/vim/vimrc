@@ -273,8 +273,8 @@ augroup VimCompletesMePandoc
 augroup END
 
 " For undercurl spellchecker (st only)
-" let &t_Cs = "\e[4:3m"
-" let &t_Ce = "\e[4:0m"
+let &t_Cs = "\e[4:3m"
+let &t_Ce = "\e[4:0m"
 
 " fzf colors
 let g:fzf_colors =
