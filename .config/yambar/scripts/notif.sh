@@ -16,7 +16,8 @@ tail -f /tmp/signal_bar |
 
 # Notif logic
 while :; do
-	sv check ~/.local/service/common/notifications && break
+	# Check periodically as the fifo is created by the notification service
+	[ -p /tmp/new_notifs ] && break
 	sleep 1
 done
 
