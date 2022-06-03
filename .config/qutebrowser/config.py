@@ -20,7 +20,7 @@ c.fonts.completion.entry = "12pt monospace"
 c.fonts.completion.category = "12pt monospace"
 c.url.start_pages = "~/.config/qutebrowser/startpage/index.html"
 c.url.default_page = "~/.config/qutebrowser/startpage/index.html"
-c.editor.command = ["/usr/bin/foot", "-e", "/usr/bin/vim {}"]
+c.editor.command = ["/usr/bin/alacritty", "-e", "/usr/bin/vim {}"]
 
 c.colors.webpage.darkmode.enabled = True
 

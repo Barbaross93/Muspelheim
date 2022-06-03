@@ -114,3 +114,11 @@ color.undo.after=green
 color.undo.before=red
 context.Lab=+lab
 context.Personal=+personal
+
+# Taskd setup
+taskd.certificate=\/home\/barbaross\/.local\/share\/task\/barbaross.cert.pem
+taskd.key=\/home\/barbaross\/.local\/share\/task\/barbaross.key.pem
+taskd.ca=\/home\/barbaross\/.local\/share\/task\/ca.cert.pem
+taskd.server=192.168.0.2:53589
+taskd.credentials=Raspberry Pi\/barbaross\/609484cf-bb8f-4913-9bac-73a1430c7751
+taskd.trust=ignore hostname

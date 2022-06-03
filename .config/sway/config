@@ -24,9 +24,9 @@
     set $up k
     set $right l
     # Your preferred terminal emulator
-    set $term feet
+    set $term alacrity
     # Your preferred application launcher
-    set $menu j4-dmenu-desktop --dmenu="bemenu -p 'Launch'" --term='feet -T $@ -e' --no-generic
+    set $menu j4-dmenu-desktop --dmenu="bemenu -p 'Launch'" --term='alacrity -t $@ -e' --no-generic
 #
 # Input configuration
 #

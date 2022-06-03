@@ -5,7 +5,7 @@
 ## Info
 - OS: [Void Linux](https://voidlinux.org/)
 - Compositor: [sway-borders](https://github.com/fluix-dev/sway-borders)
-- Terminal: [foot](https://codeberg.org/dnkl/foot)
+- Terminal: [alacritty](https://github.com/alacritty/alacritty)
 - Shell: [zsh](https://www.zsh.org/)
 - Browser: [qutebrowser](https://github.com/qutebrowser/qutebrowser)
 - Bar: [yambar](https://codeberg.org/dnkl/yambar)
