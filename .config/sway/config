@@ -14,11 +14,6 @@
 
 ### Essentials
 #
-# Lock screen on startup
-#
-    #exec swaylock
-
-#
 # Variables
 #
     # Logo key. Use Mod1 for Alt.
@@ -31,10 +26,6 @@
     # Your preferred terminal emulator
     set $term feet
     # Your preferred application launcher
-    # Note: pass the final command to swaymsg so that the resulting window can be opened
-    # on the original workspace that the command was run on.
-    #set $menu wofi --show run
-    #set $menu rofi -show run -run-shell-command "{terminal} -T {cmd} -e zsh -ic {cmd}"
     set $menu j4-dmenu-desktop --dmenu="bemenu -p 'Launch'" --term='feet -T $@ -e' --no-generic
 #
 # Input configuration
@@ -72,6 +63,7 @@
     gaps inner 28
     gaps outer -8
     default_border none
+    default_floating_border none
     #hide_edge_borders --i3 none
     workspace_auto_back_and_forth yes
     title_align center
@@ -87,9 +79,11 @@
     border_images.focused ~/.config/sway/borders/double_focused.png
     border_images.focused_inactive ~/.config/sway/borders/double_unfocused_inactive.png
     border_images.unfocused ~/.config/sway/borders/double_unfocused.png
+    border_images.urgent ~/.config/sway/borders/double_urgent.png
     client.focused #af875f #1c1c1c #dfdfaf #af875f #af875f
     client.focused_inactive #424242 #1c1c1c #dfdfaf #424242 #424242
     client.unfocused #424242 #424242 #dfdfaf #424242 #424242
+    client.urgent #af5f5f #af5f5f #1c1c1c #af5f5f #af5f5f
 #
 # Startup programs
 #
@@ -128,7 +122,7 @@
     bindsym $mod+Space exec task.sh
 
     bindsym $mod+Shift+a exec $term vim ~/.config/sway/config
-    # TODO: keybind help command
+    # TODO: keybind help command ?
 #
 # XF86 keys
 #

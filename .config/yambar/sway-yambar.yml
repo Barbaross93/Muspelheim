@@ -56,6 +56,12 @@ bar:
                     foreground: af875fff
                     on-click: swaymsg --quiet workspace {name}
                     <<: *box_draw_dark
+                state == urgent:
+                  string:
+                    text: "{name}"
+                    foreground: af5f5fff
+                    on-click: swaymsg --quiet workspace {name}
+                    <<: *box_draw_dark
                 state == unfocused:
                   map:
                     conditions:
@@ -70,7 +76,7 @@ bar:
                           text: "{name}"
                           foreground: 87afafff
                           on-click: swaymsg --quiet workspace {name}
-                          <<: *box_draw_light
+                          <<: *box_draw_dark
                 state == invisible:
                   map:
                     conditions:

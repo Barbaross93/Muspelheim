@@ -24,8 +24,8 @@ done
 [[ -e /tmp/old_notifs ]] && rm /tmp/old_notifs
 mkfifo /tmp/old_notifs
 {
-	tail -f /tmp/new_notifs &
-	tail -f /tmp/old_notifs &
+	tail -F /tmp/new_notifs &
+	tail -F /tmp/old_notifs &
 } |
 	while read -r line; do
 		# Easy to spam binding, clean up first before cont.
