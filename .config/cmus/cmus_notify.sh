@@ -13,3 +13,6 @@ fi
 
 # Tell cover script to update
 echo upd >/tmp/cmus_cover.fifo
+
+# It's scrobblin' time
+cmusfm "$@"

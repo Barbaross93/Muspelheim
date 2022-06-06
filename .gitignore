@@ -9,6 +9,7 @@
 .config/cmus/lib.pl
 .config/cmus/playlists/
 .config/cmus/search-history
+.config/cmus/cmusfm.*
 .config/git/
 .config/gtk-3.0/
 .config/herbstluftwm/sessions/

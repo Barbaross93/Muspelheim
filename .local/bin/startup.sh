@@ -19,7 +19,7 @@ done
 network=$(iwctl station wlp5s0 show | grep 'Connected network' | xargs | cut -d' ' -f3-)
 case "$network" in
 Ollies*Network)
-	sv start ~/.local/service/common/barrier
+	sv start ~/.local/service/wayland/waynergy
 	;;
 *)
 	sudo -A wg-quick up barbarossvpn
@@ -28,3 +28,4 @@ esac
 
 #On startup, check for any new mails
 mailsync
+task sync

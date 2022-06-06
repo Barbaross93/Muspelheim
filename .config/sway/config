@@ -26,7 +26,7 @@
     # Your preferred terminal emulator
     set $term alacrity
     # Your preferred application launcher
-    set $menu j4-dmenu-desktop --dmenu="bemenu -p 'Launch'" --term='alacrity -t $@ -e' --no-generic
+    set $menu j4-dmenu-desktop --dmenu="bemenu -p 'Launch'" --term='alacrity' --no-generic
 #
 # Input configuration
 #
@@ -116,12 +116,13 @@
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec power
 
-    # TODO: Window selector/overview(sov)?
+    # Window selector
+    bindsym $mod+w exec swindow.sh
 
     # Access task warrior
     bindsym $mod+Space exec task.sh
 
-    bindsym $mod+Shift+a exec $term vim ~/.config/sway/config
+    bindsym $mod+Shift+a exec $term -e vim ~/.config/sway/config
     # TODO: keybind help command ?
 #
 # XF86 keys
@@ -257,13 +258,13 @@
     bindsym $mod+Shift+f fullscreen
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+s focus mode_toggle
+    bindsym $mod+Shift+w focus mode_toggle
 
     # Move focus to the parent container
-    bindsym $mod+w focus parent
+    bindsym $mod+s focus parent
     
     # Move focus to the child container
-    bindsym $mod+Shift+w focus child
+    bindsym $mod+Shift+s focus child
 #
 # Scratchpad:
 #
