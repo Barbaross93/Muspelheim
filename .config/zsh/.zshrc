@@ -64,20 +64,6 @@ bindkey "^[[1;5D" backward-word
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-#Setup thefuck
-[[ ! -a $XDG_CACHE_HOME/thefuck ]] && mkdir -p $XDG_CACHE_HOME/thefuck && thefuck --alias > $XDG_CACHE_HOME/thefuck
-source $XDG_CACHE_HOME/thefuck
-fuck-command-line() {
-    local FUCK="$(THEFUCK_REQUIRE_CONFIRMATION=0 thefuck $(fc -ln -1 | tail -n 1) 2> /dev/null)"
-    [[ -z $FUCK ]] && echo -n -e "\a" && return
-    BUFFER=$FUCK
-    zle end-of-line
-}
-zle -N fuck-command-line
-bindkey -M emacs '\e\e' fuck-command-line
-bindkey -M vicmd '\e\e' fuck-command-line
-bindkey -M viins '\e\e' fuck-command-line
-
 # Exit shell w/ ^D even if there is something in the command line
 exit_zsh() { exit }
 zle -N exit_zsh

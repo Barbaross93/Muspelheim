@@ -27,8 +27,8 @@ c.colors.webpage.darkmode.enabled = True
 # Tor browsing
 # c.content.proxy = 'socks5://localhost:9050/'
 c.url.searchengines = {
-    "DEFAULT": "https://google.com/search?hl=en&q={}",
-    "!d": "https://duckduckgo.com/?ia=web&q={}",
+    "DEFAULT": "https://duckduckgo.com/?ia=web&q={}",
+    "!g": "https://google.com/search?hl=en&q={}",
     "!gh": "https://github.com/search?o=desc&q={}&s=stars",
     "!gi": "https://www.google.com/search?tbm=isch&q={}&tbs=imgo:1",
     "!m": "https://www.google.com/maps/search/{}",

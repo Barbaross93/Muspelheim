@@ -15,12 +15,12 @@
 .config/herbstluftwm/sessions/
 .config/herbstluftwm/scripts/old/
 .config/hplip/
-.config/mutt/accounts/
-.config/mutt/.mailsynclastrun
-.config/mutt/signature
+.config/neomutt/accounts/
+.config/neomutt/signature
 .config/newsboat/history.cmdline
 .config/newsboat/urls
 .config/polybar/polybar-scripts/old
+.config/protonmail/*
 .config/qutebrowser/bookmarks/
 .config/qutebrowser/host_block
 .config/qutebrowser/quickmarks
@@ -29,8 +29,8 @@
 .config/pam-gnupg
 .config/ranger/plugins/
 .config/task/*.data
-.config/vim/autoload/
-.config/vim/plugged/
+.config/nvim/autoload/
+.config/nvim/plugged/
 .config/waynergy/hash/
 .config/waynergy/tls/
 .config/weechat/logs/

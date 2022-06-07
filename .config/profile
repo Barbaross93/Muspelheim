@@ -66,8 +66,8 @@ export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 export ASPELL_CONF="per-conf $XDG_CONFIG_HOME/aspell/aspell.conf; personal $XDG_CONFIG_HOME/aspell/en.pws; repl $XDG_CONFIG_HOME/aspell/en.prepl"
 
 #Move vimrc
-export MYVIMRC="${XDG_CONFIG_HOME}/vim/vimrc"
-export VIMINIT="source ${MYVIMRC}"
+#export MYVIMRC="${XDG_CONFIG_HOME}/vim/vimrc"
+#export VIMINIT="source ${MYVIMRC}"
 
 # Change zoom dir
 export SSB_HOME="${XDG_DATA_HOME}/zoom"

@@ -6,32 +6,14 @@
 "
 """""""""""""""""""""""
 
-" To prevent home dir littering
-set runtimepath^=$XDG_CONFIG_HOME/vim
-set runtimepath+=$XDG_DATA_HOME/vim
-set runtimepath+=$XDG_CONFIG_HOME/vim/after
-
-set packpath^=$XDG_DATA_HOME/vim,$XDG_CONFIG_HOME/vim
-set packpath+=$XDG_CONFIG_HOME/vim/after,$XDG_DATA_HOME/vim/after
-
-let g:netrw_home = $XDG_DATA_HOME."/vim"
-call mkdir($XDG_DATA_HOME."/vim/spell", 'p')
-set viewdir=$XDG_DATA_HOME/vim/view | call mkdir(&viewdir, 'p')
-
-set backupdir=$XDG_CACHE_HOME/vim/backup | call mkdir(&backupdir, 'p')
-set directory=$XDG_CACHE_HOME/vim/swap   | call mkdir(&directory, 'p')
-set undodir=$XDG_CACHE_HOME/vim/undo     | call mkdir(&undodir,   'p')
-
-if !has('nvim') | set viminfofile=$XDG_CACHE_HOME/vim/viminfo | endif
-
 " Install vim-plug if we don't already have it
-if empty(glob('~/.config/vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.config/vim/autoload/plug.vim --create-dirs
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source /home/barbaross/.config/vim/vimrc
+    autocmd VimEnter * PlugInstall --sync | source /home/barbaross/.config/nvim/init.vim
 endif
 
-call plug#begin('~/.config/vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 "Programming plugins
 Plug 'ackyshake/VimCompletesMe'
@@ -184,7 +166,6 @@ autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
 " enable mouse scroll
-set ttymouse=sgr
 set mouse=a
 
 " Nerdtree

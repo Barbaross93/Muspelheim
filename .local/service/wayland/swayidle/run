@@ -8,4 +8,4 @@ exec swayidle \
 	timeout 180 'sway_dim.sh -d' resume 'sway_dim.sh -r' \
 	timeout 299 'lock -f' \
 	timeout 300 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-	timeout 600 'sudo zzz -H' resume 'mailsync; task sync'
+	timeout 600 'sudo zzz -H' resume 'task sync'

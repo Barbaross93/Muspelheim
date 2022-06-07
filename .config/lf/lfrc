@@ -28,6 +28,7 @@ cmd open ${{
 }}
 
 cmd mkdir %mkdir "$@"
+cmd touch %touch "$@"
 
 cmd chmod ${{
   printf "Mode Bits: "

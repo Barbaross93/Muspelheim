@@ -66,6 +66,7 @@ settings:
     global: system
   content.register_protocol_handler:
     https://mail.google.com?extsrc=mailto&url=%25s: true
+    https://mail.proton.me#mailto=%25s: true
   content.user_stylesheets:
     global: null
   downloads.remove_finished:
