@@ -26,6 +26,6 @@ Ollies*Network)
 	;;
 esac
 
-#On startup, check for any new mails
-mailsync
+#On startup, Update stuff with server
+vdirsyncer sync
 task sync

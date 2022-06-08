@@ -4,7 +4,7 @@
 export PATH="/home/barbaross/.local/bin:$PATH"
 
 #Default editor
-export EDITOR="/usr/bin/vim"
+export EDITOR="/usr/bin/nvim"
 
 #Default browser
 export BROWSER="linkhandler"
@@ -25,7 +25,7 @@ export GOMAXPROCS=4
 export SUDO_ASKPASS="${HOME}/.local/bin/sudopass"
 
 # Sudo editor
-export SUDO_EDITOR=vim
+export SUDO_EDITOR=nvim
 
 #Uniform Qt and GTK appearance
 export QT_QPA_PLATFORMTHEME=qt5ct

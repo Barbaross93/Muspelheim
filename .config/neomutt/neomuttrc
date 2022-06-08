@@ -7,7 +7,7 @@ set mailcap_path =~/.config/neomutt/mailcap
 set sort = "threads"
 set sort_aux = "reverse-last-date-received"
 set editor="/usr/bin/vim"
-set new_mail_command="notify-send 'Mutt' '📧 New mail in your inbox!'"
+set new_mail_command="notify-send 'Mutt' ' New mail in your inbox!'"
 macro pager \cb <pipe-entry>'urlscan -s -r "linkhandler {}"'<enter> 'Follow links with urlscan'
 
 auto_view text/html
